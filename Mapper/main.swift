@@ -19,7 +19,9 @@ let text = """
 
 #import "MyComicsBaseViewController.h"
 
-@interface MyComicsBaseViewController ()
+@interface MyComicsBaseViewController () <UITableViewDelegate, UITableViewDataSource>
+
+@interface MyComicsBaseViewController: NSObject <UITableViewDelegate, UITableViewDataSource>
 
 @end
 
@@ -79,9 +81,7 @@ NSAssert(NO, @"请在子类中实现reloadData方法");
 
 """
 let lexer = Lexer(input: text)
+let clsParser = ClassParser(lexer: lexer)
 
-var token = lexer.nextToken
-while token.type != .endOfFile {
-    print(token)
-    token = lexer.nextToken
-}
+print(clsParser.parse())
+
