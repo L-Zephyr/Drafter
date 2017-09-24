@@ -45,6 +45,14 @@ class Lexer {
                 consume()
                 return Token(type: .rSquareBrack, text: "]")
                 
+            case "<":
+                consume()
+                return Token(type: .lAngleBrack, text: "<")
+                
+            case ">":
+                consume()
+                return Token(type: .rAngleBrack, text: ">")
+                
             case ":":
                 consume()
                 return Token(type: .colon, text: ":")
@@ -66,7 +74,7 @@ class Lexer {
                 if isLetter(c) {
                     // TODO: 考虑保留字的处理
                     let value = name()
-                    return Token(type: .name(value), text: "\(value)")
+                    return Token(type: .name, text: "\(value)")
                 }
                 consume()
                 continue
@@ -133,22 +141,24 @@ fileprivate extension Lexer {
     
     /// 解析@符号
     func atSign() -> Token {
-        if interface() { // 匹配@interface 成功
-            skipWhitespace() // 跳过中间的空白符，继续解析名称
-            if !fileEnd && isLetter(currentChar) {
-                let clsName = name()
-                return Token(type: .interface(name: clsName), text: "@interface \(clsName)")
-            } else {
-                return Token(type: .unknown, text: "") // 没有名称则匹配失败
-            }
+        if interface() { // 匹配'@interface '成功
+//            skipWhitespace() // 跳过中间的空白符，继续解析名称
+//            if !fileEnd && isLetter(currentChar) {
+//                let clsName = name()
+//                return Token(type: .interface(name: clsName), text: "@interface \(clsName)")
+//            } else {
+//                return Token(type: .unknown, text: "") // 没有名称则匹配失败
+//            }
+            return Token(type: .interface, text: "@interface")
         } else if implementation() {
-            skipWhitespace() // 跳过中间的空白符，继续解析名称
-            if !fileEnd && isLetter(currentChar) {
-                let clsName = name()
-                return Token(type: .implementation(name: clsName), text: "@implementation \(clsName)")
-            } else {
-                return Token(type: .unknown, text: "") // 没有名称则匹配失败
-            }
+//            skipWhitespace() // 跳过中间的空白符，继续解析名称
+//            if !fileEnd && isLetter(currentChar) {
+//                let clsName = name()
+//                return Token(type: .implementation(name: clsName), text: "@implementation \(clsName)")
+//            } else {
+//                return Token(type: .unknown, text: "") // 没有名称则匹配失败
+//            }
+            return Token(type: .implementation, text: "@implementation")
         } else if end() {
             return Token(type: .end, text: "@end")
         }
