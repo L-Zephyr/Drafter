@@ -9,25 +9,35 @@
 import Foundation
 
 /*
- OC调用文法
- invoke: '[' NAME methodBody ']' ';'
- methodBody: (methodName ':' 'NAME ')* | methodName
- methodName: NAME
+ OC方法声明
+ methodStat: ('-' | '+') '(' type ')' NAME params ';'
+ params: ':' '(' type ')' NAME (paramList)* | ''
+ paramList: (NAME ':' '(' type ')' NAME)*
+ type: NAME
  
- C语言调用文法
- invoke: funcName '(' paramList ')'
- paramList: NAME (',' NAME)* | ''
- funcName: NAME
- */
+ OC方法调用文法
+ message_expression
+     = '[' receiver message_selector ']'
+ receiver
+     = 'self' | 'super' | NAME
+ message_selector
+     = NAME | (NAME ':' NAME)*
+  */
 
 /// 函数调用解析器
-class InvokeParser {
+class InvokeParser: RecallParser {
     
-    init(lexer: Lexer) {
-        self.input = lexer
+    func parse() -> [InvokeNode] {
+        return []
     }
+}
+
+// MARK: - 文法规则解析
+
+extension InvokeParser {
     
-    // MARK: - Private
-    
-    fileprivate var input: Lexer
+    // 方法声明
+    func methodStat() throws {
+        
+    }
 }

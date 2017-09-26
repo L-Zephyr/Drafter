@@ -11,21 +11,21 @@ import Foundation
 // MARK: - 词法单元类型
 
 enum TokenType {
-    case unknown         // 未知类型
-    case endOfFile       // 文件结束
-    case interface       // @interface
-    case implementation  // @implementation
+    case unknown          // 未知类型
+    case endOfFile        // 文件结束
+    case interface        // @interface
+    case implementation   // @implementation
     case end              // @end
-    case name            // 名称 (包括变量、类名、方法等所有名称)
-    case lRoundBrack      // 左圆括号: (
-    case rRoundBrack      // 右圆括号: )
-    case lSquareBrack     // 左方括号: [
-    case rSquareBrack     // 右方括号: ]
-    case lAngleBrack      // 左尖括号: <
-    case rAngleBrack      // 右尖括号: >
-    case colon            // 冒号: :
-    case comma            // 逗号: ,
-    case underline        // 下划线
+    case name             // 名称 (包括变量、类名、方法等所有名称)
+    case leftParen        // 左圆括号: (
+    case rightParen       // 右圆括号: )
+    case leftSquare       // 左方括号: [
+    case rightSquare      // 右方括号: ]
+    case leftBrace        // 左尖括号: <
+    case rightBrace        // 右尖括号: >
+    case colon             // 冒号: :
+    case comma             // 逗号: ,
+    case underline         // 下划线
 }
 
 //extension TokenType: Equatable {
@@ -33,10 +33,10 @@ enum TokenType {
 //        switch (left, right) {
 //        case (.unknown, .unknown): fallthrough
 //        case (.endOfFile, .endOfFile): fallthrough
-//        case (.lRoundBrack, .lRoundBrack): fallthrough
-//        case (.rRoundBrack, .rRoundBrack): fallthrough
-//        case (.lSquareBrack, .lSquareBrack): fallthrough
-//        case (.rSquareBrack, .rSquareBrack): fallthrough
+//        case (.leftParen, .leftParen): fallthrough
+//        case (.rightParen, .rightParen): fallthrough
+//        case (.leftSquare, .leftSquare): fallthrough
+//        case (.rightSquare, .rightSquare): fallthrough
 //        case (.colon, .colon): fallthrough
 //        case (.comma, .comma): fallthrough
 //        case (.end, .end): fallthrough

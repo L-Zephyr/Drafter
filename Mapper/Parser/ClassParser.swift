@@ -8,71 +8,16 @@
 
 import Foundation
 
-// MARK: - ClassNode
-
-/// 保存类型信息的节点
-class ClassNode: Node {
-    var superCls: ClassNode? = nil // 父类
-    var className: String          // 类名
-    var protocols: [String] = []   // 协议
-    
-    init(clsName: String) {
-        self.className = clsName
-    }
-}
-
-extension ClassNode {
-    /// 将两个node合并成一个
-    func append(_ node: ClassNode) {
-        for proto in node.protocols {
-            if !protocols.contains(proto) {
-                protocols.append(proto)
-            }
-        }
-        
-        if superCls == nil && node.superCls != nil {
-            superCls = node.superCls
-        }
-    }
-}
-
-extension ClassNode: CustomStringConvertible {
-    var description: String {
-        var desc = "{class: \(className)"
-        
-        if let superCls = superCls {
-            desc.append(contentsOf: ", superClass: \(superCls.className)")
-        }
-        
-        if protocols.count > 0 {
-            desc.append(contentsOf: ", protocols: \(protocols.joined(separator: ", "))")
-        }
-        
-        desc.append(contentsOf: "}")
-        return desc
-    }
-}
-
-extension ClassNode: Hashable {
-    static func ==(lhs: ClassNode, rhs: ClassNode) -> Bool {
-        return lhs.className == rhs.className
-    }
-    
-    var hashValue: Int {
-        return className.hashValue
-    }
-}
-
 // MARK: - ClassParser
 
 /*
- @interface的文法:
+ @interface文法:
  
  classDecl: '@interface' className (':' className)* protocols
  className: NAME
  protocols: '<' NAME (',' NAME)* '>' | ''
  
- Extension的文法:
+ Extension文法:
  
  extension: '@interface' className '(' ')' protocols
  className: NAME
@@ -170,16 +115,16 @@ extension ClassParser {
             node.superCls = ClassNode(clsName: lastToken.text) // 保存父类的名称
             
             try protocols()  // 实现的协议
-        } else if currentToken.type == .lRoundBrack { // 碰到(说明这里为分类定义
+        } else if currentToken.type == .leftParen { // 碰到(说明这里为分类定义
             // TODO: 区分category
-            try match(.lRoundBrack)
+            try match(.leftParen)
             
             // 括号中没有内容则为匿名分类
             if currentToken.type == .name {
                 try match(.name)
             }
             
-            try match(.rRoundBrack)
+            try match(.rightParen)
             try protocols()
         }
         
@@ -187,8 +132,8 @@ extension ClassParser {
     }
     
     func protocols() throws {
-        if currentToken.type == .lAngleBrack {
-            try match(.lAngleBrack)
+        if currentToken.type == .leftBrace {
+            try match(.leftBrace)
             // 至少有一个协议
             try match(.name)
             currentNode?.protocols.append(lastToken.text)
@@ -198,7 +143,7 @@ extension ClassParser {
                 try match(.name)
                 currentNode?.protocols.append(lastToken.text)
             }
-            try match(.rAngleBrack)
+            try match(.rightBrace)
         }
     }
 }

@@ -14,9 +14,23 @@ enum LexerError: Error {
 
 class Lexer {
     
+    // 通过具体内容初始化
     init(input: String) {
         self.input = input
         self.index = input.startIndex
+    }
+    
+    // 通过文件路径初始化
+    init(file: String) {
+        do {
+            let data = try Data(contentsOf: URL(fileURLWithPath: file))
+            input = String(data: data, encoding: .utf8) ?? ""
+        } catch {
+            print(error)
+            input = ""
+        }
+        
+        index = input.startIndex
     }
     
     /// 获取下一个Token
@@ -31,27 +45,27 @@ class Lexer {
                 
             case "(":
                 consume()
-                return Token(type: .lRoundBrack, text: "(")
+                return Token(type: .leftParen, text: "(")
                 
             case ")":
                 consume()
-                return Token(type: .rRoundBrack, text: ")")
+                return Token(type: .rightParen, text: ")")
                 
             case "[":
                 consume()
-                return Token(type: .lSquareBrack, text: "[")
+                return Token(type: .leftSquare, text: "[")
                 
             case "]":
                 consume()
-                return Token(type: .rSquareBrack, text: "]")
+                return Token(type: .rightSquare, text: "]")
                 
             case "<":
                 consume()
-                return Token(type: .lAngleBrack, text: "<")
+                return Token(type: .leftBrace, text: "<")
                 
             case ">":
                 consume()
-                return Token(type: .rAngleBrack, text: ">")
+                return Token(type: .rightBrace, text: ">")
                 
             case ":":
                 consume()
