@@ -14,6 +14,11 @@
 		BBA4C66A1F7930A6009C780F /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29C261F774F4000355D13 /* Parser.swift */; };
 		BBA4C66B1F7930A8009C780F /* InvokeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29C1D1F76911F00355D13 /* InvokeParser.swift */; };
 		BBA4C66C1F7930AB009C780F /* ClassParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29C241F774DC400355D13 /* ClassParser.swift */; };
+		BBA6EA7D1F79F317004C2EEC /* CommandLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA7A1F79F317004C2EEC /* CommandLine.swift */; };
+		BBA6EA7E1F79F317004C2EEC /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA7B1F79F317004C2EEC /* Option.swift */; };
+		BBA6EA7F1F79F317004C2EEC /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA7C1F79F317004C2EEC /* StringExtensions.swift */; };
+		BBA6EA811F79F626004C2EEC /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA801F79F626004C2EEC /* Mapper.swift */; };
+		BBA6EA871F7A00D8004C2EEC /* DotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA861F7A00D8004C2EEC /* DotGenerator.swift */; };
 		BBE29C201F76911F00355D13 /* InvokeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29C1D1F76911F00355D13 /* InvokeParser.swift */; };
 		BBE29C211F76911F00355D13 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29C1E1F76911F00355D13 /* Lexer.swift */; };
 		BBE29C221F76911F00355D13 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29C1F1F76911F00355D13 /* Token.swift */; };
@@ -50,6 +55,11 @@
 		BBA4C65E1F792FB4009C780F /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBA4C6601F792FB4009C780F /* TestInterfaceParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInterfaceParser.swift; sourceTree = "<group>"; };
 		BBA4C6621F792FB4009C780F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BBA6EA7A1F79F317004C2EEC /* CommandLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLine.swift; sourceTree = "<group>"; };
+		BBA6EA7B1F79F317004C2EEC /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
+		BBA6EA7C1F79F317004C2EEC /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		BBA6EA801F79F626004C2EEC /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
+		BBA6EA861F7A00D8004C2EEC /* DotGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotGenerator.swift; sourceTree = "<group>"; };
 		BBE29C1D1F76911F00355D13 /* InvokeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvokeParser.swift; sourceTree = "<group>"; };
 		BBE29C1E1F76911F00355D13 /* Lexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
 		BBE29C1F1F76911F00355D13 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
@@ -97,7 +107,10 @@
 			isa = PBXGroup;
 			children = (
 				BB2CA6CF1F76192D0018F9AD /* main.swift */,
+				BBA6EA801F79F626004C2EEC /* Mapper.swift */,
 				BBE29C1C1F76911F00355D13 /* Parser */,
+				BBA6EA851F7A00C3004C2EEC /* Generator */,
+				BBA6EA791F79F317004C2EEC /* CommandLineKit */,
 				BB2CA6E81F765DB00018F9AD /* info.plist */,
 			);
 			path = Mapper;
@@ -110,6 +123,24 @@
 				BBA4C6621F792FB4009C780F /* Info.plist */,
 			);
 			path = Tests;
+			sourceTree = "<group>";
+		};
+		BBA6EA791F79F317004C2EEC /* CommandLineKit */ = {
+			isa = PBXGroup;
+			children = (
+				BBA6EA7A1F79F317004C2EEC /* CommandLine.swift */,
+				BBA6EA7B1F79F317004C2EEC /* Option.swift */,
+				BBA6EA7C1F79F317004C2EEC /* StringExtensions.swift */,
+			);
+			path = CommandLineKit;
+			sourceTree = "<group>";
+		};
+		BBA6EA851F7A00C3004C2EEC /* Generator */ = {
+			isa = PBXGroup;
+			children = (
+				BBA6EA861F7A00D8004C2EEC /* DotGenerator.swift */,
+			);
+			path = Generator;
 			sourceTree = "<group>";
 		};
 		BBE29C1C1F76911F00355D13 /* Parser */ = {
@@ -218,11 +249,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBA6EA7E1F79F317004C2EEC /* Option.swift in Sources */,
 				BBE29C201F76911F00355D13 /* InvokeParser.swift in Sources */,
 				BBE29C211F76911F00355D13 /* Lexer.swift in Sources */,
+				BBA6EA7F1F79F317004C2EEC /* StringExtensions.swift in Sources */,
+				BBA6EA811F79F626004C2EEC /* Mapper.swift in Sources */,
 				BBE29C271F774F4000355D13 /* Parser.swift in Sources */,
+				BBA6EA871F7A00D8004C2EEC /* DotGenerator.swift in Sources */,
 				BB2CA6D01F76192D0018F9AD /* main.swift in Sources */,
 				BBE29C251F774DC400355D13 /* ClassParser.swift in Sources */,
+				BBA6EA7D1F79F317004C2EEC /* CommandLine.swift in Sources */,
 				BBE29C221F76911F00355D13 /* Token.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -367,7 +403,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lzephyr.mapper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -383,7 +419,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lzephyr.mapper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
