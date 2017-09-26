@@ -71,7 +71,7 @@ class Lexer {
                 }
                 
             default:
-                if isLetter(c) {
+                if isLetter(c) || c == "_" {
                     // TODO: 考虑保留字的处理
                     let value = name()
                     return Token(type: .name, text: "\(value)")
@@ -128,7 +128,7 @@ fileprivate extension Lexer {
         
         while !fileEnd {
             c = currentChar
-            if isLetter(c) {
+            if isLetter(c) || isNumber(c) || c == "_" {
                 name.append(c)
                 consume()
             } else {
@@ -169,6 +169,11 @@ fileprivate extension Lexer {
     /// 字符是否为字母
     func isLetter(_ c: Character) -> Bool {
         return (c >= "a" && c <= "z") || (c >= "A" && c <= "Z")
+    }
+    
+    /// 字符是否为数字
+    func isNumber(_ c: Character) -> Bool {
+        return (c >= "0" && c <= "9")
     }
 }
 
