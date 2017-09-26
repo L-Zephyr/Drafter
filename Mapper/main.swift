@@ -19,9 +19,11 @@ let text = """
 
 #import "MyComicsBaseViewController.h"
 
-@interface MyComicsBaseViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface _MyComicsBaseViewController () <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 
 @interface MyComicsBaseViewController: NSObject <UITableViewDelegate, UITableViewDataSource>
+
+@interface MyComicsBaseViewController (category): NSObject <MyDelegate>
 
 @end
 

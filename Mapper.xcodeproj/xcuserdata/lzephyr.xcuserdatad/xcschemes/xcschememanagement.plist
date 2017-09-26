@@ -9,7 +9,7 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>Test.xcscheme</key>
+		<key>Tests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
@@ -23,6 +23,16 @@
 			<true/>
 		</dict>
 		<key>BB2CA6DF1F765C0B0018F9AD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BB525F941F792B76006966D4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BBA4C65D1F792FB4009C780F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

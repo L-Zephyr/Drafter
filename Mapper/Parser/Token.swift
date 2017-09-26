@@ -25,6 +25,7 @@ enum TokenType {
     case rAngleBrack      // 右尖括号: >
     case colon            // 冒号: :
     case comma            // 逗号: ,
+    case underline        // 下划线
 }
 
 //extension TokenType: Equatable {
