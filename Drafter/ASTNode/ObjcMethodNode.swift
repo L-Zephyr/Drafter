@@ -24,6 +24,7 @@ class Param: Node {
 
 extension Param {
     convenience init(type: String, outter: String, inner: String) {
+        self.init()
         self.type = type
         self.outterName = outter
         self.innerName = inner
