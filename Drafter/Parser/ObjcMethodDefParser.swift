@@ -111,7 +111,16 @@ extension ObjcMethodDefParser {
     }
     
     func methodSelector() throws {
-        try match(.name) // TODO
+        if token().type == .name {
+            if token(at: 1).type == .colon { // 带参数
+                
+            } else { // 无参数
+                try match(.name)
+                currentNode?.params.append(Param(type: "", outter: lastToken?.text ?? "", inner: ""))
+            }
+        } else {
+            throw ParserError.notMatch("Expected .name, found: \(token().type)")
+        }
     }
     
     func type() throws -> String {

@@ -24,7 +24,7 @@
 		BBA6EA7D1F79F317004C2EEC /* CommandLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA7A1F79F317004C2EEC /* CommandLine.swift */; };
 		BBA6EA7E1F79F317004C2EEC /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA7B1F79F317004C2EEC /* Option.swift */; };
 		BBA6EA7F1F79F317004C2EEC /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA7C1F79F317004C2EEC /* StringExtensions.swift */; };
-		BBA6EA811F79F626004C2EEC /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA801F79F626004C2EEC /* Mapper.swift */; };
+		BBA6EA811F79F626004C2EEC /* Drafter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA801F79F626004C2EEC /* Drafter.swift */; };
 		BBA6EA871F7A00D8004C2EEC /* DotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA861F7A00D8004C2EEC /* DotGenerator.swift */; };
 		BBCADD1C1F7B419A00C4B722 /* ObjcMethodDefParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCADD1B1F7B419A00C4B722 /* ObjcMethodDefParser.swift */; };
 		BBCADD1E1F7B422500C4B722 /* ObjcMethodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCADD1D1F7B422500C4B722 /* ObjcMethodNode.swift */; };
@@ -62,7 +62,7 @@
 
 /* Begin PBXFileReference section */
 		BB09FD021F7B84560093E45C /* TestObjcMethodDefParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestObjcMethodDefParser.swift; sourceTree = "<group>"; };
-		BB2CA6CC1F76192D0018F9AD /* Mapper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Mapper; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB2CA6CC1F76192D0018F9AD /* Drafter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Drafter; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB2CA6CF1F76192D0018F9AD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		BB2CA6E81F765DB00018F9AD /* info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = info.plist; sourceTree = "<group>"; };
 		BB3199791F7A4DA100EA5CE7 /* Lexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
@@ -76,7 +76,7 @@
 		BBA6EA7A1F79F317004C2EEC /* CommandLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLine.swift; sourceTree = "<group>"; };
 		BBA6EA7B1F79F317004C2EEC /* Option.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option.swift; sourceTree = "<group>"; };
 		BBA6EA7C1F79F317004C2EEC /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
-		BBA6EA801F79F626004C2EEC /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
+		BBA6EA801F79F626004C2EEC /* Drafter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drafter.swift; sourceTree = "<group>"; };
 		BBA6EA861F7A00D8004C2EEC /* DotGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotGenerator.swift; sourceTree = "<group>"; };
 		BBCADD1B1F7B419A00C4B722 /* ObjcMethodDefParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjcMethodDefParser.swift; sourceTree = "<group>"; };
 		BBCADD1D1F7B422500C4B722 /* ObjcMethodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjcMethodNode.swift; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 		BB2CA6C31F76192D0018F9AD = {
 			isa = PBXGroup;
 			children = (
-				BB2CA6CE1F76192D0018F9AD /* Mapper */,
+				BB2CA6CE1F76192D0018F9AD /* Drafter */,
 				BBA4C65F1F792FB4009C780F /* Tests */,
 				BB2CA6CD1F76192D0018F9AD /* Products */,
 			);
@@ -115,17 +115,17 @@
 		BB2CA6CD1F76192D0018F9AD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BB2CA6CC1F76192D0018F9AD /* Mapper */,
+				BB2CA6CC1F76192D0018F9AD /* Drafter */,
 				BBA4C65E1F792FB4009C780F /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BB2CA6CE1F76192D0018F9AD /* Mapper */ = {
+		BB2CA6CE1F76192D0018F9AD /* Drafter */ = {
 			isa = PBXGroup;
 			children = (
 				BB2CA6CF1F76192D0018F9AD /* main.swift */,
-				BBA6EA801F79F626004C2EEC /* Mapper.swift */,
+				BBA6EA801F79F626004C2EEC /* Drafter.swift */,
 				BB3199781F7A4DA100EA5CE7 /* Base */,
 				BB3199771F7A4DA100EA5CE7 /* ASTNode */,
 				BBE29C1C1F76911F00355D13 /* Parser */,
@@ -133,7 +133,7 @@
 				BBA6EA791F79F317004C2EEC /* CommandLineKit */,
 				BB2CA6E81F765DB00018F9AD /* info.plist */,
 			);
-			path = Mapper;
+			path = Drafter;
 			sourceTree = "<group>";
 		};
 		BB3199771F7A4DA100EA5CE7 /* ASTNode */ = {
@@ -198,9 +198,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BB2CA6CB1F76192D0018F9AD /* Mapper */ = {
+		BB2CA6CB1F76192D0018F9AD /* Drafter */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BB2CA6D31F76192D0018F9AD /* Build configuration list for PBXNativeTarget "Mapper" */;
+			buildConfigurationList = BB2CA6D31F76192D0018F9AD /* Build configuration list for PBXNativeTarget "Drafter" */;
 			buildPhases = (
 				BB2CA6C81F76192D0018F9AD /* Sources */,
 				BB2CA6C91F76192D0018F9AD /* Frameworks */,
@@ -210,9 +210,9 @@
 			);
 			dependencies = (
 			);
-			name = Mapper;
+			name = Drafter;
 			productName = Mapper;
-			productReference = BB2CA6CC1F76192D0018F9AD /* Mapper */;
+			productReference = BB2CA6CC1F76192D0018F9AD /* Drafter */;
 			productType = "com.apple.product-type.tool";
 		};
 		BBA4C65D1F792FB4009C780F /* Tests */ = {
@@ -256,7 +256,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BB2CA6C71F76192D0018F9AD /* Build configuration list for PBXProject "Mapper" */;
+			buildConfigurationList = BB2CA6C71F76192D0018F9AD /* Build configuration list for PBXProject "Drafter" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -268,7 +268,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BB2CA6CB1F76192D0018F9AD /* Mapper */,
+				BB2CA6CB1F76192D0018F9AD /* Drafter */,
 				BBA4C65D1F792FB4009C780F /* Tests */,
 			);
 		};
@@ -293,7 +293,7 @@
 				BBE29C201F76911F00355D13 /* InvokeParser.swift in Sources */,
 				BB31997D1F7A4DA100EA5CE7 /* Parser.swift in Sources */,
 				BBA6EA7F1F79F317004C2EEC /* StringExtensions.swift in Sources */,
-				BBA6EA811F79F626004C2EEC /* Mapper.swift in Sources */,
+				BBA6EA811F79F626004C2EEC /* Drafter.swift in Sources */,
 				BBCADD1E1F7B422500C4B722 /* ObjcMethodNode.swift in Sources */,
 				BBA6EA871F7A00D8004C2EEC /* DotGenerator.swift in Sources */,
 				BB2CA6D01F76192D0018F9AD /* main.swift in Sources */,
@@ -333,7 +333,7 @@
 /* Begin PBXTargetDependency section */
 		BBA4C6671F79302A009C780F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BB2CA6CB1F76192D0018F9AD /* Mapper */;
+			target = BB2CA6CB1F76192D0018F9AD /* Drafter */;
 			targetProxy = BBA4C6661F79302A009C780F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -516,7 +516,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BB2CA6C71F76192D0018F9AD /* Build configuration list for PBXProject "Mapper" */ = {
+		BB2CA6C71F76192D0018F9AD /* Build configuration list for PBXProject "Drafter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BB2CA6D11F76192D0018F9AD /* Debug */,
@@ -525,7 +525,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BB2CA6D31F76192D0018F9AD /* Build configuration list for PBXNativeTarget "Mapper" */ = {
+		BB2CA6D31F76192D0018F9AD /* Build configuration list for PBXNativeTarget "Drafter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BB2CA6D41F76192D0018F9AD /* Debug */,
