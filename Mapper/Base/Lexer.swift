@@ -75,8 +75,23 @@ class Lexer {
                 consume()
                 return Token(type: .comma, text: ",")
                 
-            case "@":
+            case ";":
+                consume()
+                return Token(type: .semicolon, text: ";")
                 
+            case "+":
+                consume()
+                return Token(type: .plus, text: "+")
+                
+            case "-":
+                consume()
+                return Token(type: .minus, text: "-")
+                
+            case "*":
+                consume()
+                return Token(type: .asterisk, text: "*")
+                
+            case "@":
                 let token = atSign()
                 if token.type != .unknown {
                     return token

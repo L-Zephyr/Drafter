@@ -25,7 +25,11 @@ enum TokenType {
     case rightBrace        // 右尖括号: >
     case colon             // 冒号: :
     case comma             // 逗号: ,
-    case underline         // 下划线
+    case semicolon         // 分号: ;
+    case underline         // 下划线: _
+    case plus              // 加号: +
+    case minus             // 减号: -
+    case asterisk          // 星号: *
 }
 
 //extension TokenType: Equatable {

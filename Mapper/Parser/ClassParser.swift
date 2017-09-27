@@ -46,7 +46,6 @@ class ClassParser: Parser {
                 }
             } else {
                 consume()
-                continue
             }
         }
         

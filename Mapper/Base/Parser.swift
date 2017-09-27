@@ -43,6 +43,14 @@ class RecallParser: Parser {
         return lookaheads[currentIndex + index]
     }
     
+    /// 匹配Token
+    func match(_ t: TokenType) throws {
+        if token().type != t {
+            throw ParserError.notMatch("Expected: \(t), found: \(token().type)")
+        }
+        consume()
+    }
+    
     // MARK: - 步进
     
     func consume() {
@@ -60,7 +68,7 @@ class RecallParser: Parser {
     func sync(_ count: Int) {
         if currentIndex + count >= lookaheads.count {
             // 不足则读取相应数量的Token
-            for _ in 0..<count {
+            for _ in 0...count {
                 lookaheads.append(input.nextToken)
             }
         }
