@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB09FD031F7B84560093E45C /* TestObjcMethodDefParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09FD021F7B84560093E45C /* TestObjcMethodDefParser.swift */; };
 		BB2CA6D01F76192D0018F9AD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2CA6CF1F76192D0018F9AD /* main.swift */; };
 		BB31997C1F7A4DA100EA5CE7 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3199791F7A4DA100EA5CE7 /* Lexer.swift */; };
 		BB31997D1F7A4DA100EA5CE7 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB31997A1F7A4DA100EA5CE7 /* Parser.swift */; };
@@ -25,6 +26,14 @@
 		BBA6EA7F1F79F317004C2EEC /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA7C1F79F317004C2EEC /* StringExtensions.swift */; };
 		BBA6EA811F79F626004C2EEC /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA801F79F626004C2EEC /* Mapper.swift */; };
 		BBA6EA871F7A00D8004C2EEC /* DotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA861F7A00D8004C2EEC /* DotGenerator.swift */; };
+		BBCADD1C1F7B419A00C4B722 /* ObjcMethodDefParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCADD1B1F7B419A00C4B722 /* ObjcMethodDefParser.swift */; };
+		BBCADD1E1F7B422500C4B722 /* ObjcMethodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCADD1D1F7B422500C4B722 /* ObjcMethodNode.swift */; };
+		BBCADD1F1F7B448800C4B722 /* InvokeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3199851F7A4E7C00EA5CE7 /* InvokeNode.swift */; };
+		BBCADD201F7B448A00C4B722 /* ObjcMethodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCADD1D1F7B422500C4B722 /* ObjcMethodNode.swift */; };
+		BBCADD211F7B448F00C4B722 /* ObjcMethodDefParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCADD1B1F7B419A00C4B722 /* ObjcMethodDefParser.swift */; };
+		BBCADD221F7B449200C4B722 /* DotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA861F7A00D8004C2EEC /* DotGenerator.swift */; };
+		BBCADD241F7B4BFD00C4B722 /* ObjcMethodInvokeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCADD231F7B4BFD00C4B722 /* ObjcMethodInvokeParser.swift */; };
+		BBCADD251F7B4C0100C4B722 /* ObjcMethodInvokeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCADD231F7B4BFD00C4B722 /* ObjcMethodInvokeParser.swift */; };
 		BBE29C201F76911F00355D13 /* InvokeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29C1D1F76911F00355D13 /* InvokeParser.swift */; };
 		BBE29C251F774DC400355D13 /* ClassParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29C241F774DC400355D13 /* ClassParser.swift */; };
 /* End PBXBuildFile section */
@@ -52,6 +61,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BB09FD021F7B84560093E45C /* TestObjcMethodDefParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestObjcMethodDefParser.swift; sourceTree = "<group>"; };
 		BB2CA6CC1F76192D0018F9AD /* Mapper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Mapper; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB2CA6CF1F76192D0018F9AD /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		BB2CA6E81F765DB00018F9AD /* info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = info.plist; sourceTree = "<group>"; };
@@ -68,6 +78,9 @@
 		BBA6EA7C1F79F317004C2EEC /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		BBA6EA801F79F626004C2EEC /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
 		BBA6EA861F7A00D8004C2EEC /* DotGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotGenerator.swift; sourceTree = "<group>"; };
+		BBCADD1B1F7B419A00C4B722 /* ObjcMethodDefParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjcMethodDefParser.swift; sourceTree = "<group>"; };
+		BBCADD1D1F7B422500C4B722 /* ObjcMethodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjcMethodNode.swift; sourceTree = "<group>"; };
+		BBCADD231F7B4BFD00C4B722 /* ObjcMethodInvokeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjcMethodInvokeParser.swift; sourceTree = "<group>"; };
 		BBE29C1D1F76911F00355D13 /* InvokeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvokeParser.swift; sourceTree = "<group>"; };
 		BBE29C241F774DC400355D13 /* ClassParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,6 +141,7 @@
 			children = (
 				BB3199821F7A4DC100EA5CE7 /* ClassNode.swift */,
 				BB3199851F7A4E7C00EA5CE7 /* InvokeNode.swift */,
+				BBCADD1D1F7B422500C4B722 /* ObjcMethodNode.swift */,
 			);
 			path = ASTNode;
 			sourceTree = "<group>";
@@ -146,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				BBA4C6601F792FB4009C780F /* TestInterfaceParser.swift */,
+				BB09FD021F7B84560093E45C /* TestObjcMethodDefParser.swift */,
 				BBA4C6621F792FB4009C780F /* Info.plist */,
 			);
 			path = Tests;
@@ -174,6 +189,8 @@
 			children = (
 				BBE29C241F774DC400355D13 /* ClassParser.swift */,
 				BBE29C1D1F76911F00355D13 /* InvokeParser.swift */,
+				BBCADD1B1F7B419A00C4B722 /* ObjcMethodDefParser.swift */,
+				BBCADD231F7B4BFD00C4B722 /* ObjcMethodInvokeParser.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -277,14 +294,17 @@
 				BB31997D1F7A4DA100EA5CE7 /* Parser.swift in Sources */,
 				BBA6EA7F1F79F317004C2EEC /* StringExtensions.swift in Sources */,
 				BBA6EA811F79F626004C2EEC /* Mapper.swift in Sources */,
+				BBCADD1E1F7B422500C4B722 /* ObjcMethodNode.swift in Sources */,
 				BBA6EA871F7A00D8004C2EEC /* DotGenerator.swift in Sources */,
 				BB2CA6D01F76192D0018F9AD /* main.swift in Sources */,
 				BB31997E1F7A4DA100EA5CE7 /* Token.swift in Sources */,
 				BBE29C251F774DC400355D13 /* ClassParser.swift in Sources */,
 				BB3199831F7A4DC100EA5CE7 /* ClassNode.swift in Sources */,
 				BB31997C1F7A4DA100EA5CE7 /* Lexer.swift in Sources */,
+				BBCADD1C1F7B419A00C4B722 /* ObjcMethodDefParser.swift in Sources */,
 				BBA6EA7D1F79F317004C2EEC /* CommandLine.swift in Sources */,
 				BB3199861F7A4E7C00EA5CE7 /* InvokeNode.swift in Sources */,
+				BBCADD241F7B4BFD00C4B722 /* ObjcMethodInvokeParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,12 +313,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBA4C6611F792FB4009C780F /* TestInterfaceParser.swift in Sources */,
+				BBCADD211F7B448F00C4B722 /* ObjcMethodDefParser.swift in Sources */,
 				BBA4C66C1F7930AB009C780F /* ClassParser.swift in Sources */,
 				BB3199841F7A4DE400EA5CE7 /* ClassNode.swift in Sources */,
 				BB3199801F7A4DAF00EA5CE7 /* Parser.swift in Sources */,
 				BB3199811F7A4DB100EA5CE7 /* Token.swift in Sources */,
+				BBCADD201F7B448A00C4B722 /* ObjcMethodNode.swift in Sources */,
+				BBCADD1F1F7B448800C4B722 /* InvokeNode.swift in Sources */,
+				BB09FD031F7B84560093E45C /* TestObjcMethodDefParser.swift in Sources */,
 				BB31997F1F7A4DAD00EA5CE7 /* Lexer.swift in Sources */,
+				BBCADD221F7B449200C4B722 /* DotGenerator.swift in Sources */,
 				BBA4C66B1F7930A8009C780F /* InvokeParser.swift in Sources */,
+				BBCADD251F7B4C0100C4B722 /* ObjcMethodInvokeParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
