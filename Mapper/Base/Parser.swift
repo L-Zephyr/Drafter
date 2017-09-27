@@ -39,7 +39,7 @@ class RecallParser: Parser {
     
     /// 返回从当前位置开始第n个Token
     func token(at index: Int = 0) -> Token {
-        sync(index) // 保证index位置有有效的Token
+        sync(index + 1) // 保证index位置有有效的Token
         return lookaheads[currentIndex + index]
     }
     
@@ -64,11 +64,11 @@ class RecallParser: Parser {
         sync(1)
     }
     
-    /// 保证从当前位置开始直到count都有有效的Token
+    /// 保证从当前位置开始直到count都有有效的Token, count从1开始
     func sync(_ count: Int) {
-        if currentIndex + count >= lookaheads.count {
+        if currentIndex + count > lookaheads.count {
             // 不足则读取相应数量的Token
-            for _ in 0...count {
+            for _ in 0..<count {
                 lookaheads.append(input.nextToken)
             }
         }
