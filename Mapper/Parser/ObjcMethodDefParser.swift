@@ -73,20 +73,26 @@ extension ObjcMethodDefParser {
             currentNode.map { nodes.append($0) }
             currentNode = nil
         } else {
-            throw ParserError.notMatch("")
+            throw ParserError.notMatch("Unexpected found: \(token().type)")
         }
     }
     
     func methodDefinition() throws {
         try staticMethod()
-        try type()
+        
+        let retType = try type()
+        currentNode?.returnType = retType
+        
         try methodSelector()
         try methodBody()
     }
     
     func methodDecl() throws {
         try staticMethod()
-        try type()
+        
+        let retType = try type()
+        currentNode?.returnType = retType
+        
         try methodSelector()
         try match(.semicolon)
     }
@@ -108,7 +114,7 @@ extension ObjcMethodDefParser {
         try match(.name) // TODO
     }
     
-    func type() throws {
+    func type() throws -> String {
         try match(.leftParen)
         
         // 类型直接作为字符常量匹配
@@ -121,9 +127,10 @@ extension ObjcMethodDefParser {
             }
             typeName.append(lastToken?.text ?? "")
         }
-        currentNode?.returnType = typeName.joined(separator: " ")
         
         try match(.rightParen)
+        
+        return typeName.joined(separator: " ")
     }
     
     func methodBody() throws {
