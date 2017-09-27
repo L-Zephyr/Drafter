@@ -21,3 +21,11 @@ class Param: Node {
     var outterName: String = "" // 参数的名字
     var innerName: String = "" // 内部形参的名字
 }
+
+extension Param {
+    convenience init(type: String, outter: String, inner: String) {
+        self.type = type
+        self.outterName = outter
+        self.innerName = inner
+    }
+}

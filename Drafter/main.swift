@@ -25,7 +25,7 @@ guard let path = filePath.value else {
     exit(EX_USAGE)
 }
 
-let mapper = Mapper()
-mapper.path = path
+let drafter = Drafter()
+drafter.path = path
 
-mapper.makeMap()
+drafter.makeMap()

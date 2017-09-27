@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Mapper {
+class Drafter {
     
     // MARK: - Public
     
