@@ -86,7 +86,7 @@ class ClassParser: Parser {
         var set = Set<ClassNode>()
         for node in nodes {
             if let index = set.index(of: node) {
-                set[index].append(node) // 合并相同的节点
+                set[index].merge(node) // 合并相同的节点
             } else {
                 set.insert(node)
             }
@@ -131,8 +131,8 @@ extension ClassParser {
     }
     
     func protocols() throws {
-        if currentToken.type == .leftBrace {
-            try match(.leftBrace)
+        if currentToken.type == .leftAngle {
+            try match(.leftAngle)
             // 至少有一个协议
             try match(.name)
             currentNode?.protocols.append(lastToken.text)
@@ -142,7 +142,7 @@ extension ClassParser {
                 try match(.name)
                 currentNode?.protocols.append(lastToken.text)
             }
-            try match(.rightBrace)
+            try match(.rightAngle)
         }
     }
 }

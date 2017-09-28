@@ -59,13 +59,21 @@ class Lexer {
                 consume()
                 return Token(type: .rightSquare, text: "]")
                 
+            case "{":
+                consume()
+                return Token(type: .leftBrace, text: "{")
+                
+            case "}":
+                consume()
+                return Token(type: .rightBrace, text: "}")
+                
             case "<":
                 consume()
-                return Token(type: .leftBrace, text: "<")
+                return Token(type: .leftAngle, text: "<")
                 
             case ">":
                 consume()
-                return Token(type: .rightBrace, text: ">")
+                return Token(type: .rightAngle, text: ">")
                 
             case ":":
                 consume()

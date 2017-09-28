@@ -36,6 +36,7 @@ class RecallParser: Parser {
     var lookaheads: [Token] = []
     var currentIndex: Int = 0
     var marks: [Int] = []
+    var lastToken: Token? = nil // 上一次解析的符号
     
     /// 返回从当前位置开始第n个Token
     func token(at index: Int = 0) -> Token {
@@ -54,6 +55,7 @@ class RecallParser: Parser {
     // MARK: - 步进
     
     func consume() {
+        lastToken = token()
         currentIndex += 1
         
         // 不在推演状态，且到达了lookaheads缓冲区最后一位则清空lookaheads

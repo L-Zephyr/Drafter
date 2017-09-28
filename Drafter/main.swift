@@ -27,5 +27,4 @@ guard let path = filePath.value else {
 
 let drafter = Drafter()
 drafter.path = path
-
 drafter.makeMap()

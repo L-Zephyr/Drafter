@@ -15,7 +15,9 @@ import Cocoa
  type
      = '(' TYPE_NAME ')'
  method_selector
-     = NAME | (NAME ':' type NAME)+
+     = NAME | method_param_list
+ method_param_list
+     = (NAME ':' type NAME)+
  
  OC方法定义:
  method_definition
@@ -49,12 +51,6 @@ class ObjcMethodDefParser: RecallParser {
     
     fileprivate var nodes: [ObjcMethodNode] = []
     fileprivate var currentNode: ObjcMethodNode? = nil
-    fileprivate var lastToken: Token? = nil // 上一次解析的符号
-    
-    override func consume() {
-        lastToken = token()
-        super.consume()
-    }
 }
 
 // MARK: - 规则解析
@@ -113,7 +109,8 @@ extension ObjcMethodDefParser {
     func methodSelector() throws {
         if token().type == .name {
             if token(at: 1).type == .colon { // 带参数
-                
+                let params = try methodParamList()
+                currentNode?.params = params
             } else { // 无参数
                 try match(.name)
                 currentNode?.params.append(Param(type: "", outter: lastToken?.text ?? "", inner: ""))
@@ -121,6 +118,26 @@ extension ObjcMethodDefParser {
         } else {
             throw ParserError.notMatch("Expected .name, found: \(token().type)")
         }
+    }
+    
+    func methodParamList() throws -> [Param] {
+        var params = [Param]()
+        repeat {
+            var param = Param()
+            
+            try match(.name)
+            param.outterName = lastToken?.text ?? ""
+            
+            try match(.colon)
+            param.type = try type()
+            
+            try match(.name)
+            param.innerName = lastToken?.text ?? ""
+            
+            params.append(param)
+        } while token().type == .name
+        
+        return params
     }
     
     func type() throws -> String {
@@ -143,9 +160,13 @@ extension ObjcMethodDefParser {
     }
     
     func methodBody() throws {
-        try match(.leftBrace)
+        if token().type != .leftBrace {
+            throw ParserError.notMatch("Expected: \(TokenType.leftBrace), found: \(token().type)")
+        }
         // TODO: 使用另一个parser解析函数体中的方法调用
-        try match(.rightBrace)
+        let invokeParser = ObjcMessageSendParser(lexer: self.input)
+        let calls = invokeParser.parse()
+        currentNode?.invokes = calls
     }
 }
 

@@ -19,20 +19,6 @@ class ClassNode: Node {
     }
 }
 
-extension ClassNode {
-    /// 将两个node合并成一个
-    func append(_ node: ClassNode) {
-        for proto in node.protocols {
-            if !protocols.contains(proto) {
-                protocols.append(proto)
-            }
-        }
-        
-        if superCls == nil && node.superCls != nil {
-            superCls = node.superCls
-        }
-    }
-}
 
 extension ClassNode: CustomStringConvertible {
     var description: String {
@@ -48,6 +34,37 @@ extension ClassNode: CustomStringConvertible {
         
         desc.append(contentsOf: "}")
         return desc
+    }
+}
+
+// MARK: - Merge
+
+extension ClassNode {
+    /// 将两个node合并成一个
+    func merge(_ node: ClassNode) {
+        for proto in node.protocols {
+            if !protocols.contains(proto) {
+                protocols.append(proto)
+            }
+        }
+        
+        if superCls == nil && node.superCls != nil {
+            superCls = node.superCls
+        }
+    }
+}
+
+extension Array where Element == ClassNode {
+    mutating func merge(_ nodes: [ClassNode]) {
+        let set = Set<ClassNode>(self)
+        
+        for node in nodes {
+            if let index = set.index(of: node) {
+                set[index].merge(node)
+            } else {
+                self.append(node)
+            }
+        }
     }
 }
 
