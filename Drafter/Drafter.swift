@@ -20,7 +20,7 @@ class Drafter {
                 // 如果是文件夹则获取所有.h和.m文件
                 if isDir.boolValue, let enumerator = FileManager.default.enumerator(atPath: path) {
                     while let file = enumerator.nextObject() as? String {
-                        if file.hasSuffix(".h") || file.hasSuffix(".m") {
+                        if supported(file) {
                             files.append("\(path)/\(file)")
                         }
                     }
@@ -35,10 +35,30 @@ class Drafter {
     
     /// 生成调用图
     func makeMap() {
-        
+        // test: 导出类关系图
+        craftInheritMap()
     }
     
     // MARK: - Private
     
     fileprivate var files: [String] = []
+    
+    fileprivate func supported(_ file: String) -> Bool {
+        if file.hasSuffix(".h") || file.hasSuffix(".m") {
+            return true
+        }
+        return false
+    }
+    
+    fileprivate func craftInheritMap() {
+        var classNodes = [ClassNode]()
+        for file in files {
+            let lexer = Lexer(file: file)
+            let parser = ClassParser(lexer: lexer)
+            classNodes.merge(parser.parse())
+        }
+        
+        // test
+        print(classNodes)
+    }
 }

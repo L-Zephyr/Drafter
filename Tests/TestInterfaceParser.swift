@@ -7,7 +7,6 @@
 //
 
 import XCTest
-@testable import Mapper
 
 class TestInterfaceParser: XCTestCase {
     

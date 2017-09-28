@@ -11,19 +11,20 @@ import Foundation
 /// 代表OC的方法定义
 class ObjcMethodNode: Node {
     var isStatic = false  // 是否为类方法
-    var methodBody: String = "" // 函数体
     var returnType: String = "" // 返回值类型
-    var params: [Param] = []
+    var params: [Param] = [] // 方法的参数
+    var invokes: [ObjcMessageNode] = [] // 该方法中调用的OC方法
+    var methodBody: String = "" // 函数体的源码
 }
 
-class Param: Node {
+struct Param: Node {
     var type: String = "" // 参数类型
     var outterName: String = "" // 参数的名字
     var innerName: String = "" // 内部形参的名字
 }
 
 extension Param {
-    convenience init(type: String, outter: String, inner: String) {
+    init(type: String, outter: String, inner: String) {
         self.init()
         self.type = type
         self.outterName = outter

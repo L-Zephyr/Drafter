@@ -21,8 +21,10 @@ enum TokenType {
     case rightParen       // 右圆括号: )
     case leftSquare       // 左方括号: [
     case rightSquare      // 右方括号: ]
-    case leftBrace        // 左尖括号: <
-    case rightBrace        // 右尖括号: >
+    case leftBrace        // 左大括号: {
+    case rightBrace        // 右大括号: }
+    case leftAngle         // 左尖括号: <
+    case rightAngle        // 右尖括号: >
     case colon             // 冒号: :
     case comma             // 逗号: ,
     case semicolon         // 分号: ;
