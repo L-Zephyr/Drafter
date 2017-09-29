@@ -12,6 +12,8 @@ class Drafter {
     
     // MARK: - Public
     
+    var mode: DraftMode = .callGraph
+    
     /// 待解析的文件或文件夹, 目前只支持.h和.m文件
     var path: String = "" {
         didSet {
@@ -34,9 +36,16 @@ class Drafter {
     }
     
     /// 生成调用图
-    func makeMap() {
-        // test: 导出类关系图
-        craftInheritMap()
+    func craft() {
+        switch mode {
+        case .callGraph:
+            craftCallGraph()
+        case .inheritGraph:
+            craftInheritGraph()
+        case .both:
+            craftInheritGraph()
+            craftCallGraph()
+        }
     }
     
     // MARK: - Private
@@ -50,7 +59,8 @@ class Drafter {
         return false
     }
     
-    fileprivate func craftInheritMap() {
+    /// 生成继承关系图
+    fileprivate func craftInheritGraph() {
         var classNodes = [ClassNode]()
         for file in files {
             let lexer = Lexer(file: file)
@@ -59,6 +69,13 @@ class Drafter {
         }
         
         // test
-        print(classNodes)
+        for node in classNodes {
+            print(node)
+        }
+    }
+    
+    /// 生成方法调用关系图
+    fileprivate func craftCallGraph() {
+        
     }
 }

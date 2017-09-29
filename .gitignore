@@ -119,6 +119,8 @@ build/
 xcuserdata
 *.xcuserstate
 
+*.xcbkptlist
+
 # OPTION 2: ---------------------------------
 #     get rid of ALL personal settings, but KEEP SOME OF THEM
 #     - NB: you must manually uncomment the bits you want to keep
