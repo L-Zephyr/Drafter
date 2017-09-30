@@ -39,6 +39,7 @@ class RecallParser: Parser {
     var lookaheads: [Token] = []
     var currentIndex: Int = 0
     var marks: [Int] = []
+    
     var lastToken: Token? = nil // 上一次解析的符号
     
     /// 返回从当前位置开始第n个Token

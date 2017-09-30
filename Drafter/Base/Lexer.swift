@@ -45,14 +45,15 @@ class SourceLexer: Lexer {
     
     /// 通过具体内容初始化
     init(input: String) {
-        self.input = input
+        self.input = SourceLexer.removeAnnotaion(input)
         self.index = input.startIndex
     }
     
     /// 通过文件路径初始化
     init(file: String) {
         do {
-            input = try String(contentsOf: URL(fileURLWithPath: file), encoding: .utf8)
+            let content = try String(contentsOf: URL(fileURLWithPath: file), encoding: .utf8)
+            input = SourceLexer.removeAnnotaion(content)
         } catch {
             print(error)
             input = ""
@@ -192,6 +193,19 @@ class SourceLexer: Lexer {
         while !fileEnd && ws.contains(String(currentChar)) {
             consume()
         }
+    }
+    
+    /// 清理注释
+    class func removeAnnotaion(_ content: String) -> String {
+        let annotationBlockPattern = "/\\*[\\s\\S]*?\\*/" //匹配/*...*/这样的注释
+        let annotationLinePattern = "//.*?\\n" //匹配//这样的注释
+        
+        let regexBlock = try! NSRegularExpression(pattern: annotationBlockPattern, options: NSRegularExpression.Options(rawValue:0))
+        let regexLine = try! NSRegularExpression(pattern: annotationLinePattern, options: NSRegularExpression.Options(rawValue:0))
+        var newStr = ""
+        newStr = regexLine.stringByReplacingMatches(in: content, options: NSRegularExpression.MatchingOptions(rawValue:0), range: NSMakeRange(0, content.characters.count), withTemplate: "")
+        newStr = regexBlock.stringByReplacingMatches(in: newStr, options: NSRegularExpression.MatchingOptions(rawValue:0), range: NSMakeRange(0, newStr.characters.count), withTemplate: "")
+        return newStr
     }
 }
 
