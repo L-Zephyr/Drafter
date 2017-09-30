@@ -32,6 +32,8 @@ enum TokenType {
     case plus              // 加号: +
     case minus             // 减号: -
     case asterisk          // 星号: *
+    case doubleQuote       // 双引号: "
+    case backslash         // 反斜线: \
 }
 
 //extension TokenType: Equatable {

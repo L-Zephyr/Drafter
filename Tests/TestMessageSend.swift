@@ -19,13 +19,14 @@ class TestMessageSend: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-
-    func testMessageSend() {
-        let text = "[self add: 2 andB: 3];"
-        let lexer = Lexer(input: text)
+    
+    func parse(_ code: String) -> [ObjcMessageNode] {
+        let lexer = SourceLexer(input: code)
         let parser = ObjcMessageSendParser(lexer: lexer)
-        
-        let calls = parser.parse()
+        return parser.parse()
     }
 
+    func testMessageSend() {
+        let calls = parse("[self add: 2 andB: 3];")
+    }
 }

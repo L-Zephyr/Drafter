@@ -1,5 +1,5 @@
 //
-//  ObjcMethodDefParser.swift
+//  ObjcMethodParser.swift
 //  Mapper
 //
 //  Created by LZephyr on 2017/9/27.
@@ -30,9 +30,10 @@ import Cocoa
  */
 
 /// 解析OC的方法定义
-class ObjcMethodDefParser: RecallParser {
+class ObjcMethodParser: RecallParser {
     
     func parse() -> [ObjcMethodNode] {
+        // 1. 解析所有方法定义
         while token().type != .endOfFile {
             if token().type == .plus || token().type == .minus {
                 do {
@@ -46,6 +47,15 @@ class ObjcMethodDefParser: RecallParser {
             }
         }
         
+        // 2. 解析函数体中的方法调用
+        for node in nodes {
+            if node.methodBody.count != 0 {
+                let lexer = TokenLexer(tokens: node.methodBody)
+                let parser = ObjcMessageSendParser(lexer: lexer)
+                node.invokes = parser.parse()
+            }
+        }
+        
         return nodes
     }
     
@@ -55,7 +65,7 @@ class ObjcMethodDefParser: RecallParser {
 
 // MARK: - 规则解析
 
-extension ObjcMethodDefParser {
+extension ObjcMethodParser {
     
     func methodStat() throws {
         if isMethodDef() {
@@ -160,19 +170,35 @@ extension ObjcMethodDefParser {
     }
     
     func methodBody() throws {
-        if token().type != .leftBrace {
-            throw ParserError.notMatch("Expected: \(TokenType.leftBrace), found: \(token().type)")
+        try match(.leftBrace)
+        
+        // 匹配整个函数体
+        var tokens = [Token]()
+        var leftBraceCount = 1
+        
+        while token().type != .endOfFile {
+            if token().type == .leftBrace {
+                leftBraceCount += 1
+            } else if token().type == .rightBrace {
+                leftBraceCount -= 1
+                if leftBraceCount == 0 {
+                    break
+                }
+            }
+            
+            tokens.append(token())
+            consume()
         }
-        // TODO: 使用另一个parser解析函数体中的方法调用
-        let invokeParser = ObjcMessageSendParser(lexer: self.input)
-        let calls = invokeParser.parse()
-        currentNode?.invokes = calls
+        
+        try match(.rightBrace)
+        
+        currentNode?.methodBody = tokens
     }
 }
 
 // MARK: - 规则推演
 
-extension ObjcMethodDefParser {
+extension ObjcMethodParser {
     
     func isMethodDef() -> Bool {
         var success = false

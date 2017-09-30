@@ -1,5 +1,5 @@
 //
-//  TestObjcMethodDefParser.swift
+//  TestObjcMethodParser.swift
 //  Tests
 //
 //  Created by LZephyr on 2017/9/27.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-class TestObjcMethodDefParser: XCTestCase {
+class TestObjcMethodParser: XCTestCase {
 
     override func setUp() {
         super.setUp()
@@ -19,13 +19,16 @@ class TestObjcMethodDefParser: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
+    
+    func parse(_ code: String) -> [ObjcMethodNode] {
+        let lexer = SourceLexer(input: code)
+        let parser = ObjcMethodParser(lexer: lexer)
+        return parser.parse()
+    }
 
     func testDeclNoParam() {
-        let text = "+ (_nonable NSString *)add;"
-        let lexer = Lexer(input: text)
-        let parser = ObjcMethodDefParser(lexer: lexer)
+        let methods = parse("+ (_nonable NSString *)add;")
         
-        let methods = parser.parse()
         XCTAssert(methods.count == 1)
         XCTAssert(methods[0].isStatic == true)
         XCTAssert(methods[0].returnType == "_nonable NSString *")
@@ -33,11 +36,8 @@ class TestObjcMethodDefParser: XCTestCase {
     }
     
     func testDeclWithParams() {
-        let text = "- (_nonable NSString *)add:(int)a andB:(long long)b;"
-        let lexer = Lexer(input: text)
-        let parser = ObjcMethodDefParser(lexer: lexer)
+        let methods = parse("- (_nonable NSString *)add:(int)a andB:(long long)b;")
         
-        let methods = parser.parse()
         XCTAssert(methods.count == 1)
         XCTAssert(methods[0].isStatic == false)
         XCTAssert(methods[0].returnType == "_nonable NSString *")
@@ -53,15 +53,16 @@ class TestObjcMethodDefParser: XCTestCase {
     }
     
     func testDef() {
-        let text = """
+        let code = """
             - (_nonable NSString *)add:(int)a andB:(long long)b {
-                [self add: 1 andB:3];
+                {
+                    [self add: 1 andB:3];
+                }
+                
+                NSString *s = @"[self add: 1 andB:3]\";"
             }
         """
-        let lexer = Lexer(input: text)
-        let parser = ObjcMethodDefParser(lexer: lexer)
-        
-        let methods = parser.parse()
+        let methods = parse(code)
         
     }
 }
