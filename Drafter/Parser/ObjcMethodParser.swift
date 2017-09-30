@@ -135,7 +135,7 @@ extension ObjcMethodParser {
         repeat {
             var param = Param()
             
-            try match(.name)
+            try match(.name) // 参数名称
             param.outterName = lastToken?.text ?? ""
             
             try match(.colon)
@@ -155,13 +155,20 @@ extension ObjcMethodParser {
         
         // 类型直接作为字符常量匹配
         var typeName = [String]()
-        while token().type == .name || token().type == .asterisk {
-            if token().type == .name {
-                try match(.name)
-            } else {
-                try match(.asterisk)
+        var parenCount = 1
+
+        while token().type != .endOfFile {
+            if token().type == .leftParen {
+                parenCount += 1
+            } else if token().type == .rightParen {
+                parenCount -= 1
+                if parenCount == 0 {
+                    break
+                }
             }
-            typeName.append(lastToken?.text ?? "")
+            
+            typeName.append(token().text)
+            consume()
         }
         
         try match(.rightParen)

@@ -52,6 +52,15 @@ class TestObjcMethodParser: XCTestCase {
         XCTAssert(methods[0].params[1].type == "long long")
     }
     
+    func testComplexParams() {
+        let methods = parse("- (_nonable NSString *)add:(int *(^)(int))a andB:(long long)b;")
+        
+        XCTAssert(methods[0].params.count == 2)
+        XCTAssert(methods[0].params[0].type == "int * ( ^ ) ( int )")
+        XCTAssert(methods[0].params[0].outterName == "add")
+        XCTAssert(methods[0].params[0].innerName == "a")
+    }
+    
     func testDef() {
         let code = """
             - (_nonable NSString *)add:(int)a andB:(long long)b {
