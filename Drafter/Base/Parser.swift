@@ -28,10 +28,13 @@ extension Parser {
 
 /// 回溯解析器
 class RecallParser: Parser {
+    
+    // MARK: - 初始化方法
+    
     init(lexer: Lexer) {
         self.input = lexer
     }
-
+    
     var input: Lexer
     var lookaheads: [Token] = []
     var currentIndex: Int = 0

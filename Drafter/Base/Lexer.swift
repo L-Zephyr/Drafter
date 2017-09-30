@@ -12,19 +12,47 @@ enum LexerError: Error {
     case notMatch
 }
 
-class Lexer {
+protocol Lexer {
+    var nextToken: Token { get } // 获取Token
+}
+
+// MARK: - TokenLexer
+
+class TokenLexer: Lexer {
     
-    // 通过具体内容初始化
+    init(tokens: [Token]) {
+        self.tokens = tokens
+    }
+    
+    var nextToken: Token {
+        if index != tokens.count {
+            let token = tokens[index]
+            index += 1
+            return token
+        }
+        return Token(type: .endOfFile, text: "")
+    }
+    
+    fileprivate var index: Int = 0
+    fileprivate var tokens: [Token] = []
+}
+
+// MARK: - SourceLexer
+
+/// 解析源码的Lexer
+class SourceLexer: Lexer {
+    // MARK: - 初始化方法
+    
+    /// 通过具体内容初始化
     init(input: String) {
         self.input = input
         self.index = input.startIndex
     }
     
-    // 通过文件路径初始化
+    /// 通过文件路径初始化
     init(file: String) {
         do {
-            let data = try Data(contentsOf: URL(fileURLWithPath: file))
-            input = String(data: data, encoding: .utf8) ?? ""
+            input = try String(contentsOf: URL(fileURLWithPath: file), encoding: .utf8)
         } catch {
             print(error)
             input = ""
@@ -32,6 +60,13 @@ class Lexer {
         
         index = input.startIndex
     }
+    
+    /// 直接通过Token列表初始化
+//    init(tokens: [Token]) {
+//        self.tokens = tokens
+//    }
+    
+    // MARK: - 获取Token
     
     /// 获取下一个Token
     var nextToken: Token {
@@ -99,6 +134,14 @@ class Lexer {
                 consume()
                 return Token(type: .asterisk, text: "*")
                 
+            case "\"":
+                consume()
+                return Token(type: .doubleQuote, text: "\"")
+                
+            case "\\":
+                consume()
+                return Token(type: .backslash, text: "\\")
+                
             case "@":
                 let token = atSign()
                 if token.type != .unknown {
@@ -126,6 +169,8 @@ class Lexer {
     fileprivate var input: String = ""
     fileprivate var index: String.Index
     
+    fileprivate var tokens: [Token] = []
+    
     /// 获取当前位置的字符
     fileprivate var currentChar: Character {
         return input[index]
@@ -152,7 +197,7 @@ class Lexer {
 
 // MARK: - 辅助解析方法
 
-fileprivate extension Lexer {
+fileprivate extension SourceLexer {
     
     /// 解析一个变量名称
     func name() -> String {
@@ -216,7 +261,7 @@ fileprivate extension Lexer {
 
 // MARK: - 匹配
 
-fileprivate extension Lexer {
+fileprivate extension SourceLexer {
     
     /// 匹配指定的名称
     func match(_ name: String) throws {

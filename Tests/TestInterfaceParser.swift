@@ -20,12 +20,14 @@ class TestInterfaceParser: XCTestCase {
         super.tearDown()
     }
     
-    func testInterface() {
-        let input = "@interface MyClass: NSObject<TestDelegate1>"
-        let lexer = Lexer(input: input)
+    func parse(_ code: String) -> [ClassNode] {
+        let lexer = SourceLexer(input: code)
         let parser = ClassParser(lexer: lexer)
-        
-        let result = parser.parse()
+        return parser.parse()
+    }
+    
+    func testInterface() {
+        let result = parse("@interface MyClass: NSObject<TestDelegate1>")
         
         XCTAssert(result.count == 1)
         XCTAssert(result[0].className == "MyClass")
@@ -36,11 +38,7 @@ class TestInterfaceParser: XCTestCase {
     }
     
     func testUnderlineInterface() {
-        let input = "@interface _MyCla1ss: NSObject<TestDelegate1>"
-        let lexer = Lexer(input: input)
-        let parser = ClassParser(lexer: lexer)
-        
-        let result = parser.parse()
+        let result = parse("@interface _MyCla1ss: NSObject<TestDelegate1>")
         
         XCTAssert(result.count == 1)
         XCTAssert(result[0].className == "_MyCla1ss")
@@ -51,11 +49,7 @@ class TestInterfaceParser: XCTestCase {
     }
     
     func testExtension() {
-        let input = "@interface _MyClass() < TestDelegate1>"
-        let lexer = Lexer(input: input)
-        let parser = ClassParser(lexer: lexer)
-        
-        let result = parser.parse()
+        let result = parse("@interface _MyClass() < TestDelegate1>")
         
         XCTAssert(result.count == 1)
         XCTAssert(result[0].className == "_MyClass")
@@ -65,11 +59,7 @@ class TestInterfaceParser: XCTestCase {
     }
     
     func testCategory() {
-        let input = "@interface _MyClass(category) < TestDelegate1>"
-        let lexer = Lexer(input: input)
-        let parser = ClassParser(lexer: lexer)
-        
-        let result = parser.parse()
+        let result = parse("@interface _MyClass(category) < TestDelegate1>")
         
         XCTAssert(result.count == 1)
         XCTAssert(result[0].className == "_MyClass")
@@ -85,10 +75,7 @@ class TestInterfaceParser: XCTestCase {
         @interface _MyClass() <TestDelegate1>
         @interface _MyClass(category) <TestDelegate3>
         """
-        let lexer = Lexer(input: input)
-        let parser = ClassParser(lexer: lexer)
-        
-        let result = parser.parse()
+        let result = parse(input)
         
         XCTAssert(result.count == 1)
         XCTAssert(result[0].className == "_MyClass")

@@ -14,7 +14,7 @@ class ObjcMethodNode: Node {
     var returnType: String = "" // 返回值类型
     var params: [Param] = [] // 方法的参数
     var invokes: [ObjcMessageNode] = [] // 该方法中调用的OC方法
-    var methodBody: String = "" // 函数体的源码
+    var methodBody: [Token] = [] // 函数体的源码
 }
 
 struct Param: Node {
