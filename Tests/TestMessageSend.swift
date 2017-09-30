@@ -26,7 +26,15 @@ class TestMessageSend: XCTestCase {
         return parser.parse()
     }
 
-    func testMessageSend() {
+    func testMessageSend1() {
         let calls = parse("[self add: 2 andB: 3];")
+    }
+    
+    func testMessageSend2() {
+        let calls = parse("[self add: andB: ];")
+    }
+    
+    func testMessageSend3() {
+        let calls = parse("[self add: ^{ int a = 1;} andB: ];")
     }
 }

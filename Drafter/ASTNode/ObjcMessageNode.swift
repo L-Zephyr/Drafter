@@ -12,4 +12,5 @@ import Foundation
 class ObjcMessageNode: Node {
     var receiver: String = "" // 方法接收者
     var params: [String] = [] // 参数
+    var next: ObjcMethodParser? = nil // 链式方法调用: [[a b] c]
 }
