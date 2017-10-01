@@ -76,9 +76,18 @@ class Drafter {
     
     /// 生成方法调用关系图
     fileprivate func craftCallGraph() {
+        var methods = [ObjcMethodNode]()
         for file in files {
             let lexer = SourceLexer(file: file)
-            
+            let parser = ObjcMethodParser(lexer: lexer)
+            methods.append(contentsOf: parser.parse())
+        }
+        
+        // test
+        for method in methods {
+            for invoke in method.invokes {
+                print("\(method) -> \(invoke)")
+            }
         }
     }
 }

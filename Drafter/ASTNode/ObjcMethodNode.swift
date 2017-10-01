@@ -17,6 +17,23 @@ class ObjcMethodNode: Node {
     var methodBody: [Token] = [] // 函数体的源码
 }
 
+extension ObjcMethodNode: CustomStringConvertible {
+    var description: String {
+        var method = "["
+        
+        for param in params {
+            method.append(contentsOf: param.outterName)
+            if !param.innerName.isEmpty {
+                method.append(contentsOf: ":(\(param.type))\(param.innerName) ")
+            }
+        }
+        
+        method.append(contentsOf: "]")
+        
+        return method
+    }
+}
+
 struct Param: Node {
     var type: String = "" // 参数类型
     var outterName: String = "" // 参数的名字
