@@ -28,13 +28,28 @@ class TestMessageSend: XCTestCase {
 
     func testMessageSend1() {
         let calls = parse("[self add: 2 andB: 3];")
+        
+        XCTAssert(calls.count == 1)
+        XCTAssert(calls[0].params[0] == "add:")
+        XCTAssert(calls[0].params[1] == "andB:")
     }
     
-    func testMessageSend2() {
-        let calls = parse("[self add: andB: ];")
+    func testMessageAsParam() {
+        let calls = parse("[self add:[self message: 3] andB: 4];")
+        
+        XCTAssert(calls.count == 2)
     }
     
-    func testMessageSend3() {
-        let calls = parse("[self add: ^{ int a = 1;} andB: ];")
+    func testMessageAsReceiver() {
+        let calls = parse("[[obj fun1] add: 2];")
+        
+        XCTAssert(calls.count == 1)
+        XCTAssert(calls[0].params[0] == "add:")
+    }
+    
+    func testMessageWithBlock() {
+        let calls = parse("[self add: ^{ [strongSelf method]} andB: ];")
+        
+        XCTAssert(calls.count == 2)
     }
 }

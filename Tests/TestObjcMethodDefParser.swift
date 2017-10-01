@@ -68,7 +68,7 @@ class TestObjcMethodParser: XCTestCase {
                     [self add: 1 andB:3];
                 }
                 
-                NSString *s = @"[self add: 1 andB:3]\";"
+                NSString *s = @"[self add];"
             }
         """
         let methods = parse(code)
