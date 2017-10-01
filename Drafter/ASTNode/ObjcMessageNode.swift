@@ -10,7 +10,11 @@ import Foundation
 
 /// OC方法调用
 class ObjcMessageNode: Node {
-    var receiver: String = "" // 方法接收者
+    var receiver: ObjcMessageReceiver = .name("")
     var params: [String] = [] // 参数
-    var next: ObjcMethodParser? = nil // 链式方法调用: [[a b] c]
+}
+
+enum ObjcMessageReceiver {
+    case name(String)    // 普通变量
+    case message(ObjcMessageNode) // 另一个方法调用
 }
