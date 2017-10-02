@@ -31,19 +31,26 @@ class DotGenerator {
         let dot = DotGenerator()
         dot.begin(name: "CallGraph")
         
-        var set = Set<Int>()
+        var nodesSet = Set<Int>()
+        var relationSet = Set<String>() // 防止重复连线
         for method in methods {
-            if !set.contains(method.hashValue) {
+            // 添加节点定义
+            if !nodesSet.contains(method.hashValue) {
                 dot.append(method, label: method.description)
-                set.insert(method.hashValue)
+                nodesSet.insert(method.hashValue)
             }
             
             for invoke in method.invokes {
-                if !set.contains(invoke.hashValue) {
+                if !nodesSet.contains(invoke.hashValue) {
                     dot.append(invoke, label: invoke.description)
-                    set.insert(invoke.hashValue)
+                    nodesSet.insert(invoke.hashValue)
                 }
-                dot.point(from: method, to: invoke)
+                
+                let relation = "\(method.hashValue)\(invoke.hashValue)"
+                if !relationSet.contains(relation) && method.hashValue != invoke.hashValue {
+                    dot.point(from: method, to: invoke)
+                    relationSet.insert(relation)
+                }
             }
         }
         
@@ -69,9 +76,7 @@ class DotGenerator {
         _ = FileManager.default.createFile(atPath: dotFile, contents: code.data(using: .utf8), attributes: nil)
         
         // 生成png
-        let out = Executor.execute("dot", "-T", "png", dotFile, "-o", "\(target)")
-        
-        print(out)
+        Executor.execute("dot", "-T", "png", dotFile, "-o", "\(target)")
         
         // 删除.dot文件
         try? FileManager.default.removeItem(at: URL(fileURLWithPath: dotFile))
@@ -83,7 +88,7 @@ class DotGenerator {
 fileprivate extension DotGenerator {
     
     func begin(name: String) {
-        dot.append(contentsOf: "digraph \(name) {")
+        dot.append(contentsOf: "digraph \(name) { node [shape=\"record\"];")
     }
     
     func end() {

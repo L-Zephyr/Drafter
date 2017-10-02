@@ -35,6 +35,7 @@ enum TokenType {
     case doubleQuote       // 双引号: "
     case backslash         // 反斜线: \
     case caret             // 脱字符: ^
+    case dot               // 点号: .
 }
 
 //extension TokenType: Equatable {

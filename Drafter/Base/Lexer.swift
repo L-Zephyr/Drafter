@@ -147,6 +147,10 @@ class SourceLexer: Lexer {
                 consume()
                 return Token(type: .caret, text: "^")
                 
+            case ".":
+                consume()
+                return Token(type: .dot, text: ".")
+                
             case "@":
                 let token = atSign()
                 if token.type != .unknown {
