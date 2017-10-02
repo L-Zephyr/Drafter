@@ -28,7 +28,7 @@ class ObjcMessageSendParser: RecallParser {
             do {
                 try statement()
             } catch {
-                print(error)
+//                print(error)
                 consume()
             }
         }

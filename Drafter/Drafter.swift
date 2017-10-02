@@ -65,8 +65,11 @@ class Drafter {
         for file in files {
             let lexer = SourceLexer(file: file)
             let parser = ClassParser(lexer: lexer)
-            classNodes.merge(parser.parse())
+            let nodes = parser.parse()
+            classNodes.merge(nodes)
         }
+        
+//        DotGenerator.generate(classNodes, filePath: file)
         
         // test
         for node in classNodes {
@@ -80,14 +83,18 @@ class Drafter {
         for file in files {
             let lexer = SourceLexer(file: file)
             let parser = ObjcMethodParser(lexer: lexer)
-            methods.append(contentsOf: parser.parse())
+            let nodes = parser.parse()
+            
+            methods.append(contentsOf: nodes)
+            
+            DotGenerator.generate(nodes, filePath: file)
         }
         
         // test
-        for method in methods {
-            for invoke in method.invokes {
-                print("\(method) -> \(invoke)")
-            }
-        }
+//        for method in methods {
+//            for invoke in method.invokes {
+//                print("\(method) -> \(invoke)")
+//            }
+//        }
     }
 }

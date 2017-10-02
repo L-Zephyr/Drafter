@@ -39,7 +39,7 @@ class ObjcMethodParser: RecallParser {
                 do {
                     try methodStat()
                 } catch {
-                    print(error)
+//                    print(error)
                     consume()
                 }
             } else {
