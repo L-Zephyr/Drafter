@@ -18,6 +18,7 @@ class Executor {
     ///   - executable: 可执行文件的名称
     ///   - args:       参数
     /// - Returns:      执行结果输出
+    @discardableResult
     static func execute(_ executable: String, _ args: String...) -> String {
         
         // 查找可执行文件的

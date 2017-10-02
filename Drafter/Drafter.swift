@@ -13,6 +13,7 @@ class Drafter {
     // MARK: - Public
     
     var mode: DraftMode = .callGraph
+    var keyword: String? = nil
     
     /// 待解析的文件或文件夹, 目前只支持.h和.m文件
     var path: String = "" {
@@ -79,13 +80,19 @@ class Drafter {
     
     /// 生成方法调用关系图
     fileprivate func craftCallGraph() {
-        var methods = [ObjcMethodNode]()
+//        var methods = [ObjcMethodNode]()
         for file in files {
             let lexer = SourceLexer(file: file)
             let parser = ObjcMethodParser(lexer: lexer)
-            let nodes = parser.parse()
+            var nodes = parser.parse()
             
-            methods.append(contentsOf: nodes)
+            if let keyword = keyword?.lowercased() {
+                nodes = nodes.filter {
+                    $0.description.lowercased().contains(keyword)
+                }
+            }
+            
+//            methods.append(contentsOf: nodes)
             
             DotGenerator.generate(nodes, filePath: file)
         }

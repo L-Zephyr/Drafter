@@ -76,8 +76,18 @@ fileprivate extension ObjcMessageSendParser {
             let node = try messageSend()
             return .message(node)
         } else {
+            // 考虑xx.xx的情况
+            var name = ""
             try match(.name)
-            return .name(lastToken?.text ?? "")
+            name.append(contentsOf: lastToken?.text ?? "")
+            
+            while token().type == .dot {
+                try match(.dot)
+                try match(.name)
+                name.append(contentsOf: ".\(lastToken?.text ?? "")")
+            }
+            
+            return .name(name)
         }
     }
     
