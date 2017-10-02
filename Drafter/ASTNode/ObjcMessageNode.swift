@@ -8,6 +8,15 @@
 
 import Foundation
 
+// MARK: - ObjcMessageReceiver
+
+enum ObjcMessageReceiver {
+    case name(String)    // 普通变量
+    case message(ObjcMessageNode) // 另一个方法调用
+}
+
+// MARK: - ObjcMessageNode
+
 /// OC方法调用
 class ObjcMessageNode: Node {
     var receiver: ObjcMessageReceiver = .name("")
@@ -25,8 +34,11 @@ extension ObjcMessageNode: CustomStringConvertible {
             method.append(contentsOf: "\(name) ")
         }
         
-        for param in params {
-            method.append(contentsOf: "\(param) ")
+        for index in 0..<params.count {
+            method.append(contentsOf: "\(params[index])")
+            if index != params.count - 1 {
+                method.append(contentsOf: " ")
+            }
         }
         
         method.append(contentsOf: "]")
@@ -35,7 +47,17 @@ extension ObjcMessageNode: CustomStringConvertible {
     }
 }
 
-enum ObjcMessageReceiver {
-    case name(String)    // 普通变量
-    case message(ObjcMessageNode) // 另一个方法调用
+extension ObjcMessageNode: Hashable {
+    
+    static func ==(_ left: ObjcMessageNode, _ right: ObjcMessageNode) -> Bool {
+        return left.hashValue == right.hashValue
+    }
+    
+    var hashValue: Int {
+        var value = ""
+        for param in params {
+            value.append(contentsOf: param)
+        }
+        return value.hashValue
+    }
 }

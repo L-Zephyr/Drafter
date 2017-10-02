@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: - ObjcMethodNode
+
 /// 代表OC的方法定义
 class ObjcMethodNode: Node {
     var isStatic = false  // 是否为类方法
@@ -21,18 +23,41 @@ extension ObjcMethodNode: CustomStringConvertible {
     var description: String {
         var method = "["
         
-        for param in params {
-            method.append(contentsOf: param.outterName)
-            if !param.innerName.isEmpty {
-                method.append(contentsOf: ":(\(param.type))\(param.innerName) ")
+        for index in 0..<params.count {
+            method.append(contentsOf: params[index].outterName)
+            if !params[index].innerName.isEmpty {
+                method.append(contentsOf: ":")
+//                method.append(contentsOf: ":(\(param.type))\(param.innerName) ")
+            }
+            if index != params.count - 1 {
+                method.append(contentsOf: " ")
             }
         }
-        
         method.append(contentsOf: "]")
         
         return method
     }
 }
+
+extension ObjcMethodNode: Hashable {
+    
+    static func ==(_ left: ObjcMethodNode, _ right: ObjcMethodNode) -> Bool {
+        return left.hashValue == right.hashValue
+    }
+    
+    var hashValue: Int {
+        var value = ""
+        for param in params {
+            value.append(contentsOf: param.outterName)
+            if !param.innerName.isEmpty {
+                value.append(contentsOf: ":")
+            }
+        }
+        return value.hashValue
+    }
+}
+
+// MARK: - Param
 
 struct Param: Node {
     var type: String = "" // 参数类型

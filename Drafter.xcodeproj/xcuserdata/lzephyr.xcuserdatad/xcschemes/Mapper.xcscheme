@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BB2CA6CB1F76192D0018F9AD"
-               BuildableName = "Drafter"
+               BuildableName = "drafter"
                BlueprintName = "Drafter"
                ReferencedContainer = "container:Drafter.xcodeproj">
             </BuildableReference>
@@ -44,7 +44,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BB2CA6CB1F76192D0018F9AD"
-            BuildableName = "Drafter"
+            BuildableName = "drafter"
             BlueprintName = "Drafter"
             ReferencedContainer = "container:Drafter.xcodeproj">
          </BuildableReference>
@@ -68,7 +68,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BB2CA6CB1F76192D0018F9AD"
-            BuildableName = "Drafter"
+            BuildableName = "drafter"
             BlueprintName = "Drafter"
             ReferencedContainer = "container:Drafter.xcodeproj">
          </BuildableReference>
@@ -87,7 +87,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BB2CA6CB1F76192D0018F9AD"
-            BuildableName = "Drafter"
+            BuildableName = "drafter"
             BlueprintName = "Drafter"
             ReferencedContainer = "container:Drafter.xcodeproj">
          </BuildableReference>
