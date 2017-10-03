@@ -70,7 +70,7 @@ class Drafter {
             classNodes.merge(nodes)
         }
         
-//        DotGenerator.generate(classNodes, filePath: file)
+        DotGenerator.generate(classNodes, filePath: "Inheritance")
         
         // test
         for node in classNodes {
@@ -80,13 +80,10 @@ class Drafter {
     
     /// 生成方法调用关系图
     fileprivate func craftCallGraph() {
-//        var methods = [ObjcMethodNode]()
-        for file in files {
+        for file in files.filter({ $0.hasSuffix(".m") }) {
             let lexer = SourceLexer(file: file)
             let parser = ObjcMethodParser(lexer: lexer)
             let nodes = extractSubtree(parser.parse())
-
-//            methods.append(contentsOf: nodes)
             
             DotGenerator.generate(nodes, filePath: file)
         }

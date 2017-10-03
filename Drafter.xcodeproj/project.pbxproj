@@ -134,7 +134,7 @@
 				BB2CA6CF1F76192D0018F9AD /* main.swift */,
 				BBA6EA801F79F626004C2EEC /* Drafter.swift */,
 				BB3199781F7A4DA100EA5CE7 /* Base */,
-				BB3199771F7A4DA100EA5CE7 /* ASTNode */,
+				BB3199771F7A4DA100EA5CE7 /* AST */,
 				BBE29C1C1F76911F00355D13 /* Parser */,
 				BBA6EA851F7A00C3004C2EEC /* Generator */,
 				BBA6EA791F79F317004C2EEC /* CommandLineKit */,
@@ -143,7 +143,7 @@
 			path = Drafter;
 			sourceTree = "<group>";
 		};
-		BB3199771F7A4DA100EA5CE7 /* ASTNode */ = {
+		BB3199771F7A4DA100EA5CE7 /* AST */ = {
 			isa = PBXGroup;
 			children = (
 				BB3199821F7A4DC100EA5CE7 /* ClassNode.swift */,
@@ -151,7 +151,7 @@
 				BBCADD1D1F7B422500C4B722 /* ObjcMethodNode.swift */,
 				BB21F0B71F7D15FD00F68C67 /* ObjcMessageNode.swift */,
 			);
-			path = ASTNode;
+			path = AST;
 			sourceTree = "<group>";
 		};
 		BB3199781F7A4DA100EA5CE7 /* Base */ = {
