@@ -13,26 +13,59 @@ class DotGenerator {
     
     // MARK: - Public
     
+    /// 在当前位置生成类图
     static func generate(_ nodes: [ClassNode], filePath: String) {
         let dot = DotGenerator()
-        dot.begin(name: "InheritGraph")
+        var nodesSet = Set<String>()
         
-        var set = Set<ClassNode>()
+        dot.begin(name: "Inheritance")
+        
         for cls in nodes {
-            if set.contains(cls) {
-                set.insert(cls)
-                dot.append(cls, label: cls.description)
+            // 类节点
+            if !nodesSet.contains(cls.className) {
+                nodesSet.insert(cls.className)
+                
+                var name = ""
+                if cls.protocols.count != 0 {
+                    name = "{\(cls.className)|\\<\(cls.protocols.joined(separator: ", "))\\>}"
+                } else {
+                    name = "\(cls.className)"
+                }
+                dot.append(cls, label: name)
+            }
+            
+            // 协议不单独作为节点显示, 避免图片过于混乱
+//            for proto in cls.protocols {
+//                if !nodesSet.contains(proto) {
+//                    nodesSet.insert(proto)
+//                    dot.append(proto, label: proto)
+//                }
+//                dot.point(from: cls, to: proto, emptyArrow: true, dashed: true)
+//            }
+            
+            // 父类
+            if let superCls = cls.superCls?.className {
+                if !nodesSet.contains(superCls) {
+                    nodesSet.insert(superCls)
+                    dot.append(superCls, label: superCls)
+                }
+                dot.point(from: cls, to: superCls, emptyArrow: true)
             }
         }
+        
+        dot.end()
+        
+        create(dot: dot.dot, to: filePath)
     }
     
+    /// 在当前位置生成调用关系图
     static func generate(_ methods: [ObjcMethodNode], filePath: String) {
         // 生成Dot描述
         let dot = DotGenerator()
         dot.begin(name: "CallGraph")
         
         var nodesSet = Set<Int>()
-        var relationSet = Set<String>() // 防止重复连线
+        var relationSet = Set<String>() // 避免重复连线
         for method in methods {
             // 添加节点定义
             if !nodesSet.contains(method.hashValue) {
@@ -99,7 +132,19 @@ fileprivate extension DotGenerator {
         dot.append(contentsOf: "\(node.hashValue) [label=\"\(label)\"];")
     }
     
-    func point<T: Hashable, A: Hashable>(from: T, to: A) {
-        dot.append(contentsOf: "\(from.hashValue)->\(to.hashValue);")
+    func point<T: Hashable, A: Hashable>(from: T, to: A, emptyArrow: Bool = false, dashed: Bool = false) {
+        var style = ""
+        if emptyArrow {
+            style.append(contentsOf: "arrowhead = \"empty\" ")
+        }
+        if dashed {
+            style.append(contentsOf: "style=\"dashed\"")
+        }
+        
+        if !style.isEmpty {
+            dot.append(contentsOf: "\(from.hashValue)->\(to.hashValue) [\(style)];")
+        } else {
+            dot.append(contentsOf: "\(from.hashValue)->\(to.hashValue);")
+        }
     }
 }
