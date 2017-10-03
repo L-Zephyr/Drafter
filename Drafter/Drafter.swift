@@ -65,7 +65,7 @@ class Drafter {
         var classNodes = [ClassNode]()
         for file in files {
             let lexer = SourceLexer(file: file)
-            let parser = ClassParser(lexer: lexer)
+            let parser = InterfaceParser(lexer: lexer)
             let nodes = parser.parse()
             classNodes.merge(nodes)
         }

@@ -1,5 +1,5 @@
 //
-//  ClassParser.swift
+//  InterfaceParser.swift
 //  Mapper
 //
 //  Created by LZephyr on 2017/9/24.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-// MARK: - ClassParser
+// MARK: - InterfaceParser
 
 /*
  @interface文法:
@@ -25,7 +25,7 @@ import Foundation
  */
 
 /// 解析class的定义
-class ClassParser: Parser {
+class InterfaceParser: Parser {
     
     init(lexer: Lexer) {
         self.input = lexer
@@ -98,7 +98,7 @@ class ClassParser: Parser {
 
 // MARK: - 文法规则解析
 
-extension ClassParser {
+extension InterfaceParser {
     func classDecl() throws {
         try match(.interface) // @interface关键字
         try match(.name)      // 类名
