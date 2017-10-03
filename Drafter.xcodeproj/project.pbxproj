@@ -20,26 +20,22 @@
 		BB3199811F7A4DB100EA5CE7 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB31997B1F7A4DA100EA5CE7 /* Token.swift */; };
 		BB3199831F7A4DC100EA5CE7 /* ClassNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3199821F7A4DC100EA5CE7 /* ClassNode.swift */; };
 		BB3199841F7A4DE400EA5CE7 /* ClassNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3199821F7A4DC100EA5CE7 /* ClassNode.swift */; };
-		BB3199861F7A4E7C00EA5CE7 /* InvokeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3199851F7A4E7C00EA5CE7 /* InvokeNode.swift */; };
 		BBA4C6611F792FB4009C780F /* TestInterfaceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA4C6601F792FB4009C780F /* TestInterfaceParser.swift */; };
-		BBA4C66B1F7930A8009C780F /* InvokeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29C1D1F76911F00355D13 /* InvokeParser.swift */; };
-		BBA4C66C1F7930AB009C780F /* ClassParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29C241F774DC400355D13 /* ClassParser.swift */; };
 		BBA6EA7D1F79F317004C2EEC /* CommandLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA7A1F79F317004C2EEC /* CommandLine.swift */; };
 		BBA6EA7E1F79F317004C2EEC /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA7B1F79F317004C2EEC /* Option.swift */; };
 		BBA6EA7F1F79F317004C2EEC /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA7C1F79F317004C2EEC /* StringExtensions.swift */; };
 		BBA6EA811F79F626004C2EEC /* Drafter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA801F79F626004C2EEC /* Drafter.swift */; };
 		BBA6EA871F7A00D8004C2EEC /* DotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA861F7A00D8004C2EEC /* DotGenerator.swift */; };
-		BBCADD1C1F7B419A00C4B722 /* ObjcMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCADD1B1F7B419A00C4B722 /* ObjcMethodParser.swift */; };
+		BBAEFF821F83B35F004F4136 /* InterfaceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAEFF7E1F83B35E004F4136 /* InterfaceParser.swift */; };
+		BBAEFF831F83B35F004F4136 /* ObjcMessageSendParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAEFF7F1F83B35E004F4136 /* ObjcMessageSendParser.swift */; };
+		BBAEFF841F83B35F004F4136 /* ObjcMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAEFF801F83B35E004F4136 /* ObjcMethodParser.swift */; };
+		BBAEFF851F83B362004F4136 /* InterfaceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAEFF7E1F83B35E004F4136 /* InterfaceParser.swift */; };
+		BBAEFF861F83B365004F4136 /* ObjcMessageSendParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAEFF7F1F83B35E004F4136 /* ObjcMessageSendParser.swift */; };
+		BBAEFF871F83B366004F4136 /* ObjcMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAEFF801F83B35E004F4136 /* ObjcMethodParser.swift */; };
 		BBCADD1E1F7B422500C4B722 /* ObjcMethodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCADD1D1F7B422500C4B722 /* ObjcMethodNode.swift */; };
-		BBCADD1F1F7B448800C4B722 /* InvokeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3199851F7A4E7C00EA5CE7 /* InvokeNode.swift */; };
 		BBCADD201F7B448A00C4B722 /* ObjcMethodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCADD1D1F7B422500C4B722 /* ObjcMethodNode.swift */; };
-		BBCADD211F7B448F00C4B722 /* ObjcMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCADD1B1F7B419A00C4B722 /* ObjcMethodParser.swift */; };
 		BBCADD221F7B449200C4B722 /* DotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA6EA861F7A00D8004C2EEC /* DotGenerator.swift */; };
-		BBCADD241F7B4BFD00C4B722 /* ObjcMessageSendParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCADD231F7B4BFD00C4B722 /* ObjcMessageSendParser.swift */; };
-		BBCADD251F7B4C0100C4B722 /* ObjcMessageSendParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCADD231F7B4BFD00C4B722 /* ObjcMessageSendParser.swift */; };
 		BBE0A33B1F8239620040F592 /* Executor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE0A33A1F8239620040F592 /* Executor.swift */; };
-		BBE29C201F76911F00355D13 /* InvokeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29C1D1F76911F00355D13 /* InvokeParser.swift */; };
-		BBE29C251F774DC400355D13 /* ClassParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE29C241F774DC400355D13 /* ClassParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +71,6 @@
 		BB31997A1F7A4DA100EA5CE7 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		BB31997B1F7A4DA100EA5CE7 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		BB3199821F7A4DC100EA5CE7 /* ClassNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassNode.swift; sourceTree = "<group>"; };
-		BB3199851F7A4E7C00EA5CE7 /* InvokeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvokeNode.swift; sourceTree = "<group>"; };
 		BBA4C65E1F792FB4009C780F /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBA4C6601F792FB4009C780F /* TestInterfaceParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestInterfaceParser.swift; sourceTree = "<group>"; };
 		BBA4C6621F792FB4009C780F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -84,12 +79,11 @@
 		BBA6EA7C1F79F317004C2EEC /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		BBA6EA801F79F626004C2EEC /* Drafter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drafter.swift; sourceTree = "<group>"; };
 		BBA6EA861F7A00D8004C2EEC /* DotGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotGenerator.swift; sourceTree = "<group>"; };
-		BBCADD1B1F7B419A00C4B722 /* ObjcMethodParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjcMethodParser.swift; sourceTree = "<group>"; };
+		BBAEFF7E1F83B35E004F4136 /* InterfaceParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceParser.swift; sourceTree = "<group>"; };
+		BBAEFF7F1F83B35E004F4136 /* ObjcMessageSendParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjcMessageSendParser.swift; sourceTree = "<group>"; };
+		BBAEFF801F83B35E004F4136 /* ObjcMethodParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjcMethodParser.swift; sourceTree = "<group>"; };
 		BBCADD1D1F7B422500C4B722 /* ObjcMethodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjcMethodNode.swift; sourceTree = "<group>"; };
-		BBCADD231F7B4BFD00C4B722 /* ObjcMessageSendParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjcMessageSendParser.swift; sourceTree = "<group>"; };
 		BBE0A33A1F8239620040F592 /* Executor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Executor.swift; sourceTree = "<group>"; };
-		BBE29C1D1F76911F00355D13 /* InvokeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvokeParser.swift; sourceTree = "<group>"; };
-		BBE29C241F774DC400355D13 /* ClassParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,7 +141,6 @@
 			isa = PBXGroup;
 			children = (
 				BB3199821F7A4DC100EA5CE7 /* ClassNode.swift */,
-				BB3199851F7A4E7C00EA5CE7 /* InvokeNode.swift */,
 				BBCADD1D1F7B422500C4B722 /* ObjcMethodNode.swift */,
 				BB21F0B71F7D15FD00F68C67 /* ObjcMessageNode.swift */,
 			);
@@ -194,13 +187,28 @@
 			path = Generator;
 			sourceTree = "<group>";
 		};
+		BBAEFF7D1F83B35E004F4136 /* OC */ = {
+			isa = PBXGroup;
+			children = (
+				BBAEFF7E1F83B35E004F4136 /* InterfaceParser.swift */,
+				BBAEFF7F1F83B35E004F4136 /* ObjcMessageSendParser.swift */,
+				BBAEFF801F83B35E004F4136 /* ObjcMethodParser.swift */,
+			);
+			path = OC;
+			sourceTree = "<group>";
+		};
+		BBAEFF811F83B35F004F4136 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
 		BBE29C1C1F76911F00355D13 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
-				BBE29C241F774DC400355D13 /* ClassParser.swift */,
-				BBE29C1D1F76911F00355D13 /* InvokeParser.swift */,
-				BBCADD1B1F7B419A00C4B722 /* ObjcMethodParser.swift */,
-				BBCADD231F7B4BFD00C4B722 /* ObjcMessageSendParser.swift */,
+				BBAEFF7D1F83B35E004F4136 /* OC */,
+				BBAEFF811F83B35F004F4136 /* Swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -300,7 +308,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBA6EA7E1F79F317004C2EEC /* Option.swift in Sources */,
-				BBE29C201F76911F00355D13 /* InvokeParser.swift in Sources */,
 				BB21F0B81F7D15FD00F68C67 /* ObjcMessageNode.swift in Sources */,
 				BB31997D1F7A4DA100EA5CE7 /* Parser.swift in Sources */,
 				BBA6EA7F1F79F317004C2EEC /* StringExtensions.swift in Sources */,
@@ -310,13 +317,12 @@
 				BBA6EA871F7A00D8004C2EEC /* DotGenerator.swift in Sources */,
 				BB2CA6D01F76192D0018F9AD /* main.swift in Sources */,
 				BB31997E1F7A4DA100EA5CE7 /* Token.swift in Sources */,
-				BBE29C251F774DC400355D13 /* ClassParser.swift in Sources */,
 				BB3199831F7A4DC100EA5CE7 /* ClassNode.swift in Sources */,
 				BB31997C1F7A4DA100EA5CE7 /* Lexer.swift in Sources */,
-				BBCADD1C1F7B419A00C4B722 /* ObjcMethodParser.swift in Sources */,
+				BBAEFF831F83B35F004F4136 /* ObjcMessageSendParser.swift in Sources */,
+				BBAEFF841F83B35F004F4136 /* ObjcMethodParser.swift in Sources */,
+				BBAEFF821F83B35F004F4136 /* InterfaceParser.swift in Sources */,
 				BBA6EA7D1F79F317004C2EEC /* CommandLine.swift in Sources */,
-				BB3199861F7A4E7C00EA5CE7 /* InvokeNode.swift in Sources */,
-				BBCADD241F7B4BFD00C4B722 /* ObjcMessageSendParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,21 +330,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBAEFF861F83B365004F4136 /* ObjcMessageSendParser.swift in Sources */,
+				BBAEFF871F83B366004F4136 /* ObjcMethodParser.swift in Sources */,
 				BBA4C6611F792FB4009C780F /* TestInterfaceParser.swift in Sources */,
-				BBCADD211F7B448F00C4B722 /* ObjcMethodParser.swift in Sources */,
-				BBA4C66C1F7930AB009C780F /* ClassParser.swift in Sources */,
 				BB3199841F7A4DE400EA5CE7 /* ClassNode.swift in Sources */,
+				BBAEFF851F83B362004F4136 /* InterfaceParser.swift in Sources */,
 				BB3199801F7A4DAF00EA5CE7 /* Parser.swift in Sources */,
 				BB3199811F7A4DB100EA5CE7 /* Token.swift in Sources */,
 				BBCADD201F7B448A00C4B722 /* ObjcMethodNode.swift in Sources */,
-				BBCADD1F1F7B448800C4B722 /* InvokeNode.swift in Sources */,
 				BB09FD031F7B84560093E45C /* TestObjcMethodDefParser.swift in Sources */,
 				BB31997F1F7A4DAD00EA5CE7 /* Lexer.swift in Sources */,
 				BBCADD221F7B449200C4B722 /* DotGenerator.swift in Sources */,
 				BB21F0BB1F7D1D8600F68C67 /* ObjcMessageNode.swift in Sources */,
 				BB21F0BA1F7D1CD700F68C67 /* TestMessageSend.swift in Sources */,
-				BBA4C66B1F7930A8009C780F /* InvokeParser.swift in Sources */,
-				BBCADD251F7B4C0100C4B722 /* ObjcMessageSendParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
