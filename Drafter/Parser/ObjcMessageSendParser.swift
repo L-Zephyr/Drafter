@@ -21,7 +21,7 @@ import Foundation
  */
 
 /// 解析一个函数体中所有的OC方法调用，包括在block中的调用
-class ObjcMessageSendParser: RecallParser {
+class ObjcMessageSendParser: BacktrackParser {
     
     func parse() -> [ObjcMessageNode] {
         while token().type != .endOfFile {
