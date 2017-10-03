@@ -17,7 +17,7 @@ enum DraftMode: String {
 // 命令行参数解析
 let filePath = StringOption("f", "file", true, "The file or directory to be parsed, supported: .h and .m")
 let mode = EnumOption<DraftMode>(shortFlag: "m", longFlag: "mode", required: false, helpMessage: "The parsing mode, if you choose 'call', it will generate call graph. If you choose 'inherit' it will generate class inheritance graph. Default to 'call'")
-let search = StringOption("s", "search", false, "Specify a keyword, the generate graph only contains thats nodes you are interested in")
+let search = StringOption("s", "search", false, "Specify a keyword, the generate graph only contains thats nodes you are interested in. Multiple arguments are separated by commas")
 
 let cli = CommandLine()
 cli.addOptions(filePath, mode, search)
@@ -35,7 +35,7 @@ guard let path = filePath.value else {
 }
 
 let drafter = Drafter()
-drafter.keyword = search.value
+drafter.keywords = search.value?.split(by: ",").map { $0.lowercased() } ?? []
 drafter.mode = mode.value ?? .callGraph
 drafter.path = path
 drafter.craft()

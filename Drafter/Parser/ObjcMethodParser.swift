@@ -30,7 +30,7 @@ import Cocoa
  */
 
 /// 解析OC的方法定义
-class ObjcMethodParser: RecallParser {
+class ObjcMethodParser: BacktrackParser {
     
     func parse() -> [ObjcMethodNode] {
         // 1. 解析所有方法定义

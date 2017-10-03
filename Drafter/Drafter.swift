@@ -13,7 +13,7 @@ class Drafter {
     // MARK: - Public
     
     var mode: DraftMode = .callGraph
-    var keyword: String? = nil
+    var keywords: [String] = []
     
     /// 待解析的文件或文件夹, 目前只支持.h和.m文件
     var path: String = "" {
@@ -84,24 +84,49 @@ class Drafter {
         for file in files {
             let lexer = SourceLexer(file: file)
             let parser = ObjcMethodParser(lexer: lexer)
-            var nodes = parser.parse()
-            
-            if let keyword = keyword?.lowercased() {
-                nodes = nodes.filter {
-                    $0.description.lowercased().contains(keyword)
-                }
-            }
-            
+            let nodes = extractSubtree(parser.parse())
+
 //            methods.append(contentsOf: nodes)
             
             DotGenerator.generate(nodes, filePath: file)
         }
+    }
+    
+    fileprivate func extractSubtree(_ nodes: [ObjcMethodNode]) -> [ObjcMethodNode] {
+        guard keywords.count != 0 else {
+            return nodes
+        }
         
-        // test
-//        for method in methods {
-//            for invoke in method.invokes {
-//                print("\(method) -> \(invoke)")
-//            }
-//        }
+        // 过滤出包含keyword的根节点
+        var subtrees: [ObjcMethodNode] = []
+        let filted = nodes.filter {
+            $0.description.lowercased().contains(keywords)
+        }
+        subtrees.append(contentsOf: filted)
+        
+        for method in filted {
+            for invoke in method.invokes {
+                if let index = nodes.index(where: { $0.hashValue == invoke.hashValue }) {
+                    subtrees.append(nodes[index])
+                }
+            }
+        }
+        
+        return subtrees
+    }
+}
+
+extension String {
+    func contains(_ keywords: [String]) -> Bool {
+        if keywords.isEmpty {
+            return true
+        }
+        
+        for keyword in keywords {
+            if self.contains(keyword) {
+                return true
+            }
+        }
+        return false
     }
 }

@@ -20,7 +20,7 @@ import Foundation
 */
 
 /// 函数调用解析器
-class InvokeParser: RecallParser {
+class InvokeParser: BacktrackParser {
     
     func parse() -> [InvokeNode] {
         return []
