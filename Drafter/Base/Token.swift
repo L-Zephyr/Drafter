@@ -16,6 +16,9 @@ enum TokenType {
     case interface        // @interface
     case implementation   // @implementation
     case end              // @end
+    case cls              // swift的class关键字
+    case proto            // swift的protocol关键字
+    case exten            // swift的extension关键字
     case name             // 名称 (包括变量、类名、方法等所有名称)
     case leftParen        // 左圆括号: (
     case rightParen       // 右圆括号: )

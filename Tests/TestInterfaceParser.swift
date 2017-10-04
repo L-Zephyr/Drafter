@@ -22,7 +22,7 @@ class TestInterfaceParser: XCTestCase {
     
     func parse(_ code: String) -> [ClassNode] {
         let lexer = SourceLexer(input: code)
-        let parser = ClassParser(lexer: lexer)
+        let parser = InterfaceParser(lexer: lexer)
         return parser.parse()
     }
     

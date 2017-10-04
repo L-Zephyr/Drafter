@@ -44,13 +44,15 @@ class SourceLexer: Lexer {
     // MARK: - 初始化方法
     
     /// 通过具体内容初始化
-    init(input: String) {
+    init(input: String, isSwift: Bool = false) {
+        self.isSwift = isSwift
         self.input = SourceLexer.removeAnnotaion(input)
         self.index = input.startIndex
     }
     
     /// 通过文件路径初始化
     init(file: String) {
+        isSwift = file.hasSuffix(".swift")
         do {
             let content = try String(contentsOf: URL(fileURLWithPath: file), encoding: .utf8)
             input = SourceLexer.removeAnnotaion(content)
@@ -152,6 +154,10 @@ class SourceLexer: Lexer {
                 return Token(type: .dot, text: ".")
                 
             case "@":
+                if isSwift { // swift文件不解析@符号
+                    fallthrough
+                }
+                
                 let token = atSign()
                 if token.type != .unknown {
                     return token
@@ -161,8 +167,18 @@ class SourceLexer: Lexer {
                 
             default:
                 if isLetter(c) || c == "_" {
-                    // TODO: 考虑保留字的处理
                     let value = name()
+                    
+                    if isSwift {
+                        if value == "class" {
+                            return Token(type: .cls, text: "class")
+                        } else if value == "protocol" {
+                            return Token(type: .proto, text: "protocol")
+                        } else if value == "extension" {
+                            return Token(type: .exten, text: "extension")
+                        }
+                    }
+                    
                     return Token(type: .name, text: "\(value)")
                 }
                 consume()
@@ -179,6 +195,7 @@ class SourceLexer: Lexer {
     fileprivate var index: String.Index
     
     fileprivate var tokens: [Token] = []
+    fileprivate var isSwift: Bool = false // 是否为Swift文件
     
     /// 获取当前位置的字符
     fileprivate var currentChar: Character {
@@ -246,22 +263,8 @@ fileprivate extension SourceLexer {
     /// 解析@符号
     func atSign() -> Token {
         if interface() { // 匹配'@interface '成功
-//            skipWhitespace() // 跳过中间的空白符，继续解析名称
-//            if !fileEnd && isLetter(currentChar) {
-//                let clsName = name()
-//                return Token(type: .interface(name: clsName), text: "@interface \(clsName)")
-//            } else {
-//                return Token(type: .unknown, text: "") // 没有名称则匹配失败
-//            }
             return Token(type: .interface, text: "@interface")
         } else if implementation() {
-//            skipWhitespace() // 跳过中间的空白符，继续解析名称
-//            if !fileEnd && isLetter(currentChar) {
-//                let clsName = name()
-//                return Token(type: .implementation(name: clsName), text: "@implementation \(clsName)")
-//            } else {
-//                return Token(type: .unknown, text: "") // 没有名称则匹配失败
-//            }
             return Token(type: .implementation, text: "@implementation")
         } else if end() {
             return Token(type: .end, text: "@end")

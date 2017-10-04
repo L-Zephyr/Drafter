@@ -54,7 +54,7 @@ class Drafter {
     fileprivate var files: [String] = []
     
     fileprivate func supported(_ file: String) -> Bool {
-        if file.hasSuffix(".h") || file.hasSuffix(".m") {
+        if file.hasSuffix(".h") || file.hasSuffix(".m") || file.hasSuffix(".swift") {
             return true
         }
         return false
@@ -65,10 +65,18 @@ class Drafter {
         var classNodes = [ClassNode]()
         for file in files {
             let lexer = SourceLexer(file: file)
-            let parser = InterfaceParser(lexer: lexer)
-            let nodes = parser.parse()
-            classNodes.merge(nodes)
+            print(file)
+            
+            if file.isSwift {
+                let parser = SwiftClassParser(lexer: lexer)
+                classNodes.merge(parser.parse())
+            } else {
+                let parser = InterfaceParser(lexer: lexer)
+                classNodes.merge(parser.parse())
+            }
         }
+        
+        print("class node: \(classNodes.count)")
         
         DotGenerator.generate(classNodes, filePath: "Inheritance")
         
@@ -80,7 +88,7 @@ class Drafter {
     
     /// 生成方法调用关系图
     fileprivate func craftCallGraph() {
-        for file in files.filter({ $0.hasSuffix(".m") }) {
+        for file in files.filter({ !$0.hasSuffix(".h") }) {
             let lexer = SourceLexer(file: file)
             let parser = ObjcMethodParser(lexer: lexer)
             let nodes = extractSubtree(parser.parse())
@@ -113,7 +121,24 @@ class Drafter {
     }
 }
 
+// MARK: - OC
+
+extension Drafter {
+    func craftOCCallGraph() {
+        
+    }
+}
+
+// MARK: - Swift
+
+extension Drafter {
+    func craftSwiftCallGraph() {
+        
+    }
+}
+
 extension String {
+    
     func contains(_ keywords: [String]) -> Bool {
         if keywords.isEmpty {
             return true
@@ -125,5 +150,9 @@ extension String {
             }
         }
         return false
+    }
+    
+    var isSwift: Bool {
+        return hasSuffix(".swift")
     }
 }

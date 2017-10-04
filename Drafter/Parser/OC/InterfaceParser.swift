@@ -43,7 +43,7 @@ class InterfaceParser: BacktrackParser {
             }
         }
         
-        merge() // 合并相同的节点
+        distinct() // 合并相同的节点
         
         return nodes
     }
@@ -54,7 +54,7 @@ class InterfaceParser: BacktrackParser {
     fileprivate var currentNode: ClassNode? = nil // 当前正在解析的节点
     
     /// 合并nodes中相同的结果
-    fileprivate func merge() {
+    fileprivate func distinct() {
         guard nodes.count > 1 else {
             return
         }
