@@ -18,7 +18,7 @@ import Foundation
  */
 class SwiftMethodParser: BacktrackParser {
     
-    func parse() -> [ObjcMethodNode] {
+    func parse() -> [MethodNode] {
         // 1. 解析方法定义
         while token().type != .endOfFile {
             do {
@@ -30,20 +30,27 @@ class SwiftMethodParser: BacktrackParser {
         }
         
         // 2. 解析函数体中的方法调用
+        for method in methods {
+            if method.methodBody.count != 0 {
+                let lexer = TokenLexer(tokens: method.methodBody)
+                let parser = SwiftInvokeParser(lexer: lexer)
+                method.invokes = parser.parse()
+            }
+        }
         
         return methods
     }
     
     // MARK: - Private
     
-    fileprivate var methods: [ObjcMethodNode] = []
+    fileprivate var methods: [MethodNode] = []
 }
 
 // MARK: - 规则解析
 
 fileprivate extension SwiftMethodParser {
     
-    func methodDefinition() throws -> ObjcMethodNode {
+    func methodDefinition() throws -> MethodNode {
         
         if (token().type == .statical || token().type == .cls) && token(at: 1).type == .function {
             if token().type == .statical {
@@ -64,8 +71,8 @@ fileprivate extension SwiftMethodParser {
         }
     }
     
-    func methodDef() throws -> ObjcMethodNode {
-        let method = ObjcMethodNode()
+    func methodDef() throws -> MethodNode {
+        let method = MethodNode()
         
         try match(.function)
         method.methodName = try match(.name).text

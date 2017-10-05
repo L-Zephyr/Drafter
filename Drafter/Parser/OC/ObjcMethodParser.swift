@@ -32,7 +32,7 @@ import Cocoa
 /// 解析OC的方法定义
 class ObjcMethodParser: BacktrackParser {
     
-    func parse() -> [ObjcMethodNode] {
+    func parse() -> [MethodNode] {
         // 1. 解析所有方法定义
         while token().type != .endOfFile {
             if token().type == .plus || token().type == .minus {
@@ -59,8 +59,8 @@ class ObjcMethodParser: BacktrackParser {
         return nodes
     }
     
-    fileprivate var nodes: [ObjcMethodNode] = []
-    fileprivate var currentNode: ObjcMethodNode? = nil
+    fileprivate var nodes: [MethodNode] = []
+    fileprivate var currentNode: MethodNode? = nil
 }
 
 // MARK: - 规则解析
@@ -69,12 +69,12 @@ extension ObjcMethodParser {
     
     func methodStat() throws {
         if isMethodDef() {
-            currentNode = ObjcMethodNode()
+            currentNode = MethodNode()
             try methodDefinition()
             currentNode.map { nodes.append($0) }
             currentNode = nil
         } else if isMethodDecl() {
-            currentNode = ObjcMethodNode()
+            currentNode = MethodNode()
             try methodDecl()
             currentNode.map { nodes.append($0) }
             currentNode = nil
