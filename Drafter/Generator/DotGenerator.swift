@@ -59,7 +59,7 @@ class DotGenerator {
     }
     
     /// 在当前位置生成调用关系图
-    static func generate(_ methods: [ObjcMethodNode], filePath: String) {
+    static func generate(_ methods: [MethodNode], filePath: String) {
         // 生成Dot描述
         let dot = DotGenerator()
         dot.begin(name: "CallGraph")

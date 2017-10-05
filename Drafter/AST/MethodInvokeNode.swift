@@ -1,5 +1,5 @@
 //
-//  ObjcMessageNode.swift
+//  MethodInvokeNode.swift
 //  Drafter
 //
 //  Created by LZephyr on 2017/9/28.
@@ -8,22 +8,22 @@
 
 import Foundation
 
-// MARK: - ObjcMessageReceiver
+// MARK: - MethodInvoker
 
-enum ObjcMessageReceiver {
+enum MethodInvoker {
     case name(String)    // 普通变量
-    case message(ObjcMessageNode) // 另一个方法调用
+    case message(MethodInvokeNode) // 另一个方法调用
 }
 
-// MARK: - ObjcMessageNode
+// MARK: - MethodInvokeNode
 
 /// OC方法调用
-class ObjcMessageNode: Node {
-    var receiver: ObjcMessageReceiver = .name("")
+class MethodInvokeNode: Node {
+    var receiver: MethodInvoker = .name("")
     var params: [String] = [] // 参数
 }
 
-extension ObjcMessageNode: CustomStringConvertible {
+extension MethodInvokeNode: CustomStringConvertible {
     var description: String {
         var method = "["
         
@@ -47,9 +47,9 @@ extension ObjcMessageNode: CustomStringConvertible {
     }
 }
 
-extension ObjcMessageNode: Hashable {
+extension MethodInvokeNode: Hashable {
     
-    static func ==(_ left: ObjcMessageNode, _ right: ObjcMessageNode) -> Bool {
+    static func ==(_ left: MethodInvokeNode, _ right: MethodInvokeNode) -> Bool {
         return left.hashValue == right.hashValue
     }
     

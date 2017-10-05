@@ -23,7 +23,7 @@ import Foundation
 /// 解析一个函数体中所有的OC方法调用，包括在block中的调用
 class ObjcMessageSendParser: BacktrackParser {
     
-    func parse() -> [ObjcMessageNode] {
+    func parse() -> [MethodInvokeNode] {
         while token().type != .endOfFile {
             do {
                 try statement()
@@ -36,8 +36,8 @@ class ObjcMessageSendParser: BacktrackParser {
         return nodes
     }
     
-    fileprivate var nodes: [ObjcMessageNode] = []
-    fileprivate var currentNode: ObjcMessageNode? = nil
+    fileprivate var nodes: [MethodInvokeNode] = []
+    fileprivate var currentNode: MethodInvokeNode? = nil
 }
 
 // MARK: - 规则解析
@@ -57,8 +57,8 @@ fileprivate extension ObjcMessageSendParser {
     }
     
     @discardableResult
-    func messageSend() throws -> ObjcMessageNode {
-        let node = ObjcMessageNode()
+    func messageSend() throws -> MethodInvokeNode {
+        let node = MethodInvokeNode()
         
         try match(.leftSquare)
         
@@ -71,7 +71,7 @@ fileprivate extension ObjcMessageSendParser {
     }
     
     @discardableResult
-    func receiver() throws -> ObjcMessageReceiver {
+    func receiver() throws -> MethodInvoker {
         if isMessageSend() { // receiver可能是另外一个方法调用的返回
             let node = try messageSend()
             return .message(node)

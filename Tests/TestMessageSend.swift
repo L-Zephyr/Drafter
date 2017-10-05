@@ -20,7 +20,7 @@ class TestMessageSend: XCTestCase {
         super.tearDown()
     }
     
-    func parse(_ code: String) -> [ObjcMessageNode] {
+    func parse(_ code: String) -> [MethodInvokeNode] {
         let lexer = SourceLexer(input: code)
         let parser = ObjcMessageSendParser(lexer: lexer)
         return parser.parse()

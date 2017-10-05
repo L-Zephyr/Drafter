@@ -1,5 +1,5 @@
 //
-//  ObjcMethodNode.swift
+//  MethodNode.swift
 //  Mapper
 //
 //  Created by LZephyr on 2017/9/27.
@@ -8,19 +8,19 @@
 
 import Foundation
 
-// MARK: - ObjcMethodNode
+// MARK: - MethodNode
 
 /// 代表OC的方法定义
-class ObjcMethodNode: Node {
+class MethodNode: Node {
     var isStatic = false  // 是否为类方法
     var returnType: String = "" // 返回值类型
     var methodName: String = "" 
     var params: [Param] = [] // 方法的参数
-    var invokes: [ObjcMessageNode] = [] // 该方法中调用的OC方法
+    var invokes: [MethodInvokeNode] = [] // 该方法中调用的OC方法
     var methodBody: [Token] = [] // 函数体的源码
 }
 
-extension ObjcMethodNode: CustomStringConvertible {
+extension MethodNode: CustomStringConvertible {
     var description: String {
         var method = "["
         
@@ -40,9 +40,9 @@ extension ObjcMethodNode: CustomStringConvertible {
     }
 }
 
-extension ObjcMethodNode: Hashable {
+extension MethodNode: Hashable {
     
-    static func ==(_ left: ObjcMethodNode, _ right: ObjcMethodNode) -> Bool {
+    static func ==(_ left: MethodNode, _ right: MethodNode) -> Bool {
         return left.hashValue == right.hashValue
     }
     

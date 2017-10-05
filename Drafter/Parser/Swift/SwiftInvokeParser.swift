@@ -11,14 +11,14 @@ import Foundation
 /// 解析swift方法的调用
 class SwiftInvokeParser: BacktrackParser {
     
-    func parse() -> [ObjcMessageNode] {
+    func parse() -> [MethodInvokeNode] {
         
         return invokes
     }
     
     // MARK: - Private
     
-    fileprivate var invokes: [ObjcMessageNode] = []
+    fileprivate var invokes: [MethodInvokeNode] = []
 }
 
 // MARK: - 规则解析

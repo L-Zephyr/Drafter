@@ -97,13 +97,13 @@ class Drafter {
         }
     }
     
-    fileprivate func extractSubtree(_ nodes: [ObjcMethodNode]) -> [ObjcMethodNode] {
+    fileprivate func extractSubtree(_ nodes: [MethodNode]) -> [MethodNode] {
         guard keywords.count != 0 else {
             return nodes
         }
         
         // 过滤出包含keyword的根节点
-        var subtrees: [ObjcMethodNode] = []
+        var subtrees: [MethodNode] = []
         let filted = nodes.filter {
             $0.description.lowercased().contains(keywords)
         }

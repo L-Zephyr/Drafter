@@ -20,7 +20,7 @@ class TestObjcMethodParser: XCTestCase {
         super.tearDown()
     }
     
-    func parse(_ code: String) -> [ObjcMethodNode] {
+    func parse(_ code: String) -> [MethodNode] {
         let lexer = SourceLexer(input: code)
         let parser = ObjcMethodParser(lexer: lexer)
         return parser.parse()
