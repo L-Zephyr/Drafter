@@ -74,9 +74,7 @@ class SourceLexer: Lexer {
     /// 获取下一个Token
     var nextToken: Token {
         while index != input.endIndex {
-            let c = input[index]
-            
-            switch c {
+            switch currentChar {
             case " ", "\t", "\n", "\r": // 跳过空白符
                 skipWhitespace()
                 continue
@@ -131,6 +129,10 @@ class SourceLexer: Lexer {
                 
             case "-":
                 consume()
+                if currentChar == ">" {
+                    consume()
+                    return Token(type: .rightArrow, text: "->")
+                }
                 return Token(type: .minus, text: "-")
                 
             case "*":
@@ -154,19 +156,16 @@ class SourceLexer: Lexer {
                 return Token(type: .dot, text: ".")
                 
             case "@":
-                if isSwift { // swift文件不解析@符号
-                    fallthrough
-                }
-                
                 let token = atSign()
                 if token.type != .unknown {
                     return token
-                } else { // 无法解析当前符号则继续解析
-                    fallthrough
+                } else { // 无法解析关键字则直接返回@
+                    consume()
+                    return Token(type: .at, text: "@")
                 }
                 
             default:
-                if isLetter(c) || c == "_" {
+                if isLetter(currentChar) || currentChar == "_" {
                     let value = name()
                     
                     if isSwift {
@@ -176,7 +175,13 @@ class SourceLexer: Lexer {
                             return Token(type: .proto, text: "protocol")
                         } else if value == "extension" {
                             return Token(type: .exten, text: "extension")
+                        } else if value == "func" {
+                            return Token(type: .function, text: "func")
                         }
+                    }
+                    
+                    if value == "static" {
+                        return Token(type: .statical, text: "static")
                     }
                     
                     return Token(type: .name, text: "\(value)")

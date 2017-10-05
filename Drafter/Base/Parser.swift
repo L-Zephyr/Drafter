@@ -50,12 +50,16 @@ class BacktrackParser: Parser {
         return lookaheads[currentIndex + index]
     }
     
-    /// 匹配Token
-    func match(_ t: TokenType) throws {
+    /// 在当前位置匹配指定Token, 返回匹配成功的Token
+    @discardableResult
+    func match(_ t: TokenType) throws -> Token {
         if token().type != t {
             throw ParserError.notMatch("Expected: \(t), found: \(token().type)")
         }
+        let tok = token()
         consume()
+        
+        return tok
     }
     
     // MARK: - 步进

@@ -8,7 +8,7 @@
 
 import XCTest
 
-class SwiftClassParserTest: XCTestCase {
+class TestSwiftClassParser: XCTestCase {
 
     override func setUp() {
         super.setUp()

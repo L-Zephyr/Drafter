@@ -14,6 +14,7 @@ import Foundation
 class ObjcMethodNode: Node {
     var isStatic = false  // 是否为类方法
     var returnType: String = "" // 返回值类型
+    var methodName: String = "" 
     var params: [Param] = [] // 方法的参数
     var invokes: [ObjcMessageNode] = [] // 该方法中调用的OC方法
     var methodBody: [Token] = [] // 函数体的源码
