@@ -21,6 +21,7 @@
 		BB3199831F7A4DC100EA5CE7 /* ClassNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3199821F7A4DC100EA5CE7 /* ClassNode.swift */; };
 		BB3199841F7A4DE400EA5CE7 /* ClassNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3199821F7A4DC100EA5CE7 /* ClassNode.swift */; };
 		BB5BFD111F8626B800A5D325 /* SwiftInvokeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6F4C4B1F85CDBA00512F1B /* SwiftInvokeParser.swift */; };
+		BB6E6DF21F867BA600C0D638 /* TestSwiftInvokeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6E6DF11F867BA600C0D638 /* TestSwiftInvokeParser.swift */; };
 		BB6F4C471F84D38E00512F1B /* SwiftMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6F4C461F84D38E00512F1B /* SwiftMethodParser.swift */; };
 		BB6F4C481F84D39200512F1B /* SwiftMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6F4C461F84D38E00512F1B /* SwiftMethodParser.swift */; };
 		BB6F4C4A1F84F82100512F1B /* TestSwiftMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6F4C491F84F82100512F1B /* TestSwiftMethodParser.swift */; };
@@ -85,6 +86,7 @@
 		BB31997A1F7A4DA100EA5CE7 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		BB31997B1F7A4DA100EA5CE7 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		BB3199821F7A4DC100EA5CE7 /* ClassNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassNode.swift; sourceTree = "<group>"; };
+		BB6E6DF11F867BA600C0D638 /* TestSwiftInvokeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSwiftInvokeParser.swift; sourceTree = "<group>"; };
 		BB6F4C461F84D38E00512F1B /* SwiftMethodParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMethodParser.swift; sourceTree = "<group>"; };
 		BB6F4C491F84F82100512F1B /* TestSwiftMethodParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSwiftMethodParser.swift; sourceTree = "<group>"; };
 		BB6F4C4B1F85CDBA00512F1B /* SwiftInvokeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftInvokeParser.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				BBAEFF8F1F84C95C004F4136 /* TestSwiftClassParser.swift */,
 				BBAEFF981F84CE2E004F4136 /* TestSwiftProtocolParser.swift */,
 				BB6F4C491F84F82100512F1B /* TestSwiftMethodParser.swift */,
+				BB6E6DF11F867BA600C0D638 /* TestSwiftInvokeParser.swift */,
 				BBA4C6621F792FB4009C780F /* Info.plist */,
 			);
 			path = Tests;
@@ -382,6 +385,7 @@
 				BB09FD031F7B84560093E45C /* TestObjcMethodDefParser.swift in Sources */,
 				BB31997F1F7A4DAD00EA5CE7 /* Lexer.swift in Sources */,
 				BBCADD221F7B449200C4B722 /* DotGenerator.swift in Sources */,
+				BB6E6DF21F867BA600C0D638 /* TestSwiftInvokeParser.swift in Sources */,
 				BBAEFF921F84CAFF004F4136 /* ProtocolNode.swift in Sources */,
 				BBAEFF9A1F84CE4D004F4136 /* SwiftProtocolParser.swift in Sources */,
 				BB21F0BB1F7D1D8600F68C67 /* MethodInvokeNode.swift in Sources */,
