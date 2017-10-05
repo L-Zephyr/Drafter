@@ -17,10 +17,12 @@ enum MethodInvoker {
 
 // MARK: - MethodInvokeNode
 
-/// OC方法调用
+/// 方法调用
 class MethodInvokeNode: Node {
+    var isSwift: Bool = false
     var receiver: MethodInvoker = .name("")
-    var params: [String] = [] // 参数
+    var params: [String] = [] // 参数, 只记录参数名称
+    var methodName: String = "" // 只有解析swift用到这个属性
 }
 
 extension MethodInvokeNode: CustomStringConvertible {

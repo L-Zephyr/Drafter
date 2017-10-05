@@ -27,12 +27,13 @@ class TestSwiftMethodParser: XCTestCase {
     }
     
     func testMethod() {
-        let methods = parse("class func method(_ param: Int, param2: @autoclosure ()->(), param3 param3: inout (Int, Int) -> Void) -> () -> Int { let n = 3;}")
+        let methods = parse("class func method(_ param: Int, param2: @autoclosure ()->(), param3 param3: inout (Int, Int) -> Void) -> () -> Int { method2() }")
         
         XCTAssert(methods.count == 1)
         XCTAssert(methods[0].methodName == "method")
         XCTAssert(methods[0].params.count == 3)
         XCTAssert(methods[0].returnType == "( ) -> Int")
+        XCTAssert(methods[0].invokes[0].methodName == "method2")
     }
     
 }

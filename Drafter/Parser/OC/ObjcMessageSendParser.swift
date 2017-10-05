@@ -126,12 +126,10 @@ fileprivate extension ObjcMessageSendParser {
             
             // 参数中的方法调用也添加到解析结果中
             if isMessageSend() {
-                inside += 1
                 let msg = try messageSend()
                 if !isSpeculating {
                     nodes.append(msg)
                 }
-                inside -= 1
                 continue
             }
             

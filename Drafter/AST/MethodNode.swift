@@ -10,8 +10,9 @@ import Foundation
 
 // MARK: - MethodNode
 
-/// 代表OC的方法定义
+/// 方法定义
 class MethodNode: Node {
+    var isSwift = false  // 是否为swift方法
     var isStatic = false  // 是否为类方法
     var returnType: String = "" // 返回值类型
     var methodName: String = "" 
