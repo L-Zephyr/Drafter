@@ -65,4 +65,14 @@ class TestSwiftInvokeParser: XCTestCase {
         XCTAssert(invokes[0].params.count == 2)
         XCTAssert(invokes[0].params[0] == "num:")
     }
+    
+    func testSequenceInvokes() {
+        let code = """
+        method(num: 3).method2("").method3()
+        """
+        let invokes = parse(code)
+        
+        XCTAssert(invokes.count == 1)
+        XCTAssert(invokes[0].methodName == "method")
+    }
 }
