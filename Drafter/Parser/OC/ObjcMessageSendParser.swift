@@ -62,7 +62,7 @@ fileprivate extension ObjcMessageSendParser {
         
         try match(.leftSquare)
         
-        node.receiver = try receiver()
+        node.invoker = try receiver()
         node.params = try paramList()
         
         try match(.rightSquare)
@@ -74,7 +74,7 @@ fileprivate extension ObjcMessageSendParser {
     func receiver() throws -> MethodInvoker {
         if isMessageSend() { // receiver可能是另外一个方法调用的返回
             let node = try messageSend()
-            return .message(node)
+            return .method(node)
         } else {
             // 考虑xx.xx的情况
             var name = ""

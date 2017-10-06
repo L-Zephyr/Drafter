@@ -33,6 +33,8 @@ class SwiftInvokeParser: BacktrackParser {
     // MARK: - Private
     
     fileprivate var invokes: [MethodInvokeNode] = []
+    // 保留的关键字
+    fileprivate let reservedWords = ["if", "else", "do", "catch", "while", "repeat"]
 }
 
 // MARK: - 规则解析
@@ -42,7 +44,11 @@ fileprivate extension SwiftInvokeParser {
     func methodInvoke() throws -> MethodInvokeNode {
         let invoke = MethodInvokeNode()
         
-        invoke.methodName = try match(.name).text
+        let name = try match(.name).text
+        if reservedWords.contains(name) {
+            throw ParserError.notMatch("Not match method def")
+        }
+        invoke.methodName = name
         
         if token().type == .leftBrace { // 只有一个尾随闭包的参数
             invoke.params.append("")
@@ -58,11 +64,14 @@ fileprivate extension SwiftInvokeParser {
                 try closure()
             }
         }
-
-        // TODO: 处理尾随闭包
-        try callee()
         
-        return invoke
+        // 连续调用
+        if let trailingInvoke = try callee() {
+            trailingInvoke.topInvoker.invoker = .method(invoke)
+            return trailingInvoke
+        } else {
+            return invoke
+        }
     }
     
     func paramList() throws -> [String] {
@@ -144,8 +153,14 @@ fileprivate extension SwiftInvokeParser {
         }
     }
     
-    func callee() throws {
-        
+    func callee() throws -> MethodInvokeNode? {
+        if token().type == .dot {
+            try match(.dot)
+            if isMethodInvoke() {
+                return try methodInvoke()
+            }
+        }
+        return nil
     }
 }
 
