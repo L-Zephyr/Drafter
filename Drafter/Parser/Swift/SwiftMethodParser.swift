@@ -73,6 +73,7 @@ fileprivate extension SwiftMethodParser {
     
     func methodDef() throws -> MethodNode {
         let method = MethodNode()
+        method.isSwift = true
         
         try match(.function)
         method.methodName = try match(.name).text

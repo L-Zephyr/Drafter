@@ -21,25 +21,47 @@ class MethodNode: Node {
     var methodBody: [Token] = [] // 函数体的源码
 }
 
+// MARK: - CustomStringConvertible
+
 extension MethodNode: CustomStringConvertible {
     var description: String {
+        if isSwift {
+            return swiftDescription
+        } else {
+            return objcDescription
+        }
+    }
+    
+    /// 格式化成OC风格
+    var objcDescription: String {
         var method = "["
         
-        for index in 0..<params.count {
-            method.append(contentsOf: params[index].outterName)
-            if !params[index].innerName.isEmpty {
-                method.append(contentsOf: ":")
-//                method.append(contentsOf: ":(\(param.type))\(param.innerName) ")
+        let methodDesc = params.join(stringify: { (param) -> String in
+            if !param.innerName.isEmpty {
+                return "\(param.outterName):"
+            } else {
+                return param.outterName
             }
-            if index != params.count - 1 {
-                method.append(contentsOf: " ")
-            }
-        }
-        method.append(contentsOf: "]")
+        }, separator: " ")
+        method.append(contentsOf: "\(methodDesc)]")
+        
+        return method
+    }
+    
+    /// 格式化成swift风格
+    var swiftDescription: String {
+        var method = "\(methodName)("
+        
+        let paramStr = params.join(stringify: { (param) -> String in
+            return "\(param.outterName):"
+        }, separator: ", ")
+        method.append(contentsOf: "\(paramStr))")
         
         return method
     }
 }
+
+// MARK: - Hashable
 
 extension MethodNode: Hashable {
     
@@ -47,7 +69,16 @@ extension MethodNode: Hashable {
         return left.hashValue == right.hashValue
     }
     
+    /// 目前swift和oc之间不能判等
     var hashValue: Int {
+        if isSwift {
+            return swiftHashValue
+        } else {
+            return objcHashValue
+        }
+    }
+    
+    var objcHashValue: Int {
         var value = ""
         for param in params {
             value.append(contentsOf: param.outterName)
@@ -56,6 +87,15 @@ extension MethodNode: Hashable {
             }
         }
         return value.hashValue
+    }
+    
+    var swiftHashValue: Int {
+        let paramSign = params.join(stringify: { (param) -> String in
+            return "\(param.outterName):"
+        }, separator: ",")
+        let methodSign = "\(methodName)\(paramSign)"
+        
+        return methodSign.hashValue
     }
 }
 

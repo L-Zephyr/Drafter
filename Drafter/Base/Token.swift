@@ -89,27 +89,3 @@ extension Token: CustomStringConvertible {
         return "<\(text)>"
     }
 }
-
-// TODO: 这里的定义应该属于AST
-
-// MARK: - Class Token
-
-class ClassToken: Tokenize {
-    var type: TokenType
-    var superCls: ClassToken? = nil // 父类
-    var protocols: [ProtocolToken] = [] // 实现的协议
-    
-    init(type: TokenType) {
-        self.type = type
-    }
-}
-
-// MARK: - Procotol Token
-
-class ProtocolToken: Tokenize {
-    var type: TokenType
-    
-    init(type: TokenType) {
-        self.type = type
-    }
-}
