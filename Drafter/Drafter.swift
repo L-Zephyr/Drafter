@@ -90,9 +90,17 @@ class Drafter {
     fileprivate func craftCallGraph() {
         for file in files.filter({ !$0.hasSuffix(".h") }) {
             let lexer = SourceLexer(file: file)
-            let parser = ObjcMethodParser(lexer: lexer)
-            let nodes = extractSubtree(parser.parse())
             
+            // TODO: 优化
+            var nodes = [MethodNode]()
+            if file.isSwift {
+                let parser = SwiftMethodParser(lexer: lexer)
+                nodes.append(contentsOf: extractSubtree(parser.parse()))
+            } else {
+                let parser = ObjcMethodParser(lexer: lexer)
+                nodes.append(contentsOf: extractSubtree(parser.parse()))
+            }
+
             DotGenerator.generate(nodes, filePath: file)
         }
     }
@@ -118,22 +126,6 @@ class Drafter {
         }
         
         return subtrees
-    }
-}
-
-// MARK: - OC
-
-extension Drafter {
-    func craftOCCallGraph() {
-        
-    }
-}
-
-// MARK: - Swift
-
-extension Drafter {
-    func craftSwiftCallGraph() {
-        
     }
 }
 

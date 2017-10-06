@@ -35,5 +35,4 @@ class TestSwiftMethodParser: XCTestCase {
         XCTAssert(methods[0].returnType == "( ) -> Int")
         XCTAssert(methods[0].invokes[0].methodName == "method2")
     }
-    
 }

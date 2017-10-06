@@ -43,6 +43,7 @@ fileprivate extension SwiftInvokeParser {
     
     func methodInvoke() throws -> MethodInvokeNode {
         let invoke = MethodInvokeNode()
+        invoke.isSwift = true
         
         let name = try match(.name).text
         if reservedWords.contains(name) {

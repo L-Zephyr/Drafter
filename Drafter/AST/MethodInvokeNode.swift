@@ -20,7 +20,7 @@ enum MethodInvoker {
 /// 方法调用
 class MethodInvokeNode: Node {
     var isSwift: Bool = false
-    var invoker: MethodInvoker = .name("") // 方法调用方
+    var invoker: MethodInvoker = .name("") // 该方法的调用者
     var params: [String] = [] // 参数, 只记录参数名称
     var methodName: String = "" // 只有解析swift用到这个属性
 }
@@ -38,13 +38,24 @@ extension MethodInvokeNode {
     }
 }
 
+// MARK: - CustomStringConvertible
+
 extension MethodInvokeNode: CustomStringConvertible {
     var description: String {
+        if isSwift {
+            return swiftDescription
+        } else {
+            return objcDescription
+        }
+    }
+    
+    /// 格式化成OC风格的表示
+    var objcDescription: String {
         var method = "["
         
         switch invoker {
         case .method(let msg):
-            method.append(contentsOf: "\(msg.description) ")
+            method.append(contentsOf: "\(msg.objcDescription) ")
         case .name(let name):
             method.append(contentsOf: "\(name) ")
         }
@@ -60,7 +71,27 @@ extension MethodInvokeNode: CustomStringConvertible {
         
         return method
     }
+    
+    /// 格式化成swift风格的表示
+    var swiftDescription: String {
+        var method = ""
+        
+        switch invoker {
+        case .method(let invoke):
+            method.append(contentsOf: "\(invoke.swiftDescription).")
+        case .name(let name):
+            if !name.isEmpty {
+                method.append(contentsOf: "\(name).")
+            }
+        }
+        
+        method.append(contentsOf: "\(methodName)(\(params.joined(separator: ", ")))")
+        
+        return method
+    }
 }
+
+// MARK: - Hashable
 
 extension MethodInvokeNode: Hashable {
     
@@ -68,11 +99,23 @@ extension MethodInvokeNode: Hashable {
         return left.hashValue == right.hashValue
     }
     
+    /// 目前swift和oc之间不能判等
     var hashValue: Int {
-        var value = ""
-        for param in params {
-            value.append(contentsOf: param)
+        if isSwift {
+            return swiftHashValue
+        } else {
+            return objcHashValue
         }
-        return value.hashValue
+    }
+    
+    var objcHashValue: Int {
+        return params.joined().hashValue
+    }
+    
+    var swiftHashValue: Int {
+        let paramSign = params.joined(separator: ",")
+        let methodSign = "\(methodName)\(paramSign)"
+        
+        return methodSign.hashValue
     }
 }
