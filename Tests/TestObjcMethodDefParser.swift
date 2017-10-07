@@ -73,5 +73,7 @@ class TestObjcMethodParser: XCTestCase {
         """
         let methods = parse(code)
         
+        XCTAssert(methods.count == 1)
+        XCTAssert(methods[0].invokes.count == 2)
     }
 }

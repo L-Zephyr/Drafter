@@ -136,23 +136,3 @@ class Drafter {
         return subtrees
     }
 }
-
-extension String {
-    
-    func contains(_ keywords: [String]) -> Bool {
-        if keywords.isEmpty {
-            return true
-        }
-        
-        for keyword in keywords {
-            if self.contains(keyword) {
-                return true
-            }
-        }
-        return false
-    }
-    
-    var isSwift: Bool {
-        return hasSuffix(".swift")
-    }
-}
