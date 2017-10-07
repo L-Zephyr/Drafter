@@ -68,7 +68,7 @@ class TestSwiftInvokeParser: XCTestCase {
     
     func testSequenceInvokes() {
         let code = """
-        method(num: 3).method2("").method3()
+        self.method(num: 3).method2("").method3()
         """
         let invokes = parse(code)
         

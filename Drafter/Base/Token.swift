@@ -45,29 +45,6 @@ enum TokenType {
     case rightArrow        // 箭头: ->
 }
 
-//extension TokenType: Equatable {
-//    static func == (_ left: TokenType, _ right: TokenType) -> Bool {
-//        switch (left, right) {
-//        case (.unknown, .unknown): fallthrough
-//        case (.endOfFile, .endOfFile): fallthrough
-//        case (.leftParen, .leftParen): fallthrough
-//        case (.rightParen, .rightParen): fallthrough
-//        case (.leftSquare, .leftSquare): fallthrough
-//        case (.rightSquare, .rightSquare): fallthrough
-//        case (.colon, .colon): fallthrough
-//        case (.comma, .comma): fallthrough
-//        case (.end, .end): fallthrough
-//        case (.interface, .interface): fallthrough
-//        case (.implementation, .implementation):
-//            return true
-//        case (.name(let l), .name(let r)):
-//            return l == r
-//        default:
-//            return false
-//        }
-//    }
-//}
-
 // MARK: - 词法单元类型
 
 protocol Tokenize {

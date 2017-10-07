@@ -10,8 +10,9 @@ import Foundation
 
 /*
  definition = class_definition | protocol_definition | extension_definition
- 
- class_definition = 'class' NAME inherit_list
+ g
+ class_definition = 'class' NAME generics_type? inherit_list
+ generics_type = '<' ANY '>'
  inherit_list = (':' (NAME)+ )?
  ...
  */
@@ -74,10 +75,13 @@ fileprivate extension SwiftClassParser {
     }
     
     func classDefinition() throws -> ClassNode {
-        try match(.cls)
-        try match(.name)
+        let cls = ClassNode()
         
-        let cls = ClassNode(clsName: lastToken?.text ?? "")
+        try match(.cls)
+        cls.className = try match(.name).text
+        
+        try genericsType()
+
         let inherits = try inheritList()
         
         for index in 0..<inherits.count {
@@ -92,6 +96,28 @@ fileprivate extension SwiftClassParser {
         try match(.leftBrace)
         
         return cls
+    }
+    
+    // 直接忽略泛型定义
+    func genericsType() throws {
+        if token().type == .leftAngle {
+            try match(.leftAngle)
+            
+            var inside = 1
+            while token().type != .endOfFile {
+                if inside == 0 {
+                    return
+                }
+                
+                if token().type == .leftAngle {
+                    inside += 1
+                } else if token().type == .rightAngle {
+                    inside -= 1
+                }
+                
+                consume()
+            }
+        }
     }
     
     func extensionDefinition() throws -> ClassNode {

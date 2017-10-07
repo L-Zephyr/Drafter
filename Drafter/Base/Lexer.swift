@@ -126,7 +126,7 @@ class SourceLexer: Lexer {
             case "+":
                 consume()
                 return Token(type: .plus, text: "+")
-                
+
             case "-":
                 consume()
                 if currentChar == ">" {

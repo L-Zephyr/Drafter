@@ -11,14 +11,16 @@ import Cocoa
 /// 保存类型信息的节点
 class ClassNode: Node {
     var superCls: ClassNode? = nil // 父类
-    var className: String          // 类名
+    var className: String = ""     // 类名
     var protocols: [String] = []   // 实现的协议
-    
-    init(clsName: String) {
+}
+
+extension ClassNode {
+    convenience init(clsName: String) {
+        self.init()
         self.className = clsName
     }
 }
-
 
 extension ClassNode: CustomStringConvertible {
     var description: String {

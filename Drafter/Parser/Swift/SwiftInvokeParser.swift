@@ -8,9 +8,11 @@
 
 import Foundation
 
+// TODO:  2. 单个参数尾随闭包的解析问题
+
 /*
  method_invoke = NAME '(' param_list? ')' callee?
- callee = '.' (method_invoke | NAME)
+ callee = ('?' | '!')? '.' (method_invoke | NAME)
  param_list = param (param ',')*
  param = ...
  */
@@ -20,8 +22,12 @@ class SwiftInvokeParser: BacktrackParser {
     func parse() -> [MethodInvokeNode] {
         while token().type != .endOfFile {
             do {
-                let invoke = try methodInvoke()
-                invokes.append(invoke)
+                if isMethodInvoke() {
+                    let invoke = try methodInvoke()
+                    invokes.append(invoke)
+                } else {
+                    consume()
+                }
             } catch {
                 consume()
             }
@@ -41,6 +47,14 @@ class SwiftInvokeParser: BacktrackParser {
 
 fileprivate extension SwiftInvokeParser {
     
+    func statement() throws {
+        
+    }
+    
+    func caller() throws {
+        
+    }
+    
     func methodInvoke() throws -> MethodInvokeNode {
         let invoke = MethodInvokeNode()
         invoke.isSwift = true
@@ -51,19 +65,21 @@ fileprivate extension SwiftInvokeParser {
         }
         invoke.methodName = name
         
-        if token().type == .leftBrace { // 只有一个尾随闭包的参数
+        // TODO: - 方法只有一个闭包参数，且以尾随闭包的方式调用的情况
+//        if token().type == .leftBrace {
+//            invoke.params.append("")
+//            try closure()
+//        }
+        
+        // 匹配参数
+        try match(.leftParen)
+        invoke.params = try paramList()
+        try match(.rightParen)
+        
+        // 还有尾随闭包
+        if token().type == .leftBrace {
             invoke.params.append("")
             try closure()
-        } else {
-            try match(.leftParen)
-            invoke.params = try paramList()
-            try match(.rightParen)
-            
-            // 还有尾随闭包
-            if token().type == .leftBrace {
-                invoke.params.append("")
-                try closure()
-            }
         }
         
         // 连续调用

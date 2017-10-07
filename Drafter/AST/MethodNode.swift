@@ -34,11 +34,11 @@ extension MethodNode: CustomStringConvertible {
     
     /// 格式化成OC风格
     var objcDescription: String {
-        var method = "["
+        var method = "\(isStatic ? "+" : "-") ["
         
         let methodDesc = params.join(stringify: { (param) -> String in
             if !param.innerName.isEmpty {
-                return "\(param.outterName):"
+                return "\(param.outterName): (\(param.type))"
             } else {
                 return param.outterName
             }
@@ -50,10 +50,14 @@ extension MethodNode: CustomStringConvertible {
     
     /// 格式化成swift风格
     var swiftDescription: String {
-        var method = "\(methodName)("
+        var method = "func \(methodName)("
+        
+        if isStatic {
+            method.insert(contentsOf: "static ", at: method.startIndex)
+        }
         
         let paramStr = params.join(stringify: { (param) -> String in
-            return "\(param.outterName):"
+            return "\(param.outterName): \(param.type)"
         }, separator: ", ")
         method.append(contentsOf: "\(paramStr))")
         
