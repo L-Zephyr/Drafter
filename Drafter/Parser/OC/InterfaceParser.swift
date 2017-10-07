@@ -76,18 +76,18 @@ class InterfaceParser: BacktrackParser {
 
 extension InterfaceParser {
     func classDecl() throws {
+        let node = ClassNode()
+        
         try match(.interface) // @interface关键字
-        try match(.name)      // 类名
+        node.className = try match(.name).text      // 类名
         
         // 成功匹配到interface定义, 添加到节点中
-        let node = ClassNode(clsName: lastToken?.text ?? "")
         currentNode = node
         nodes.append(node)
         
         if token().type == .colon { // 类型定义，继续匹配父类
             try match(.colon)
-            try match(.name) // 父类的名称
-            node.superCls = ClassNode(clsName: lastToken?.text ?? "") // 保存父类的名称
+            node.superCls = ClassNode(clsName: try match(.name).text) // 父类的名称
             
             try protocols()  // 实现的协议
         } else if token().type == .leftParen { // 碰到(说明这里为分类定义
@@ -110,13 +110,13 @@ extension InterfaceParser {
         if token().type == .leftAngle {
             try match(.leftAngle)
             // 至少有一个协议
-            try match(.name)
-            currentNode?.protocols.append(lastToken?.text ?? "")
+            let protoName = try match(.name).text
+            currentNode?.protocols.append(protoName)
             
             while token().type == .comma { // 多个协议之间用逗号隔开
                 try match(.comma)
-                try match(.name)
-                currentNode?.protocols.append(lastToken?.text ?? "")
+                let protoName = try match(.name).text
+                currentNode?.protocols.append(protoName)
             }
             try match(.rightAngle)
         }

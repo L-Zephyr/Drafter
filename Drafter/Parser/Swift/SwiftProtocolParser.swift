@@ -34,12 +34,10 @@ class SwiftProtocolParser: BacktrackParser {
 fileprivate extension SwiftProtocolParser {
     
     func protocolDefinition() throws -> ProtocolNode {
-        try match(.proto)
-        try match(.name)
-        
         let proto = ProtocolNode()
-        proto.name = lastToken?.text ?? ""
         
+        try match(.proto)
+        proto.name = try match(.name).text
         proto.supers = try inheritList()
         
         return proto
@@ -51,8 +49,8 @@ fileprivate extension SwiftProtocolParser {
         if token().type == .colon {
             try match(.colon)
             while token().type != .endOfFile {
-                try match(.name)
-                inherits.append(lastToken?.text ?? "")
+                let parent = try match(.name).text
+                inherits.append(parent)
                 
                 if token().type == .comma { // 还有更多
                     consume()

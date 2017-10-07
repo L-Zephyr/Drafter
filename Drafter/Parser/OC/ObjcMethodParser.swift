@@ -122,8 +122,8 @@ extension ObjcMethodParser {
                 let params = try methodParamList()
                 currentNode?.params = params
             } else { // 无参数
-                try match(.name)
-                currentNode?.params.append(Param(type: "", outter: lastToken?.text ?? "", inner: ""))
+                let outterName = try match(.name).text
+                currentNode?.params.append(Param(type: "", outter: outterName, inner: ""))
             }
         } else {
             throw ParserError.notMatch("Expected .name, found: \(token().type)")
@@ -135,14 +135,12 @@ extension ObjcMethodParser {
         repeat {
             var param = Param()
             
-            try match(.name) // 参数名称
-            param.outterName = lastToken?.text ?? ""
+            param.outterName = try match(.name).text // 参数名称
             
             try match(.colon)
             param.type = try type()
             
-            try match(.name)
-            param.innerName = lastToken?.text ?? ""
+            param.innerName = try match(.name).text
             
             params.append(param)
         } while token().type == .name
