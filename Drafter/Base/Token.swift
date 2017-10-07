@@ -33,6 +33,7 @@ enum TokenType {
     case colon             // 冒号: :
     case comma             // 逗号: ,
     case semicolon         // 分号: ;
+    case equal             // 等号: =
     case underline         // 下划线: _
     case plus              // 加号: +
     case minus             // 减号: -

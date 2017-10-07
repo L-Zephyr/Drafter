@@ -51,39 +51,45 @@ class SwiftMethodParser: BacktrackParser {
 fileprivate extension SwiftMethodParser {
     
     func methodDefinition() throws -> MethodNode {
-        
         if (token().type == .statical || token().type == .cls) && token(at: 1).type == .function {
             if token().type == .statical {
                 try match(.statical)
             } else {
                 try match(.cls)
             }
-            let method = try methodDef()
+            try match(.function)
+            let method = try methodContent()
             
             method.isStatic = true
             return method
             
         } else if token().type == .function {
-            return try methodDef()
+            try match(.function)
+            return try methodContent()
+            
+        } else if isInitMethod() {
+            return try methodContent()
             
         } else {
             throw ParserError.notMatch("Not match func")
         }
     }
     
-    func methodDef() throws -> MethodNode {
+    func methodContent() throws -> MethodNode {
         let method = MethodNode()
         method.isSwift = true
         
-        try match(.function)
-        method.methodName = try match(.name).text
+        method.methodName = try match(.name).text // 方法名
         
+        // 参数列表
         try match(.leftParen)
         method.params = try paramList()
         try match(.rightParen)
         
+        // 返回值
         method.returnType = try returnType()
         
+        // 函数体
         method.methodBody = try methodBody()
         
         return method
@@ -201,5 +207,14 @@ fileprivate extension SwiftMethodParser {
         
         return tokens
     }
+}
+
+fileprivate extension SwiftMethodParser {
     
+    func isInitMethod() -> Bool {
+        if token().text == "init" && token(at: 1).type == .leftParen {
+            return true
+        }
+        return false
+    }
 }

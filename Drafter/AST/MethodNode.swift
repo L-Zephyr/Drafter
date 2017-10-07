@@ -50,7 +50,12 @@ extension MethodNode: CustomStringConvertible {
     
     /// 格式化成swift风格
     var swiftDescription: String {
-        var method = "func \(methodName)("
+        var method = ""
+        
+        if methodName != "init" {
+            method.append(contentsOf: "func ")
+        }
+        method.append(contentsOf: "\(methodName)(")
         
         if isStatic {
             method.insert(contentsOf: "static ", at: method.startIndex)

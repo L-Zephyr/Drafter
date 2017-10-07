@@ -135,6 +135,10 @@ class SourceLexer: Lexer {
                 }
                 return Token(type: .minus, text: "-")
                 
+            case "=":
+                consume()
+                return Token(type: .equal, text: "=")
+                
             case "*":
                 consume()
                 return Token(type: .asterisk, text: "*")
