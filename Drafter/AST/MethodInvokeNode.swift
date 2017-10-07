@@ -60,14 +60,7 @@ extension MethodInvokeNode: CustomStringConvertible {
             method.append(contentsOf: "\(name) ")
         }
         
-        for index in 0..<params.count {
-            method.append(contentsOf: "\(params[index])")
-            if index != params.count - 1 {
-                method.append(contentsOf: " ")
-            }
-        }
-        
-        method.append(contentsOf: "]")
+        method.append(contentsOf: "\(params.joined(separator: " "))]")
         
         return method
     }

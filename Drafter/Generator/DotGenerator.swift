@@ -34,7 +34,7 @@ class DotGenerator {
                 dot.append(cls, label: name)
             }
             
-            // 协议不单独作为节点显示, 避免图片过于混乱
+            // 协议不单独作为节点显示, 避免连线过于混乱
 //            for proto in cls.protocols {
 //                if !nodesSet.contains(proto) {
 //                    nodesSet.insert(proto)
@@ -66,6 +66,7 @@ class DotGenerator {
         
         var nodesSet = Set<Int>()
         var relationSet = Set<String>() // 避免重复连线
+        
         for method in methods {
             // 添加节点定义
             if !nodesSet.contains(method.hashValue) {
@@ -75,8 +76,14 @@ class DotGenerator {
             
             for invoke in method.invokes {
                 if !nodesSet.contains(invoke.hashValue) {
-                    dot.append(invoke, label: invoke.description)
-                    nodesSet.insert(invoke.hashValue)
+                    // 优先显示详细的信息
+                    if let index = methods.index(where: { $0.hashValue == invoke.hashValue }) {
+                        dot.append(methods[index], label: methods[index].description)
+                        nodesSet.insert(methods[index].hashValue)
+                    } else {
+                        dot.append(invoke, label: invoke.description)
+                        nodesSet.insert(invoke.hashValue)
+                    }
                 }
                 
                 let relation = "\(method.hashValue)\(invoke.hashValue)"
@@ -129,7 +136,8 @@ fileprivate extension DotGenerator {
     }
     
     func append<T: Hashable>(_ node: T, label: String) {
-        dot.append(contentsOf: "\(node.hashValue) [label=\"\(label)\"];")
+        let escaped = label.replacingOccurrences(of: "->", with: "\\-\\>")
+        dot.append(contentsOf: "\(node.hashValue) [label=\"\(escaped)\"];")
     }
     
     func point<T: Hashable, A: Hashable>(from: T, to: A, emptyArrow: Bool = false, dashed: Bool = false) {
@@ -148,3 +156,8 @@ fileprivate extension DotGenerator {
         }
     }
 }
+
+//extension Array where Iterator.Element: Equatable {
+//    func contain
+//}
+
