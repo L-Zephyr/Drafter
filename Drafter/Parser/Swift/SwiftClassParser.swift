@@ -8,9 +8,11 @@
 
 import Foundation
 
+// TODO: - protocol预处理，更加明确的区分Protocol和Class
+
 /*
  definition = class_definition | protocol_definition | extension_definition
- g
+ 
  class_definition = 'class' NAME generics_type? inherit_list
  generics_type = '<' ANY '>'
  inherit_list = (':' (NAME)+ )?
@@ -121,10 +123,10 @@ fileprivate extension SwiftClassParser {
     }
     
     func extensionDefinition() throws -> ClassNode {
-        try match(.exten)
-        try match(.name)
+        let cls = ClassNode()
         
-        let cls = ClassNode(clsName: lastToken?.text ?? "")
+        try match(.exten)
+        cls.className = try match(.name).text
         
         cls.protocols = try inheritList()
         try match(.leftBrace)
@@ -138,8 +140,8 @@ fileprivate extension SwiftClassParser {
         if token().type == .colon {
             try match(.colon)
             while token().type != .endOfFile {
-                try match(.name)
-                inherits.append(lastToken?.text ?? "")
+                let parent = try match(.name).text
+                inherits.append(parent)
                 
                 if token().type == .comma { // 还有更多
                     consume()

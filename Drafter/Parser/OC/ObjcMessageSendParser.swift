@@ -78,13 +78,14 @@ fileprivate extension ObjcMessageSendParser {
         } else {
             // 考虑xx.xx的情况
             var name = ""
-            try match(.name)
-            name.append(contentsOf: lastToken?.text ?? "")
+            
+            let property = try match(.name).text
+            name.append(contentsOf: property)
             
             while token().type == .dot {
                 try match(.dot)
-                try match(.name)
-                name.append(contentsOf: ".\(lastToken?.text ?? "")")
+                let property = try match(.name).text
+                name.append(contentsOf: ".\(property)")
             }
             
             return .name(name)
@@ -98,8 +99,7 @@ fileprivate extension ObjcMessageSendParser {
         if token().type == .name {
             if token(at: 1).type == .colon { // 有参数
                 while token().type != .endOfFile && token().type != .rightSquare {
-                    try match(.name)
-                    let name = lastToken?.text ?? ""
+                    let name = try match(.name).text
                     
                     try match(.colon)
                     params.append("\(name):")
@@ -107,8 +107,8 @@ fileprivate extension ObjcMessageSendParser {
                     try param()
                 }
             } else { // 无参数
-                try match(.name)
-                params.append(lastToken?.text ?? "")
+                let name = try match(.name).text
+                params.append(name)
             }
         }
         
