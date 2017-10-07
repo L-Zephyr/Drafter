@@ -9,8 +9,8 @@
 import Foundation
 
 /*
- protocol_definition = 'protocol' NAME inherit_list
- inherit_list = (':' (NAME)+ )?
+ protocol_definition = 'protocol' NAME inherit_list?
+ inherit_list = ':' NAME (',' NAME)*
  */
 class SwiftProtocolParser: BacktrackParser {
     
@@ -40,6 +40,8 @@ fileprivate extension SwiftProtocolParser {
         proto.name = try match(.name).text
         proto.supers = try inheritList()
         
+        try match(.leftBrace)
+        
         return proto
     }
     
@@ -49,7 +51,14 @@ fileprivate extension SwiftProtocolParser {
         if token().type == .colon {
             try match(.colon)
             while token().type != .endOfFile {
-                let parent = try match(.name).text
+                var parent = ""
+                if token().type == .name {
+                    parent = try match(.name).text
+                } else if token().type == .cls {
+                    parent = try match(.cls).text
+                } else {
+                    throw ParserError.notMatch("Not match protocol parent")
+                }
                 inherits.append(parent)
                 
                 if token().type == .comma { // 还有更多
