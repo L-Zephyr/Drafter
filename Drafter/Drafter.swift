@@ -63,20 +63,28 @@ class Drafter {
     /// 生成继承关系图
     fileprivate func craftInheritGraph() {
         var classNodes = [ClassNode]()
-        for file in files {
-            let lexer = SourceLexer(file: file)
-            print(file)
-            
-            if file.isSwift {
-                let parser = SwiftClassParser(lexer: lexer)
-                classNodes.merge(parser.parse())
-            } else {
-                let parser = InterfaceParser(lexer: lexer)
-                classNodes.merge(parser.parse())
-            }
+        
+        // oc files
+        for file in files.filter({ !$0.isSwift }) {
+            let parser = InterfaceParser(lexer: SourceLexer(file: file))
+            classNodes.merge(parser.parse())
         }
         
-        print("class node: \(classNodes.count)")
+        // swift files
+        let swiftFiles = files.filter({ $0.isSwift })
+        
+        // 1. 解析protocol
+        var protocols = [ProtocolNode]()
+        for file in swiftFiles {
+            let parser = SwiftProtocolParser(lexer: SourceLexer(file: file))
+            protocols.append(contentsOf: parser.parse())
+        }
+        
+        // 2. 解析class
+        for file in swiftFiles {
+            let parser = SwiftClassParser(lexer: SourceLexer(file: file), protocols: protocols)
+            classNodes.merge(parser.parse())
+        }
         
         DotGenerator.generate(classNodes, filePath: "Inheritance")
         

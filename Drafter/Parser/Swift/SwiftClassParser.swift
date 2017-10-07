@@ -8,8 +8,6 @@
 
 import Foundation
 
-// TODO: - protocol预处理，更加明确的区分Protocol和Class
-
 /*
  definition = class_definition | protocol_definition | extension_definition
  
@@ -19,6 +17,11 @@ import Foundation
  ...
  */
 class SwiftClassParser: BacktrackParser {
+    
+    init(lexer: Lexer, protocols: [ProtocolNode] = []) {
+        super.init(lexer: lexer)
+        self.protocols = protocols
+    }
     
     func parse() -> [ClassNode] {
         while token().type != .endOfFile {
@@ -37,7 +40,6 @@ class SwiftClassParser: BacktrackParser {
     // MARK: - Private
     
     fileprivate var nodes: [ClassNode] = []
-    fileprivate var currentNode: ClassNode? = nil
     fileprivate var protocols: [ProtocolNode] = []
     
     /// nodes去重
@@ -88,10 +90,10 @@ fileprivate extension SwiftClassParser {
         
         for index in 0..<inherits.count {
             let name = inherits[index]
-            if index == 0 {
-                cls.superCls = ClassNode(clsName: name)
-            } else {
+            if protocols.contains(where: { $0.name == name }) || index > 0  {
                 cls.protocols.append(name)
+            } else if index == 0 {
+                cls.superCls = ClassNode(clsName: name)
             }
         }
         
@@ -100,7 +102,7 @@ fileprivate extension SwiftClassParser {
         return cls
     }
     
-    // 直接忽略泛型定义
+    // 忽略泛型定义
     func genericsType() throws {
         if token().type == .leftAngle {
             try match(.leftAngle)

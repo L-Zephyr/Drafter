@@ -233,8 +233,8 @@
 		BBAEFF811F83B35F004F4136 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
-				BBAEFF881F83BB0A004F4136 /* SwiftClassParser.swift */,
 				BBAEFF941F84CCC3004F4136 /* SwiftProtocolParser.swift */,
+				BBAEFF881F83BB0A004F4136 /* SwiftClassParser.swift */,
 				BB6F4C461F84D38E00512F1B /* SwiftMethodParser.swift */,
 				BB6F4C4B1F85CDBA00512F1B /* SwiftInvokeParser.swift */,
 			);
