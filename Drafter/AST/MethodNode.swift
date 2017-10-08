@@ -38,7 +38,7 @@ extension MethodNode: CustomStringConvertible {
         
         let methodDesc = params.join(stringify: { (param) -> String in
             if !param.innerName.isEmpty {
-                return "\(param.outterName): (\(param.type))"
+                return "\(param.outterName): "
             } else {
                 return param.outterName
             }
@@ -62,7 +62,7 @@ extension MethodNode: CustomStringConvertible {
         }
         
         let paramStr = params.join(stringify: { (param) -> String in
-            return "\(param.outterName): \(param.type)"
+            return "\(param.outterName): "
         }, separator: ", ")
         method.append(contentsOf: "\(paramStr))")
         

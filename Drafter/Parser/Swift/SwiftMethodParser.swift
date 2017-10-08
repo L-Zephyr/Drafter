@@ -170,13 +170,36 @@ fileprivate extension SwiftMethodParser {
     }
     
     func returnType() throws -> String {
+        if token().text == "throws" || token().text == "rethrows" {
+            consume()
+        }
+        
         var ret = [String]()
         if token().type == .rightArrow {
             try match(.rightArrow)
+            // 判断返回值匹配结束
             
-            while token().type != .endOfFile && token().type != .leftBrace {
+            // FIXME: - 这一块代码有点胶水，后续需优化
+            var inside = 0
+            while token().type != .endOfFile {
+                if token().type == .rightArrow || token().type == .dot {
+                    ret.append(token().text)
+                    consume()
+                }
+                
+                if token().type == .leftAngle || token().type == .leftParen {
+                    inside += 1
+                } else if token().type == .rightAngle || token().type == .rightParen {
+                    inside -= 1
+                }
+
                 ret.append(token().text)
                 consume()
+                
+                let end = token().type != .rightArrow && token().type != .dot && token().type != .leftAngle && token().type != .leftParen
+                if inside == 0 && end {
+                    break
+                }
             }
         }
         
