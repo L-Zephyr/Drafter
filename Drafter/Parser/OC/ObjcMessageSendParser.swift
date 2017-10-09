@@ -134,9 +134,9 @@ fileprivate extension ObjcMessageSendParser {
             }
             
             // 处理嵌套的情况
-            if token().type == .leftSquare || token().type == .leftBrace {
+            if token().type == .leftSquare || token().type == .leftBrace || token().type == .leftParen {
                 inside += 1
-            } else if token().type == .rightSquare || token().type == .rightBrace {
+            } else if token().type == .rightSquare || token().type == .rightBrace || token().type == .rightParen {
                 inside -= 1
             }
 

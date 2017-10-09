@@ -15,12 +15,13 @@ enum DraftMode: String {
 }
 
 // 命令行参数解析
-let filePath = StringOption("f", "file", true, "The file or directory to be parsed, supported: .h and .m")
+let filePath = StringOption("f", "file", true, "The file or directory to be parsed, supported: .h and .m. Multiple arguments are separated by commas.")
 let mode = EnumOption<DraftMode>(shortFlag: "m", longFlag: "mode", required: false, helpMessage: "The parsing mode, if you choose 'call', it will generate call graph. If you choose 'inherit' it will generate class inheritance graph. Default to 'call'")
 let search = StringOption("s", "search", false, "Specify a keyword, the generate graph only contains thats nodes you are interested in. Multiple arguments are separated by commas")
+let selfOnly = BoolOption("self", "self-method-only", false, "Only contains the methods defined in the user code")
 
 let cli = CommandLine()
-cli.addOptions(filePath, mode, search)
+cli.addOptions(filePath, mode, search, selfOnly)
 
 do {
     try cli.parse()
@@ -30,12 +31,13 @@ do {
 }
 
 // 指定文件
-guard let path = filePath.value else {
+guard let paths = filePath.value else {
     exit(EX_USAGE)
 }
 
 let drafter = Drafter()
 drafter.keywords = search.value?.split(by: ",").map { $0.lowercased() } ?? []
 drafter.mode = mode.value ?? .callGraph
-drafter.path = path
+drafter.selfOnly = selfOnly.value
+drafter.paths = paths
 drafter.craft()
