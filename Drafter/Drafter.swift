@@ -12,7 +12,7 @@ class Drafter {
     
     // MARK: - Public
     
-    var mode: DraftMode = .callGraph
+    var mode: DraftMode = .invokeGraph
     var keywords: [String] = []
     var selfOnly: Bool = false // 只包含定义在用户代码中的方法节点
     
@@ -44,13 +44,13 @@ class Drafter {
     /// 生成调用图
     func craft() {
         switch mode {
-        case .callGraph:
-            craftCallGraph()
+        case .invokeGraph:
+            craftinvokeGraph()
         case .inheritGraph:
             craftInheritGraph()
         case .both:
             craftInheritGraph()
-            craftCallGraph()
+            craftinvokeGraph()
         }
     }
     
@@ -100,7 +100,7 @@ class Drafter {
     }
     
     /// 生成方法调用关系图
-    fileprivate func craftCallGraph() {
+    fileprivate func craftinvokeGraph() {
         for file in files.filter({ !$0.hasSuffix(".h") }) {
             let lexer = SourceLexer(file: file)
             
