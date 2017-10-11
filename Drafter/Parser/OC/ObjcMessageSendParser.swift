@@ -48,7 +48,6 @@ fileprivate extension ObjcMessageSendParser {
     func statement() throws {
         if isMessageSend() {
             let node = try messageSend()
-            try match(.semicolon)
             
             nodes.append(node)
         } else {

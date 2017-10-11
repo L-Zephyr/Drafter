@@ -156,8 +156,3 @@ fileprivate extension DotGenerator {
         }
     }
 }
-
-//extension Array where Iterator.Element: Equatable {
-//    func contain
-//}
-
