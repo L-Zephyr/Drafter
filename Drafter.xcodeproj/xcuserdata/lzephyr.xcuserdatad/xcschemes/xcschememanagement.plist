@@ -4,35 +4,45 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Mapper.xcscheme</key>
+		<key>Drafter-Package.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>Tests.xcscheme</key>
+		<key>Drafter.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>DrafterPackageDescription.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>DrafterTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>drafter.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>drafterPackageDescription.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>BB2CA6CB1F76192D0018F9AD</key>
+		<key>Drafter::Drafter</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BB2CA6DF1F765C0B0018F9AD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BB525F941F792B76006966D4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BBA4C65D1F792FB4009C780F</key>
+		<key>drafter::drafter</key>
 		<dict>
 			<key>primary</key>
 			<true/>
