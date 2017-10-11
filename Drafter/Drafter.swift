@@ -153,7 +153,7 @@ fileprivate extension Drafter {
     
     /// 根据关键字提取子树
     func extractSubtree(_ nodes: [MethodNode]) -> [MethodNode] {
-        guard keywords.count != 0 else {
+        guard keywords.count != 0, nodes.count != 0 else {
             return nodes
         }
         
@@ -164,13 +164,20 @@ fileprivate extension Drafter {
         }
         subtrees.append(contentsOf: filted)
         
-        for method in filted {
-            for invoke in method.invokes {
-                if let index = nodes.index(where: { $0.hashValue == invoke.hashValue }) {
-                    subtrees.append(nodes[index])
-                }
+        // 递归获取下面的调用分支
+        func selfInvokes(_ invokes: [MethodInvokeNode], _ nodes: [MethodNode]) -> [MethodNode] {
+            let methods = nodes.filter({ (method) -> Bool in
+                invokes.contains(where: { $0.hashValue == method.hashValue })
+            })
+            
+            var result = methods
+            for method in methods {
+                result.append(contentsOf: selfInvokes(method.invokes, nodes))
             }
+            return result
         }
+        
+        subtrees.append(contentsOf: selfInvokes(filted.reduce([], { $0 + $1.invokes}), nodes))
         
         return subtrees
     }
