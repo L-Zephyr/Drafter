@@ -11,7 +11,7 @@
 工程的Release文件夹下保存了一份release版本的Drafter，可以通过命令来安装：
 
 ```shell
-curl "https://raw.githubusercontent.com/L-Zephyr/Drafter/master/Release/install.sh" | /bin/sh
+curl "https://raw.githubusercontent.com/L-Zephyr/Drafter/master/install.sh" | /bin/sh
 ```
 
 或者直接编译源码
