@@ -8,13 +8,12 @@
 
 ## 安装
 
-工程的Release文件夹下保存了一份release版本的Drafter，可以通过命令来安装：
+执行以下指令，会自动安装到 /usr/local/bin 目录中：
 
 ```shell
 curl "https://raw.githubusercontent.com/L-Zephyr/Drafter/master/install.sh" | /bin/sh
 ```
-
-或者直接编译源码
+或者直接下载并编译源码
 
 ## 基本使用
 
