@@ -34,7 +34,8 @@ class InterfaceParser: BacktrackParser {
         while token().type != .endOfFile {
             if token().type == .interface {
                 do {
-                    try classDecl()
+                    let cls = try classDecl()
+                    nodes.append(cls)
                 } catch {
                     print(error)
                 }
@@ -51,7 +52,6 @@ class InterfaceParser: BacktrackParser {
     // MARK: - Private
     
     fileprivate var nodes: [ClassNode] = [] // 解析出来的类型节点
-    fileprivate var currentNode: ClassNode? = nil // 当前正在解析的节点
     
     /// 合并nodes中相同的结果
     fileprivate func distinct() {
@@ -75,23 +75,17 @@ class InterfaceParser: BacktrackParser {
 // MARK: - 文法规则解析
 
 extension InterfaceParser {
-    func classDecl() throws {
+    func classDecl() throws -> ClassNode {
         let node = ClassNode()
         
         try match(.interface) // @interface关键字
-        node.className = try match(.name).text      // 类名
-        
-        // 成功匹配到interface定义, 添加到节点中
-        currentNode = node
-        nodes.append(node)
-        
+        node.className = try match(.name).text  // 类名
+
         if token().type == .colon { // 类型定义，继续匹配父类
             try match(.colon)
-            node.superCls = ClassNode(clsName: try match(.name).text) // 父类的名称
-            
-            try protocols()  // 实现的协议
+            node.superCls = ClassNode(clsName: try match(.name).text) // 父类
+            node.protocols = try protocols()  // 协议
         } else if token().type == .leftParen { // 碰到(说明这里为分类定义
-            // TODO: 区分category
             try match(.leftParen)
             
             // 括号中没有内容则为匿名分类
@@ -100,25 +94,29 @@ extension InterfaceParser {
             }
             
             try match(.rightParen)
-            try protocols()
+            node.protocols = try protocols()
         }
         
-        currentNode = nil
+        return node
     }
     
-    func protocols() throws {
+    func protocols() throws -> [String] {
+        var protos = [String]()
+        
         if token().type == .leftAngle {
             try match(.leftAngle)
             // 至少有一个协议
             let protoName = try match(.name).text
-            currentNode?.protocols.append(protoName)
+            protos.append(protoName)
             
             while token().type == .comma { // 多个协议之间用逗号隔开
                 try match(.comma)
                 let protoName = try match(.name).text
-                currentNode?.protocols.append(protoName)
+                protos.append(protoName)
             }
             try match(.rightAngle)
         }
+        
+        return protos
     }
 }

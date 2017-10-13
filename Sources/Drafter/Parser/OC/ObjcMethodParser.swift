@@ -39,7 +39,6 @@ class ObjcMethodParser: BacktrackParser {
                 do {
                     try methodStat()
                 } catch {
-//                    print(error)
                     consume()
                 }
             } else {
@@ -60,7 +59,6 @@ class ObjcMethodParser: BacktrackParser {
     }
     
     fileprivate var nodes: [MethodNode] = []
-    fileprivate var currentNode: MethodNode? = nil
 }
 
 // MARK: - 规则解析
@@ -69,61 +67,63 @@ extension ObjcMethodParser {
     
     func methodStat() throws {
         if isMethodDef() {
-            currentNode = MethodNode()
-            try methodDefinition()
-            currentNode.map { nodes.append($0) }
-            currentNode = nil
+            let method = try methodDefinition()
+            nodes.append(method)
+            
         } else if isMethodDecl() {
-            currentNode = MethodNode()
-            try methodDecl()
-            currentNode.map { nodes.append($0) }
-            currentNode = nil
+            let method = try methodDecl()
+            nodes.append(method)
+            
         } else {
             throw ParserError.notMatch("Unexpected found: \(token().type)")
         }
     }
     
-    func methodDefinition() throws {
-        try staticMethod()
+    @discardableResult
+    func methodDefinition() throws -> MethodNode {
+        let method = MethodNode()
         
-        let retType = try type()
-        currentNode?.returnType = retType
+        method.isStatic = try staticMethod()
+        method.returnType = try type()
+        method.params = try methodSelector()
+        method.methodBody = try methodBody()
         
-        try methodSelector()
-        try methodBody()
+        return method
     }
     
-    func methodDecl() throws {
-        try staticMethod()
+    @discardableResult
+    func methodDecl() throws -> MethodNode {
+        let method = MethodNode()
         
-        let retType = try type()
-        currentNode?.returnType = retType
+        method.isStatic = try staticMethod()
+        method.returnType = try type()
+        method.params = try methodSelector()
         
-        try methodSelector()
         try match(.semicolon)
+        
+        return method
     }
     
     /// 类方法或实例方法
-    func staticMethod() throws {
+    func staticMethod() throws -> Bool {
         if token().type == .plus {
             try match(.plus)
-            currentNode?.isStatic = true
+            return true
         } else if token().type == .minus {
             try match(.minus)
-            currentNode?.isStatic = false
+            return false
         } else {
             throw ParserError.notMatch("Expected: + or -, found: \(token().type)")
         }
     }
     
-    func methodSelector() throws {
+    func methodSelector() throws -> [Param] {
         if token().type == .name {
             if token(at: 1).type == .colon { // 带参数
-                let params = try methodParamList()
-                currentNode?.params = params
+                return try methodParamList()
             } else { // 无参数
                 let outterName = try match(.name).text
-                currentNode?.params.append(Param(type: "", outter: outterName, inner: ""))
+                return [Param(type: "", outter: outterName, inner: "")]
             }
         } else {
             throw ParserError.notMatch("Expected .name, found: \(token().type)")
@@ -140,7 +140,12 @@ extension ObjcMethodParser {
             try match(.colon)
             param.type = try type()
             
-            param.innerName = try match(.name).text
+            param.innerName = try match(.name).text // 内部形参名称
+            
+            // 可变参数，暂不匹配
+            if token().type == .comma {
+                consume(step: 4)
+            }
             
             params.append(param)
         } while token().type == .name
@@ -174,7 +179,7 @@ extension ObjcMethodParser {
         return typeName.joined(separator: " ")
     }
     
-    func methodBody() throws {
+    func methodBody() throws -> [Token] {
         try match(.leftBrace)
         
         // 匹配整个函数体
@@ -197,7 +202,7 @@ extension ObjcMethodParser {
         
         try match(.rightBrace)
         
-        currentNode?.methodBody = tokens
+        return tokens
     }
 }
 

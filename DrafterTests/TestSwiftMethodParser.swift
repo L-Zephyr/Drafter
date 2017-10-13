@@ -35,4 +35,11 @@ class TestSwiftMethodParser: XCTestCase {
         XCTAssert(methods[0].returnType == "( ) -> Int")
         XCTAssert(methods[0].invokes[0].methodName == "method2")
     }
+    
+    func testArbitraryParams() {
+        let methods = parse("func method(_ param1: String..., param2: Int) {}")
+        
+        XCTAssert(methods.count == 1)
+        XCTAssert(methods[0].params.count == 2)
+    }
 }

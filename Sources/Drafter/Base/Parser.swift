@@ -62,15 +62,15 @@ class BacktrackParser: Parser {
     
     // MARK: - 步进
     
-    func consume() {
-        currentIndex += 1
+    func consume(step: Int = 1) {
+        currentIndex += step
         
         // 不在推演状态，且到达了lookaheads缓冲区最后一位则清空lookaheads
         if currentIndex == lookaheads.count && !isSpeculating {
             currentIndex = 0
             lookaheads.removeAll()
         }
-        sync(1)
+        sync(step)
     }
     
     /// 保证从当前位置开始直到count都有有效的Token, count从1开始

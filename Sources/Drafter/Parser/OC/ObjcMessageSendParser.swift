@@ -37,7 +37,6 @@ class ObjcMessageSendParser: BacktrackParser {
     }
     
     fileprivate var nodes: [MethodInvokeNode] = []
-    fileprivate var currentNode: MethodInvokeNode? = nil
 }
 
 // MARK: - 规则解析
