@@ -164,20 +164,21 @@ fileprivate extension Drafter {
         }
         subtrees.append(contentsOf: filted)
         
-        // 递归获取下面的调用分支
-        func selfInvokes(_ invokes: [MethodInvokeNode], _ nodes: [MethodNode]) -> [MethodNode] {
+        // 递归获取节点下面的调用分支
+        func selfInvokes(_ invokes: [MethodInvokeNode], _ subtrees: [MethodNode]) -> [MethodNode] {
+            guard invokes.count != 0 else {
+                return subtrees
+            }
+            
             let methods = nodes.filter({ (method) -> Bool in
-                invokes.contains(where: { $0.hashValue == method.hashValue })
+                invokes.contains(where: { $0.hashValue == method.hashValue }) &&
+                !subtrees.contains(where: { $0.hashValue == method.hashValue })
             })
             
-            var result = methods
-            for method in methods {
-                result.append(contentsOf: selfInvokes(method.invokes, nodes))
-            }
-            return result
+            return selfInvokes(methods.reduce([], { $0 + $1.invokes}), methods + subtrees)
         }
         
-        subtrees.append(contentsOf: selfInvokes(filted.reduce([], { $0 + $1.invokes}), nodes))
+        subtrees.append(contentsOf: selfInvokes(filted.reduce([], { $0 + $1.invokes}), subtrees))
         
         return subtrees
     }

@@ -48,11 +48,7 @@ enum TokenType {
 
 // MARK: - 词法单元类型
 
-protocol Tokenize {
-    var type: TokenType { set get }
-}
-
-class Token: Tokenize {
+struct Token {
     var type: TokenType
     var text: String
     

@@ -119,12 +119,12 @@
 			isa = PBXGroup;
 			children = (
 				BB0EAAFE1F8E416100C48449 /* TestInterfaceParser.swift */,
-				BB0EAAFF1F8E416200C48449 /* TestMessageSend.swift */,
 				BB0EAAF91F8E416000C48449 /* TestObjcMethodDefParser.swift */,
-				BB0EAAFB1F8E416100C48449 /* TestSwiftClassParser.swift */,
-				BB0EAAFD1F8E416100C48449 /* TestSwiftInvokeParser.swift */,
-				BB0EAAFA1F8E416100C48449 /* TestSwiftMethodParser.swift */,
+				BB0EAAFF1F8E416200C48449 /* TestMessageSend.swift */,
 				BB0EAAFC1F8E416100C48449 /* TestSwiftProtocolParser.swift */,
+				BB0EAAFB1F8E416100C48449 /* TestSwiftClassParser.swift */,
+				BB0EAAFA1F8E416100C48449 /* TestSwiftMethodParser.swift */,
+				BB0EAAFD1F8E416100C48449 /* TestSwiftInvokeParser.swift */,
 				BB0EAAF51F8E411400C48449 /* Info.plist */,
 			);
 			path = DrafterTests;
@@ -133,10 +133,10 @@
 		OBJ_14 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_15 /* Extension.swift */,
+				OBJ_18 /* Token.swift */,
 				OBJ_16 /* Lexer.swift */,
 				OBJ_17 /* Parser.swift */,
-				OBJ_18 /* Token.swift */,
+				OBJ_15 /* Extension.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -173,8 +173,8 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_29 /* InterfaceParser.swift */,
-				OBJ_30 /* ObjcMessageSendParser.swift */,
 				OBJ_31 /* ObjcMethodParser.swift */,
+				OBJ_30 /* ObjcMessageSendParser.swift */,
 			);
 			path = OC;
 			sourceTree = "<group>";
@@ -182,10 +182,10 @@
 		OBJ_32 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_33 /* SwiftClassParser.swift */,
-				OBJ_34 /* SwiftInvokeParser.swift */,
-				OBJ_35 /* SwiftMethodParser.swift */,
 				OBJ_36 /* SwiftProtocolParser.swift */,
+				OBJ_33 /* SwiftClassParser.swift */,
+				OBJ_35 /* SwiftMethodParser.swift */,
+				OBJ_34 /* SwiftInvokeParser.swift */,
 			);
 			path = Swift;
 			sourceTree = "<group>";
@@ -206,7 +206,7 @@
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -215,7 +215,6 @@
 				BB0EAAF21F8E411400C48449 /* DrafterTests */,
 				OBJ_40 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -229,13 +228,13 @@
 		OBJ_8 /* drafter */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_9 /* AST */,
-				OBJ_14 /* Base */,
-				OBJ_19 /* CommandLineKit */,
-				OBJ_23 /* Drafter.swift */,
-				OBJ_24 /* Generator */,
-				OBJ_27 /* Parser */,
 				OBJ_37 /* main.swift */,
+				OBJ_23 /* Drafter.swift */,
+				OBJ_14 /* Base */,
+				OBJ_9 /* AST */,
+				OBJ_27 /* Parser */,
+				OBJ_24 /* Generator */,
+				OBJ_19 /* CommandLineKit */,
 			);
 			name = drafter;
 			path = Sources/drafter;
@@ -245,9 +244,9 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_10 /* ClassNode.swift */,
-				OBJ_11 /* MethodInvokeNode.swift */,
-				OBJ_12 /* MethodNode.swift */,
 				OBJ_13 /* ProtocolNode.swift */,
+				OBJ_12 /* MethodNode.swift */,
+				OBJ_11 /* MethodInvokeNode.swift */,
 			);
 			path = AST;
 			sourceTree = "<group>";
@@ -326,7 +325,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_40 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

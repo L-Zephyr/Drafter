@@ -76,4 +76,10 @@ class TestObjcMethodParser: XCTestCase {
         XCTAssert(methods.count == 1)
         XCTAssert(methods[0].invokes.count == 2)
     }
+    
+    func testArbitraryParams() {
+        let methods = parse("- (void)trackWithEventId:(NSString *)eventId attributes:(id)attributes, ... ;")
+        
+        XCTAssert(methods.count == 1)
+    }
 }
