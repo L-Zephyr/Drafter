@@ -8,13 +8,11 @@
 
 import Foundation
 
-// TODO:  2. 单个参数尾随闭包的解析问题
-
 /*
- method_invoke = NAME '(' param_list? ')' callee?
- callee = ('?' | '!')? '.' (method_invoke | NAME)
- param_list = param (param ',')*
- param = ...
+ method_invoke  = NAME '(' param_list? ')' callee?
+ callee         = ('?' | '!')? '.' (method_invoke | NAME)
+ param_list     = param (param ',')*
+ param          = ...
  */
 /// 解析swift方法的调用
 class SwiftInvokeParser: BacktrackParser {
@@ -46,14 +44,6 @@ class SwiftInvokeParser: BacktrackParser {
 // MARK: - 规则解析
 
 fileprivate extension SwiftInvokeParser {
-    
-    func statement() throws {
-        
-    }
-    
-    func caller() throws {
-        
-    }
     
     func methodInvoke() throws -> MethodInvokeNode {
         let invoke = MethodInvokeNode()

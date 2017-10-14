@@ -12,8 +12,8 @@ import Foundation
  definition = class_definition | protocol_definition | extension_definition
  
  class_definition = 'class' NAME generics_type? inherit_list
- generics_type = '<' ANY '>'
- inherit_list = (':' (NAME)+ )?
+ generics_type    = '<' ANY '>'
+ inherit_list     = (':' (NAME)+ )?
  ...
  */
 class SwiftClassParser: BacktrackParser {

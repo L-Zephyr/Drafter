@@ -14,8 +14,6 @@ enum ParserError: Error {
 
 protocol Node { } // AST节点
 
-// TODO: 抽离公共的操作
-
 protocol Parser {
 	func parse() -> [Node]
 }
