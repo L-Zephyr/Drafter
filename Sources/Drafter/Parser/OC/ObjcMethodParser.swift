@@ -10,20 +10,14 @@ import Cocoa
 
 /*
  OC方法声明:
- method_decl
-     = ('-' | '+') type method_selector ';'
- type
-     = '(' TYPE_NAME ')'
- method_selector
-     = NAME | method_param_list
- method_param_list
-     = (NAME ':' type NAME)+
+ method_decl       = ('-' | '+') type method_selector ';'
+ type              = '(' TYPE_NAME ')'
+ method_selector   = NAME | method_param_list
+ method_param_list = (NAME ':' type NAME)+
  
  OC方法定义:
- method_definition
-     = ('-' | '+') type method_selector method_body
- method_body
-     = '{' BODY '}'
+ method_definition = ('-' | '+') type method_selector method_body
+ method_body       = '{' BODY '}'
  
  method_stat = method_decl | method_definition
  

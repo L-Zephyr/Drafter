@@ -11,17 +11,15 @@ import Foundation
 // MARK: - InterfaceParser
 
 /*
- @interface文法:
+ @interface:
+ classDecl = '@interface' className (':' className)* protocols
+ className = NAME
+ protocols = '<' NAME (',' NAME)* '>' | ''
  
- classDecl: '@interface' className (':' className)* protocols
- className: NAME
- protocols: '<' NAME (',' NAME)* '>' | ''
- 
- Extension文法:
- 
- extension: '@interface' className '(' ')' protocols
- className: NAME
- protocols: '<' NAME (',' NAME)* '>' | ''
+ Extension:
+ extension = '@interface' className '(' ')' protocols
+ className = NAME
+ protocols = '<' NAME (',' NAME)* '>' | ''
  */
 
 /// 解析class的定义

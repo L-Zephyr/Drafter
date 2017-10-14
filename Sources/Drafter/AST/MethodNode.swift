@@ -21,6 +21,23 @@ class MethodNode: Node {
     var methodBody: [Token] = [] // 函数体的源码
 }
 
+// MARK: - Param
+
+struct Param: Node {
+    var type: String = "" // 参数类型
+    var outterName: String = "" // 参数的名字
+    var innerName: String = "" // 内部形参的名字
+}
+
+extension Param {
+    init(type: String, outter: String, inner: String) {
+        self.init()
+        self.type = type
+        self.outterName = outter
+        self.innerName = inner
+    }
+}
+
 // MARK: - CustomStringConvertible
 
 extension MethodNode: CustomStringConvertible {
@@ -105,22 +122,5 @@ extension MethodNode: Hashable {
         let methodSign = "\(methodName)\(paramSign)"
         
         return methodSign.hashValue
-    }
-}
-
-// MARK: - Param
-
-struct Param: Node {
-    var type: String = "" // 参数类型
-    var outterName: String = "" // 参数的名字
-    var innerName: String = "" // 内部形参的名字
-}
-
-extension Param {
-    init(type: String, outter: String, inner: String) {
-        self.init()
-        self.type = type
-        self.outterName = outter
-        self.innerName = inner
     }
 }

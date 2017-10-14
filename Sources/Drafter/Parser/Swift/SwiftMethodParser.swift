@@ -9,12 +9,12 @@
 import Foundation
 
 /*
- method_definition = ('class' | 'static')? 'func' NAME ‘(' param_list ')' return_type method_body
- param_list = (param (',' param)*)?
- param = ('_' | NAME)? NAME ':' param_type
- param_type = ANY
- return_type = (-> ANY)?
- method_body = '{' BODY '}'
+ method_definition  = ('class' | 'static')? 'func' NAME ‘(' param_list ')' return_type method_body
+ param_list         = (param (',' param)*)?
+ param              = ('_' | NAME)? NAME ':' param_type
+ param_type         = ANY
+ return_type        = (-> ANY)?
+ method_body        = '{' BODY '}'
  */
 class SwiftMethodParser: BacktrackParser {
     

@@ -10,14 +10,11 @@ import Foundation
 
 /*
  OC方法调用:
- statement
-     = message_send ';'
- message_send
-     = '[' receiver param_list ']'
- receiver
-     = message_send | NAME
- param_list
-     = NAME | (NAME ':' param)+
+ statement    = message_send ';'
+ message_send = '[' receiver param_list ']'
+ receiver     = message_send | NAME
+ param_list   = NAME | (NAME ':' param)+
+ param        = ...
  */
 
 /// 解析一个函数体中所有的OC方法调用，包括在block中的调用

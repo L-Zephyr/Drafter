@@ -10,7 +10,7 @@ import Foundation
 
 /*
  protocol_definition = 'protocol' NAME inherit_list?
- inherit_list = ':' NAME (',' NAME)*
+ inherit_list        = ':' NAME (',' NAME)*
  */
 class SwiftProtocolParser: BacktrackParser {
     
