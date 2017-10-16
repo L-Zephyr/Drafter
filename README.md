@@ -69,3 +69,7 @@ curl "https://raw.githubusercontent.com/L-Zephyr/Drafter/master/install.sh" | /b
   可以看到，与上面的第一个例子对比，去掉了调用外部方法的连线，整个代码执行的逻辑更加清晰：
 
   ![2](./.res/2.png)
+
+## 实现原理
+
+实现细节请看[http://www.jianshu.com/p/9a1a32ec0af6](http://www.jianshu.com/p/9a1a32ec0af6)
