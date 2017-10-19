@@ -25,6 +25,17 @@ extension Array {
     }
 }
 
+extension Array where Element: Hashable {
+    func genericContain<E: Hashable>(_ ele: E) -> Bool {
+        for item in self {
+            if item.hashValue == ele.hashValue {
+                return true
+            }
+        }
+        return false
+    }
+}
+
 extension String {
     func contains(_ keywords: [String]) -> Bool {
         if keywords.isEmpty {

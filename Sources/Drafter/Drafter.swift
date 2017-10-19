@@ -91,9 +91,9 @@ class Drafter {
             classNodes.merge(parser.parse())
         }
         
-        DotGenerator.generate(classNodes, filePath: "Inheritance")
+        DotGenerator.generate(classes: classNodes, protocols: protocols, filePath: "Inheritance")
         
-        // test
+        // Log to terminal
         for node in classNodes {
             print(node)
         }

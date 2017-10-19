@@ -14,34 +14,27 @@ class DotGenerator {
     // MARK: - Public
     
     /// 在当前位置生成类图
-    static func generate(_ nodes: [ClassNode], filePath: String) {
+    static func generate(classes clsNodes: [ClassNode], protocols: [ProtocolNode], filePath: String) {
         let dot = DotGenerator()
         var nodesSet = Set<String>()
         
         dot.begin(name: "Inheritance")
         
-        for cls in nodes {
+        // class node
+        for cls in clsNodes {
             // 类节点
             if !nodesSet.contains(cls.className) {
                 nodesSet.insert(cls.className)
-                
-                var name = ""
-                if cls.protocols.count != 0 {
-                    name = "{\(cls.className)|\\<\(cls.protocols.joined(separator: ", "))\\>}"
-                } else {
-                    name = "\(cls.className)"
-                }
-                dot.append(cls, label: name)
+                dot.append(cls, label: "\(cls.className)")
             }
             
-            // 协议不单独作为节点显示, 避免连线过于混乱
-//            for proto in cls.protocols {
-//                if !nodesSet.contains(proto) {
-//                    nodesSet.insert(proto)
-//                    dot.append(proto, label: proto)
-//                }
-//                dot.point(from: cls, to: proto, emptyArrow: true, dashed: true)
-//            }
+            for proto in cls.protocols {
+                if !nodesSet.contains(proto) {
+                    nodesSet.insert(proto)
+                    dot.append(proto, label: "<<protocol>>\n\(proto)")
+                }
+                dot.point(from: cls, to: proto, emptyArrow: true, dashed: true)
+            }
             
             // 父类
             if let superCls = cls.superCls?.className {
@@ -50,6 +43,14 @@ class DotGenerator {
                     dot.append(superCls, label: superCls)
                 }
                 dot.point(from: cls, to: superCls, emptyArrow: true)
+            }
+        }
+        
+        // 剩余的Protocol
+        for proto in protocols {
+            if !nodesSet.contains(proto.name) {
+                nodesSet.insert(proto.name)
+                dot.append(proto, label: "<<protocol>>\n\(proto.name)")
             }
         }
         
@@ -136,7 +137,11 @@ fileprivate extension DotGenerator {
     }
     
     func append<T: Hashable>(_ node: T, label: String) {
-        let escaped = label.replacingOccurrences(of: "->", with: "\\-\\>")
+        var escaped = label
+        escaped = escaped.replacingOccurrences(of: "->", with: "\\-\\>")
+        escaped = escaped.replacingOccurrences(of: "<", with: "\\<")
+        escaped = escaped.replacingOccurrences(of: ">", with: "\\>")
+        
         dot.append(contentsOf: "\(node.hashValue) [label=\"\(escaped)\"];")
     }
     
