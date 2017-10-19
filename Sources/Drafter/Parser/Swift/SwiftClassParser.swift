@@ -72,7 +72,9 @@ fileprivate extension SwiftClassParser {
             nodes.append(cls)
         case .exten:
             let cls = try extensionDefinition()
-            nodes.append(cls)
+            if !protocols.genericContain(cls) {
+                nodes.append(cls)
+            }
         default:
             consume()
         }
