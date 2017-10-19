@@ -37,13 +37,17 @@ extension Array where Element: Hashable {
 }
 
 extension String {
+    /// 检查字符串是否包含关键字，忽略大小写
+    ///
+    /// - Parameter keywords: 关键字列表
+    /// - Returns:            只要包含keywords中任意一个关键字就返回true
     func contains(_ keywords: [String]) -> Bool {
         if keywords.isEmpty {
             return true
         }
         
         for keyword in keywords {
-            if self.contains(keyword) {
+            if self.lowercased().contains(keyword.lowercased()) {
                 return true
             }
         }

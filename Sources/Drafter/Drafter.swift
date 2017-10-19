@@ -67,12 +67,12 @@ class Drafter {
     
     /// 生成继承关系图
     fileprivate func craftInheritGraph() {
-        var classNodes = [ClassNode]()
+        var classes = [ClassNode]()
         
         // oc files
         for file in files.filter({ !$0.isSwift }) {
             let parser = InterfaceParser(lexer: SourceLexer(file: file))
-            classNodes.merge(parser.parse())
+            classes.merge(parser.parse())
         }
         
         // swift files
@@ -88,13 +88,16 @@ class Drafter {
         // 2. 解析class
         for file in swiftFiles {
             let parser = SwiftClassParser(lexer: SourceLexer(file: file), protocols: protocols)
-            classNodes.merge(parser.parse())
+            classes.merge(parser.parse())
         }
         
-        DotGenerator.generate(classes: classNodes, protocols: protocols, filePath: "Inheritance")
+        classes = classes.filter({ $0.className.contains(keywords) })
+        protocols = protocols.filter({ $0.name.contains(keywords) })
+        
+        DotGenerator.generate(classes: classes, protocols: protocols, filePath: "Inheritance")
         
         // Log to terminal
-        for node in classNodes {
+        for node in classes {
             print(node)
         }
     }
@@ -160,7 +163,7 @@ fileprivate extension Drafter {
         // 过滤出包含keyword的根节点
         var subtrees: [MethodNode] = []
         let filted = nodes.filter {
-            $0.description.lowercased().contains(keywords)
+            $0.description.contains(keywords)
         }
         subtrees.append(contentsOf: filted)
         
