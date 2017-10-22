@@ -67,7 +67,8 @@ fileprivate extension SwiftClassParser {
     
     func definition() throws {
         switch token().type {
-        case .cls:
+        case .cls: fallthrough
+        case .structure:
             let cls = try classDefinition()
             nodes.append(cls)
         case .exten:
@@ -83,7 +84,15 @@ fileprivate extension SwiftClassParser {
     func classDefinition() throws -> ClassNode {
         let cls = ClassNode()
         
-        try match(.cls)
+        // 暂不区分struct和class
+        if token().type == .structure {
+            try match(.structure)
+        } else if token().type == .cls {
+            try match(.cls)
+        } else {
+            throw ParserError.notMatch("Not match class")
+        }
+        
         cls.className = try match(.name).text
         
         try genericsType()

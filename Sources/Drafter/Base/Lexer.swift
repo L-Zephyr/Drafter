@@ -175,6 +175,8 @@ class SourceLexer: Lexer {
                     if isSwift {
                         if value == "class" {
                             return Token(type: .cls, text: "class")
+                        } else if value == "struct" {
+                            return Token(type: .structure, text: "struct")
                         } else if value == "protocol" {
                             return Token(type: .proto, text: "protocol")
                         } else if value == "extension" {
