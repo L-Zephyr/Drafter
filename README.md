@@ -35,7 +35,7 @@ curl "https://raw.githubusercontent.com/L-Zephyr/Drafter/master/install.sh" | /b
   drafter -f ./AFNetworking -m inherit
   ```
 
-  在当前位置的文件夹中会生成一张名为"Inheritance.png"的图片：
+  在当前位置的文件夹中会生成一张名为"Inheritance.png"的图片，类图的表示遵循UML规则，虚线表示遵循协议，实线表示继承父类：
 
   ![3](./.res/3.png)
 
