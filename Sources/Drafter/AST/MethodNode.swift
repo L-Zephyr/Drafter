@@ -23,7 +23,7 @@ class MethodNode: Node {
 
 // MARK: - Param
 
-struct Param: Node {
+struct Param {
     var type: String = "" // 参数类型
     var outterName: String = "" // 参数的名字
     var innerName: String = "" // 内部形参的名字
