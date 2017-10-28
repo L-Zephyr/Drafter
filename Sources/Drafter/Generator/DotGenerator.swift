@@ -117,7 +117,7 @@ class DotGenerator {
         _ = FileManager.default.createFile(atPath: dotFile, contents: code.data(using: .utf8), attributes: nil)
         
         // 生成png
-        Executor.execute("dot", "-T", "png", dotFile, "-o", "\(target)")
+        Executor.execute("dot", "-T", "png", dotFile, "-o", "\(target)", help: "Make sure Graphviz is successfully installed.")
         
         // 删除.dot文件
         try? FileManager.default.removeItem(at: URL(fileURLWithPath: dotFile))

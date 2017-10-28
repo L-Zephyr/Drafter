@@ -19,19 +19,29 @@ class Executor {
     ///   - args:       参数
     /// - Returns:      执行结果输出
     @discardableResult
-    static func execute(_ executable: String, _ args: String...) -> String {
+    static func execute(_ executable: String, _ args: String..., help: String = "") -> String {
+        // check which
+        guard FileManager.default.fileExists(atPath: "/usr/bin/which") else {
+            print("Error: missing command: /usr/bin/which")
+            return ""
+        }
         
-        // 查找可执行文件的
-        func pathForExecutable(executable: String) -> String {
+        // 查找可执行文件的路径
+        func pathForExecutable(executable: String) -> String? {
             guard !executable.characters.contains("/") else {
                 return executable
             }
             let path = Executor.execute("/usr/bin/which", executable)
-            return path.isEmpty ? executable : path
+            return path.isEmpty ? nil : path
+        }
+        
+        guard let path = pathForExecutable(executable: executable) else {
+            print("Error: '\(executable)' not exist! \(help)")
+            return ""
         }
         
         let process = Process()
-        process.launchPath = pathForExecutable(executable: executable)
+        process.launchPath = path
         process.arguments = args
         
         let command = Command(process: process)
