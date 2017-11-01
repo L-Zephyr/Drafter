@@ -13,12 +13,21 @@ class ClassNode: Node {
     var superCls: ClassNode? = nil // 父类
     var className: String = ""     // 类名
     var protocols: [String] = []   // 实现的协议
+    
+    init(_ cls: ClassNode?, _ name: String, _ protos: [String]) {
+        superCls = cls
+        className = name
+        protocols = protos
+    }
 }
 
 extension ClassNode {
     convenience init(clsName: String) {
-        self.init()
-        self.className = clsName
+        self.init(nil, clsName, [])
+    }
+    
+    convenience init() {
+        self.init(nil, "", [])
     }
 }
 

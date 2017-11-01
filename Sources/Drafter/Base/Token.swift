@@ -59,6 +59,16 @@ struct Token {
     }
 }
 
+extension Token: Equatable {
+    static func ==(lhs: Token, rhs: Token) -> Bool {
+        if lhs.type == .name && rhs.type == .name {
+            return lhs.text == rhs.text
+        } else {
+            return lhs.type == rhs.type
+        }
+    }
+}
+
 extension Token: CustomStringConvertible {
     var description: String {
         return "<\(text)>"

@@ -14,11 +14,11 @@ enum ParserError: Error {
 
 protocol Node { } // AST节点
 
-protocol Parser {
+protocol ParserType {
 	func parse() -> [Node]
 }
 
-extension Parser {
+extension ParserType {
     func parse() -> [Node] {
         return []
     }
@@ -27,7 +27,7 @@ extension Parser {
 // MARK: - BacktrackParser
 
 /// LL(k) parser
-class BacktrackParser: Parser {
+class BacktrackParser: ParserType {
     
     // MARK: - 初始化方法
     
