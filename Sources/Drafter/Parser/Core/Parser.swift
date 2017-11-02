@@ -7,10 +7,24 @@
 
 import Foundation
 
+// MARK: - Parser
+
 typealias Tokens = [Token]
 
 struct Parser<T> {
     var parse: (Tokens) -> (T, Tokens)?
+}
+
+// MARK: - Parser Extensions
+
+extension Parser {
+    /// 执行parser，只返回结果
+    func run(_ tokens: Tokens) -> T? {
+        guard let (result, _) = self.parse(tokens) else {
+            return nil
+        }
+        return result
+    }
 }
 
 /// 创建一个不消耗任何输入，直接返回给定值的Parser

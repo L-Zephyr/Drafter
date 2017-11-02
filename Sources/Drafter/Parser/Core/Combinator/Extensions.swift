@@ -28,7 +28,7 @@ extension Parser {
     }
     
     /// 解析包含在指定标签之间的值: p self p
-    func between<U>(_ p: Parser<U>) -> Parser<T> {
-        return p *> self <* p
+    func between<A, B>(_ left: Parser<A>, _ right: Parser<B>) -> Parser<T> {
+        return left *> self <* right
     }
 }

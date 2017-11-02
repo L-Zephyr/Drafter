@@ -20,15 +20,17 @@ import Foundation
  */
 class InterfaceGenParser {
     func parse(_ tokens: Tokens) -> [ClassNode] {
-        let parser = token(.interface)
-        return []
+        let l = token(.leftAngle)
+        let r = token(.rightAngle)
+        
+        let parser = curry(ClassNode.init)
+            <^> (token(.interface) *> token(.name)).map({ ClassNode(clsName: $0.text) })
+            <*> (token(.colon) *> token(.name)).map({ $0.text })
+            <*> token(.name).separateBy(token(.comma)).between(l, r).map({ $0.map { $0.text } })
+        
+        guard let (node, _) = parser.parse(tokens) else {
+            return []
+        }
+        return [node]
     }
-    
-//    func className() -> Parser<String> {
-//
-//    }
-//
-//    func protocols() -> Parser<[String]> {
-//
-//    }
 }

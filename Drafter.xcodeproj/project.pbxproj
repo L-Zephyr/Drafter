@@ -71,6 +71,8 @@
 		BB4FA2471FA87C2E0082391D /* Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4FA23A1FA87B000082391D /* Monad.swift */; };
 		BB4FA2481FA87C310082391D /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4FA2201FA879B30082391D /* Parser.swift */; };
 		BB4FA2491FA87C320082391D /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4FA2201FA879B30082391D /* Parser.swift */; };
+		BBA0C73D1FAB46C200DCBBB0 /* ParserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA0C73C1FAB46C200DCBBB0 /* ParserResult.swift */; };
+		BBA0C73F1FAB46CC00DCBBB0 /* ParserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA0C73E1FAB46CC00DCBBB0 /* ParserError.swift */; };
 		OBJ_47 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_53 /* ClassNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* ClassNode.swift */; };
 		OBJ_54 /* MethodInvokeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* MethodInvokeNode.swift */; };
@@ -124,6 +126,8 @@
 		BB4FA23A1FA87B000082391D /* Monad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monad.swift; sourceTree = "<group>"; };
 		BB4FA23C1FA87B070082391D /* Applicative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Applicative.swift; sourceTree = "<group>"; };
 		BB4FA23E1FA87B0F0082391D /* Alternative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alternative.swift; sourceTree = "<group>"; };
+		BBA0C73C1FAB46C200DCBBB0 /* ParserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserResult.swift; sourceTree = "<group>"; };
+		BBA0C73E1FAB46CC00DCBBB0 /* ParserError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserError.swift; sourceTree = "<group>"; };
 		OBJ_10 /* ClassNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassNode.swift; sourceTree = "<group>"; };
 		OBJ_11 /* MethodInvokeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodInvokeNode.swift; sourceTree = "<group>"; };
 		OBJ_12 /* MethodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodNode.swift; sourceTree = "<group>"; };
@@ -171,7 +175,7 @@
 		BB0EAAF21F8E411400C48449 /* DrafterTests */ = {
 			isa = PBXGroup;
 			children = (
-				BB38A65D1FA9BC060022D28A /* TestCombinator.swift */,
+				BBD9E2321FAB41FA00E9FEE9 /* Combinator */,
 				BB0EAAFE1F8E416100C48449 /* TestInterfaceParser.swift */,
 				BB0EAAF91F8E416000C48449 /* TestObjcMethodDefParser.swift */,
 				BB0EAAFF1F8E416200C48449 /* TestMessageSend.swift */,
@@ -197,6 +201,8 @@
 			children = (
 				BB4FA2371FA87AF00082391D /* Combinator */,
 				BB4FA2201FA879B30082391D /* Parser.swift */,
+				BBA0C73C1FAB46C200DCBBB0 /* ParserResult.swift */,
+				BBA0C73E1FAB46CC00DCBBB0 /* ParserError.swift */,
 			);
 			name = Core;
 			path = Sources/Drafter/Parser/Core;
@@ -244,6 +250,14 @@
 				BB4FA23C1FA87B070082391D /* Applicative.swift */,
 				BB4FA23A1FA87B000082391D /* Monad.swift */,
 				BB38A6531FA8BBDA0022D28A /* Extensions.swift */,
+			);
+			path = Combinator;
+			sourceTree = "<group>";
+		};
+		BBD9E2321FAB41FA00E9FEE9 /* Combinator */ = {
+			isa = PBXGroup;
+			children = (
+				BB38A65D1FA9BC060022D28A /* TestCombinator.swift */,
 			);
 			path = Combinator;
 			sourceTree = "<group>";
@@ -528,6 +542,8 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_47 /* Package.swift in Sources */,
+				BBA0C73F1FAB46CC00DCBBB0 /* ParserError.swift in Sources */,
+				BBA0C73D1FAB46C200DCBBB0 /* ParserResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
