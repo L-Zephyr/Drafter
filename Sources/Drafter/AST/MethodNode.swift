@@ -21,6 +21,20 @@ class MethodNode: Node {
     var methodBody: [Token] = [] // 函数体的源码
 }
 
+extension MethodNode {
+    convenience init(_ isSwift: Bool, _ isStatic: Bool, _ retType: String, _ name: String, _ params: [Param], _ invokes: [MethodInvokeNode], _ body: [Token]) {
+        self.init()
+        
+        self.isSwift = isSwift
+        self.isStatic = isStatic
+        self.returnType = retType
+        self.methodName = name
+        self.params = params
+        self.invokes = invokes
+        self.methodBody = body
+    }
+}
+
 // MARK: - Param
 
 struct Param {

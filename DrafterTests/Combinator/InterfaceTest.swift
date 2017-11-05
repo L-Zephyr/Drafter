@@ -36,7 +36,7 @@ class InterfaceTest: XCTestCase {
     
     func testClassWithSuper() {
         let tokens = SourceLexer(input: "@interface MyClass: NSObject < Delegate1, Delegate2>").allTokens
-        let parser = InterfaceGenParser()
+        let parser = InterfaceParser()
         
         let nodes = parser.parse(tokens)
         
@@ -48,7 +48,7 @@ class InterfaceTest: XCTestCase {
     
     func testClassWithoutSuper() {
         let tokens = SourceLexer(input: "@interface MyClass < Delegate1, Delegate2>").allTokens
-        let parser = InterfaceGenParser()
+        let parser = InterfaceParser()
         
         let nodes = parser.parse(tokens)
         
@@ -60,7 +60,7 @@ class InterfaceTest: XCTestCase {
     
     func testClassWithoutDelegate() {
         let tokens = SourceLexer(input: "@interface MyClass").allTokens
-        let parser = InterfaceGenParser()
+        let parser = InterfaceParser()
         
         let nodes = parser.parse(tokens)
         
@@ -72,7 +72,7 @@ class InterfaceTest: XCTestCase {
     
     func testCategory() {
         let tokens = SourceLexer(input: "@interface MyClass() <Delegate1, Delegate2>").allTokens
-        let parser = InterfaceGenParser()
+        let parser = InterfaceParser()
         
         let nodes = parser.parse(tokens)
         
@@ -80,5 +80,27 @@ class InterfaceTest: XCTestCase {
         XCTAssert(nodes[0].superCls == nil)
         XCTAssert(nodes[0].className == "MyClass")
         XCTAssert(nodes[0].protocols == ["Delegate1", "Delegate2"])
+    }
+    
+    func testContiuous() {
+        let input = """
+        @interface MyClass() <Delegate1, Delegate2>
+        int a = 2;
+        @interface MyClass2()
+        """
+        let tokens = SourceLexer(input: input).allTokens
+        let parser = InterfaceParser()
+        
+        let nodes = parser.parse(tokens)
+        
+        XCTAssert(nodes.count == 2)
+        
+        XCTAssert(nodes[0].superCls == nil)
+        XCTAssert(nodes[0].className == "MyClass")
+        XCTAssert(nodes[0].protocols == ["Delegate1", "Delegate2"])
+        
+        XCTAssert(nodes[1].className == "MyClass2")
+        XCTAssert(nodes[1].superCls == nil)
+        XCTAssert(nodes[1].protocols.count == 0)
     }
 }

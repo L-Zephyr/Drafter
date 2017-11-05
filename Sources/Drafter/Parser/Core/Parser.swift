@@ -34,6 +34,26 @@ extension Parser {
             return result
         }
     }
+    
+    /// 连续执行该Parser直到输入耗尽为止，将所有的结果放在数组中返回，不会返回错误
+    var continuous: Parser<[T]> {
+        return Parser<[T]> { (tokens) -> Result<([T], Tokens)> in
+            var result = [T]()
+            var remainder = tokens
+            while remainder.count != 0 {
+                switch self.parse(remainder) {
+                case .success(let (t, rest)):
+                    result.append(t)
+                    remainder = rest
+                case .failure(_):
+                    remainder = Array(remainder.dropFirst())
+                    continue
+                }
+            }
+            
+            return .success((result, remainder))
+        }
+    }
 }
 
 //extension Parser where T == Token {
@@ -76,7 +96,7 @@ func fail<T>(_ error: ParserError = .unknown) -> Parser<T> {
     })
 }
 
-/// 创建解析单个token的parser
+/// 创建解析单个token的parser, 失败时不消耗输入
 func token(_ t: TokenType) -> Parser<Token> {
     return Parser(parse: { (tokens) -> Result<(Token, Tokens)> in
         guard let first = tokens.first, first.type == t else {

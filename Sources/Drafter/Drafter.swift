@@ -71,8 +71,8 @@ class Drafter {
         
         // oc files
         for file in files.filter({ !$0.isSwift }) {
-            let parser = InterfaceParser(lexer: SourceLexer(file: file))
-            classes.merge(parser.parse())
+            let parser = InterfaceParser()
+            classes.merge(parser.parse(SourceLexer(file: file).allTokens))
         }
         
         // swift files
