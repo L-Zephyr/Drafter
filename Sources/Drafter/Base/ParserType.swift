@@ -9,7 +9,10 @@
 import Foundation
 
 enum ParserError: Error {
-    case notMatch(String)
+    case notMatch(String) // TODO: delete
+    
+    case missMatch(String)
+    case unknown
 }
 
 protocol Node { } // AST节点

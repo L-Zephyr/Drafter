@@ -71,6 +71,6 @@ extension Token: Equatable {
 
 extension Token: CustomStringConvertible {
     var description: String {
-        return "<\(text)>"
+        return "\(text)"
     }
 }

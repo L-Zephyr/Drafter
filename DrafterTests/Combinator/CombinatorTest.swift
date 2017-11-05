@@ -7,7 +7,7 @@
 
 import XCTest
 
-class TestCombinator: XCTestCase {
+class CombinatorTest: XCTestCase {
 
     override func setUp() {
         super.setUp()
@@ -34,7 +34,7 @@ class TestCombinator: XCTestCase {
         let comma = token(.comma)
         let parser = token(.name).separateBy(comma)
         
-        guard let (result, rest) = parser.parse(tokens) else {
+        guard case .success(let (result, rest)) = parser.parse(tokens) else {
             XCTAssert(false)
             return
         }
@@ -47,7 +47,7 @@ class TestCombinator: XCTestCase {
                                Token(type: .name, text: "name"),
                                Token(type: .rightBrace, text: "}")]
         let parser = token(.name).between(token(.leftBrace), token(.rightBrace))
-        guard let (result, rest) = parser.parse(tokens) else {
+        guard case .success(let (result, rest)) = parser.parse(tokens) else {
             XCTAssert(false)
             return
         }
@@ -60,7 +60,7 @@ class TestCombinator: XCTestCase {
     func testMany() {
         let tokens: [Token] = [Token(type: .name, text: "name1"),
                                Token(type: .name, text: "name2")]
-        guard let (result, rest) = token(.name).many.parse(tokens) else {
+        guard case .success(let (result, rest)) = token(.name).many.parse(tokens) else {
             XCTAssert(false)
             return
         }
@@ -69,13 +69,5 @@ class TestCombinator: XCTestCase {
         XCTAssert(result[0].text == "name1")
         XCTAssert(result[1].text == "name2")
         XCTAssert(rest.count == 0)
-    }
-    
-    
-    
-    func testParse() {
-        let tokens = SourceLexer(input: "@interface _MyClass < TestDelegate1>").allTokens
-        let parser = InterfaceGenParser()
-        let nodes = parser.parse(tokens)
     }
 }

@@ -22,9 +22,15 @@ precedencegroup RunesApplicativePrecedence {
   lowerThan: NilCoalescingPrecedence
 }
 
+precedencegroup ConvertPrecedence {
+    associativity: left
+    higherThan: RunesApplicativePrecedence
+    lowerThan: NilCoalescingPrecedence
+}
+
 precedencegroup RunesApplicativeSequencePrecedence {
   associativity: left
-  higherThan: RunesApplicativePrecedence
+  higherThan: ConvertPrecedence
   lowerThan: NilCoalescingPrecedence
 }
 
@@ -103,3 +109,8 @@ infix operator >-> : RunesMonadicPrecedenceRight
   Haskell `infixr 1`
 */
 infix operator <-< : RunesMonadicPrecedenceRight
+
+/**
+ custom operator
+ */
+infix operator => : ConvertPrecedence

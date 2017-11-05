@@ -24,13 +24,16 @@ class InterfaceGenParser {
         let r = token(.rightAngle)
         
         let parser = curry(ClassNode.init)
-            <^> (token(.interface) *> token(.name)).map({ ClassNode(clsName: $0.text) })
+            <^> (curry(ClassNode.init(clsName:)) <^> (curry({ $0.text }) <^> token(.interface) *> token(.name)))
             <*> (token(.colon) *> token(.name)).map({ $0.text })
             <*> token(.name).separateBy(token(.comma)).between(l, r).map({ $0.map { $0.text } })
         
-        guard let (node, _) = parser.parse(tokens) else {
+        switch parser.parse(tokens) {
+        case .success(let (result, rest)):
+            return [result]
+        case .failure(let error):
+            print("\(error)")
             return []
         }
-        return [node]
     }
 }

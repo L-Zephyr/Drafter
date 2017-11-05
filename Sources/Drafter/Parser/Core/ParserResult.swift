@@ -12,6 +12,8 @@ enum Result<T> {
     case failure(ParserError)
 }
 
+// MARK: - Unbox
+
 extension Result {
     
     /// 可选值，如果解析成功返回结果，解析失败返回nil
@@ -34,3 +36,4 @@ extension Result {
         }
     }
 }
+
