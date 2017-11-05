@@ -14,8 +14,8 @@ class ClassNode: Node {
     var className: String = ""     // 类名
     var protocols: [String] = []   // 实现的协议
     
-    init(_ cls: ClassNode?, _ name: String, _ protos: [String]) {
-        superCls = cls
+    init(_ name: String, _ superCls: ClassNode?, _ protos: [String]) {
+        self.superCls = superCls
         className = name
         protocols = protos
     }
@@ -23,11 +23,11 @@ class ClassNode: Node {
 
 extension ClassNode {
     convenience init(clsName: String) {
-        self.init(nil, clsName, [])
+        self.init(clsName, nil, [])
     }
     
     convenience init() {
-        self.init(nil, "", [])
+        self.init("", nil, [])
     }
 }
 

@@ -7,6 +7,20 @@
 
 import XCTest
 
+extension Array where Element: Equatable {
+    static func == (_ lhs: Array<Element>, _ rhs: Array<Element>) -> Bool {
+        guard lhs.count == rhs.count else {
+            return false
+        }
+        for index in 0..<lhs.count {
+            if lhs[index] != rhs[index] {
+                return false
+            }
+        }
+        return true
+    }
+}
+
 class InterfaceTest: XCTestCase {
     
     override func setUp() {
@@ -20,9 +34,13 @@ class InterfaceTest: XCTestCase {
     }
     
     func testClassWithSuper() {
-        let tokens = SourceLexer(input: "@interface _MyClass: NSObject < Delegate1, Delegate2>").allTokens
+        let tokens = SourceLexer(input: "@interface MyClass: NSObject < Delegate1, Delegate2>").allTokens
         let parser = InterfaceGenParser()
         
         let nodes = parser.parse(tokens)
+        
+        XCTAssert(nodes.count == 1)
+        XCTAssert(nodes[0].className == "MyClass")
+        XCTAssert(nodes[0].protocols == ["Delegate1", "Delegate2"])
     }
 }

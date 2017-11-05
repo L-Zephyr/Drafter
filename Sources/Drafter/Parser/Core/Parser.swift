@@ -36,19 +36,19 @@ extension Parser {
     }
 }
 
-extension Parser where T == Token {
-    /// 将解析成功的token转换成字符串
-    var stringify: Parser<String> {
-        return Parser<String> { (tokens) -> Result<(String, Tokens)> in
-            switch self.parse(tokens) {
-            case .success(let (result, rest)):
-                return .success((result.text, rest))
-            case .failure(let error):
-                return .failure(error)
-            }
-        }
-    }
-}
+//extension Parser where T == Token {
+//    /// 将解析成功的token转换成字符串
+//    var stringify: Parser<String> {
+//        return Parser<String> { (tokens) -> Result<(String, Tokens)> in
+//            switch self.parse(tokens) {
+//            case .success(let (result, rest)):
+//                return .success((result.text, rest))
+//            case .failure(let error):
+//                return .failure(error)
+//            }
+//        }
+//    }
+//}
 
 /// 尝试执行Parser，执行结果为可选值，如果成功则包含执行结果，失败也同样返回success，结果为nil，不消耗任何输入
 func trying<T>(_ p: Parser<T>) -> Parser<T?> {

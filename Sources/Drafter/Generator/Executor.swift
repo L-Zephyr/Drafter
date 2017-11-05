@@ -28,7 +28,7 @@ class Executor {
         
         // 查找可执行文件的路径
         func pathForExecutable(executable: String) -> String? {
-            guard !executable.characters.contains("/") else {
+            guard !executable.contains("/") else {
                 return executable
             }
             let path = Executor.execute("/usr/bin/which", executable)
@@ -49,8 +49,8 @@ class Executor {
         
         // 如果结果只有一行, 去掉最后的回车
         var output = command.stdout
-        let firstnewline = output.characters.index(of: "\n")
-        if firstnewline == nil || output.characters.index(after: firstnewline!) == output.endIndex {
+        let firstnewline = output.index(of: "\n")
+        if firstnewline == nil || output.index(after: firstnewline!) == output.endIndex {
             output = output.trimmingCharacters(in: .whitespacesAndNewlines)
         }
         
