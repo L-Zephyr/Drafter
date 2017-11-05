@@ -7,6 +7,7 @@
 
 import XCTest
 
+/// 比较两个数组
 extension Array where Element: Equatable {
     static func == (_ lhs: Array<Element>, _ rhs: Array<Element>) -> Bool {
         guard lhs.count == rhs.count else {
@@ -40,6 +41,43 @@ class InterfaceTest: XCTestCase {
         let nodes = parser.parse(tokens)
         
         XCTAssert(nodes.count == 1)
+        XCTAssert(nodes[0].superCls != nil && nodes[0].superCls!.className == "NSObject")
+        XCTAssert(nodes[0].className == "MyClass")
+        XCTAssert(nodes[0].protocols == ["Delegate1", "Delegate2"])
+    }
+    
+    func testClassWithoutSuper() {
+        let tokens = SourceLexer(input: "@interface MyClass < Delegate1, Delegate2>").allTokens
+        let parser = InterfaceGenParser()
+        
+        let nodes = parser.parse(tokens)
+        
+        XCTAssert(nodes.count == 1)
+        XCTAssert(nodes[0].superCls == nil)
+        XCTAssert(nodes[0].className == "MyClass")
+        XCTAssert(nodes[0].protocols == ["Delegate1", "Delegate2"])
+    }
+    
+    func testClassWithoutDelegate() {
+        let tokens = SourceLexer(input: "@interface MyClass").allTokens
+        let parser = InterfaceGenParser()
+        
+        let nodes = parser.parse(tokens)
+        
+        XCTAssert(nodes.count == 1)
+        XCTAssert(nodes[0].superCls == nil)
+        XCTAssert(nodes[0].className == "MyClass")
+        XCTAssert(nodes[0].protocols.count == 0)
+    }
+    
+    func testCategory() {
+        let tokens = SourceLexer(input: "@interface MyClass() <Delegate1, Delegate2>").allTokens
+        let parser = InterfaceGenParser()
+        
+        let nodes = parser.parse(tokens)
+        
+        XCTAssert(nodes.count == 1)
+        XCTAssert(nodes[0].superCls == nil)
         XCTAssert(nodes[0].className == "MyClass")
         XCTAssert(nodes[0].protocols == ["Delegate1", "Delegate2"])
     }

@@ -19,11 +19,30 @@ func => <T, U>(_ lhs: Parser<[T]>, _ transfrom: @escaping (T) -> U) -> Parser<[U
     }
 }
 
+func => <T, U>(_ lhs: Parser<[T]?>, _ transfrom: @escaping (T) -> U) -> Parser<[U]> {
+    return lhs.map { list in
+        if let list = list {
+            return list.map { transfrom($0) }
+        } else {
+            return []
+        }
+    }
+}
+
 // MARK: - 类型转换方法
 
 /// 提取Token的text字段，将Token类型转换成String类型
-var stringify: (Token) -> String {
+//var stringify: (Token) -> String {
+//    return { token in
+//        token.text
+//    }
+//}
+var stringify: (Token?) -> String {
     return { token in
-        token.text
+        if let token = token {
+            return token.text
+        } else {
+            return ""
+        }
     }
 }

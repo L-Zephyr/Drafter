@@ -79,6 +79,8 @@ extension Array where Element == ClassNode {
     }
 }
 
+// MARK: - Hashable
+
 extension ClassNode: Hashable {
     static func ==(lhs: ClassNode, rhs: ClassNode) -> Bool {
         return lhs.className == rhs.className

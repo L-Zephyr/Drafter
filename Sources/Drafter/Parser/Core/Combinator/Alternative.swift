@@ -21,7 +21,7 @@ extension Parser {
             case .success(_):
                 return r
             case .failure(_):
-                return other.parse(tokens)
+                return other.parse(tokens) // 左侧失败时不消耗输入
             }
         })
     }

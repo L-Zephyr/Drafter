@@ -26,7 +26,10 @@ class CombinatorTest: XCTestCase {
                                Token(type: .comma, text: ",")]
         let comma = token(.comma)
         let parser = token(.name).separateBy(comma)
-        XCTAssert(parser.parse(tokens) == nil)
+        
+        if case .failure(_) = parser.parse(tokens) {
+            XCTAssert(false)
+        }
     }
     
     func testSeparator2() {
