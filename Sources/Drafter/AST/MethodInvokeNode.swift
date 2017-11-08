@@ -27,6 +27,10 @@ class MethodInvokeNode: Node {
 
 extension MethodInvokeNode {
     
+}
+
+extension MethodInvokeNode {
+    
     /// 找到最上层的调用者
     var topInvoker: MethodInvokeNode {
         switch invoker {

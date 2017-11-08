@@ -9,7 +9,7 @@ import Foundation
 
 // TODO: - 代码优化
 
-class InterfaceParser {
+class InterfaceParser: ParserType {
     
     func parse(_ tokens: Tokens) -> [ClassNode] {
         let parser = categoryParser <|> classParser

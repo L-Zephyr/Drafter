@@ -21,9 +21,9 @@ class TestInterfaceParser: XCTestCase {
     }
     
     func parse(_ code: String) -> [ClassNode] {
-        let lexer = SourceLexer(input: code)
-        let parser = InterfaceParser(lexer: lexer)
-        return parser.parse()
+        let tokens = SourceLexer(input: code).allTokens
+        let parser = InterfaceParser()
+        return parser.parse(tokens)
     }
     
     func testInterface() {

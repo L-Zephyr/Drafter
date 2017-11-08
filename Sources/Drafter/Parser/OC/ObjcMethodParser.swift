@@ -117,7 +117,7 @@ extension ObjcMethodParser {
                 return try methodParamList()
             } else { // 无参数
                 let outterName = try match(.name).text
-                return [Param(type: "", outter: outterName, inner: "")]
+                return [Param(outterName: outterName, type: "", innerName: "")]
             }
         } else {
             throw ParserError.notMatch("Expected .name, found: \(token().type)")
@@ -127,7 +127,7 @@ extension ObjcMethodParser {
     func methodParamList() throws -> [Param] {
         var params = [Param]()
         repeat {
-            var param = Param()
+            var param = Param(outterName: "", type: "", innerName: "")
             
             param.outterName = try match(.name).text // 参数名称
             

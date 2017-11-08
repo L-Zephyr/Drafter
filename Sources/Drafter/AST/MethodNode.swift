@@ -17,12 +17,12 @@ class MethodNode: Node {
     var returnType: String = "" // 返回值类型
     var methodName: String = "" 
     var params: [Param] = [] // 方法的参数
-    var invokes: [MethodInvokeNode] = [] // 该方法中调用的OC方法
     var methodBody: [Token] = [] // 函数体的源码
+    var invokes: [MethodInvokeNode] = [] // 该方法中调用的OC方法
 }
 
 extension MethodNode {
-    convenience init(_ isSwift: Bool, _ isStatic: Bool, _ retType: String, _ name: String, _ params: [Param], _ invokes: [MethodInvokeNode], _ body: [Token]) {
+    convenience init(_ isSwift: Bool, _ isStatic: Bool, _ retType: String, _ name: String, _ params: [Param], _ body: [Token], _ invokes: [MethodInvokeNode]) {
         self.init()
         
         self.isSwift = isSwift
@@ -35,22 +35,35 @@ extension MethodNode {
     }
 }
 
+//// MARK: - OCMethodNode
+//
+//class OCMethodNode: MethodNode {
+//
+//}
+//
+//// MARK: - SwiftMethodNode
+//
+//class SwiftMethodNode: MethodNode {
+//
+//}
+
+
 // MARK: - Param
 
 struct Param {
-    var type: String = "" // 参数类型
-    var outterName: String = "" // 参数的名字
-    var innerName: String = "" // 内部形参的名字
+    var outterName: String  // 参数的名字
+    var type: String  // 参数类型
+    var innerName: String  // 内部形参的名字
 }
 
-extension Param {
-    init(type: String, outter: String, inner: String) {
-        self.init()
-        self.type = type
-        self.outterName = outter
-        self.innerName = inner
-    }
-}
+//extension Param {
+//    init(_ outter: String, _ type: String, _ inner: String) {
+//        self.init()
+//        self.type = type
+//        self.outterName = outter
+//        self.innerName = inner
+//    }
+//}
 
 // MARK: - CustomStringConvertible
 

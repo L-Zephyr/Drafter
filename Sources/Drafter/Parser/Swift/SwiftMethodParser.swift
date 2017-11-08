@@ -111,7 +111,7 @@ fileprivate extension SwiftMethodParser {
     }
     
     func param() throws -> Param {
-        var parameter = Param()
+        var parameter = Param(outterName: "", type: "", innerName: "")
         
         if token().type == .underline {
             try match(.underline)

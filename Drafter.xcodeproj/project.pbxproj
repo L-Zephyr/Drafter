@@ -35,8 +35,11 @@
 		BB0EAB1A1F8E419000C48449 /* SwiftMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* SwiftMethodParser.swift */; };
 		BB0EAB1B1F8E419000C48449 /* SwiftProtocolParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* SwiftProtocolParser.swift */; };
 		BB0EAB1C1F8E41AF00C48449 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* main.swift */; };
+		BB12AA8C1FB2B453007EB55A /* ObjcMessageGenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB12AA8A1FB2B3F2007EB55A /* ObjcMessageGenParser.swift */; };
+		BB12AA8D1FB2B454007EB55A /* ObjcMessageGenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB12AA8A1FB2B3F2007EB55A /* ObjcMessageGenParser.swift */; };
 		BB1E205B1FAF08240009D9A7 /* ObjcMethodGenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E205A1FAF08240009D9A7 /* ObjcMethodGenParser.swift */; };
 		BB1E205C1FAF08240009D9A7 /* ObjcMethodGenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E205A1FAF08240009D9A7 /* ObjcMethodGenParser.swift */; };
+		BB2D40F11FB1947900986078 /* OCMethodTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D40F01FB1947900986078 /* OCMethodTest.swift */; };
 		BB38A63B1FA8B63E0022D28A /* Array+Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4FA2241FA879EF0082391D /* Array+Alternative.swift */; };
 		BB38A63C1FA8B63F0022D28A /* Array+Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4FA2241FA879EF0082391D /* Array+Alternative.swift */; };
 		BB38A63D1FA8B6410022D28A /* Array+Applicative.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4FA2251FA879EF0082391D /* Array+Applicative.swift */; };
@@ -113,7 +116,9 @@
 		BB0EAAFD1F8E416100C48449 /* TestSwiftInvokeParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSwiftInvokeParser.swift; sourceTree = "<group>"; };
 		BB0EAAFE1F8E416100C48449 /* TestInterfaceParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestInterfaceParser.swift; sourceTree = "<group>"; };
 		BB0EAAFF1F8E416200C48449 /* TestMessageSend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMessageSend.swift; sourceTree = "<group>"; };
+		BB12AA8A1FB2B3F2007EB55A /* ObjcMessageGenParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ObjcMessageGenParser.swift; path = Sources/Drafter/Parser/OC/Combinator/ObjcMessageGenParser.swift; sourceTree = SOURCE_ROOT; };
 		BB1E205A1FAF08240009D9A7 /* ObjcMethodGenParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ObjcMethodGenParser.swift; path = Sources/Drafter/Parser/OC/Combinator/ObjcMethodGenParser.swift; sourceTree = SOURCE_ROOT; };
+		BB2D40F01FB1947900986078 /* OCMethodTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCMethodTest.swift; sourceTree = "<group>"; };
 		BB38A64F1FA8BB500022D28A /* Curry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Curry.swift; path = Sources/Drafter/Runes/Curry.swift; sourceTree = SOURCE_ROOT; };
 		BB38A6531FA8BBDA0022D28A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		BB38A65D1FA9BC060022D28A /* CombinatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinatorTest.swift; sourceTree = "<group>"; };
@@ -158,7 +163,7 @@
 		OBJ_36 /* SwiftProtocolParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftProtocolParser.swift; sourceTree = "<group>"; };
 		OBJ_37 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		"drafter::drafter::Product" /* drafter */ = {isa = PBXFileReference; lastKnownFileType = text; path = drafter; sourceTree = BUILT_PRODUCTS_DIR; };
+		"drafter::drafter::Product" /* drafter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = drafter; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				BB1E205A1FAF08240009D9A7 /* ObjcMethodGenParser.swift */,
+				BB12AA8A1FB2B3F2007EB55A /* ObjcMessageGenParser.swift */,
 			);
 			path = Combinator;
 			sourceTree = "<group>";
@@ -275,6 +281,7 @@
 			children = (
 				BB38A65D1FA9BC060022D28A /* CombinatorTest.swift */,
 				BB6F710C1FAEADBC00FE815A /* InterfaceTest.swift */,
+				BB2D40F01FB1947900986078 /* OCMethodTest.swift */,
 			);
 			path = Combinator;
 			sourceTree = "<group>";
@@ -443,6 +450,7 @@
 			buildPhases = (
 				OBJ_52 /* Sources */,
 				OBJ_75 /* Frameworks */,
+				BB12AA891FB1FBD0007EB55A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -499,6 +507,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		BB12AA891FB1FBD0007EB55A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "KEYWORDS=\"TODO:|FIXME:|\\?\\?\\?:|\\!\\!\\!:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | perl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BB0EAAED1F8E411400C48449 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -524,9 +548,11 @@
 				BB0EAB171F8E419000C48449 /* ObjcMethodParser.swift in Sources */,
 				BB0EAB181F8E419000C48449 /* SwiftClassParser.swift in Sources */,
 				BB4FA2451FA87C290082391D /* Functor.swift in Sources */,
+				BB2D40F11FB1947900986078 /* OCMethodTest.swift in Sources */,
 				BB38A63C1FA8B63F0022D28A /* Array+Alternative.swift in Sources */,
 				BB4FA2441FA87C270082391D /* Alternative.swift in Sources */,
 				BB38A6481FA8B6520022D28A /* Optional+Functor.swift in Sources */,
+				BB12AA8D1FB2B454007EB55A /* ObjcMessageGenParser.swift in Sources */,
 				BB0EAB191F8E419000C48449 /* SwiftInvokeParser.swift in Sources */,
 				BB4FA2471FA87C2E0082391D /* Monad.swift in Sources */,
 				BB1E205C1FAF08240009D9A7 /* ObjcMethodGenParser.swift in Sources */,
@@ -592,6 +618,7 @@
 				BBA0C7421FAB489700DCBBB0 /* ParserError.swift in Sources */,
 				BB38A6451FA8B64E0022D28A /* Optional+Applicative.swift in Sources */,
 				OBJ_61 /* CommandLine.swift in Sources */,
+				BB12AA8C1FB2B453007EB55A /* ObjcMessageGenParser.swift in Sources */,
 				OBJ_62 /* Option.swift in Sources */,
 				BB38A6471FA8B6520022D28A /* Optional+Functor.swift in Sources */,
 				BB4FA2401FA87C190082391D /* Functor.swift in Sources */,
@@ -801,7 +828,7 @@
 				INFOPLIST_FILE = drafter.xcodeproj/drafter_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
 				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
 				SWIFT_VERSION = 4.0;
@@ -820,7 +847,7 @@
 				INFOPLIST_FILE = drafter.xcodeproj/drafter_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
 				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
 				SWIFT_VERSION = 4.0;

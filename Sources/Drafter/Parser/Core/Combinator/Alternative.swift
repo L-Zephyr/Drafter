@@ -15,7 +15,6 @@ func <|> <T>(lhs: Parser<T>, rhs: Parser<T>) -> Parser<T> {
 extension Parser {
     func or(_ other: Parser<T>) -> Parser<T> {
         return Parser(parse: { (tokens) -> Result<(T, Tokens)> in
-//            return self.parse(tokens) ?? other.parse(tokens)
             let r = self.parse(tokens)
             switch r {
             case .success(_):

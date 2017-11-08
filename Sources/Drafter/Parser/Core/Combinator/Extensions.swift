@@ -9,18 +9,27 @@ import Foundation
 
 extension Parser {
     
-    // TODO: - many有可能丢失错误信息？
-    
-    /// 多次重复该parser直到失败为止，将结果保存在数组中返回
+    /// 多次重复该parser直到失败为止，将结果保存在数组中返回，如果结果数组为空则返回错误
     var many: Parser<[T]> {
         return Parser<[T]> { (tokens) -> Result<([T], Tokens)> in
             var result = [T]()
             var remainder = tokens
-            while case .success(let (r, rest)) = self.parse(remainder) {
-                result.append(r)
-                remainder = rest
+            while true {
+                switch self.parse(remainder) {
+                case .success(let (r, rest)):
+                    result.append(r)
+                    remainder = rest
+                case .failure(let error):
+                    if result.count == 0 {
+                        return .failure(error)
+                    } else {
+                        #if DEBUG
+                            print("many parse stop: \(error)")
+                        #endif
+                        return .success((result, remainder))
+                    }
+                }
             }
-            return .success((result, remainder))
         }
     }
     
