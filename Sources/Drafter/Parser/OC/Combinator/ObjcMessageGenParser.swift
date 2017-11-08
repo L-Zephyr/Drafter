@@ -23,5 +23,5 @@ class ObjcMessageGenParser: ParserType {
  param        = ...
  */
 extension ObjcMessageGenParser {
-    var messageSend: Parser
+//    var messageSend: Parser
 }

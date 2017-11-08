@@ -26,7 +26,13 @@ class MethodInvokeNode: Node {
 }
 
 extension MethodInvokeNode {
-    
+    convenience init(_ isSwift: Bool, _ invoker: MethodInvoker, _ params: [String], _ methodName: String) {
+        self.init()
+        self.isSwift = isSwift
+        self.invoker = invoker
+        self.params = params
+        self.methodName = methodName
+    }
 }
 
 extension MethodInvokeNode {
