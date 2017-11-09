@@ -96,11 +96,11 @@ class InterfaceTest: XCTestCase {
         XCTAssert(nodes.count == 2)
         
         XCTAssert(nodes[0].superCls == nil)
-        XCTAssert(nodes[0].className == "MyClass")
-        XCTAssert(nodes[0].protocols == ["Delegate1", "Delegate2"])
+        XCTAssert(nodes[0].className == "MyClass2")
+        XCTAssert(nodes[0].protocols.count == 0)
         
-        XCTAssert(nodes[1].className == "MyClass2")
+        XCTAssert(nodes[1].className == "MyClass")
         XCTAssert(nodes[1].superCls == nil)
-        XCTAssert(nodes[1].protocols.count == 0)
+        XCTAssert(nodes[1].protocols == ["Delegate1", "Delegate2"])
     }
 }

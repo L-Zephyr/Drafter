@@ -37,6 +37,7 @@
 		BB0EAB1C1F8E41AF00C48449 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* main.swift */; };
 		BB12AA8C1FB2B453007EB55A /* ObjcMessageGenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB12AA8A1FB2B3F2007EB55A /* ObjcMessageGenParser.swift */; };
 		BB12AA8D1FB2B454007EB55A /* ObjcMessageGenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB12AA8A1FB2B3F2007EB55A /* ObjcMessageGenParser.swift */; };
+		BB12AA8F1FB2FE67007EB55A /* OCMsgSendTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB12AA8E1FB2FE67007EB55A /* OCMsgSendTest.swift */; };
 		BB1E205B1FAF08240009D9A7 /* ObjcMethodGenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E205A1FAF08240009D9A7 /* ObjcMethodGenParser.swift */; };
 		BB1E205C1FAF08240009D9A7 /* ObjcMethodGenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E205A1FAF08240009D9A7 /* ObjcMethodGenParser.swift */; };
 		BB2D40F11FB1947900986078 /* OCMethodTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2D40F01FB1947900986078 /* OCMethodTest.swift */; };
@@ -117,6 +118,7 @@
 		BB0EAAFE1F8E416100C48449 /* TestInterfaceParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestInterfaceParser.swift; sourceTree = "<group>"; };
 		BB0EAAFF1F8E416200C48449 /* TestMessageSend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMessageSend.swift; sourceTree = "<group>"; };
 		BB12AA8A1FB2B3F2007EB55A /* ObjcMessageGenParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ObjcMessageGenParser.swift; path = Sources/Drafter/Parser/OC/Combinator/ObjcMessageGenParser.swift; sourceTree = SOURCE_ROOT; };
+		BB12AA8E1FB2FE67007EB55A /* OCMsgSendTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCMsgSendTest.swift; sourceTree = "<group>"; };
 		BB1E205A1FAF08240009D9A7 /* ObjcMethodGenParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ObjcMethodGenParser.swift; path = Sources/Drafter/Parser/OC/Combinator/ObjcMethodGenParser.swift; sourceTree = SOURCE_ROOT; };
 		BB2D40F01FB1947900986078 /* OCMethodTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCMethodTest.swift; sourceTree = "<group>"; };
 		BB38A64F1FA8BB500022D28A /* Curry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Curry.swift; path = Sources/Drafter/Runes/Curry.swift; sourceTree = SOURCE_ROOT; };
@@ -282,6 +284,7 @@
 				BB38A65D1FA9BC060022D28A /* CombinatorTest.swift */,
 				BB6F710C1FAEADBC00FE815A /* InterfaceTest.swift */,
 				BB2D40F01FB1947900986078 /* OCMethodTest.swift */,
+				BB12AA8E1FB2FE67007EB55A /* OCMsgSendTest.swift */,
 			);
 			path = Combinator;
 			sourceTree = "<group>";
@@ -559,6 +562,7 @@
 				BB0EAB1A1F8E419000C48449 /* SwiftMethodParser.swift in Sources */,
 				BB0EAB1B1F8E419000C48449 /* SwiftProtocolParser.swift in Sources */,
 				BB38A64E1FA8B65A0022D28A /* Runes.swift in Sources */,
+				BB12AA8F1FB2FE67007EB55A /* OCMsgSendTest.swift in Sources */,
 				BB38A65E1FA9BC060022D28A /* CombinatorTest.swift in Sources */,
 				BB0EAB0A1F8E417800C48449 /* ProtocolNode.swift in Sources */,
 				BB0EAB031F8E416200C48449 /* TestSwiftProtocolParser.swift in Sources */,

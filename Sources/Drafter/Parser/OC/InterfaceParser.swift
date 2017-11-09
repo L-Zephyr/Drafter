@@ -12,12 +12,9 @@ import Foundation
 class InterfaceParser: ParserType {
     
     func parse(_ tokens: Tokens) -> [ClassNode] {
-        let parser = categoryParser <|> classParser
-        if case .success(let (result, _)) = parser.continuous.parse(tokens) {
-            return distinct(result)
-        } else {
-            return []
-        }
+        let parser = distinct <^> (categoryParser <|> classParser).continuous
+        
+        return parser.run(tokens) ?? []
     }
     
     // v1

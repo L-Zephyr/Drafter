@@ -43,3 +43,7 @@ extension Parser {
         return left *> self <* right
     }
 }
+
+func lazy<T>(_ parser: @autoclosure @escaping () -> Parser<T>) -> Parser<T> {
+    return Parser<T> { parser().parse($0) }
+}

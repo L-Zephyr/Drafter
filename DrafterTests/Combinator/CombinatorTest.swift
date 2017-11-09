@@ -87,6 +87,19 @@ class CombinatorTest: XCTestCase {
         XCTAssert(rest.count == 1)
     }
     
+    func testAnyTokenUntil2() {
+        let tokens = [Token(type: .name, text: "name"),
+                      Token(type: .comma, text: ","),
+                      Token(type: .colon, text: ":")]
+        guard case .success(let (result, rest)) = anyToken(until: token(.colon)).parse(tokens) else {
+            XCTAssert(false)
+            return
+        }
+        
+        XCTAssert(result.count == 2)
+        XCTAssert(rest.count == 1)
+    }
+    
     func testAnyTokenBetween() {
         let tokens = [Token(type: .leftParen, text: "("),
                       Token(type: .name, text: "name1"),

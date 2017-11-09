@@ -21,12 +21,12 @@ enum MethodInvoker {
 class MethodInvokeNode: Node {
     var isSwift: Bool = false
     var invoker: MethodInvoker = .name("") // 该方法的调用者
-    var params: [String] = [] // 参数, 只记录参数名称
     var methodName: String = "" // 只有解析swift用到这个属性
+    var params: [String] = [] // 参数, 只记录参数名称
 }
 
 extension MethodInvokeNode {
-    convenience init(_ isSwift: Bool, _ invoker: MethodInvoker, _ params: [String], _ methodName: String) {
+    convenience init(_ isSwift: Bool, _ invoker: MethodInvoker, _ methodName: String, _ params: [String]) {
         self.init()
         self.isSwift = isSwift
         self.invoker = invoker

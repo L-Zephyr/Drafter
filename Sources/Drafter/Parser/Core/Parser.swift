@@ -48,7 +48,10 @@ extension Parser {
                 case .success(let (t, rest)):
                     result.append(t)
                     remainder = rest
-                case .failure(_):
+                case .failure(let error):
+                    #if DEBUG
+                        print("fail: \(error), continuous to next")
+                    #endif
                     remainder = Array(remainder.dropFirst())
                     continue
                 }
@@ -122,8 +125,8 @@ func anyToken(until p: Parser<Token>) -> Parser<[Token]> {
         var result = [Token]()
         while true {
             switch p.parse(remainder) {
-            case .success(let (l, _)):
-                return .success((result, [l] + remainder))
+            case .success(_):
+                return .success((result, remainder))
             case .failure(_):
                 result.append(remainder.removeFirst())
             }
