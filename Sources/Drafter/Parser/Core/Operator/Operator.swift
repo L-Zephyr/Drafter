@@ -7,6 +7,17 @@
 
 import Foundation
 
+func <?> <T>(_ parser: Parser<T>, _ err: String) -> Parser<T> {
+    return Parser<T> { (tokens) -> Result<(T, Tokens)> in
+        let result = parser.parse(tokens)
+        if case .failure(let error) = result {
+            print(err)
+            return .failure(.custom("\(error): \(err)"))
+        }
+        return result
+    }
+}
+
 // MARK: - 类型转换操作符
 
 /// => 是一个将Parser<T>转换成指定类型的操作符

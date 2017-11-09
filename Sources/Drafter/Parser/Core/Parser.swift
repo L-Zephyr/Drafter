@@ -48,10 +48,10 @@ extension Parser {
                 case .success(let (t, rest)):
                     result.append(t)
                     remainder = rest
-                case .failure(let error):
-                    #if DEBUG
-                        print("fail: \(error), continuous to next")
-                    #endif
+                case .failure(_):
+//                    #if DEBUG
+//                        print("fail: \(error), continuous to next")
+//                    #endif
                     remainder = Array(remainder.dropFirst())
                     continue
                 }
@@ -100,7 +100,17 @@ func token(_ t: TokenType) -> Parser<Token> {
     })
 }
 
-// MARK: - Sequence Match
+// MARK: - Any Token
+
+/// 匹配任意一个Token
+var anyToken: Parser<Token> {
+    return Parser { (tokens) -> Result<(Token, Tokens)> in
+        guard let first = tokens.first else {
+            return .failure(.custom("tokens empty"))
+        }
+        return .success((first, Array(tokens.dropFirst())))
+    }
+}
 
 /// 匹配任意Token类型的Parser直到条件为false，该Parser不会返回错误
 func anyToken(until: @escaping (Token) -> Bool) -> Parser<[Token]> {

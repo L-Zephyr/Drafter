@@ -12,6 +12,7 @@ enum ParserError: Error {
     case notMatch(String) // TODO: delete
     
     case missMatch(String)
+    case custom(String)
     case unknown
 }
 

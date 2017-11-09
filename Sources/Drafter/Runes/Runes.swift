@@ -10,10 +10,16 @@ precedencegroup RunesMonadicPrecedenceLeft {
   higherThan: AssignmentPrecedence
 }
 
+precedencegroup ErrorMessagePrecedence {
+    associativity: left
+    higherThan: LogicalConjunctionPrecedence
+    lowerThan: ComparisonPrecedence
+}
+
 precedencegroup RunesAlternativePrecedence {
   associativity: left
-  higherThan: LogicalConjunctionPrecedence
-  lowerThan: ComparisonPrecedence
+  higherThan: ErrorMessagePrecedence
+  lowerThan: NilCoalescingPrecedence
 }
 
 precedencegroup RunesApplicativePrecedence {
@@ -114,3 +120,8 @@ infix operator <-< : RunesMonadicPrecedenceRight
  custom operator
  */
 infix operator => : ConvertPrecedence
+
+/**
+ custom operator
+ */
+infix operator <?> : ErrorMessagePrecedence

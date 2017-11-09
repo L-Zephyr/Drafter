@@ -74,6 +74,54 @@ class CombinatorTest: XCTestCase {
         XCTAssert(rest.count == 0)
     }
     
+    func testAnyToken() {
+        let tokens = [Token(type: .name, text: "name"),
+                      Token(type: .comma, text: ",")]
+        guard case .success(let (result, rest)) = anyToken.parse(tokens) else {
+            XCTAssert(false)
+            return
+        }
+        
+        XCTAssert(result.type == .name)
+        XCTAssert(rest.count == 1)
+    }
+    
+    func testNotFollowedBy() {
+        let tokens = [Token(type: .name, text: "name"),
+                      Token(type: .comma, text: ",")]
+        guard case .success(let (result, rest)) = token(.name).notFollowedBy(token(.colon)).parse(tokens) else {
+            XCTAssert(false)
+            return
+        }
+        
+        XCTAssert(result.type == .name)
+        XCTAssert(rest.count == 1)
+    }
+    
+    func testChioce() {
+        let tokens = [Token(type: .name, text: "name"),
+                      Token(type: .comma, text: ",")]
+        guard case .success(let (result, rest)) = choice([token(.comma), token(.name)]).parse(tokens) else {
+            XCTAssert(false)
+            return
+        }
+        
+        XCTAssert(result.type == .name)
+        XCTAssert(rest.count == 1)
+    }
+    
+    func testLookAhead() {
+        let tokens = [Token(type: .name, text: "name"),
+                      Token(type: .comma, text: ",")]
+        guard case .success(let (result, rest)) = lookAhead(token(.name)).parse(tokens) else {
+            XCTAssert(false)
+            return
+        }
+        
+        XCTAssert(result.type == .name)
+        XCTAssert(rest.count == 2)
+    }
+    
     func testAnyTokenUntil() {
         let tokens = [Token(type: .name, text: "name"),
                       Token(type: .comma, text: ","),
