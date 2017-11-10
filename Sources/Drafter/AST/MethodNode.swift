@@ -21,32 +21,38 @@ class MethodNode: Node {
     var invokes: [MethodInvokeNode] = [] // 该方法中调用的OC方法
 }
 
+// MARK: - 初始化方法
+
 extension MethodNode {
-    convenience init(_ isSwift: Bool, _ isStatic: Bool, _ retType: String, _ name: String, _ params: [Param], _ body: [Token], _ invokes: [MethodInvokeNode]) {
-        self.init()
+    /// OC初始化方法
+    class func ocInit(_ isStatic: Bool, _ retType: String, _ params: [Param], _ body: [Token], _ invokes: [MethodInvokeNode]) -> MethodNode {
+        let method = MethodNode()
         
-        self.isSwift = isSwift
-        self.isStatic = isStatic
-        self.returnType = retType
-        self.methodName = name
-        self.params = params
-        self.invokes = invokes
-        self.methodBody = body
+        method.isSwift = false
+        method.isStatic = isStatic
+        method.returnType = retType
+        method.params = params
+        method.invokes = invokes
+        method.methodBody = body
+        
+        return method
+    }
+    
+    /// swift初始化方法
+    class func swiftInit(_ isStatic: Bool, _ name: String, _ params: [Param], _ retType: String, _ body: [Token], _ invokes: [MethodInvokeNode]) -> MethodNode {
+        let method = MethodNode()
+        
+        method.isSwift = true
+        method.isStatic = isStatic
+        method.returnType = retType
+        method.methodName = name
+        method.params = params
+        method.invokes = invokes
+        method.methodBody = body
+        
+        return method
     }
 }
-
-//// MARK: - OCMethodNode
-//
-//class OCMethodNode: MethodNode {
-//
-//}
-//
-//// MARK: - SwiftMethodNode
-//
-//class SwiftMethodNode: MethodNode {
-//
-//}
-
 
 // MARK: - Param
 

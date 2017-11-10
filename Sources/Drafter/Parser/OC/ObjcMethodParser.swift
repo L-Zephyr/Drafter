@@ -24,10 +24,9 @@ extension ObjcMethodParser {
      */
     var methodDeclParser: Parser<MethodNode> {
         // TODO: 优化
-        return curry(MethodNode.init)(false)
+        return curry(MethodNode.ocInit)
             <^> isStatic 
             <*> type
-            <*> pure("")
             <*> methodSelector <* token(.semicolon) // 声明结束
             <*> pure([])
             <*> pure([])
@@ -38,13 +37,12 @@ extension ObjcMethodParser {
      method_definition = is_static type method_selector method_body
      */
     var methodDefParser: Parser<MethodNode> {
-        return curry(MethodNode.init)(false)
+        return curry(MethodNode.ocInit)
             <^> isStatic
             <*> type
-            <*> pure("")
             <*> methodSelector
             <*> body
-            <*> pure([])
+            <*> pure([]) // TODO: 解析方法调用
     }
     
     /// 静态方法
