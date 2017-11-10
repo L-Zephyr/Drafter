@@ -9,7 +9,11 @@ import Foundation
 
 class SwiftClassGenParser: ParserType {
     func parse(_ tokens: Tokens) -> [ClassNode] {
-        return []
+        return classDef.continuous.run(tokens) ?? []
+    }
+    
+    var parser: Parser<[ClassNode]> {
+        return classDef.continuous
     }
 }
 
@@ -18,25 +22,39 @@ class SwiftClassGenParser: ParserType {
 /*
  definition = class_definition | protocol_definition | extension_definition
  
- class_definition = 'class' NAME generics_type? inherit_list?
- generics_type    = '<' ANY '>'
+ 
  inherit_list     = ':' (NAME)+
  ...
  */
 extension SwiftClassGenParser {
-//    var classDef: Parser<ClassNode> {
-//        return curry(ClassNode.init)
-//            <^> token(.cls) *> token(.name) => stringify
-//            <*> trying(genericType) *> lookAhead(token(.colon)) *> token(.name) => toClassNode // 第一个为superClass
-//            <*> lookAhead(token(.comma)) *> inheritList => stringify
-//    }
     
+    ///
+    /**
+     class_definition = 'class' NAME generics_type? super_class? protocols?
+     */
+    var classDef: Parser<ClassNode> {
+        return curry(ClassNode.init)
+            <^> token(.cls) *> token(.name) <* trying(genericType) => stringify // 类名
+            <*> trying(superCls) => toClassNode // 父类
+            <*> trying(protocols) => stringify // 协议列表
+    }
+    
+    /// 解析泛型
+    /**
+      generics_type = '<' ANY '>'
+     */
     var genericType: Parser<String> {
         return anyToken(between: .leftAngle, and: .rightAngle) *> pure("")
     }
     
-    var inheritList: Parser<[String]> {
-        return token(.colon) *> token(.name).separateBy(token(.comma)) => stringify
+    /// 父类
+    var superCls: Parser<Token> {
+        return token(.colon) *> token(.name)
+    }
+    
+    /// 协议列表
+    var protocols: Parser<[Token]> {
+        return token(.comma) *> token(.name).separateBy(token(.comma))
     }
 }
 

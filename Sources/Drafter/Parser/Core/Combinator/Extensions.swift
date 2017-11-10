@@ -56,32 +56,3 @@ extension Parser {
         }
     }
 }
-
-///
-func lazy<T>(_ parser: @autoclosure @escaping () -> Parser<T>) -> Parser<T> {
-    return Parser<T> { parser().parse($0) }
-}
-
-/// 尝试列表中的每一个parser，直到有一个成功为止，如果全部失败则返回一个错误
-func choice<T>(_ parsers: [Parser<T>]) -> Parser<T> {
-    return Parser<T> { (tokens) -> Result<(T, Tokens)> in
-        for parser in parsers {
-            if case .success(let (r, rest)) = parser.parse(tokens) {
-                return .success((r, rest))
-            }
-        }
-        return .failure(.custom("None parser success!"))
-    }
-}
-
-/// 执行parser，解析成功时不消耗输入
-func lookAhead<T>(_ parser: Parser<T>) -> Parser<T> {
-    return Parser<T> { (tokens) -> Result<(T, Tokens)> in
-        switch parser.parse(tokens) {
-        case .success(let (r, _)):
-            return .success((r, tokens))
-        case .failure(let error):
-            return .failure(error)
-        }
-    }
-}

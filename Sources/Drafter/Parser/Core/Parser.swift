@@ -48,10 +48,10 @@ extension Parser {
                 case .success(let (t, rest)):
                     result.append(t)
                     remainder = rest
-                case .failure(_):
-//                    #if DEBUG
-//                        print("fail: \(error), continuous to next")
-//                    #endif
+                case .failure(let error):
+                    #if DEBUG
+                        print("fail: \(error), continuous to next")
+                    #endif
                     remainder = Array(remainder.dropFirst())
                     continue
                 }
@@ -173,3 +173,33 @@ func anyToken(between l: TokenType, and r: TokenType) -> Parser<[Token]> {
 //    }
 //}
 
+// MARK: -
+
+///
+func lazy<T>(_ parser: @autoclosure @escaping () -> Parser<T>) -> Parser<T> {
+    return Parser<T> { parser().parse($0) }
+}
+
+/// 尝试列表中的每一个parser，直到有一个成功为止，如果全部失败则返回一个错误
+func choice<T>(_ parsers: [Parser<T>]) -> Parser<T> {
+    return Parser<T> { (tokens) -> Result<(T, Tokens)> in
+        for parser in parsers {
+            if case .success(let (r, rest)) = parser.parse(tokens) {
+                return .success((r, rest))
+            }
+        }
+        return .failure(.custom("None parser success!"))
+    }
+}
+
+/// 执行parser，解析成功时不消耗输入
+func lookAhead<T>(_ parser: Parser<T>) -> Parser<T> {
+    return Parser<T> { (tokens) -> Result<(T, Tokens)> in
+        switch parser.parse(tokens) {
+        case .success(let (r, _)):
+            return .success((r, tokens))
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+}
