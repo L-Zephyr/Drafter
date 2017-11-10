@@ -20,7 +20,7 @@ class SwiftClassParserTest: XCTestCase {
     }
     
     func testClass() {
-        let tokens = SourceLexer(input: "class MyClass: Super, Proto1, Proto2", isSwift: true).allTokens
+        let tokens = SourceLexer(input: "class MyClass: Super, Proto1", isSwift: true).allTokens
         guard let cls = SwiftClassGenParser().parser.run(tokens) else {
             XCTAssert(false)
             return
@@ -29,7 +29,7 @@ class SwiftClassParserTest: XCTestCase {
         XCTAssert(cls.count == 1)
         XCTAssert(cls[0].className == "MyClass")
         XCTAssert(cls[0].superCls!.className == "Super")
-        XCTAssert(cls[0].protocols == ["Proto1", "Proto2"])
+        XCTAssert(cls[0].protocols == ["Proto1"])
     }
     
     func testClassNoInherit() {
@@ -56,5 +56,22 @@ class SwiftClassParserTest: XCTestCase {
         XCTAssert(cls[0].className == "MyClass")
         XCTAssert(cls[0].superCls!.className == "Super")
         XCTAssert(cls[0].protocols.count == 0)
+    }
+    
+    func testClassWithExtension() {
+        let input = """
+        class MyClass<T, A>: Super {}
+        extension MyClass: Proto1 {}
+        """
+        let tokens = SourceLexer(input: input, isSwift: true).allTokens
+        guard let cls = SwiftClassGenParser().parser.run(tokens) else {
+            XCTAssert(false)
+            return
+        }
+        
+        XCTAssert(cls.count == 1)
+        XCTAssert(cls[0].className == "MyClass")
+        XCTAssert(cls[0].superCls!.className == "Super")
+        XCTAssert(cls[0].protocols == ["Proto1"])
     }
 }
