@@ -63,7 +63,7 @@ extension InterfaceParser {
         return curry(ClassNode.init)
             <^> token(.interface) *> token(.name) => stringify
             <*> trying(token(.name)).between(lParen, rParen) *> pure(nil) // 分类的名字是可选项, 忽略结果
-            <*> trying(token(.name).separateBy(token(.comma)).between(lAngle, rAngle)) => stringify
+            <*> trying(token(.name).separateBy(token(.comma)).between(lAngle, rAngle)) => stringify // 协议列表
     }
 }
 

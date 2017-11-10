@@ -1,5 +1,5 @@
 //
-//  ObjcMessageGenParser.swift
+//  ObjcMessageParser.swift
 //  drafterPackageDescription
 //
 //  Created by LZephyr on 2017/11/8.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ObjcMessageGenParser: ParserType {
+class ObjcMessageParser: ParserType {
     func parse(_ tokens: Tokens) -> [MethodInvokeNode] {
         return messageSend.continuous.run(tokens) ?? []
     }
@@ -19,11 +19,7 @@ class ObjcMessageGenParser: ParserType {
 
 // MARK: - Parser
 
-/*
- statement    = message_send ';'
- param        = ...
- */
-extension ObjcMessageGenParser {
+extension ObjcMessageParser {
     
     /// 解析一个方法调用
     /**
@@ -34,7 +30,8 @@ extension ObjcMessageGenParser {
             <^> receiver
             <*> pure("")
             <*> paramSelector
-        return msg.between(token(.leftSquare), token(.rightSquare))
+        
+        return msg.between(token(.leftSquare), token(.rightSquare)) <?> "message_send解析失败"
     }
     
     /// 调用方
@@ -44,6 +41,7 @@ extension ObjcMessageGenParser {
     var receiver: Parser<MethodInvoker> {
         return toMethodInvoker() <^> lazy(self.messageSend)
             <|> toMethodInvoker() <^> token(.name)
+            <?> "receiver解析失败"
     }
     
     /// 参数列表
@@ -53,6 +51,7 @@ extension ObjcMessageGenParser {
     var paramSelector: Parser<[String]> {
         return paramList
             <|> curry({ [$0.text] }) <^> token(.name)
+            <?> "param_selector解析失败"
     }
     
     /// 带具体参数的列表
@@ -61,21 +60,28 @@ extension ObjcMessageGenParser {
      */
     var paramList: Parser<[String]> {
         let paramPair = stringify <^> token(.name) <* token(.colon) <* param
-        return paramPair.many
+        return paramPair.many <?> "param_list解析失败"
     }
     
-    /// 参数内容，需要解析参数中的方法调用
+    /// 解析具体参数内容，参数中的方法调用也解析出来
+    // FIXME: 处理这种类型的表达式“[self method] + [self method]”
     var param: Parser<[MethodInvokeNode]> {
-//        return token(.caret) *> pure([]) // 匿名block
-//            <|> curry({ [$0] }) <^> lazy(self.messageSend) // 方法调用
-//            <|> anyToken(until: token(.rightSquare) <|> token(.name) *> token(.colon)) *> pure([]) // 其他直接忽略
-        return curry({ [$0] }) <^> lazy(self.messageSend)
+        // 处理block定义中的方法调用
+        let block = { lazy(self.messageSend).continuous.run($0) ?? [] }
+            <^> token(.caret) // ^ 表示block开始
+            *> anyToken(until: token(.leftBrace))
+            *> anyToken(between: .leftBrace, and: .rightBrace) // 匹配block中的所有token
+        
+        return block // block
+            <|> curry({ [$0] }) <^> lazy(self.messageSend) // 方法调用
+            <|> anyToken(until: token(.rightSquare) <|> token(.name) *> token(.colon)) *> pure([]) // 其他直接忽略
+            <?> "param解析失败"
     }
 }
 
 // MARK: - Helper
 
-extension ObjcMessageGenParser {
+extension ObjcMessageParser {
     func toMethodInvoker() -> (MethodInvokeNode) -> MethodInvoker {
         return { invoke in
             .method(invoke)

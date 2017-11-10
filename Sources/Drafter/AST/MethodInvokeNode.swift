@@ -15,6 +15,13 @@ enum MethodInvoker {
     case method(MethodInvokeNode) // 另一个方法调用
 }
 
+// MARK: - InvokeParam
+
+struct InvokeParam {
+    var name: String // 参数的名称
+    var methods: [MethodInvokeNode] // 参数体中的方法调用，没有则为空
+}
+
 // MARK: - MethodInvokeNode
 
 /// 方法调用

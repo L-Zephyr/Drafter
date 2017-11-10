@@ -22,8 +22,8 @@ class TestObjcMethodParser: XCTestCase {
     
     func parse(_ code: String) -> [MethodNode] {
         let lexer = SourceLexer(input: code)
-        let parser = ObjcMethodParser(lexer: lexer)
-        return parser.parse()
+        let parser = ObjcMethodParser()
+        return parser.parse(lexer.allTokens)
     }
 
     func testDeclNoParam() {

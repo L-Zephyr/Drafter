@@ -22,8 +22,8 @@ class TestMessageSend: XCTestCase {
     
     func parse(_ code: String) -> [MethodInvokeNode] {
         let lexer = SourceLexer(input: code)
-        let parser = ObjcMessageSendParser(lexer: lexer)
-        return parser.parse()
+        let parser = ObjcMessageSendParser()
+        return parser.parse(lexer.allTokens)
     }
 
     func testMessageSend1() {

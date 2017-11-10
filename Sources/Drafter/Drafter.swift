@@ -112,8 +112,8 @@ class Drafter {
                 let parser = SwiftMethodParser(lexer: lexer)
                 nodes.append(contentsOf: filted(parser.parse()))
             } else {
-                let parser = ObjcMethodParser(lexer: lexer)
-                nodes.append(contentsOf: filted(parser.parse()))
+                let parser = ObjcMethodParser()
+                nodes.append(contentsOf: filted(parser.parse(lexer.allTokens)))
             }
 
             DotGenerator.generate(nodes, filePath: file)

@@ -22,7 +22,7 @@ class OCMethodTest: XCTestCase {
     func testMethodSelector() {
         let tokens = SourceLexer(input: "method").allTokens
         
-        guard let params = ObjcMethodGenParser().methodSelector.run(tokens) else {
+        guard let params = ObjcMethodParser().methodSelector.run(tokens) else {
             XCTAssert(false)
             return
         }
@@ -34,7 +34,7 @@ class OCMethodTest: XCTestCase {
     func testMethodDecl() {
         let tokens = SourceLexer(input: "+ (_nonable NSString *)add:(int)a andB:(long long)b;").allTokens
         
-        let methods = ObjcMethodGenParser().parse(tokens)
+        let methods = ObjcMethodParser().parse(tokens)
         
         XCTAssert(methods.count == 1)
         XCTAssert(methods[0].isStatic == true)
@@ -44,7 +44,7 @@ class OCMethodTest: XCTestCase {
     func testMethodDeclNoParam() {
         let tokens = SourceLexer(input: "+ (_nonable NSString *)method;").allTokens
         
-        let methods = ObjcMethodGenParser().parse(tokens)
+        let methods = ObjcMethodParser().parse(tokens)
         
         XCTAssert(methods.count == 1)
         XCTAssert(methods[0].isStatic == true)
@@ -60,7 +60,7 @@ class OCMethodTest: XCTestCase {
         }
         """
         let tokens = SourceLexer(input: input).allTokens
-        let methods = ObjcMethodGenParser().parse(tokens)
+        let methods = ObjcMethodParser().parse(tokens)
         
         guard methods.count == 2 else {
             XCTAssert(false)
@@ -76,7 +76,7 @@ class OCMethodTest: XCTestCase {
     func testMethodDef() {
         let tokens = SourceLexer(input: "+ (_nonable NSString *)add:(int)a andB:(long long)b { {int a = b;} }").allTokens
         
-        let methods = ObjcMethodGenParser().parse(tokens)
+        let methods = ObjcMethodParser().parse(tokens)
         
         XCTAssert(methods.count == 1)
         

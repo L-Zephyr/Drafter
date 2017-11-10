@@ -19,21 +19,29 @@ class OCMsgSendTest: XCTestCase {
         super.tearDown()
     }
     
-//    func testReceiver() {
-//        let tokens = SourceLexer(input: "[self method]").allTokens
-//
-//        guard let rec = ObjcMessageGenParser().receiver.run(tokens) else {
-//            XCTAssert(false)
-//            return
-//        }
-//
-//    }
+    // MARK: - 单步测试
+    
+    func testParam() {
+        let input = """
+        ^(int) {
+            [self method];
+            [self method2];
+        }
+        """
+        let tokens = SourceLexer(input: input).allTokens
+        guard let invokes = ObjcMessageParser().param.run(tokens) else {
+            XCTAssert(false)
+            return
+        }
+        
+        XCTAssert(invokes.count == 2)
+    }
     
     // MARK: -
     
     func testNoParam() {
         let tokens = SourceLexer(input: "[[self method1] method2]").allTokens
-        let invokes = ObjcMessageGenParser().parse(tokens)
+        let invokes = ObjcMessageParser().parse(tokens)
         
         XCTAssert(invokes.count == 1)
         //
@@ -41,21 +49,34 @@ class OCMsgSendTest: XCTestCase {
     
     func testWithParams() {
         let tokens = SourceLexer(input: "[[self method] add: 1 and: 2]").allTokens
-        let invokes = ObjcMessageGenParser().parse(tokens)
+        let invokes = ObjcMessageParser().parse(tokens)
         
         XCTAssert(invokes.count == 1)
     }
     
     func testWithEquation() {
-        let tokens = SourceLexer(input: "[self add: a + b and: 2]").allTokens
-        let invokes = ObjcMessageGenParser().parse(tokens)
+        let tokens = SourceLexer(input: "[self add: a + b + c and: 2]").allTokens
+        let invokes = ObjcMessageParser().parse(tokens)
         
         XCTAssert(invokes.count == 1)
     }
     
     func testMethodParam() {
-        let tokens = SourceLexer(input: "[add: [self method] and: 2]").allTokens
-        let invokes = ObjcMessageGenParser().parse(tokens)
+        let tokens = SourceLexer(input: "[self add: [self method] and: 2]").allTokens
+        let invokes = ObjcMessageParser().parse(tokens)
+        
+        XCTAssert(invokes.count == 1)
+    }
+    
+    func testMethodBlock() {
+        let input = """
+        [self add: ^(int) {
+            [self method];
+        } and: 2];
+        [self method2];
+        """
+        let tokens = SourceLexer(input: input).allTokens
+        let invokes = ObjcMessageParser().parse(tokens)
         
         XCTAssert(invokes.count == 2)
     }

@@ -20,6 +20,10 @@ protocol Node { } // AST节点
 
 protocol ParserType {
 	func parse() -> [Node]
+    
+//    associatedtype T
+//
+//    var parser: Parser<T> { get }
 }
 
 extension ParserType {

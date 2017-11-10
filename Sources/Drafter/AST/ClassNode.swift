@@ -10,6 +10,8 @@ import Cocoa
 
 /// 保存类型信息的节点
 class ClassNode: Node {
+    
+    // TODO: superCls改成String类型
     var superCls: ClassNode? = nil // 父类
     var className: String = ""     // 类名
     var protocols: [String] = []   // 实现的协议

@@ -56,7 +56,7 @@ class DotGenerator {
         
         dot.end()
         
-        create(dot: dot.dot, to: filePath)
+        pure(dot: dot.dot, to: filePath)
     }
     
     /// 在当前位置生成调用关系图
@@ -97,14 +97,14 @@ class DotGenerator {
         
         dot.end()
         
-        create(dot: dot.dot, to: filePath)
+        pure(dot: dot.dot, to: filePath)
     }
     
     // MARK: - Private
     
     fileprivate var dot: String = ""
     
-    fileprivate static func create(dot code: String, to filePath: String) {
+    fileprivate static func pure(dot code: String, to filePath: String) {
         // 写入文件
         let filename = URL(fileURLWithPath: filePath).lastPathComponent
         let dotFile = "./\(filename).dot"

@@ -11,8 +11,7 @@ func <?> <T>(_ parser: Parser<T>, _ err: String) -> Parser<T> {
     return Parser<T> { (tokens) -> Result<(T, Tokens)> in
         let result = parser.parse(tokens)
         if case .failure(let error) = result {
-            print(err)
-            return .failure(.custom("\(error): \(err)"))
+            return .failure(.custom("\(err): \(error)"))
         }
         return result
     }

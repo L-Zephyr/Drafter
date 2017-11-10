@@ -14,6 +14,14 @@ class ProtocolNode: Node {
     var supers: [String] = []
 }
 
+extension ProtocolNode {
+    convenience init(_ name: String, _ supers: [String]) {
+        self.init()
+        self.name = name
+        self.supers = supers
+    }
+}
+
 extension ProtocolNode: Hashable {
     
     static func ==(_ left: ProtocolNode, _ right: ProtocolNode) -> Bool {

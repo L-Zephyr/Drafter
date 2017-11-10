@@ -74,7 +74,7 @@ func trying<T>(_ p: Parser<T>) -> Parser<T?> {
     }
 }
 
-/// 直接返回给定结果，不会消耗输入
+/// 创建一个始终返回指定值的的算子，不消耗输入
 func pure<T>(_ t: T) -> Parser<T> {
     return Parser(parse: { (tokens) -> Result<(T, Tokens)> in
         return .success((t, tokens))
