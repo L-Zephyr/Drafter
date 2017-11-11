@@ -56,7 +56,7 @@ extension SwiftClassGenParser {
       generics_type = '<' ANY '>'
      */
     var genericType: Parser<String> {
-        return anyToken(between: .leftAngle, and: .rightAngle) *> pure("")
+        return anyTokens(inside: token(.leftAngle), and: token(.rightAngle)) *> pure("")
     }
     
     /// 父类

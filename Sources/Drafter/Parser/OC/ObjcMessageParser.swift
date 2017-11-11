@@ -69,12 +69,12 @@ extension ObjcMessageParser {
         // 处理block定义中的方法调用
         let block = { lazy(self.messageSend).continuous.run($0) ?? [] }
             <^> token(.caret) // ^ 表示block开始
-            *> anyToken(until: token(.leftBrace))
-            *> anyToken(between: .leftBrace, and: .rightBrace) // 匹配block中的所有token
+            *> anyTokens(until: token(.leftBrace))
+            *> anyTokens(inside: token(.leftBrace), and: token(.rightBrace)) // 匹配block中的所有token
         
         return block // block
             <|> curry({ [$0] }) <^> lazy(self.messageSend) // 方法调用
-            <|> anyToken(until: token(.rightSquare) <|> token(.name) *> token(.colon)) *> pure([]) // 其他直接忽略
+            <|> anyTokens(until: token(.rightSquare) <|> token(.name) *> token(.colon)) *> pure([]) // 其他直接忽略
             <?> "param解析失败"
     }
 }

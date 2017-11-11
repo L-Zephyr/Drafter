@@ -8,6 +8,14 @@
 
 import Foundation
 
+// MARK: - Param
+
+struct Param {
+    var outterName: String  // 参数的名字
+    var type: String  // 参数类型
+    var innerName: String  // 内部形参的名字
+}
+
 // MARK: - MethodNode
 
 /// 方法定义
@@ -52,14 +60,6 @@ extension MethodNode {
         
         return method
     }
-}
-
-// MARK: - Param
-
-struct Param {
-    var outterName: String  // 参数的名字
-    var type: String  // 参数类型
-    var innerName: String  // 内部形参的名字
 }
 
 //extension Param {

@@ -82,10 +82,22 @@ func pure<T>(_ t: T) -> Parser<T> {
 }
 
 /// 创建一个始终返回错误的parser
-func fail<T>(_ error: ParserError = .unknown) -> Parser<T> {
-    return Parser(parse: { (tokens) -> Result<(T, Tokens)> in
+func fail(_ error: ParserError = .unknown) -> Parser<Token> {
+    return Parser(parse: { (tokens) -> Result<(Token, Tokens)> in
         return .failure(error)
     })
+}
+
+/// 只有当p失败时才返回成功，成功时不消耗输入
+func not(_ p: Parser<Token>) -> Parser<Token> {
+    return Parser<Token> { (tokens) -> Result<(Token, Tokens)> in
+        switch p.parse(tokens) {
+        case .success(let (r, _)):
+            return .failure(.notMatch("Unexpected found: \(r)"))
+        case .failure(_):
+            return .success((Token(type: .unknown, text: ""), tokens))
+        }
+    }
 }
 
 /// 创建解析单个token并消耗输入, 失败时不消耗输入
@@ -100,7 +112,7 @@ func token(_ t: TokenType) -> Parser<Token> {
     })
 }
 
-// MARK: - Any Token
+// MARK: - Any Tokens
 
 /// 匹配任意一个Token
 var anyToken: Parser<Token> {
@@ -113,7 +125,7 @@ var anyToken: Parser<Token> {
 }
 
 /// 匹配任意Token类型的Parser直到条件为false，该Parser不会返回错误
-func anyToken(until: @escaping (Token) -> Bool) -> Parser<[Token]> {
+func anyTokens(until: @escaping (Token) -> Bool) -> Parser<[Token]> {
     return Parser<[Token]> { (tokens) -> Result<([Token], Tokens)> in
         var result = [Token]()
         var remainder = tokens
@@ -129,48 +141,40 @@ func anyToken(until: @escaping (Token) -> Bool) -> Parser<[Token]> {
 }
 
 /// 获取任意Token知道p成功为止, p不会消耗输入
-func anyToken(until p: Parser<Token>) -> Parser<[Token]> {
-    return Parser<[Token]> { (tokens) -> Result<([Token], Tokens)> in
-        var remainder = tokens
-        var result = [Token]()
-        while true {
-            switch p.parse(remainder) {
-            case .success(_):
-                return .success((result, remainder))
-            case .failure(_):
-                result.append(remainder.removeFirst())
-            }
-        }
+func anyTokens(until p: Parser<Token>) -> Parser<[Token]> {
+    return (not(p) *> anyToken).many
+}
+
+/// 匹配在l和r之间的任意Token，l和r也会被消耗掉，l和r会出现在结果中
+func anyTokens(encloseBy l: Parser<Token>, and r: Parser<Token>) -> Parser<[Token]> {
+    let content = lookAhead(l) *> lazy(anyTokens(encloseBy: l, and: r)) // 递归匹配
+        <|> ({ [$0] } <^> (not(r) *> anyToken)) // 匹配任意token直到碰到r
+    
+    return curry({ [$0] + Array($1.joined()) + [$2] })
+        <^> l
+        <*> (content.many <|> pure([])) // many为空的时候会失败
+        <*> r
+}
+
+/// 匹配在l和r之间的任意Token，l和r会被消耗掉，但不会出现在结果中
+func anyTokens(inside l: Parser<Token>, and r: Parser<Token>) -> Parser<[Token]> {
+    return anyTokens(encloseBy: l, and: r).map {
+        Array($0.dropFirst().dropLast()) // 去掉首尾的元素
     }
 }
 
-/// 匹配在l和r之间的任意Token，l和r也会被消耗掉
-func anyToken(between l: TokenType, and r: TokenType) -> Parser<[Token]> {
-    // 这里使用捕获的变量inside会有问题，因为这个Parser会被反复调用，但是inside只会初始化一次
-    // TODO: anyToken需要重新设计
-    var inside = 1
-    let any = anyToken(until: { token in
-        if token.type == l {
-            inside += 1
-        } else if token.type == r {
-            inside -= 1
-        }
-        
-        if inside == 0 {
-            inside = 1
-            return true
-        } else {
-            return false
-        }
-    })
-    
-    return token(l) *> any <* token(r)
-}
-
-//func anyToken(between l: Parser<Token>, and r: Parser<Token>) -> Parser<[Token]> {
+//func anyTokens(inside l: Parser<Token>, and r: Parser<Token>) -> Parser<[Token]> {
 //    return Parser<[Token]> { (tokens) -> Result<([Token], Tokens)> in
 //
 //    }
+//}
+
+/// 任意被包围在{}、[]、()或<>中的符号
+//func anyEnclosuredTokens() -> Parser<[Token]> {
+//    return anyTokens(encloseBy: .leftBrace, and: .rightBrace)
+//        <|> anyTokens(encloseBy: .leftSquare, and: .rightSquare)
+//        <|> anyTokens(encloseBy: .leftParen, and: .rightParen)
+//        <|> anyTokens(encloseBy: .leftAngle, and: .rightAngle)
 //}
 
 // MARK: -

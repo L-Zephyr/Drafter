@@ -122,11 +122,13 @@ class CombinatorTest: XCTestCase {
         XCTAssert(rest.count == 2)
     }
     
+    // MARK: - AnyToken
+    
     func testAnyTokenUntil() {
         let tokens = [Token(type: .name, text: "name"),
                       Token(type: .comma, text: ","),
                       Token(type: .colon, text: ":")]
-        guard case .success(let (result, rest)) = anyToken(until: { $0.type == .colon}).parse(tokens) else {
+        guard case .success(let (result, rest)) = anyTokens(until: { $0.type == .colon}).parse(tokens) else {
             XCTAssert(false)
             return
         }
@@ -139,29 +141,28 @@ class CombinatorTest: XCTestCase {
         let tokens = [Token(type: .name, text: "name"),
                       Token(type: .comma, text: ","),
                       Token(type: .colon, text: ":")]
-        guard case .success(let (result, rest)) = anyToken(until: token(.colon)).parse(tokens) else {
+        guard case .success(let (result, rest)) = anyTokens(until: token(.colon)).parse(tokens) else {
             XCTAssert(false)
             return
         }
-        
+                
         XCTAssert(result.count == 2)
         XCTAssert(rest.count == 1)
     }
     
-    func testAnyTokenBetween() {
-        let tokens = [Token(type: .leftParen, text: "("),
-                      Token(type: .name, text: "name1"),
-                      Token(type: .name, text: "name2"),
-                      Token(type: .leftParen, text: "("),
-                      Token(type: .rightParen, text: ")"),
-                      Token(type: .rightParen, text: ")")]
+    func testAnyTokenInside() {
+        let tokens = SourceLexer(input: "(name1 name2 (name3)())").allTokens
         
-        guard case .success(let (result, rest)) = anyToken(between: .leftParen, and: .rightParen).parse(tokens) else {
+        let l = token(.leftParen)
+        let r = token(.rightParen)
+        guard case .success(let (result, rest)) = anyTokens(inside: l, and: r).parse(tokens) else {
             XCTAssert(false)
             return
         }
         
-        XCTAssert(result.count == 4)
+        XCTAssert(result.count == 7)
         XCTAssert(rest.count == 0)
     }
+    
+    
 }

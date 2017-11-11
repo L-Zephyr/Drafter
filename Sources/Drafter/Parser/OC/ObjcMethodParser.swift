@@ -59,7 +59,7 @@ extension ObjcMethodParser {
      */
     var type: Parser<String> {
         return curry({ $0.joined(separator: " ") })
-            <^> anyToken(between: .leftParen, and: .rightParen) => stringify
+            <^> anyTokens(inside: token(.leftParen), and: token(.rightParen)) => stringify
     }
     
     /// 选择子
@@ -88,6 +88,6 @@ extension ObjcMethodParser {
      method_body = '{' BODY '}'
      */
     var body: Parser<[Token]> {
-        return anyToken(between: .leftBrace, and: .rightBrace)
+        return anyTokens(inside: token(.leftBrace), and: token(.rightBrace))
     }
 }
