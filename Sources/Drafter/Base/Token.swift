@@ -16,11 +16,6 @@ enum TokenType {
     case interface        // @interface
     case implementation   // @implementation
     case end              // @end
-    case cls              // swift的class关键字
-    case proto            // swift的protocol关键字
-    case exten            // swift的extension关键字
-    case structure        // swift的struct关键字
-    case function         // swift的func关键字
     case statical         // 静态声明关键字: static
     case name             // 名称 (包括变量、类名、方法等所有名称)
     case leftParen        // 左圆括号: (
@@ -45,6 +40,17 @@ enum TokenType {
     case dot               // 点号: .
     case at                // @
     case rightArrow        // 箭头: ->
+    
+    // MARK: - swift特有符号
+    
+    case cls              // swift的class关键字
+    case proto            // swift的protocol关键字
+    case exten            // swift的extension关键字
+    case structure        // swift的struct关键字
+    case function         // swift的func关键字
+    case autoclosure       // @autoclosure
+    case `inout`          // inout
+    case `throw`          // throws、rethrows
 }
 
 // MARK: - 词法单元类型

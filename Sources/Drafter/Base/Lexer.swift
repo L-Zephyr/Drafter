@@ -174,30 +174,13 @@ class SourceLexer: Lexer {
                 return Token(type: .dot, text: ".")
                 
             case "@":
-                let token = atSign()
-                if token.type != .unknown {
-                    return token
-                } else { // 无法解析关键字则直接返回@
-                    consume()
-                    return Token(type: .at, text: "@")
-                }
+                return atSign()
                 
             default:
                 if isLetter(currentChar) || currentChar == "_" {
                     let value = name()
-                    
-                    if isSwift {
-                        if value == "class" {
-                            return Token(type: .cls, text: "class")
-                        } else if value == "struct" {
-                            return Token(type: .structure, text: "struct")
-                        } else if value == "protocol" {
-                            return Token(type: .proto, text: "protocol")
-                        } else if value == "extension" {
-                            return Token(type: .exten, text: "extension")
-                        } else if value == "func" {
-                            return Token(type: .function, text: "func")
-                        }
+                    if isSwift, let keyword = swiftKeyword(value) {
+                        return keyword
                     }
                     
                     if value == "static" {
@@ -285,8 +268,34 @@ fileprivate extension SourceLexer {
         return String(name)
     }
     
+    /// 尝试匹配swift中的关键字
+    func swiftKeyword(_ name: String) -> Token? {
+        switch name {
+        case "class":
+            return Token(type: .cls, text: "class")
+        case "struct":
+            return Token(type: .structure, text: "struct")
+        case "protocol":
+            return Token(type: .proto, text: "protocol")
+        case "extension":
+            return Token(type: .exten, text: "extension")
+        case "func":
+            return Token(type: .function, text: "func")
+        case "inout":
+            return Token(type: .`inout`, text: "inout")
+        case "throws", "rethrows":
+            return Token(type: .`throw`, text: "throw")
+        default:
+            return nil
+        }
+    }
+    
     /// 解析@符号
     func atSign() -> Token {
+        if isSwift && autoclosure() {
+            return Token(type: .autoclosure, text: "@autoclosure")
+        }
+        
         if interface() { // 匹配'@interface '成功
             return Token(type: .interface, text: "@interface")
         } else if implementation() {
@@ -295,7 +304,8 @@ fileprivate extension SourceLexer {
             return Token(type: .end, text: "@end")
         }
         
-        return Token(type: .unknown, text: "")
+        consume()
+        return Token(type: .at, text: "@")
     }
     
     /// 字符是否为字母
@@ -332,43 +342,35 @@ fileprivate extension SourceLexer {
         }
     }
     
-    /// 匹配@interface声明, 包括后面的空白符
-    func interface() -> Bool {
+    /// 尝试匹配text，成功则返回true并消耗输入，失败不消耗任何输入
+    func lookahead(_ text: String) -> Bool {
         let start = index
         do {
-            try match("@interface")
+            try match(text)
             try whitespace()
-            
             return true
         } catch {
-            index = start // 匹配失败则将重置位置
+            index = start
             return false
         }
+    }
+    
+    /// 匹配@interface声明, 包括后面的空白符
+    func interface() -> Bool {
+        return lookahead("@interface")
     }
     
     /// 匹配@implementation
     func implementation() -> Bool {
-        let start = index
-        do {
-            try match("@implementation")
-            try whitespace()
-            return true
-        } catch {
-            index = start
-            return false
-        }
+        return lookahead("@implementation")
     }
     
     func end() -> Bool {
-        let start = index
-        do {
-            try match("@end")
-            try whitespace()
-            return true
-        } catch {
-            index = start
-            return false
-        }
+        return lookahead("@end")
+    }
+    
+    func autoclosure() -> Bool {
+        return lookahead("@autoclosure")
     }
     
     /// 是否为空白符号, 如果当前已到达文件末尾视为匹配成功

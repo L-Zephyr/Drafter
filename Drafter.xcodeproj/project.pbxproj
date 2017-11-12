@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB0C15871FB84D4C00FE154B /* SwiftMethodTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0C15861FB84D4C00FE154B /* SwiftMethodTest.swift */; };
 		BB0EAB011F8E416200C48449 /* TestSwiftMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0EAAFA1F8E416100C48449 /* TestSwiftMethodParser.swift */; };
 		BB0EAB021F8E416200C48449 /* TestSwiftClassParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0EAAFB1F8E416100C48449 /* TestSwiftClassParser.swift */; };
 		BB0EAB041F8E416200C48449 /* TestSwiftInvokeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0EAAFD1F8E416100C48449 /* TestSwiftInvokeParser.swift */; };
@@ -108,6 +109,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BB0C15861FB84D4C00FE154B /* SwiftMethodTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMethodTest.swift; sourceTree = "<group>"; };
 		BB0EAAF11F8E411400C48449 /* DrafterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrafterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB0EAAF51F8E411400C48449 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB0EAAFA1F8E416100C48449 /* TestSwiftMethodParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSwiftMethodParser.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				BB12AA8E1FB2FE67007EB55A /* OCMsgSendTest.swift */,
 				BBFC154B1FB4987E0057E7FE /* SwiftProtocolParserTest.swift */,
 				BBFC15511FB556980057E7FE /* SwiftClassParserTest.swift */,
+				BB0C15861FB84D4C00FE154B /* SwiftMethodTest.swift */,
 			);
 			path = Combinator;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 				BB38A65E1FA9BC060022D28A /* CombinatorTest.swift in Sources */,
 				BB0EAB0A1F8E417800C48449 /* ProtocolNode.swift in Sources */,
 				BBFC154A1FB495220057E7FE /* SwiftProtocolGenParser.swift in Sources */,
+				BB0C15871FB84D4C00FE154B /* SwiftMethodTest.swift in Sources */,
 				BB38A6461FA8B64E0022D28A /* Optional+Applicative.swift in Sources */,
 				BB4FA2491FA87C320082391D /* Parser.swift in Sources */,
 				BB0EAB0B1F8E417B00C48449 /* Extension.swift in Sources */,

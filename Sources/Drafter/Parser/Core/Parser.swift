@@ -62,7 +62,7 @@ extension Parser {
     }
 }
 
-/// 尝试执行Parser，执行结果为可选值，如果成功则包含执行结果，失败也同样返回success，结果为nil，不消耗任何输入
+/// 尝试执行Parser，执行结果为可选值，如果成功则包含执行结果，失败也同样返回success，结果为nil，失败时不消耗输入
 func trying<T>(_ p: Parser<T>) -> Parser<T?> {
     return Parser<T?> { (tokens) -> Result<(T?, Tokens)> in
         switch p.parse(tokens) {
@@ -140,12 +140,12 @@ func anyTokens(until: @escaping (Token) -> Bool) -> Parser<[Token]> {
     }
 }
 
-/// 获取任意Token知道p成功为止, p不会消耗输入
+/// 获取任意Token知道p成功为止, p不会消耗输入，该方法不会返回错误
 func anyTokens(until p: Parser<Token>) -> Parser<[Token]> {
-    return (not(p) *> anyToken).many
+    return (not(p) *> anyToken).many <|> pure([])
 }
 
-/// 匹配在l和r之间的任意Token，l和r也会被消耗掉，l和r会出现在结果中
+/// 匹配在l和r之间的任意Token，l和r也会被消耗掉，l和r会出现在结果中，lr匹配失败时会返回错误
 func anyTokens(encloseBy l: Parser<Token>, and r: Parser<Token>) -> Parser<[Token]> {
     let content = lookAhead(l) *> lazy(anyTokens(encloseBy: l, and: r)) // 递归匹配
         <|> ({ [$0] } <^> (not(r) *> anyToken)) // 匹配任意token直到碰到r
@@ -156,26 +156,20 @@ func anyTokens(encloseBy l: Parser<Token>, and r: Parser<Token>) -> Parser<[Toke
         <*> r
 }
 
-/// 匹配在l和r之间的任意Token，l和r会被消耗掉，但不会出现在结果中
+/// 匹配在l和r之间的任意Token，l和r会被消耗掉，但不会出现在结果中，lr匹配失败时会返回错误
 func anyTokens(inside l: Parser<Token>, and r: Parser<Token>) -> Parser<[Token]> {
     return anyTokens(encloseBy: l, and: r).map {
         Array($0.dropFirst().dropLast()) // 去掉首尾的元素
     }
 }
 
-//func anyTokens(inside l: Parser<Token>, and r: Parser<Token>) -> Parser<[Token]> {
-//    return Parser<[Token]> { (tokens) -> Result<([Token], Tokens)> in
-//
-//    }
-//}
-
 /// 任意被包围在{}、[]、()或<>中的符号
-//func anyEnclosuredTokens() -> Parser<[Token]> {
-//    return anyTokens(encloseBy: .leftBrace, and: .rightBrace)
-//        <|> anyTokens(encloseBy: .leftSquare, and: .rightSquare)
-//        <|> anyTokens(encloseBy: .leftParen, and: .rightParen)
-//        <|> anyTokens(encloseBy: .leftAngle, and: .rightAngle)
-//}
+var anyEnclosureTokens: Parser<[Token]> {
+    return anyTokens(encloseBy: token(.leftBrace), and: token(.rightBrace)) // {..}
+        <|> anyTokens(encloseBy: token(.leftSquare), and: token(.rightSquare)) // [..]
+        <|> anyTokens(encloseBy: token(.leftParen), and: token(.rightParen)) // (..)
+        <|> anyTokens(encloseBy: token(.leftAngle), and: token(.rightAngle)) // <..>
+}
 
 // MARK: -
 

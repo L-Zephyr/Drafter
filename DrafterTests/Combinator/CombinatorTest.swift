@@ -163,6 +163,5 @@ class CombinatorTest: XCTestCase {
         XCTAssert(result.count == 7)
         XCTAssert(rest.count == 0)
     }
-    
-    
+
 }

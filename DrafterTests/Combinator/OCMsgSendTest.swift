@@ -59,6 +59,7 @@ class OCMsgSendTest: XCTestCase {
         let invokes = ObjcMessageParser().parse(tokens)
         
         XCTAssert(invokes.count == 1)
+        XCTAssert(invokes[0].params.count == 2)
     }
     
     func testMethodParam() {
@@ -66,6 +67,7 @@ class OCMsgSendTest: XCTestCase {
         let invokes = ObjcMessageParser().parse(tokens)
         
         XCTAssert(invokes.count == 1)
+//        XCTAssert(invokes[0].params.count == 2)
     }
     
     func testMethodBlock() {
