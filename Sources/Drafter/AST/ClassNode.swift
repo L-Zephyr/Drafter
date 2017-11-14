@@ -9,15 +9,15 @@
 import Cocoa
 
 /// 保存类型信息的节点
-class ClassNode: Node {
-    
-    // TODO: superCls改成String类型
-    var superCls: ClassNode? = nil // 父类
+class ClassNode: Node {    
+    var superCls: String? = nil // 父类
     var className: String = ""     // 类名
     var protocols: [String] = []   // 实现的协议
     
-    init(_ name: String, _ superCls: ClassNode?, _ protos: [String]) {
-        self.superCls = superCls
+    init(_ name: String, _ superClass: String?, _ protos: [String]) {
+        if let superClass = superClass, !superClass.isEmpty {
+            superCls = superClass
+        }
         className = name
         protocols = protos
     }
@@ -38,7 +38,7 @@ extension ClassNode: CustomStringConvertible {
         var desc = "{class: \(className)"
         
         if let superCls = superCls {
-            desc.append(contentsOf: ", superClass: \(superCls.className)")
+            desc.append(contentsOf: ", superClass: \(superCls)")
         }
         
         if protocols.count > 0 {

@@ -37,7 +37,7 @@ class DotGenerator {
             }
             
             // 父类
-            if let superCls = cls.superCls?.className {
+            if let superCls = cls.superCls {
                 if !nodesSet.contains(superCls) {
                     nodesSet.insert(superCls)
                     dot.append(superCls, label: superCls)

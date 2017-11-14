@@ -33,7 +33,7 @@ extension SwiftClassParser {
         // TODO: 区分struct和class
         return curry(ClassNode.init)
             <^> (token(.cls) <|> token(.structure)) *> token(.name) <* trying (genericType) => stringify // 类名
-            <*> trying (superCls) => toClassNode // 父类
+            <*> trying (superCls) => stringify // 父类
             <*> trying (token(.comma) *> protocols) => stringify // 协议列表
     }
     

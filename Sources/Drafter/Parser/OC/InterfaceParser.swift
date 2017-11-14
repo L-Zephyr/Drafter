@@ -37,9 +37,9 @@ extension InterfaceParser {
         
         // @interface xx : xx <xx, xx>
         let parser = curry(ClassNode.init)
-            <^> token(.interface) *> token(.name) => stringify
-            <*> trying(token(.colon) *> token(.name)) => toClassNode
-            <*> trying(token(.name).separateBy(token(.comma)).between(lAngle, rAngle)) => stringify
+            <^> token(.interface) *> token(.name) => stringify // 类名
+            <*> trying (token(.colon) *> token(.name)) => stringify // 父类名
+            <*> trying (token(.name).separateBy(token(.comma)).between(lAngle, rAngle)) => stringify
         return parser
     }
     

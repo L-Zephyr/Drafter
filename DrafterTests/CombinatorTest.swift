@@ -32,21 +32,22 @@ class CombinatorTest: XCTestCase {
         let parser = token(.name).separateBy(comma)
         
         if case .failure(_) = parser.parse(tokens) {
-            XCTAssert(false)
+            XCTAssert(true)
         }
     }
     
     func testSeparator2() {
-        let tokens: [Token] = [Token(type: .name, text: "name1")]
+        let tokens: [Token] = [Token(type: .name, text: "name1"),
+                               Token(type: .comma, text: ","),
+                               Token(type: .name, text: "name2")]
         let comma = token(.comma)
         let parser = token(.name).separateBy(comma)
         
         guard case .success(let (result, rest)) = parser.parse(tokens) else {
-            XCTAssert(false)
+            XCTAssert(true)
             return
         }
         XCTAssert(result.count == 2)
-        XCTAssert(rest.count == 0)
     }
 
     func testBetween() {

@@ -101,6 +101,6 @@ class OCMethodTest: XCTestCase {
         let method = methods[0]
         XCTAssert(method.isStatic == true)
         XCTAssert(method.params.count == 2)
-        XCTAssert(method.invokes.count == 2)
+        XCTAssert(method.invokes.count == 3)
     }
 }

@@ -67,8 +67,7 @@ class OCMsgSendTest: XCTestCase {
     func testMethodParam() {
         let invokes = run("[self add: [self method] and: 2]")
         
-        XCTAssert(invokes.count == 1)
-//        XCTAssert(invokes[0].params.count == 2)
+        XCTAssert(invokes.count == 2)
     }
     
     func testMethodBlock() {

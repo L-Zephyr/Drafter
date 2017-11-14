@@ -47,7 +47,7 @@ class InterfaceTest: XCTestCase {
         let nodes = run("@interface MyClass: NSObject < Delegate1, Delegate2>")
         
         XCTAssert(nodes.count == 1)
-        XCTAssert(nodes[0].superCls != nil && nodes[0].superCls!.className == "NSObject")
+        XCTAssert(nodes[0].superCls != nil && nodes[0].superCls! == "NSObject")
         XCTAssert(nodes[0].className == "MyClass")
         XCTAssert(nodes[0].protocols == ["Delegate1", "Delegate2"])
     }

@@ -28,7 +28,7 @@ class SwiftClassParserTest: XCTestCase {
         
         XCTAssert(cls.count == 1)
         XCTAssert(cls[0].className == "MyClass")
-        XCTAssert(cls[0].superCls!.className == "Super")
+        XCTAssert(cls[0].superCls! == "Super")
         XCTAssert(cls[0].protocols == ["Proto1"])
     }
     
@@ -54,7 +54,7 @@ class SwiftClassParserTest: XCTestCase {
         
         XCTAssert(cls.count == 1)
         XCTAssert(cls[0].className == "MyClass")
-        XCTAssert(cls[0].superCls!.className == "Super")
+        XCTAssert(cls[0].superCls! == "Super")
         XCTAssert(cls[0].protocols.count == 0)
     }
     
@@ -71,7 +71,7 @@ class SwiftClassParserTest: XCTestCase {
         
         XCTAssert(cls.count == 1)
         XCTAssert(cls[0].className == "MyClass")
-        XCTAssert(cls[0].superCls!.className == "Super")
+        XCTAssert(cls[0].superCls! == "Super")
         XCTAssert(cls[0].protocols == ["Proto1"])
     }
 }

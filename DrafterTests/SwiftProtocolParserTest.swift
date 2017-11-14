@@ -20,7 +20,7 @@ class SwiftProtocolParserTest: XCTestCase {
     }
     
     func testProtocol() {
-        let tokens = SourceLexer(input: "protocol MyProtocol: Protocol1, Protocol2").allTokens
+        let tokens = SourceLexer(input: "protocol MyProtocol: Protocol1, Protocol2", isSwift: true).allTokens
         guard let protos = SwiftProtocolParser().parser.run(tokens) else {
             XCTAssert(false)
             return
