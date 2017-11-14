@@ -78,8 +78,8 @@ class OCMsgSendTest: XCTestCase {
         } and: 2];
         [self method2];
         """
-        let invokes = run("[self add: [self method] and: 2]")
+        let invokes = run(input)
         
-        XCTAssert(invokes.count == 2)
+        XCTAssert(invokes.count == 3)
     }
 }

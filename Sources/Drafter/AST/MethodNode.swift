@@ -86,7 +86,7 @@ extension MethodNode: CustomStringConvertible {
         
         let methodDesc = params.join(stringify: { (param) -> String in
             if !param.innerName.isEmpty {
-                return "\(param.outterName): "
+                return "\(param.outterName):"
             } else {
                 return param.outterName
             }

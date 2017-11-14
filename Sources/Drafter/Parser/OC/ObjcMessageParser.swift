@@ -70,7 +70,7 @@ extension ObjcMessageParser {
      */
     var param: Parser<InvokeParam> {
         return curry(InvokeParam.init)
-            <^> token(.name) <* token(.colon) => stringify
+            <^> (curry({ "\($0.text)\($1.text)" }) <^> token(.name) <*> token(.colon))
             <*> paramBody
     }
     
