@@ -8,10 +8,8 @@
 import Foundation
 
 class ObjcMethodParser: ParserType {
-    
-    func parse(_ tokens: Tokens) -> [MethodNode] {
-        let method = methodDefParser <|> methodDeclParser
-        return method.continuous.run(tokens) ?? []
+    var parser: Parser<[MethodNode]> {
+        return (methodDefParser <|> methodDeclParser).continuous
     }
 }
 
@@ -29,7 +27,6 @@ extension ObjcMethodParser {
             <*> type
             <*> methodSelector <* token(.semicolon) // 声明结束
             <*> pure([])
-            <*> pure([])
     }
     
     /// 解析OC方法定义
@@ -41,8 +38,7 @@ extension ObjcMethodParser {
             <^> isStatic
             <*> type
             <*> methodSelector
-            <*> body
-            <*> pure([]) // TODO: 解析方法调用
+            <*> ({ ObjcMessageParser().parser.run($0) ?? [] } <^> body)
     }
     
     /// 静态方法

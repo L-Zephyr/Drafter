@@ -21,7 +21,7 @@ class SwiftMethodInvokeTest: XCTestCase {
     
     func run(_ input: String) -> [MethodInvokeNode] {
         let tokens = SourceLexer(input: input).allTokens
-        guard let result = SwiftInvokeGenParser().parser.run(tokens) else {
+        guard let result = SwiftInvokeParser().parser.run(tokens) else {
             XCTAssert(false)
             return []
         }
@@ -29,9 +29,21 @@ class SwiftMethodInvokeTest: XCTestCase {
     }
     
     func testInvoke() {
-        let invokes = run("self.value.method().add(a: 21, and: a + b)")
+        let invokes = run("self.value.method().add(a: a + b, and: 5)")
         
         XCTAssert(invokes.count == 1)
         XCTAssert(invokes[0].params.count == 2)
+    }
+    
+    func testComplexInvoke() {
+        let input = """
+        method(add: 3, completion: {
+            self.add(a: 2, and: 5)
+            self.doSomthing()
+        })
+        """
+        let invokes = run(input)
+        
+        XCTAssert(invokes.count == 3)
     }
 }

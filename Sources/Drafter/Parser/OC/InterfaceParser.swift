@@ -10,11 +10,8 @@ import Foundation
 // TODO: - 代码优化
 
 class InterfaceParser: ParserType {
-    
-    func parse(_ tokens: Tokens) -> [ClassNode] {
-        let parser = distinct <^> (categoryParser <|> classParser).continuous
-        
-        return parser.run(tokens) ?? []
+    var parser: Parser<[ClassNode]> {
+        return distinct <^> (categoryParser <|> classParser).continuous
     }
     
     // v1

@@ -93,7 +93,7 @@ func not(_ p: Parser<Token>) -> Parser<Token> {
     return Parser<Token> { (tokens) -> Result<(Token, Tokens)> in
         switch p.parse(tokens) {
         case .success(let (r, _)):
-            return .failure(.notMatch("Unexpected found: \(r)"))
+            return .failure(.missMatch("Unexpected found: \(r)"))
         case .failure(_):
             return .success((Token(type: .unknown, text: ""), tokens))
         }
@@ -107,7 +107,9 @@ func token(_ t: TokenType) -> Parser<Token> {
             let msg = "Expected type: \(t), found: \(tokens.first?.description ?? "empty")"
             return .failure(.missMatch(msg))
         }
+        #if DEBUG
         print("match token: \(first)")
+        #endif
         return .success((first, Array(tokens.dropFirst())))
     })
 }

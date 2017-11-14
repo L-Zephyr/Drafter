@@ -29,7 +29,7 @@ enum MethodInvoker {
 
 struct InvokeParam {
     var name: String // 参数的名称
-    var methods: [MethodInvokeNode] // 参数体中的方法调用，没有则为空
+    var invokes: [MethodInvokeNode] // 包含在参数体中的方法调用，没有则为空
 }
 
 // MARK: - MethodInvokeNode
@@ -39,17 +39,7 @@ class MethodInvokeNode: Node {
     var isSwift: Bool = false
     var invoker: MethodInvoker = .name("") // 该方法的调用者
     var methodName: String = "" // 只有解析swift用到这个属性
-    var params: [String] = [] // 参数, 只记录参数名称
-}
-
-extension MethodInvokeNode {
-    static func ocInit(_ invoker: MethodInvoker, _ params: [String]) -> MethodInvokeNode {
-        let invoke = MethodInvokeNode()
-        invoke.isSwift = false
-        invoke.invoker = invoker
-        invoke.params = params
-        return invoke
-    }
+    var params: [InvokeParam] = [] // 参数, 只记录参数名称
 }
 
 extension MethodInvokeNode {
@@ -62,6 +52,15 @@ extension MethodInvokeNode {
         case .method(let invoke):
             return invoke.topInvoker
         }
+    }
+}
+
+// MARK: - Helper
+
+extension Array where Element == InvokeParam {
+    func joinedText(separator: String) -> String {
+        let texts = self.map { $0.name }
+        return texts.joined(separator: separator)
     }
 }
 
@@ -87,7 +86,7 @@ extension MethodInvokeNode: CustomStringConvertible {
             method.append(contentsOf: "\(name) ")
         }
         
-        method.append(contentsOf: "\(params.joined(separator: " "))]")
+        method.append(contentsOf: "\(params.joinedText(separator: " "))]")
         
         return method
     }
@@ -105,7 +104,7 @@ extension MethodInvokeNode: CustomStringConvertible {
             }
         }
         
-        method.append(contentsOf: "\(methodName)(\(params.joined(separator: ", ")))")
+        method.append(contentsOf: "\(methodName)(\(params.joinedText(separator: ", ")))")
         
         return method
     }
@@ -129,11 +128,11 @@ extension MethodInvokeNode: Hashable {
     }
     
     var objcHashValue: Int {
-        return params.joined().hashValue
+        return params.joinedText(separator: "").hashValue
     }
     
     var swiftHashValue: Int {
-        let paramSign = params.joined(separator: ",")
+        let paramSign = params.joinedText(separator: ",")
         let methodSign = "\(methodName)\(paramSign)"
         
         return methodSign.hashValue

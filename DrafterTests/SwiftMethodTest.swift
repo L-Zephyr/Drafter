@@ -29,7 +29,7 @@ class SwiftMethodTest: XCTestCase {
     
     func run(_ input: String) -> [MethodNode] {
         let tokens = SourceLexer(input: input, isSwift: true).allTokens
-        guard let methods = SwiftMethodGenParser().parser.run(tokens) else {
+        guard let methods = SwiftMethodParser().parser.run(tokens) else {
             XCTAssert(false)
             return []
         }

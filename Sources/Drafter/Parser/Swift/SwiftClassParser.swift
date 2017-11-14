@@ -1,51 +1,92 @@
 //
 //  SwiftClassParser.swift
-//  Drafter
+//  drafterPackageDescription
 //
-//  Created by LZephyr on 2017/10/3.
-//  Copyright © 2017年 LZephyr. All rights reserved.
+//  Created by LZephyr on 2017/11/9.
 //
 
 import Foundation
 
+class SwiftClassParser: ParserType {
+    
+    var parser: Parser<[ClassNode]> {
+        return distinct <^> typesParser.continuous
+    }
+}
+
+// MARK: - Parser
+
 /*
  definition = class_definition | protocol_definition | extension_definition
- 
- class_definition = 'class' NAME generics_type? inherit_list
- generics_type    = '<' ANY '>'
- inherit_list     = (':' (NAME)+ )?
- ...
  */
-class SwiftClassParser: BacktrackParser {
+extension SwiftClassParser {
     
-    init(lexer: Lexer, protocols: [ProtocolNode] = []) {
-        super.init(lexer: lexer)
-        self.protocols = protocols
+    var typesParser: Parser<ClassNode> {
+        return classDef <|> extensionDef
     }
     
-    func parse() -> [ClassNode] {
-        while token().type != .endOfFile {
-            do {
-                try definition()
-            } catch {
-                consume()
+    /// 解析class和struct的定义
+    /**
+     class_definition = 'class' NAME generics_type? super_class? ',' protocols?
+     */
+    var classDef: Parser<ClassNode> {
+        // TODO: 区分struct和class
+        return curry(ClassNode.init)
+            <^> (token(.cls) <|> token(.structure)) *> token(.name) <* trying (genericType) => stringify // 类名
+            <*> trying (superCls) => toClassNode // 父类
+            <*> trying (token(.comma) *> protocols) => stringify // 协议列表
+    }
+    
+    /// 解析extension定义
+    /**
+     extension_definition = 'extension' NAME (':' protocols)?
+     */
+    var extensionDef: Parser<ClassNode> {
+        return curry(ClassNode.init)
+            <^> token(.exten) *> token(.name) => stringify
+            <*> pure(nil)
+            <*> token(.colon) *> protocols => stringify
+    }
+    
+    /// 解析泛型
+    /**
+      generics_type = '<' ANY '>'
+     */
+    var genericType: Parser<String> {
+        return anyTokens(inside: token(.leftAngle), and: token(.rightAngle)) *> pure("")
+    }
+    
+    /// 父类
+    /**
+     super_class = ':' NAME
+     */
+    var superCls: Parser<Token> {
+        return token(.colon) *> token(.name)
+    }
+    
+    /// 协议列表
+    /**
+     protocols = NAME (',' NAME)*
+     */
+    var protocols: Parser<[Token]> {
+        return token(.name).separateBy(token(.comma)) <|> { [$0] } <^> token(.name)
+    }
+}
+
+extension SwiftClassParser {
+    var toClassNode: (Token?) -> ClassNode? {
+        return { token in
+            if let token = token {
+                return ClassNode(clsName: token.text)
+            } else {
+                return nil
             }
         }
-        
-        distinct()
-        
-        return nodes
     }
     
-    // MARK: - Private
-    
-    fileprivate var nodes: [ClassNode] = []
-    fileprivate var protocols: [ProtocolNode] = []
-    
-    /// nodes去重
-    fileprivate func distinct() {
+    func distinct(_ nodes: [ClassNode]) -> [ClassNode] {
         guard nodes.count > 1 else {
-            return
+            return nodes
         }
         
         var set = Set<ClassNode>()
@@ -57,113 +98,6 @@ class SwiftClassParser: BacktrackParser {
             }
         }
         
-        nodes = Array(set)
-    }
-}
-
-// MARK: - 规则解析
-
-fileprivate extension SwiftClassParser {
-    
-    func definition() throws {
-        switch token().type {
-        case .cls: fallthrough
-        case .structure:
-            let cls = try classDefinition()
-            nodes.append(cls)
-        case .exten:
-            let cls = try extensionDefinition()
-            if !protocols.genericContain(cls) {
-                nodes.append(cls)
-            }
-        default:
-            consume()
-        }
-    }
-    
-    func classDefinition() throws -> ClassNode {
-        let cls = ClassNode()
-        
-        // 暂不区分struct和class
-        if token().type == .structure {
-            try match(.structure)
-        } else if token().type == .cls {
-            try match(.cls)
-        } else {
-            throw ParserError.notMatch("Not match class")
-        }
-        
-        cls.className = try match(.name).text
-        
-        try genericsType()
-
-        let inherits = try inheritList()
-        
-        for index in 0..<inherits.count {
-            let name = inherits[index]
-            if protocols.contains(where: { $0.name == name }) || index > 0  {
-                cls.protocols.append(name)
-            } else if index == 0 {
-                cls.superCls = ClassNode(clsName: name)
-            }
-        }
-        
-        try match(.leftBrace)
-        
-        return cls
-    }
-    
-    // 忽略泛型定义
-    func genericsType() throws {
-        if token().type == .leftAngle {
-            try match(.leftAngle)
-            
-            var inside = 1
-            while token().type != .endOfFile {
-                if inside == 0 {
-                    return
-                }
-                
-                if token().type == .leftAngle {
-                    inside += 1
-                } else if token().type == .rightAngle {
-                    inside -= 1
-                }
-                
-                consume()
-            }
-        }
-    }
-    
-    func extensionDefinition() throws -> ClassNode {
-        let cls = ClassNode()
-        
-        try match(.exten)
-        cls.className = try match(.name).text
-        
-        cls.protocols = try inheritList()
-        try match(.leftBrace)
-        
-        return cls
-    }
-    
-    func inheritList() throws -> [String] {
-        var inherits: [String] = []
-        
-        if token().type == .colon {
-            try match(.colon)
-            while token().type != .endOfFile {
-                let parent = try match(.name).text
-                inherits.append(parent)
-                
-                if token().type == .comma { // 还有更多
-                    consume()
-                } else {
-                    break
-                }
-            }
-        }
-        
-        return inherits
+        return  Array(set)
     }
 }

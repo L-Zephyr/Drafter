@@ -2,190 +2,96 @@
 //  SwiftInvokeParser.swift
 //  Drafter
 //
-//  Created by LZephyr on 2017/10/5.
-//  Copyright © 2017年 LZephyr. All rights reserved.
+//  Created by LZephyr on 2017/11/12.
 //
 
 import Foundation
 
-/*
- method_invoke  = NAME '(' param_list? ')' callee?
- callee         = ('?' | '!')? '.' (method_invoke | NAME)
- param_list     = param (param ',')*
- param          = ...
- */
-/// 解析swift方法的调用
-class SwiftInvokeParser: BacktrackParser {
+class SwiftInvokeParser: ParserType {
     
-    func parse() -> [MethodInvokeNode] {
-        while token().type != .endOfFile {
-            do {
-                if isMethodInvoke() {
-                    let invoke = try methodInvoke()
-                    invokes.append(invoke)
-                } else {
-                    consume()
-                }
-            } catch {
-                consume()
+    var parser: Parser<[MethodInvokeNode]> {
+        return methodInvoke.continuous.map({ (methods) -> [MethodInvokeNode] in
+            var result = methods
+            for method in methods {
+                result.append(contentsOf: method.params.reduce([]) { $0 + $1.invokes })
             }
-        }
-        
-        return invokes
+            return result
+        })
     }
-    
-    // MARK: - Private
-    
-    fileprivate var invokes: [MethodInvokeNode] = []
-    // 保留的关键字
-    fileprivate let reservedWords = ["if", "else", "do", "catch", "while", "repeat"]
 }
 
-// MARK: - 规则解析
+// MARK: - Parser
 
-fileprivate extension SwiftInvokeParser {
+extension SwiftInvokeParser {
     
-    func methodInvoke() throws -> MethodInvokeNode {
+    /// method_invoke = single_method ('.' single_method)
+    var methodInvoke: Parser<MethodInvokeNode> {
+        let methodSequence = singleMethod
+            .separateBy(token(.dot))
+            .map({ (methods) -> MethodInvokeNode in
+                methods.dropFirst().reduce(methods[0]) { (last, current) in
+                    current.invoker = .method(last)
+                    return current
+                }
+            })
+        
+        return methodSequence <|> singleMethod
+    }
+    
+    /// 匹配一个单独的方法
+    /// single_method = (invoker '.')? NAME '(' param_list? ')'
+    var singleMethod: Parser<MethodInvokeNode> {
+        return curry(MethodInvokeNode.swiftInit)
+            <^> token(.name) => stringify // 方法名
+            <*> paramList.between(token(.leftParen), token(.rightParen)) // 参数列表
+    }
+    
+    /// NAME ('.' NAME)*
+//    var nameInvoker: Parser<MethodInvoker> {
+//        return { .name($0.joinedText(separator: ".")) }
+//            <^> token(.name)
+//            .notFollowedBy( token(.leftParen) <|> token(.leftBrace) )
+//            .separateBy( token(.dot) )
+//    }
+    
+    /// 解析一个参数列表, 该parser不会失败
+    /**
+     param_list = param (param ',')*
+     */
+    var paramList: Parser<[InvokeParam]> {
+        return param.separateBy(token(.comma))
+            <|> { [$0] } <^> lookAhead(not(token(.rightParen))) *> param
+            <|> pure([])
+    }
+    
+    /// 解析单个参数，该parser不会失败
+    /**
+     param =  (NAME ':')? param_body
+     */
+    var param: Parser<InvokeParam> {
+        return curry(InvokeParam.init)
+            <^> trying(token(.name) <* token(.colon)) => stringify
+            <*> trying(paramBody) ?? []
+    }
+    
+    /// 匹配参数体中的的方法调用，没有则为空
+    var paramBody: Parser<[MethodInvokeNode]> {
+        // 处理闭包定义中的方法调用
+        let closure = { lazy(self.singleMethod).continuous.run($0) ?? [] }
+            <^> anyTokens(inside: token(.leftBrace), and: token(.rightBrace)) // 匹配闭包中的所有token
+
+        return closure // closure
+            <|> curry({ [$0] }) <^> lazy(self.singleMethod) // 方法调用
+            <|> anyTokens(until: token(.rightParen) <|> token(.comma)) *> pure([]) // 其他直接忽略
+    }
+}
+
+extension MethodInvokeNode {
+    static func swiftInit(methodName: String, _ params: [InvokeParam]) -> MethodInvokeNode {
         let invoke = MethodInvokeNode()
         invoke.isSwift = true
-        
-        let name = try match(.name).text
-        if reservedWords.contains(name) {
-            throw ParserError.notMatch("Not match method def")
-        }
-        invoke.methodName = name
-        
-        // TODO: - 方法只有一个闭包参数，且以尾随闭包的方式调用的情况
-//        if token().type == .leftBrace {
-//            invoke.params.append("")
-//            try closure()
-//        }
-        
-        // 匹配参数
-        try match(.leftParen)
-        invoke.params = try paramList()
-        try match(.rightParen)
-        
-        // 还有尾随闭包
-        if token().type == .leftBrace {
-            invoke.params.append("")
-            try closure()
-        }
-        
-        // 连续调用
-        if let trailingInvoke = try callee() {
-            trailingInvoke.topInvoker.invoker = .method(invoke)
-            return trailingInvoke
-        } else {
-            return invoke
-        }
-    }
-    
-    func paramList() throws -> [String] {
-        guard token().type != .rightParen else {
-            return []
-        }
-        
-        var params: [String] = []
-        params.append(try param())
-        
-        while token().type != .rightParen && token().type != .endOfFile {
-            try match(.comma)
-            params.append(try param())
-        }
-        
-        return params
-    }
-    
-    func param() throws -> String {
-        var paramName = ""
-        // xx:
-        if token().type == .name && token(at: 1).type == .colon {
-            paramName.append(contentsOf: try match(.name).text)
-            paramName.append(contentsOf: try match(.colon).text)
-        }
-        
-        // 跳过参数值
-        var inside = 0
-        while token().type != .endOfFile {
-            let paramEnd = token().type == .comma || token().type == .rightParen
-            if inside == 0 && paramEnd {
-                break
-            }
-            
-            // 匹配闭包表达式
-            if token().type == .leftBrace {
-                try closure()
-                continue
-            }
-            
-            if token().type == .leftSquare {
-                inside += 1
-            } else if token().type == .rightSquare {
-                inside -= 1
-            }
-            
-            consume()
-        }
-        
-        return paramName
-    }
-    
-    /// 闭包定义要单独处理
-    func closure() throws {
-        try match(.leftBrace)
-        
-        var inside = 1
-        while token().type != .endOfFile {
-            if inside == 0 {
-                break
-            }
-            
-            // 参数闭包中的方法调用也解析出来
-            if isMethodInvoke() {
-                let invoke = try methodInvoke()
-                if !isSpeculating {
-                    invokes.append(invoke)
-                }
-                continue
-            }
-            
-            if token().type == .leftBrace {
-                inside += 1
-            } else if token().type == .rightBrace {
-                inside -= 1
-            }
-            
-            consume()
-        }
-    }
-    
-    func callee() throws -> MethodInvokeNode? {
-        if token().type == .dot {
-            try match(.dot)
-            if isMethodInvoke() {
-                return try methodInvoke()
-            }
-        }
-        return nil
-    }
-}
-
-// MARK: - 推演
-
-fileprivate extension SwiftInvokeParser {
-    
-    func isMethodInvoke() -> Bool {
-        var success = true
-        mark()
-        
-        do {
-            _ = try methodInvoke()
-        } catch {
-            success = false
-        }
-        
-        release()
-        return success
+        invoke.params = params
+        invoke.methodName = methodName
+        return invoke
     }
 }

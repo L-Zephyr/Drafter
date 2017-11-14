@@ -34,11 +34,17 @@ class InterfaceTest: XCTestCase {
         super.tearDown()
     }
     
+    func run(_ input: String) -> [ClassNode] {
+        let tokens = SourceLexer(input: input).allTokens
+        guard let result = InterfaceParser().parser.run(tokens) else {
+            XCTAssert(false)
+            return []
+        }
+        return result
+    }
+    
     func testClassWithSuper() {
-        let tokens = SourceLexer(input: "@interface MyClass: NSObject < Delegate1, Delegate2>").allTokens
-        let parser = InterfaceParser()
-        
-        let nodes = parser.parse(tokens)
+        let nodes = run("@interface MyClass: NSObject < Delegate1, Delegate2>")
         
         XCTAssert(nodes.count == 1)
         XCTAssert(nodes[0].superCls != nil && nodes[0].superCls!.className == "NSObject")
@@ -47,10 +53,7 @@ class InterfaceTest: XCTestCase {
     }
     
     func testClassWithoutSuper() {
-        let tokens = SourceLexer(input: "@interface MyClass < Delegate1, Delegate2>").allTokens
-        let parser = InterfaceParser()
-        
-        let nodes = parser.parse(tokens)
+        let nodes = run("@interface MyClass < Delegate1, Delegate2>")
         
         XCTAssert(nodes.count == 1)
         XCTAssert(nodes[0].superCls == nil)
@@ -59,10 +62,7 @@ class InterfaceTest: XCTestCase {
     }
     
     func testClassWithoutDelegate() {
-        let tokens = SourceLexer(input: "@interface MyClass").allTokens
-        let parser = InterfaceParser()
-        
-        let nodes = parser.parse(tokens)
+        let nodes = run("@interface MyClass")
         
         XCTAssert(nodes.count == 1)
         XCTAssert(nodes[0].superCls == nil)
@@ -71,10 +71,7 @@ class InterfaceTest: XCTestCase {
     }
     
     func testCategory() {
-        let tokens = SourceLexer(input: "@interface MyClass() <Delegate1, Delegate2>").allTokens
-        let parser = InterfaceParser()
-        
-        let nodes = parser.parse(tokens)
+        let nodes = run("@interface MyClass() <Delegate1, Delegate2>")
         
         XCTAssert(nodes.count == 1)
         XCTAssert(nodes[0].superCls == nil)
@@ -88,10 +85,8 @@ class InterfaceTest: XCTestCase {
         int a = 2;
         @interface MyClass2()
         """
-        let tokens = SourceLexer(input: input).allTokens
-        let parser = InterfaceParser()
         
-        let nodes = parser.parse(tokens)
+        let nodes = run(input)
         
         XCTAssert(nodes.count == 2)
         

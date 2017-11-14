@@ -19,6 +19,15 @@ class OCMsgSendTest: XCTestCase {
         super.tearDown()
     }
     
+    func run(_ input: String) -> [MethodInvokeNode] {
+        let tokens = SourceLexer(input: input).allTokens
+        guard let result = ObjcMessageParser().parser.run(tokens) else {
+            XCTAssert(false)
+            return []
+        }
+        return result
+    }
+    
     // MARK: - 单步测试
     
     func testParam() {
@@ -28,11 +37,7 @@ class OCMsgSendTest: XCTestCase {
             [self method2];
         }
         """
-        let tokens = SourceLexer(input: input).allTokens
-        guard let invokes = ObjcMessageParser().paramBody.run(tokens) else {
-            XCTAssert(false)
-            return
-        }
+        let invokes = run(input)
         
         XCTAssert(invokes.count == 2)
     }
@@ -40,31 +45,27 @@ class OCMsgSendTest: XCTestCase {
     // MARK: -
     
     func testNoParam() {
-        let tokens = SourceLexer(input: "[[self method1] method2]").allTokens
-        let invokes = ObjcMessageParser().parse(tokens)
+        let invokes = run("[[self method1] method2]")
         
         XCTAssert(invokes.count == 1)
         //
     }
     
     func testWithParams() {
-        let tokens = SourceLexer(input: "[[self method] add: 1 and: 2]").allTokens
-        let invokes = ObjcMessageParser().parse(tokens)
+        let invokes = run("[[self method] add: 1 and: 2]")
         
         XCTAssert(invokes.count == 1)
     }
     
     func testWithEquation() {
-        let tokens = SourceLexer(input: "[self add: a + b + c and: 2]").allTokens
-        let invokes = ObjcMessageParser().parse(tokens)
+        let invokes = run("[self add: a + b + c and: 2]")
         
         XCTAssert(invokes.count == 1)
         XCTAssert(invokes[0].params.count == 2)
     }
     
     func testMethodParam() {
-        let tokens = SourceLexer(input: "[self add: [self method] and: 2]").allTokens
-        let invokes = ObjcMessageParser().parse(tokens)
+        let invokes = run("[self add: [self method] and: 2]")
         
         XCTAssert(invokes.count == 1)
 //        XCTAssert(invokes[0].params.count == 2)
@@ -77,8 +78,7 @@ class OCMsgSendTest: XCTestCase {
         } and: 2];
         [self method2];
         """
-        let tokens = SourceLexer(input: input).allTokens
-        let invokes = ObjcMessageParser().parse(tokens)
+        let invokes = run("[self add: [self method] and: 2]")
         
         XCTAssert(invokes.count == 2)
     }

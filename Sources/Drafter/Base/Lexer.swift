@@ -292,15 +292,19 @@ fileprivate extension SourceLexer {
     
     /// 解析@符号
     func atSign() -> Token {
-        if isSwift && autoclosure() {
-            return Token(type: .autoclosure, text: "@autoclosure")
+        if isSwift {
+            if lookahead("@autoclosure") {
+                return Token(type: .autoclosure, text: "@autoclosure")
+            } else if lookahead("@escaping") {
+                return Token(type: .escaping, text: "@escaping")
+            }
         }
         
-        if interface() { // 匹配'@interface '成功
+        if lookahead("@interface") { // 匹配'@interface '成功
             return Token(type: .interface, text: "@interface")
-        } else if implementation() {
+        } else if lookahead("@implementation") {
             return Token(type: .implementation, text: "@implementation")
-        } else if end() {
+        } else if lookahead("@end") {
             return Token(type: .end, text: "@end")
         }
         
@@ -353,24 +357,6 @@ fileprivate extension SourceLexer {
             index = start
             return false
         }
-    }
-    
-    /// 匹配@interface声明, 包括后面的空白符
-    func interface() -> Bool {
-        return lookahead("@interface")
-    }
-    
-    /// 匹配@implementation
-    func implementation() -> Bool {
-        return lookahead("@implementation")
-    }
-    
-    func end() -> Bool {
-        return lookahead("@end")
-    }
-    
-    func autoclosure() -> Bool {
-        return lookahead("@autoclosure")
     }
     
     /// 是否为空白符号, 如果当前已到达文件末尾视为匹配成功

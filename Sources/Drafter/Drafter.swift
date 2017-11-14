@@ -71,8 +71,8 @@ class Drafter {
         
         // oc files
         for file in files.filter({ !$0.isSwift }) {
-            let parser = InterfaceParser()
-            classes.merge(parser.parse(SourceLexer(file: file).allTokens))
+            let tokens = SourceLexer(file: file).allTokens
+            classes.merge(InterfaceParser().parser.run(tokens) ?? [])
         }
         
         // swift files
@@ -81,14 +81,12 @@ class Drafter {
         // 1. 解析protocol
         var protocols = [ProtocolNode]()
         for file in swiftFiles {
-            let parser = SwiftProtocolParser(lexer: SourceLexer(file: file))
-            protocols.append(contentsOf: parser.parse())
+            protocols.append(contentsOf: SwiftProtocolParser().parser.run(SourceLexer(file: file).allTokens) ?? [])
         }
         
         // 2. 解析class
         for file in swiftFiles {
-            let parser = SwiftClassParser(lexer: SourceLexer(file: file), protocols: protocols)
-            classes.merge(parser.parse())
+            classes.merge(SwiftClassParser().parser.run(SourceLexer(file: file).allTokens) ?? [])
         }
         
         classes = classes.filter({ $0.className.contains(keywords) })
@@ -105,15 +103,15 @@ class Drafter {
     /// 生成方法调用关系图
     fileprivate func craftinvokeGraph() {
         for file in files.filter({ !$0.hasSuffix(".h") }) {
-            let lexer = SourceLexer(file: file)
+            let tokens = SourceLexer(file: file).allTokens
             
             var nodes = [MethodNode]()
             if file.isSwift {
-                let parser = SwiftMethodParser(lexer: lexer)
-                nodes.append(contentsOf: filted(parser.parse()))
+                let result = SwiftMethodParser().parser.run(tokens) ?? []
+                nodes.append(contentsOf: filted(result))
             } else {
-                let parser = ObjcMethodParser()
-                nodes.append(contentsOf: filted(parser.parse(lexer.allTokens)))
+                let result = ObjcMethodParser().parser.run(tokens) ?? []
+                nodes.append(contentsOf: filted(result))
             }
 
             DotGenerator.generate(nodes, filePath: file)

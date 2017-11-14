@@ -1,74 +1,37 @@
 //
 //  SwiftProtocolParser.swift
-//  Drafter
+//  drafterPackageDescription
 //
-//  Created by LZephyr on 2017/10/4.
-//  Copyright © 2017年 LZephyr. All rights reserved.
+//  Created by LZephyr on 2017/11/9.
 //
 
 import Foundation
 
-/*
- protocol_definition = 'protocol' NAME inherit_list?
- inherit_list        = ':' NAME (',' NAME)*
- */
-class SwiftProtocolParser: BacktrackParser {
+class SwiftProtocolParser: ParserType {
     
-    func parse() -> [ProtocolNode] {
-        while token().type != .endOfFile {
-            do {
-                let proto = try protocolDefinition()
-                nodes.append(proto)
-            } catch {
-                consume()
-            }
-        }
-        return nodes
+    var parser: Parser<[ProtocolNode]> {
+        return protocolParser.continuous
     }
-    
-    fileprivate var nodes: [ProtocolNode] = []
 }
 
-// MARK: - 规则解析
+// MARK: - SwiftProtocolParser
 
-fileprivate extension SwiftProtocolParser {
-    
-    func protocolDefinition() throws -> ProtocolNode {
-        let proto = ProtocolNode()
-        
-        try match(.proto)
-        proto.name = try match(.name).text
-        proto.supers = try inheritList()
-        
-        try match(.leftBrace)
-        
-        return proto
+extension SwiftProtocolParser {
+    /// 解析一个协议定义
+    /**
+     protocol_definition = 'protocol' NAME inherit_list?
+     */
+    var protocolParser: Parser<ProtocolNode> {
+        return curry(ProtocolNode.init)
+            <^> token(.proto) *> token(.name) => stringify
+            <*> inheritList
     }
     
-    func inheritList() throws -> [String] {
-        var inherits: [String] = []
-        
-        if token().type == .colon {
-            try match(.colon)
-            while token().type != .endOfFile {
-                var parent = ""
-                if token().type == .name {
-                    parent = try match(.name).text
-                } else if token().type == .cls {
-                    parent = try match(.cls).text
-                } else {
-                    throw ParserError.notMatch("Not match protocol parent")
-                }
-                inherits.append(parent)
-                
-                if token().type == .comma { // 还有更多
-                    consume()
-                } else {
-                    break
-                }
-            }
-        }
-        
-        return inherits
+    /// 解析协议的继承列表
+    /**
+     inherit_list = ':' NAME (',' NAME)*
+     */
+    var inheritList: Parser<[String]> {
+        return token(.colon) *> token(.name).separateBy(token(.comma)) => stringify
     }
 }

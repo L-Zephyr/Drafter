@@ -48,7 +48,8 @@ enum TokenType {
     case exten            // swift的extension关键字
     case structure        // swift的struct关键字
     case function         // swift的func关键字
-    case autoclosure       // @autoclosure
+    case autoclosure      // @autoclosure
+    case escaping         // @escaping
     case `inout`          // inout
     case `throw`          // throws、rethrows
 }

@@ -19,6 +19,15 @@ class OCMethodTest: XCTestCase {
         super.tearDown()
     }
     
+    func run(_ input: String) -> [MethodNode] {
+        let tokens = SourceLexer(input: input).allTokens
+        guard let result = ObjcMethodParser().parser.run(tokens) else {
+            XCTAssert(false)
+            return []
+        }
+        return result
+    }
+    
     func testMethodSelector() {
         let tokens = SourceLexer(input: "method").allTokens
         
@@ -32,9 +41,7 @@ class OCMethodTest: XCTestCase {
     // MARK: -
     
     func testMethodDecl() {
-        let tokens = SourceLexer(input: "+ (_nonable NSString *)add:(int)a andB:(long long)b;").allTokens
-        
-        let methods = ObjcMethodParser().parse(tokens)
+        let methods = run("+ (_nonable NSString *)add:(int)a andB:(long long)b;")
         
         XCTAssert(methods.count == 1)
         XCTAssert(methods[0].isStatic == true)
@@ -42,9 +49,7 @@ class OCMethodTest: XCTestCase {
     }
     
     func testMethodDeclNoParam() {
-        let tokens = SourceLexer(input: "+ (_nonable NSString *)method;").allTokens
-        
-        let methods = ObjcMethodParser().parse(tokens)
+        let methods = run("+ (_nonable NSString *)method;")
         
         XCTAssert(methods.count == 1)
         XCTAssert(methods[0].isStatic == true)
@@ -59,8 +64,7 @@ class OCMethodTest: XCTestCase {
             a = b
         }
         """
-        let tokens = SourceLexer(input: input).allTokens
-        let methods = ObjcMethodParser().parse(tokens)
+        let methods = run(input)
         
         guard methods.count == 2 else {
             XCTAssert(false)
@@ -70,19 +74,33 @@ class OCMethodTest: XCTestCase {
         XCTAssert(methods[0].params.count == 2)
         XCTAssert(methods[1].isStatic == false)
         XCTAssert(methods[1].params.count == 1)
-        XCTAssert(methods[1].methodBody.count == 3)
     }
     
-    func testMethodDef() {
-        let tokens = SourceLexer(input: "+ (_nonable NSString *)add:(int)a andB:(long long)b { {int a = b;} }").allTokens
-        
-        let methods = ObjcMethodParser().parse(tokens)
+    func testMethodDef() {        
+        let methods = run("+ (_nonable NSString *)add:(int)a andB:(long long)b { {int a = b;} }")
         
         XCTAssert(methods.count == 1)
         
         let method = methods[0]
         XCTAssert(method.isStatic == true)
         XCTAssert(method.params.count == 2)
-        XCTAssert(method.methodBody.count == 7)
+    }
+    
+    func testMethodWithInvokes() {
+        let input = """
+        + (_nonable NSString *)add:(int)a andB:(long long)b {
+            [self method: [self add]];
+            int a = 1;
+            [self method2];
+        }
+        """
+        let methods = run(input)
+        
+        XCTAssert(methods.count == 1)
+        
+        let method = methods[0]
+        XCTAssert(method.isStatic == true)
+        XCTAssert(method.params.count == 2)
+        XCTAssert(method.invokes.count == 2)
     }
 }

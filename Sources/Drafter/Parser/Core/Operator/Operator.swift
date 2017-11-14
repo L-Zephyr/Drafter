@@ -17,6 +17,22 @@ func <?> <T>(_ parser: Parser<T>, _ err: String) -> Parser<T> {
     }
 }
 
+/// parser结果为可选值，如果parser成功但结果为空则用defaultVal替换结果
+func ?? <T>(_ parser: Parser<T?>, _ defaultVal: T) -> Parser<T> {
+    return Parser<T> { (tokens) -> Result<(T, Tokens)> in
+        switch parser.parse(tokens) {
+        case .success(let (result, rest)):
+            if let result = result {
+                return .success((result, rest))
+            } else {
+                return .success((defaultVal, rest))
+            }
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+}
+
 // MARK: - 类型转换操作符
 
 /// => 是一个将Parser<T>转换成指定类型的操作符

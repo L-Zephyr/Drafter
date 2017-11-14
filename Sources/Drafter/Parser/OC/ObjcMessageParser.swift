@@ -8,12 +8,15 @@
 import Foundation
 
 class ObjcMessageParser: ParserType {
-    func parse(_ tokens: Tokens) -> [MethodInvokeNode] {
-        return messageSend.continuous.run(tokens) ?? []
-    }
     
     var parser: Parser<[MethodInvokeNode]> {
-        return messageSend.continuous
+        return messageSend.continuous.map({ (methods) -> [MethodInvokeNode] in
+            var result = methods
+            for method in methods {
+                result.append(contentsOf: method.params.reduce([]) { $0 + $1.invokes })
+            }
+            return result
+        })
     }
 }
 
@@ -47,19 +50,28 @@ extension ObjcMessageParser {
     /**
      param_selector = param_list | NAME
      */
-    var paramSelector: Parser<[String]> {
+    var paramSelector: Parser<[InvokeParam]> {
         return paramList
-            <|> curry({ [$0.text] }) <^> token(.name)
+            <|> { [InvokeParam(name: $0.text, invokes: [])] } <^> token(.name)
             <?> "param_selector解析失败"
     }
     
     /// 带具体参数的列表
     /**
-     param_list = (NAME ':' param_body)+
+     param_list = (param)+
      */
-    var paramList: Parser<[String]> {
-        let paramPair = stringify <^> token(.name) <* token(.colon) <* paramBody
-        return paramPair.many <?> "param_list解析失败"
+    var paramList: Parser<[InvokeParam]> {
+        return param.many <?> "param_list解析失败"
+    }
+    
+    /// 参数
+    /**
+     param = NAME ':' param_body
+     */
+    var param: Parser<InvokeParam> {
+        return curry(InvokeParam.init)
+            <^> token(.name) <* token(.colon) => stringify
+            <*> paramBody
     }
     
     /// 解析具体参数内容，参数中的方法调用也解析出来
@@ -91,5 +103,15 @@ extension ObjcMessageParser {
         return { token in
             .name(token.text)
         }
+    }
+}
+
+extension MethodInvokeNode {
+    static func ocInit(_ invoker: MethodInvoker, _ params: [InvokeParam]) -> MethodInvokeNode {
+        let invoke = MethodInvokeNode()
+        invoke.isSwift = false
+        invoke.invoker = invoker
+        invoke.params = params
+        return invoke
     }
 }

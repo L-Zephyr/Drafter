@@ -25,7 +25,7 @@ class MethodNode: Node {
     var returnType: String = "" // 返回值类型
     var methodName: String = "" 
     var params: [Param] = [] // 方法的参数
-    var methodBody: [Token] = [] // 函数体的源码
+//    var methodBody: [Token] = [] // 函数体的源码
     var invokes: [MethodInvokeNode] = [] // 该方法中调用的OC方法
 }
 
@@ -33,7 +33,7 @@ class MethodNode: Node {
 
 extension MethodNode {
     /// OC初始化方法
-    class func ocInit(_ isStatic: Bool, _ retType: String, _ params: [Param], _ body: [Token], _ invokes: [MethodInvokeNode]) -> MethodNode {
+    class func ocInit(_ isStatic: Bool, _ retType: String, _ params: [Param], _ invokes: [MethodInvokeNode]) -> MethodNode {
         let method = MethodNode()
         
         method.isSwift = false
@@ -41,13 +41,12 @@ extension MethodNode {
         method.returnType = retType
         method.params = params
         method.invokes = invokes
-        method.methodBody = body
         
         return method
     }
     
     /// swift初始化方法
-    class func swiftInit(_ isStatic: Bool, _ name: String, _ params: [Param], _ retType: String, _ body: [Token], _ invokes: [MethodInvokeNode]) -> MethodNode {
+    class func swiftInit(_ isStatic: Bool, _ name: String, _ params: [Param], _ retType: String, _ invokes: [MethodInvokeNode]) -> MethodNode {
         let method = MethodNode()
         
         method.isSwift = true
@@ -56,7 +55,6 @@ extension MethodNode {
         method.methodName = name
         method.params = params
         method.invokes = invokes
-        method.methodBody = body
         
         return method
     }

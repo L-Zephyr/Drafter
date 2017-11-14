@@ -21,7 +21,7 @@ class SwiftClassParserTest: XCTestCase {
     
     func testClass() {
         let tokens = SourceLexer(input: "class MyClass: Super, Proto1", isSwift: true).allTokens
-        guard let cls = SwiftClassGenParser().parser.run(tokens) else {
+        guard let cls = SwiftClassParser().parser.run(tokens) else {
             XCTAssert(false)
             return
         }
@@ -34,7 +34,7 @@ class SwiftClassParserTest: XCTestCase {
     
     func testClassNoInherit() {
         let tokens = SourceLexer(input: "class MyClass", isSwift: true).allTokens
-        guard let cls = SwiftClassGenParser().parser.run(tokens) else {
+        guard let cls = SwiftClassParser().parser.run(tokens) else {
             XCTAssert(false)
             return
         }
@@ -47,7 +47,7 @@ class SwiftClassParserTest: XCTestCase {
     
     func testClassWithGeneric() {
         let tokens = SourceLexer(input: "class MyClass<T, A>: Super", isSwift: true).allTokens
-        guard let cls = SwiftClassGenParser().parser.run(tokens) else {
+        guard let cls = SwiftClassParser().parser.run(tokens) else {
             XCTAssert(false)
             return
         }
@@ -64,7 +64,7 @@ class SwiftClassParserTest: XCTestCase {
         extension MyClass: Proto1 {}
         """
         let tokens = SourceLexer(input: input, isSwift: true).allTokens
-        guard let cls = SwiftClassGenParser().parser.run(tokens) else {
+        guard let cls = SwiftClassParser().parser.run(tokens) else {
             XCTAssert(false)
             return
         }
