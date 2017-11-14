@@ -29,7 +29,7 @@ class OCMsgSendTest: XCTestCase {
         }
         """
         let tokens = SourceLexer(input: input).allTokens
-        guard let invokes = ObjcMessageParser().param.run(tokens) else {
+        guard let invokes = ObjcMessageParser().paramBody.run(tokens) else {
             XCTAssert(false)
             return
         }

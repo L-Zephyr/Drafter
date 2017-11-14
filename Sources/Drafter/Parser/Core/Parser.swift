@@ -107,7 +107,7 @@ func token(_ t: TokenType) -> Parser<Token> {
             let msg = "Expected type: \(t), found: \(tokens.first?.description ?? "empty")"
             return .failure(.missMatch(msg))
         }
-//        print("consume token: \(first)")
+        print("match token: \(first)")
         return .success((first, Array(tokens.dropFirst())))
     })
 }

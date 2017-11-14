@@ -15,6 +15,16 @@ enum MethodInvoker {
     case method(MethodInvokeNode) // 另一个方法调用
 }
 
+//extension MethodInvoker {
+//    static func name(_ n: String) -> MethodInvoker {
+//        return .name(n)
+//    }
+//    
+//    static func method(_ m: MethodInvokeNode) -> MethodInvoker {
+//        return .method(m)
+//    }
+//}
+
 // MARK: - InvokeParam
 
 struct InvokeParam {
@@ -33,12 +43,12 @@ class MethodInvokeNode: Node {
 }
 
 extension MethodInvokeNode {
-    convenience init(_ isSwift: Bool, _ invoker: MethodInvoker, _ methodName: String, _ params: [String]) {
-        self.init()
-        self.isSwift = isSwift
-        self.invoker = invoker
-        self.params = params
-        self.methodName = methodName
+    static func ocInit(_ invoker: MethodInvoker, _ params: [String]) -> MethodInvokeNode {
+        let invoke = MethodInvokeNode()
+        invoke.isSwift = false
+        invoke.invoker = invoker
+        invoke.params = params
+        return invoke
     }
 }
 

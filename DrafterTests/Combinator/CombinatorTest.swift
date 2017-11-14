@@ -18,6 +18,10 @@ class CombinatorTest: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
+    
+//    func run(_ input: String) {
+//
+//    }
 
     func testSeparator1() {
         let tokens: [Token] = [Token(type: .name, text: "name1"),
@@ -164,4 +168,22 @@ class CombinatorTest: XCTestCase {
         XCTAssert(rest.count == 0)
     }
 
+    func testReduce() {
+        let tokens = SourceLexer(input: "name1.name2.name3;").allTokens
+        
+        let single = token(.name) <* token(.dot)
+        let parser =
+            single.reduce([]) { (last, current) in
+                return last + [current]
+            }.flatMap { (results) -> Parser<[Token]> in
+                return { results + [$0] } <^> token(.name)
+            }
+        
+        guard case let .success((result, rest)) = parser.parse(tokens) else {
+            XCTAssert(false)
+            return
+        }
+        XCTAssert(result.count == 3)
+        XCTAssert(rest.count == 1)
+    }
 }

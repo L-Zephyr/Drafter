@@ -26,9 +26,8 @@ extension ObjcMessageParser {
      message_send = '[' receiver param_selector ']'
      */
     var messageSend: Parser<MethodInvokeNode> {
-        let msg = curry(MethodInvokeNode.init)(false)
+        let msg = curry(MethodInvokeNode.ocInit)
             <^> receiver
-            <*> pure("")
             <*> paramSelector
         
         return msg.between(token(.leftSquare), token(.rightSquare)) <?> "message_send解析失败"
@@ -39,8 +38,8 @@ extension ObjcMessageParser {
      receiver = message_send | NAME
      */
     var receiver: Parser<MethodInvoker> {
-        return toMethodInvoker() <^> lazy(self.messageSend)
-            <|> toMethodInvoker() <^> token(.name)
+        return  lazy(self.messageSend) => toMethodInvoker()
+            <|> token(.name) => toMethodInvoker()
             <?> "receiver解析失败"
     }
     
@@ -56,16 +55,16 @@ extension ObjcMessageParser {
     
     /// 带具体参数的列表
     /**
-     param_list = (NAME ':' param)+
+     param_list = (NAME ':' param_body)+
      */
     var paramList: Parser<[String]> {
-        let paramPair = stringify <^> token(.name) <* token(.colon) <* param
+        let paramPair = stringify <^> token(.name) <* token(.colon) <* paramBody
         return paramPair.many <?> "param_list解析失败"
     }
     
     /// 解析具体参数内容，参数中的方法调用也解析出来
     // FIXME: 处理这种类型的表达式“[self method] + [self method]”
-    var param: Parser<[MethodInvokeNode]> {
+    var paramBody: Parser<[MethodInvokeNode]> {
         // 处理block定义中的方法调用
         let block = { lazy(self.messageSend).continuous.run($0) ?? [] }
             <^> token(.caret) // ^ 表示block开始

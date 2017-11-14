@@ -80,3 +80,11 @@ extension Token: CustomStringConvertible {
         return "\(text)"
     }
 }
+
+extension Array where Element == Token {
+    /// 将Token数组中每一个Token的text连接起来
+    func joinedText(separator: String) -> String {
+        let texts = self.map { $0.text }
+        return texts.joined(separator: separator)
+    }
+}

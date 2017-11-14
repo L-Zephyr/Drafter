@@ -17,13 +17,8 @@ class SwiftMethodGenParser: ParserType {
     }
 }
 
-/*
- method_definition  = is_static 'func' NAME ‘(' param_list ')' return_type method_body
- param_list         = (param (',' param)*)?
- param              = ('_' | NAME)? NAME ':' param_type default_val
- default_val        = '=' ANY
- method_body        = '{' BODY '}'
- */
+// MARK: - Parser
+
 extension SwiftMethodGenParser {
     /// 方法定义解析
     /**

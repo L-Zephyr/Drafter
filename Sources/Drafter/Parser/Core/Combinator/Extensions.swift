@@ -55,4 +55,17 @@ extension Parser {
             }
         }
     }
+    
+    /// 尝试将self应用多次，每次将上一次和这一次的结果传入到next闭包，并将结果作为下一次的输入
+    func reduce<U>(_ initVal: U, _ next: @escaping (U, T) -> U) -> Parser<U> {
+        return Parser<U> { (tokens) -> Result<(U, Tokens)> in
+            var remainder = tokens
+            var last = initVal
+            while case .success(let (current, rest)) = self.parse(remainder) {
+                last = next(last, current)
+                remainder = rest
+            }
+            return .success((last, remainder))
+        }
+    }
 }
