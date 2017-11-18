@@ -24,7 +24,7 @@ extension SwiftMethodParser {
     var methodDef: Parser<MethodNode> {
         return curry(MethodNode.swiftInit)
             <^> isStatic
-            <*> token(.function) *> token(.name) => stringify
+            <*> methodName
             <*> paramList.between(token(.leftParen), token(.rightParen))
             <*> trying(modifier) *> retType
             <*> ({ SwiftInvokeParser().parser.run($0) ?? [] } <^> body)
@@ -32,11 +32,20 @@ extension SwiftMethodParser {
 
     /// 静态方法
     /**
-     ('class' | 'static')
+     is_static = ('class' | 'static')
      */
     var isStatic: Parser<Bool> {
         return (token(.cls) <|> token(.statical)) *> pure(true)
             <|> pure(false)
+    }
+    
+    /// 方法名
+    /**
+     method_name = 'func' NAME | 'init`
+     */
+    var methodName: Parser<String> {
+        return token(.function) *> token(.name) => stringify
+            <|> token(.`init`) *> pure("init")
     }
 
     /// 参数列表
@@ -45,8 +54,7 @@ extension SwiftMethodParser {
      */
     var paramList: Parser<[Param]> {
         // TODO: 像这种两个选项有共同前缀的规则需要优化
-        return param.separateBy(token(.comma)) // 多个参数
-            <|> { [$0] } <^> param // 单个参数
+        return param.separateBy(token(.comma)) // 参数
             <|> pure([]) // 没有参数
     }
     
@@ -57,17 +65,17 @@ extension SwiftMethodParser {
     var param: Parser<Param> {
         let outter = token(.underline) *> pure("") // "_ param:"
             <|> lookAhead(token(.name) <* token(.colon)) => stringify // "param:"
-            <|> token(.name) => stringify // "outter param:"
+            <|> token(.name) => stringify // "outter inner:"
         
         return curry(Param.swiftInit)
-            <^> trying(modifier) *> outter
+            <^> outter
             <*> token(.name) <* token(.colon) => stringify
             <*> trying(modifier) *> type <* trying(defaultValue)
     }
     
     /// 解析参数的默认值: "= xx"
     var defaultValue: Parser<[Token]> {
-        return token(.equal) *> anyTokens(until: token(.comma) <|> token(.rightParen))
+        return token(.equal) *> anyOpenTokens(until: token(.comma) <|> token(.rightParen))
     }
 
     /// 返回值类型
@@ -81,12 +89,15 @@ extension SwiftMethodParser {
     
     /// 解析一个类型声明
     var type: Parser<String> {
+        // 泛型
+        let generic = anyTokens(inside: token(.leftAngle), and: token(.rightAngle))
+        
+        // TODO: 类型转换需要优化
         // 匹配一个独立的类型
-        let singleType = token(.name) => stringify // xx
+        let singleType = { $0.joined() } <^> token(.name).separateBy(token(.dot)) <* trying(generic) => stringify // xx.xx<T>
             <|> { $0.joined() } <^> anyEnclosureTokens => stringify // (..)、[..]
         
-        return { $0.joined(separator: "->") } <^> singleType.separateBy(token(.rightArrow)) // 函数类型: (xx)->xx...
-            <|> singleType // 普通类型: xx
+        return { $0.joined(separator: "->") } <^> singleType.separateBy(token(.rightArrow)) // (xx)->xx...
     }
 
     /// 函数体定义
@@ -96,7 +107,7 @@ extension SwiftMethodParser {
     
     /// 处理swift方法中的修饰符: @autoclosure, inout, rethrow等
     var modifier: Parser<[Token]> {
-        return ( token(.autoclosure) <|> token(.`inout`) <|> token(.`throw`) ).many
+        return ( token(.autoclosure) <|> token(.`inout`) <|> token(.`throw`) <|> token(.escaping) ).many
     }
 }
 

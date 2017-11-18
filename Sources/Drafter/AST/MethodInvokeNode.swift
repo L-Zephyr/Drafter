@@ -104,7 +104,11 @@ extension MethodInvokeNode: CustomStringConvertible {
             }
         }
         
-        method.append(contentsOf: "\(methodName)(\(params.joinedText(separator: ", ")))")
+        let paramStr = params.join(stringify: { (param) -> String in
+            return "\(param.name.isEmpty ? "_" : param.name):"
+        }, separator: ", ")
+        
+        method.append(contentsOf: "\(methodName)(\(paramStr))")
         
         return method
     }
@@ -132,7 +136,9 @@ extension MethodInvokeNode: Hashable {
     }
     
     var swiftHashValue: Int {
-        let paramSign = params.joinedText(separator: ",")
+        let paramSign = params.join(stringify: { (param) -> String in
+            return "\(param.name):"
+        }, separator: ",")
         let methodSign = "\(methodName)\(paramSign)"
         
         return methodSign.hashValue

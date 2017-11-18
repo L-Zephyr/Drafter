@@ -7,8 +7,6 @@
 
 import Foundation
 
-// TODO: - 代码优化
-
 class InterfaceParser: ParserType {
     var parser: Parser<[ClassNode]> {
         return distinct <^> (categoryParser <|> classParser).continuous
@@ -45,12 +43,11 @@ extension InterfaceParser {
     
     /// 解析分类定义
     /**
-     extension = '@interface' className '(' ')' protocols
+     extension = '@interface' className '(' NAME? ')' protocols
      className = NAME
      protocols = '<' NAME (',' NAME)* '>' | ''
      */
     var categoryParser: Parser<ClassNode> {
-        // TODO: 优化
         let lParen = token(.leftParen)
         let rParen = token(.rightParen)
         let lAngle = token(.leftAngle)
@@ -67,17 +64,6 @@ extension InterfaceParser {
 // MARK: - Helper
 
 extension InterfaceParser {
-    /// 将一个Token转换成ClassNode类型
-    var toClassNode: (Token?) -> ClassNode? {
-        return { token in
-            if let token = token {
-                return ClassNode(clsName: token.text)
-            } else {
-                return nil
-            }
-        }
-    }
-    
     /// 合并相同结果
     func distinct(_ nodes: [ClassNode]) -> [ClassNode] {
         guard nodes.count > 1 else {

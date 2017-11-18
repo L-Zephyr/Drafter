@@ -28,7 +28,31 @@ class SwiftMethodInvokeTest: XCTestCase {
         return result
     }
     
-    func testInvoke() {
+    func testNoParam() {
+        let invokes = run("method()")
+        
+        XCTAssert(invokes.count == 1)
+        XCTAssert(invokes[0].methodName == "method")
+        XCTAssert(invokes[0].params.count == 0)
+    }
+    
+    func testSingleParam() {
+        let invokes = run("method(name)")
+        
+        XCTAssert(invokes.count == 1)
+        XCTAssert(invokes[0].methodName == "method")
+        XCTAssert(invokes[0].params.count == 1)
+    }
+    
+    func testParams() {
+        let invokes = run("add(a: a + b, and: 5)")
+        
+        XCTAssert(invokes.count == 1)
+        XCTAssert(invokes[0].methodName == "add")
+        XCTAssert(invokes[0].params.count == 2)
+    }
+    
+    func testInvokeSeq() {
         let invokes = run("self.value.method().add(a: a + b, and: 5)")
         
         XCTAssert(invokes.count == 1)
@@ -45,5 +69,16 @@ class SwiftMethodInvokeTest: XCTestCase {
         let invokes = run(input)
         
         XCTAssert(invokes.count == 3)
+    }
+    
+    func testAA() {
+        let input = """
+let pluginsWithCompletion: Moya.Completion = { result in
+let processedResult = self.plugins.reduce(result) { $1.process($0, target: target) }
+completion(processedResult)
+}
+"""
+        let invoke = run(input)
+        
     }
 }

@@ -15,10 +15,10 @@ class ProtocolNode: Node {
 }
 
 extension ProtocolNode {
-    convenience init(_ name: String, _ supers: [String]) {
+    convenience init(_ name: String, _ supers: [String]?) {
         self.init()
         self.name = name
-        self.supers = supers
+        self.supers = supers ?? []
     }
 }
 

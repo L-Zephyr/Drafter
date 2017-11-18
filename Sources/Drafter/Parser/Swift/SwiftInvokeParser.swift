@@ -38,7 +38,9 @@ extension SwiftInvokeParser {
         return methodSequence <|> singleMethod
     }
     
-    /// 匹配一个单独的方法
+    // FIXME: 尾随闭包
+    
+    /// 匹配一个单独的方法调用
     /// single_method = (invoker '.')? NAME '(' param_list? ')'
     var singleMethod: Parser<MethodInvokeNode> {
         return curry(MethodInvokeNode.swiftInit)
@@ -46,22 +48,14 @@ extension SwiftInvokeParser {
             <*> paramList.between(token(.leftParen), token(.rightParen)) // 参数列表
     }
     
-    /// NAME ('.' NAME)*
-//    var nameInvoker: Parser<MethodInvoker> {
-//        return { .name($0.joinedText(separator: ".")) }
-//            <^> token(.name)
-//            .notFollowedBy( token(.leftParen) <|> token(.leftBrace) )
-//            .separateBy( token(.dot) )
-//    }
-    
     /// 解析一个参数列表, 该parser不会失败
     /**
      param_list = param (param ',')*
      */
     var paramList: Parser<[InvokeParam]> {
-        return param.separateBy(token(.comma))
-            <|> { [$0] } <^> lookAhead(not(token(.rightParen))) *> param
-            <|> pure([])
+        // FIXME: 目前没有匹配数字，如 method(2) 这种情况无法正确解析参数
+        return lookAhead(token(.rightParen)) *> pure([])
+            <|> param.separateBy(token(.comma))
     }
     
     /// 解析单个参数，该parser不会失败
@@ -70,8 +64,8 @@ extension SwiftInvokeParser {
      */
     var param: Parser<InvokeParam> {
         return curry(InvokeParam.init)
-            <^> trying(token(.name) <* token(.colon)) => stringify
-            <*> trying(paramBody) ?? []
+            <^> trying (token(.name) <* token(.colon)) => stringify
+            <*> trying (paramBody) ?? []
     }
     
     /// 匹配参数体中的的方法调用，没有则为空
@@ -80,6 +74,7 @@ extension SwiftInvokeParser {
         let closure = { lazy(self.singleMethod).continuous.run($0) ?? [] }
             <^> anyTokens(inside: token(.leftBrace), and: token(.rightBrace)) // 匹配闭包中的所有token
 
+        // FIXME: 应该要匹配任意方法调用
         return closure // closure
             <|> curry({ [$0] }) <^> lazy(self.singleMethod) // 方法调用
             <|> anyTokens(until: token(.rightParen) <|> token(.comma)) *> pure([]) // 其他直接忽略

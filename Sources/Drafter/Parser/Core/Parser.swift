@@ -173,6 +173,13 @@ var anyEnclosureTokens: Parser<[Token]> {
         <|> anyTokens(encloseBy: token(.leftAngle), and: token(.rightAngle)) // <..>
 }
 
+/// 匹配任意字符直到p失败为止，p只有在不被{}、[]、()或<>包围时进行判断
+func anyOpenTokens(until p: Parser<Token>) -> Parser<[Token]> {
+    return { $0.flatMap {$0} }
+        <^> (not(p) *> (anyEnclosureTokens <|> anyToken.map { [$0] })).many
+        <|> pure([])
+}
+
 // MARK: -
 
 ///

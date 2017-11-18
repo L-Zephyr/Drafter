@@ -51,6 +51,13 @@ class SwiftMethodTest: XCTestCase {
         XCTAssert(clsMethods[0].params.count == 0)
     }
     
+    func testInit() {
+        let methods = run("init() { }")
+        
+        XCTAssert(methods.count == 1)
+        XCTAssert(methods[0].methodName == "init")
+    }
+    
     func testSimpleParam() {
         let methods = run("func method(_ a: String, b: Int, c d: Float) -> Int {}")
         

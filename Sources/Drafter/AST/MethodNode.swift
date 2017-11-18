@@ -110,7 +110,7 @@ extension MethodNode: CustomStringConvertible {
         }
         
         let paramStr = params.join(stringify: { (param) -> String in
-            return "\(param.outterName): "
+            return "\(param.outterName.isEmpty ? "_" : param.outterName): "
         }, separator: ", ")
         method.append(contentsOf: "\(paramStr))")
         

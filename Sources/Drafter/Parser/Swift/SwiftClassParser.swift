@@ -14,6 +14,26 @@ class SwiftClassParser: ParserType {
     }
 }
 
+extension SwiftClassParser {
+    /// 纠正结果中的protocols数据
+    func run(_ tokens: [Token], _ protos: [ProtocolNode]) -> [ClassNode]? {
+        var set = Set<String>()
+        for proto in protos {
+            set.insert(proto.name)
+        }
+        
+        return self.parser.map { clsList in
+            for cls in clsList {
+                if let name = cls.superCls, set.contains(name) {
+                    cls.superCls = nil
+                    cls.protocols.insert(name, at: 0)
+                }
+            }
+            return clsList
+        }.run(tokens) 
+    }
+}
+
 // MARK: - Parser
 
 /*
@@ -45,7 +65,7 @@ extension SwiftClassParser {
         return curry(ClassNode.init)
             <^> token(.exten) *> token(.name) => stringify
             <*> pure(nil)
-            <*> token(.colon) *> protocols => stringify
+            <*> trying (token(.colon) *> protocols) => stringify
     }
     
     /// 解析泛型
@@ -69,21 +89,11 @@ extension SwiftClassParser {
      protocols = NAME (',' NAME)*
      */
     var protocols: Parser<[Token]> {
-        return token(.name).separateBy(token(.comma)) <|> { [$0] } <^> token(.name)
+        return token(.name).separateBy(token(.comma))
     }
 }
 
 extension SwiftClassParser {
-    var toClassNode: (Token?) -> ClassNode? {
-        return { token in
-            if let token = token {
-                return ClassNode(clsName: token.text)
-            } else {
-                return nil
-            }
-        }
-    }
-    
     func distinct(_ nodes: [ClassNode]) -> [ClassNode] {
         guard nodes.count > 1 else {
             return nodes

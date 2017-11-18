@@ -21,7 +21,6 @@ extension ObjcMethodParser {
      method_decl = is_static type method_selector ';'
      */
     var methodDeclParser: Parser<MethodNode> {
-        // TODO: 优化
         return curry(MethodNode.ocInit)
             <^> isStatic 
             <*> type
@@ -46,7 +45,8 @@ extension ObjcMethodParser {
      ('-' | '+')
      */
     var isStatic: Parser<Bool> {
-        return token(.minus).map { _ in false } <|> token(.plus).map { _ in true }
+        return { _ in false } <^> token(.minus)
+            <|> { _ in true } <^> token(.plus)
     }
     
     /// 解析类型

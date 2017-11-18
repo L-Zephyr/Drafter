@@ -86,7 +86,7 @@ class Drafter {
         
         // 2. 解析class
         for file in swiftFiles {
-            classes.merge(SwiftClassParser().parser.run(SourceLexer(file: file).allTokens) ?? [])
+            classes.merge(SwiftClassParser().run(SourceLexer(file: file).allTokens, protocols) ?? [])
         }
         
         classes = classes.filter({ $0.className.contains(keywords) })

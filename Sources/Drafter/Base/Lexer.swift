@@ -283,6 +283,8 @@ fileprivate extension SourceLexer {
             return Token(type: .function, text: "func")
         case "inout":
             return Token(type: .`inout`, text: "inout")
+        case "init":
+            return Token(type: .`init`, text: "init")
         case "throws", "rethrows":
             return Token(type: .`throw`, text: "throw")
         default:

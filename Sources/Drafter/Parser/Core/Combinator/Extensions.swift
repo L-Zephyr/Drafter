@@ -33,9 +33,10 @@ extension Parser {
         }
     }
     
-    /// 解析一串由指定标签分隔的值，返回包含所有成功解析的值, 至少有两个结果才会返回成功
+    /// 尝试解析多个由指定标签分隔的值，返回结果的集合，集合为空则返回错误
     func separateBy<U>(_ p: Parser<U>) -> Parser<[T]> {
         return curry({ $0 + [$1] }) <^> (self <* p).many <*> self
+            <|> { [$0] } <^> self
     }
     
     /// 解析包含在指定标签之间的值: p self p

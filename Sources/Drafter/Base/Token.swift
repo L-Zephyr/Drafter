@@ -50,6 +50,7 @@ enum TokenType {
     case function         // swift的func关键字
     case autoclosure      // @autoclosure
     case escaping         // @escaping
+    case `init`           // init
     case `inout`          // inout
     case `throw`          // throws、rethrows
 }
