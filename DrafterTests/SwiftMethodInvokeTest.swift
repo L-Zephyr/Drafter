@@ -70,15 +70,4 @@ class SwiftMethodInvokeTest: XCTestCase {
         
         XCTAssert(invokes.count == 3)
     }
-    
-    func testAA() {
-        let input = """
-let pluginsWithCompletion: Moya.Completion = { result in
-let processedResult = self.plugins.reduce(result) { $1.process($0, target: target) }
-completion(processedResult)
-}
-"""
-        let invoke = run(input)
-        
-    }
 }
