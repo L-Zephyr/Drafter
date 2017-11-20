@@ -56,7 +56,7 @@ class DotGenerator {
         
         dot.end()
         
-        pure(dot: dot.dot, to: filePath)
+        dot.create(file: filePath)
     }
     
     /// 在当前位置生成调用关系图
@@ -97,14 +97,14 @@ class DotGenerator {
         
         dot.end()
         
-        pure(dot: dot.dot, to: filePath)
+        dot.create(file: filePath)
     }
     
     // MARK: - Private
     
     fileprivate var dot: String = ""
     
-    fileprivate static func pure(dot code: String, to filePath: String) {
+    fileprivate func create(file filePath: String) {
         // 写入文件
         let filename = URL(fileURLWithPath: filePath).lastPathComponent
         let dotFile = "./\(filename).dot"
@@ -114,7 +114,7 @@ class DotGenerator {
         if FileManager.default.fileExists(atPath: dotFile) {
             try? FileManager.default.removeItem(at: URL(fileURLWithPath: dotFile))
         }
-        _ = FileManager.default.createFile(atPath: dotFile, contents: code.data(using: .utf8), attributes: nil)
+        _ = FileManager.default.createFile(atPath: dotFile, contents: dot.data(using: .utf8), attributes: nil)
         
         // 生成png
         Executor.execute("dot", "-T", "png", dotFile, "-o", "\(target)", help: "Make sure Graphviz is successfully installed.")

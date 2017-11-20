@@ -9,7 +9,7 @@ import Foundation
 
 class InterfaceParser: ParserType {
     var parser: Parser<[ClassNode]> {
-        return distinct <^> (categoryParser <|> classParser).continuous
+        return curry({ $0.distinct }) <^> (categoryParser <|> classParser).continuous
     }
     
     // v1
@@ -58,27 +58,5 @@ extension InterfaceParser {
             <^> token(.interface) *> token(.name) => stringify
             <*> trying(token(.name)).between(lParen, rParen) *> pure(nil) // 分类的名字是可选项, 忽略结果
             <*> trying(token(.name).separateBy(token(.comma)).between(lAngle, rAngle)) => stringify // 协议列表
-    }
-}
-
-// MARK: - Helper
-
-extension InterfaceParser {
-    /// 合并相同结果
-    func distinct(_ nodes: [ClassNode]) -> [ClassNode] {
-        guard nodes.count > 1 else {
-            return nodes
-        }
-        
-        var set = Set<ClassNode>()
-        for node in nodes {
-            if let index = set.index(of: node) {
-                set[index].merge(node) // 合并相同的节点
-            } else {
-                set.insert(node)
-            }
-        }
-        
-        return Array(set)
     }
 }

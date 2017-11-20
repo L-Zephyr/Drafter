@@ -8,6 +8,8 @@
 
 import Foundation
 
+let maxConcurrent: Int = 4
+
 class Drafter {
     
     // MARK: - Public
@@ -16,7 +18,7 @@ class Drafter {
     var keywords: [String] = []
     var selfOnly: Bool = false // 只包含定义在用户代码中的方法节点
     
-    /// 待解析的文件或文件夹, 目前只支持.h和.m文件
+    /// 待解析的文件或文件夹, 目前只支持.h、.m和.swift文件
     var paths: String = "" {
         didSet {
             let pathValues = paths.split(by: ",")
@@ -57,6 +59,7 @@ class Drafter {
     // MARK: - Private
     
     fileprivate var files: [String] = []
+    fileprivate let semaphore = DispatchSemaphore(value: maxConcurrent)
     
     fileprivate func supported(_ file: String) -> Bool {
         if file.hasSuffix(".h") || file.hasSuffix(".m") || file.hasSuffix(".swift") {
@@ -66,35 +69,100 @@ class Drafter {
     }
     
     /// 生成继承关系图
+//    fileprivate func craftInheritGraph() {
+//        var classes = [ClassNode]()
+//
+//        // oc files
+//        for file in files.filter({ !$0.isSwift }) {
+//            let tokens = SourceLexer(file: file).allTokens
+//            classes.merge(InterfaceParser().parser.run(tokens) ?? [])
+//        }
+//
+//
+////        let swiftFiles = files.filter({ $0.isSwift })
+////
+////        // 1. 解析protocol
+//        var protocols = [ProtocolNode]()
+////        for file in swiftFiles {
+////            protocols.append(contentsOf: SwiftProtocolParser().parser.run(SourceLexer(file: file).allTokens) ?? [])
+////        }
+////
+////        // 2. 解析class
+////        for file in swiftFiles {
+////            classes.merge(SwiftClassParser().run(SourceLexer(file: file).allTokens) ?? [])
+////        }
+//
+//        // swift files
+//        for file in files.filter({ $0.isSwift }) {
+//            let tokens = SourceLexer(file: file).allTokens
+//            let (protos, cls) = SwiftInheritParser().parser.run(tokens) ?? ([], [])
+//            protocols.append(contentsOf: protos)
+//            classes.merge(cls)
+//        }
+//
+//        classes = classes.filter({ $0.className.contains(keywords) })
+//        protocols = protocols.filter({ $0.name.contains(keywords) })
+//
+//        DotGenerator.generate(classes: classes, protocols: protocols, filePath: "Inheritance")
+//
+//        // Log to terminal
+//        for node in classes {
+//            print(node)
+//        }
+//    }
+    
     fileprivate func craftInheritGraph() {
         var classes = [ClassNode]()
-        
-        // oc files
-        for file in files.filter({ !$0.isSwift }) {
-            let tokens = SourceLexer(file: file).allTokens
-            classes.merge(InterfaceParser().parser.run(tokens) ?? [])
-        }
-        
-        // swift files
-        let swiftFiles = files.filter({ $0.isSwift })
-        
-        // 1. 解析protocol
         var protocols = [ProtocolNode]()
-        for file in swiftFiles {
-            protocols.append(contentsOf: SwiftProtocolParser().parser.run(SourceLexer(file: file).allTokens) ?? [])
+        let writeQueue = DispatchQueue(label: "WriteClass")
+
+        // 解析OC类型
+        func parseObjcClass(_ file: String) {
+            print("Parsing \(file)...")
+            let tokens = SourceLexer(file: file).allTokens
+            let result = InterfaceParser().parser.run(tokens) ?? []
+            writeQueue.sync {
+                classes.merge(result)
+            }
         }
-        
-        // 2. 解析class
-        for file in swiftFiles {
-            classes.merge(SwiftClassParser().run(SourceLexer(file: file).allTokens, protocols) ?? [])
+
+        // 解析swift类型
+        func parseSwiftClass(_ file: String) {
+            print("Parsing \(file)...")
+            let tokens = SourceLexer(file: file).allTokens
+            let (protos, cls) = SwiftInheritParser().parser.run(tokens) ?? ([], [])
+            writeQueue.sync {
+                protocols.append(contentsOf: protos)
+                classes.merge(cls)
+            }
         }
-        
+
+        // 解析OC文件
+        for file in files.filter({ !$0.isSwift }) {
+            semaphore.wait()
+            DispatchQueue.global().async {
+                parseObjcClass(file)
+                self.semaphore.signal()
+            }
+        }
+
+        // 解析swift文件
+        for file in files.filter({ $0.isSwift }) {
+            semaphore.wait()
+            DispatchQueue.global().async {
+                parseSwiftClass(file)
+                self.semaphore.signal()
+            }
+        }
+
+        waitUntilFinished()
+
         classes = classes.filter({ $0.className.contains(keywords) })
         protocols = protocols.filter({ $0.name.contains(keywords) })
-        
+
         DotGenerator.generate(classes: classes, protocols: protocols, filePath: "Inheritance")
-        
-        // Log to terminal
+
+        // Log result
         for node in classes {
             print(node)
         }
@@ -102,7 +170,8 @@ class Drafter {
     
     /// 生成方法调用关系图
     fileprivate func craftinvokeGraph() {
-        for file in files.filter({ !$0.hasSuffix(".h") }) {
+        func parseMethods(_ file: String) {
+            print("Parsing \(file)...")
             let tokens = SourceLexer(file: file).allTokens
             
             var nodes = [MethodNode]()
@@ -113,8 +182,28 @@ class Drafter {
                 let result = ObjcMethodParser().parser.run(tokens) ?? []
                 nodes.append(contentsOf: filted(result))
             }
-
+            
             DotGenerator.generate(nodes, filePath: file)
+        }
+        
+        for file in files.filter({ !$0.hasSuffix(".h") }) {
+            semaphore.wait()
+            DispatchQueue.global().async {
+                parseMethods(file)
+                self.semaphore.signal()
+            }
+        }
+
+        waitUntilFinished()
+    }
+    
+    /// 等待直到所有任务完成
+    func waitUntilFinished() {
+        for _ in 0..<maxConcurrent {
+            semaphore.wait()
+        }
+        for _ in 0..<maxConcurrent {
+            semaphore.signal()
         }
     }
 }
@@ -130,8 +219,8 @@ fileprivate extension Drafter {
         return methods
     }
     
+    /// 仅保留自定义方法之间的调用
     func filtedSelfMethod(_ methods: [MethodNode]) -> [MethodNode] {
-        // 仅保留自定义方法之间的调用
         if selfOnly {
             var selfMethods = Set<Int>()
             for method in methods {

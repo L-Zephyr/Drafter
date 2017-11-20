@@ -48,6 +48,7 @@ class CombinatorTest: XCTestCase {
             return
         }
         XCTAssert(result.count == 2)
+        XCTAssert(rest.count == 0)
     }
 
     func testBetween() {

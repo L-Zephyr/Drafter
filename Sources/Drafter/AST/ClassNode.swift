@@ -68,16 +68,35 @@ extension ClassNode {
 }
 
 extension Array where Element == ClassNode {
-    mutating func merge(_ nodes: [ClassNode]) {
+    /// 将其他的节点集合合并到当前节点集合中
+    mutating func merge(_ others: [ClassNode]) {
         let set = Set<ClassNode>(self)
         
-        for node in nodes {
+        for node in others {
             if let index = set.index(of: node) {
                 set[index].merge(node)
             } else {
                 self.append(node)
             }
         }
+    }
+    
+    /// 合并重复的结果
+    var distinct: [ClassNode] {
+        guard self.count > 1 else {
+            return self
+        }
+        
+        var set = Set<ClassNode>()
+        for node in self {
+            if let index = set.index(of: node) {
+                set[index].merge(node) // 合并相同的节点
+            } else {
+                set.insert(node)
+            }
+        }
+        
+        return Array(set)
     }
 }
 

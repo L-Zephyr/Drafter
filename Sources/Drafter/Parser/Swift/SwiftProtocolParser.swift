@@ -8,7 +8,6 @@
 import Foundation
 
 class SwiftProtocolParser: ParserType {
-    
     var parser: Parser<[ProtocolNode]> {
         return protocolParser.continuous
     }
