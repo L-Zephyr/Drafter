@@ -74,7 +74,7 @@ extension SwiftInvokeParser {
         let closure = { lazy(self.singleMethod).continuous.run($0) ?? [] }
             <^> anyTokens(inside: token(.leftBrace), and: token(.rightBrace)) // 匹配闭包中的所有token
 
-        // FIXME: 应该要匹配任意方法调用
+        // FIXME: 要匹配任意方法调用
         return closure // closure
             <|> curry({ [$0] }) <^> lazy(self.singleMethod) // 方法调用
             <|> anyTokens(until: token(.rightParen) <|> token(.comma)) *> pure([]) // 其他直接忽略

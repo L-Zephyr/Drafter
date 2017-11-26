@@ -92,10 +92,10 @@ extension SwiftMethodParser {
         // 泛型
         let generic = anyTokens(inside: token(.leftAngle), and: token(.rightAngle))
         
-        // TODO: 类型转换需要优化
         // 匹配一个独立的类型
-        let singleType = { $0.joined() } <^> token(.name).separateBy(token(.dot)) <* trying(generic) => stringify // xx.xx<T>
-            <|> { $0.joined() } <^> anyEnclosureTokens => stringify // (..)、[..]
+        let singleType =
+            token(.name).separateBy(token(.dot)) <* trying(generic) => joinedText// xx.xx<T>
+            <|> anyEnclosureTokens => joinedText // (..)、[..]
         
         return { $0.joined(separator: "->") } <^> singleType.separateBy(token(.rightArrow)) // (xx)->xx...
     }

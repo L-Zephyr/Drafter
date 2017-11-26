@@ -56,9 +56,18 @@ func => <T, U>(_ lhs: Parser<[T]?>, _ transfrom: @escaping (T) -> U) -> Parser<[
     }
 }
 
-// MARK: - 类型转换方法
+// MARK: - 类型转换辅助方法
 
-/// 提取Token的text字段，将Token类型转换成String类型
+/// 将所有Token的text组合成一个字符串
+let joinedText: ([Token]) -> String = { tokens in
+    var strings = [String]()
+    for token in tokens {
+        strings.append(token.text)
+    }
+    return strings.joined()
+}
+
+/// 提取Token的text字段
 var stringify: (Token?) -> String {
     return { token in
         if let token = token {
@@ -66,5 +75,23 @@ var stringify: (Token?) -> String {
         } else {
             return ""
         }
+    }
+}
+
+/// 将所有Token的text组合成一个字符串, 以separator作为分隔符
+func joinedText(_ separator: String) -> ([Token]) -> String {
+    return { tokens in
+        var strings = [String]()
+        for token in tokens {
+            strings.append(token.text)
+        }
+        return strings.joined(separator: separator)
+    }
+}
+
+/// 接收任意参数，包装在数组中返回
+func array<T>() -> (T) -> [T] {
+    return { t in
+        [t]
     }
 }

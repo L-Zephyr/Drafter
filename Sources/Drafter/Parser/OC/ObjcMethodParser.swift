@@ -45,8 +45,8 @@ extension ObjcMethodParser {
      ('-' | '+')
      */
     var isStatic: Parser<Bool> {
-        return { _ in false } <^> token(.minus)
-            <|> { _ in true } <^> token(.plus)
+        return token(.minus) *> pure(false)
+            <|> token(.plus) *> pure(true)
     }
     
     /// 解析类型
@@ -54,8 +54,7 @@ extension ObjcMethodParser {
      type = '(' TYPE_NAME ')'
      */
     var type: Parser<String> {
-        return curry({ $0.joined(separator: " ") })
-            <^> anyTokens(inside: token(.leftParen), and: token(.rightParen)) => stringify
+        return anyTokens(inside: token(.leftParen), and: token(.rightParen)) => joinedText(" ")
     }
     
     /// 选择子
