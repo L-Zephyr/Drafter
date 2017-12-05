@@ -53,9 +53,7 @@ extension SwiftMethodParser {
      param_list = (param (',' param)*)?
      */
     var paramList: Parser<[Param]> {
-        // TODO: 像这种两个选项有共同前缀的规则需要优化
         return param.separateBy(token(.comma)) // 参数
-            <|> pure([]) // 没有参数
     }
     
     /// 参数
@@ -94,10 +92,10 @@ extension SwiftMethodParser {
         
         // 匹配一个独立的类型
         let singleType =
-            token(.name).separateBy(token(.dot)) <* trying(generic) => joinedText// xx.xx<T>
-            <|> anyEnclosureTokens => joinedText // (..)、[..]
+            anyEnclosedTokens => joinedText // (..)、[..]
+            <|> token(.name).separateBy(token(.dot)) <* trying(generic) => joinedText // xx.xx<T>
         
-        return { $0.joined(separator: "->") } <^> singleType.separateBy(token(.rightArrow)) // (xx)->xx...
+        return singleType.separateBy(token(.rightArrow)) => joinedText("->") // (xx)->xx...
     }
 
     /// 函数体定义

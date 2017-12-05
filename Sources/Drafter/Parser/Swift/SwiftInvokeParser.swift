@@ -26,20 +26,20 @@ extension SwiftInvokeParser {
     
     /// method_invoke = single_method ('.' single_method)
     var methodInvoke: Parser<MethodInvokeNode> {
-        let methodSequence = singleMethod
+        return singleMethod
             .separateBy(token(.dot))
-            .map({ (methods) -> MethodInvokeNode in
-                methods.dropFirst().reduce(methods[0]) { (last, current) in
+            .flatMap({ (methods) -> Parser<MethodInvokeNode> in
+                guard methods.count > 0 else {
+                    return fail()
+                }
+                return pure(methods.dropFirst().reduce(methods[0]) { (last, current) in
                     current.invoker = .method(last)
                     return current
-                }
+                })
             })
-        
-        return methodSequence <|> singleMethod
     }
     
     // FIXME: 尾随闭包
-    
     /// 匹配一个单独的方法调用
     /// single_method = (invoker '.')? NAME '(' param_list? ')'
     var singleMethod: Parser<MethodInvokeNode> {
@@ -53,7 +53,7 @@ extension SwiftInvokeParser {
      param_list = param (param ',')*
      */
     var paramList: Parser<[InvokeParam]> {
-        // FIXME: 目前没有匹配数字，如 method(2) 这种情况无法正确解析参数
+        // FIXME: 目前没有匹配数字，如 method(2) 这种情况无法正确解析参数个数
         return lookAhead(token(.rightParen)) *> pure([])
             <|> param.separateBy(token(.comma))
     }
@@ -70,14 +70,8 @@ extension SwiftInvokeParser {
     
     /// 匹配参数体中的的方法调用，没有则为空
     var paramBody: Parser<[MethodInvokeNode]> {
-        // 处理闭包定义中的方法调用
-        let closure = { lazy(self.singleMethod).continuous.run($0) ?? [] }
-            <^> anyTokens(inside: token(.leftBrace), and: token(.rightBrace)) // 匹配闭包中的所有token
-
-        // FIXME: 要匹配任意方法调用
-        return closure // closure
-            <|> curry({ [$0] }) <^> lazy(self.singleMethod) // 方法调用
-            <|> anyTokens(until: token(.rightParen) <|> token(.comma)) *> pure([]) // 其他直接忽略
+        return { lazy(self.singleMethod).continuous.run($0) ?? [] }
+            <^> anyOpenTokens(until: token(.rightParen) <|> token(.comma))
     }
 }
 

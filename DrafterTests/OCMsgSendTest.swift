@@ -70,6 +70,12 @@ class OCMsgSendTest: XCTestCase {
         XCTAssert(invokes.count == 2)
     }
     
+    func testMultiMethodParam() {
+        let invokes = run("[self add: [self method] + [self method2] and: 2]")
+        
+        XCTAssert(invokes.count == 3)
+    }
+    
     func testMethodBlock() {
         let input = """
         [self add: ^(int) {

@@ -75,18 +75,9 @@ extension ObjcMessageParser {
     }
     
     /// 解析具体参数内容，参数中的方法调用也解析出来
-    // FIXME: 处理这种类型的表达式“[self method] + [self method]”
     var paramBody: Parser<[MethodInvokeNode]> {
-        // 处理block定义中的方法调用
-        let block = { lazy(self.messageSend).continuous.run($0) ?? [] }
-            <^> token(.caret) // ^ 表示block开始
-            *> anyTokens(until: token(.leftBrace))
-            *> anyTokens(inside: token(.leftBrace), and: token(.rightBrace)) // 匹配block中的所有token
-        
-        return block // block
-            <|> curry({ [$0] }) <^> lazy(self.messageSend) // 方法调用
-            <|> anyTokens(until: token(.rightSquare) <|> token(.name) *> token(.colon)) *> pure([]) // 其他直接忽略
-            <?> "param解析失败"
+        return { lazy(self.messageSend).continuous.run($0) ?? [] }
+            <^> anyOpenTokens(until: token(.rightSquare) <|> token(.name) *> token(.colon))
     }
 }
 

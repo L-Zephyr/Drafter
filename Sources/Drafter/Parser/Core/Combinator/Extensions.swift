@@ -32,11 +32,12 @@ extension Parser {
             }
         }
     }
-    
-    /// 尝试解析多个由指定标签分隔的值，返回结果的集合，集合为空则返回错误
+        
+    /// 尝试解析0个或多个由指定标签分隔的值，返回结果的集合，该组合子不会返回错误
     func separateBy<U>(_ p: Parser<U>) -> Parser<[T]> {
         return curry({ $0 + [$1] }) <^> (self <* p).many <*> self
-            <|> { [$0] } <^> self
+            <|> self => array()
+            <|> pure([])
     }
     
     /// 解析包含在指定标签之间的值: p self p

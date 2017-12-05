@@ -23,10 +23,9 @@ class MethodNode: Node {
     var isSwift = false  // 是否为swift方法
     var isStatic = false  // 是否为类方法
     var returnType: String = "" // 返回值类型
-    var methodName: String = "" 
+    var methodName: String = "" // 方法的名字
     var params: [Param] = [] // 方法的参数
-//    var methodBody: [Token] = [] // 函数体的源码
-    var invokes: [MethodInvokeNode] = [] // 该方法中调用的OC方法
+    var invokes: [MethodInvokeNode] = [] // 方法体中调用的方法
 }
 
 // MARK: - 初始化方法

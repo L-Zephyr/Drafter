@@ -36,6 +36,13 @@ class SwiftMethodInvokeTest: XCTestCase {
         XCTAssert(invokes[0].params.count == 0)
     }
     
+    func testSeqMethod() {
+        let invokes = run("self.method().method1().method2()")
+        
+        XCTAssert(invokes.count == 1)
+        XCTAssert(invokes[0].description == "method().method1().method2()")
+    }
+    
     func testSingleParam() {
         let invokes = run("method(name)")
         
@@ -50,6 +57,23 @@ class SwiftMethodInvokeTest: XCTestCase {
         XCTAssert(invokes.count == 1)
         XCTAssert(invokes[0].methodName == "add")
         XCTAssert(invokes[0].params.count == 2)
+    }
+    
+    func testMethodParams() {
+        let invokes = run("add(a: method(), and: 5)")
+        
+        XCTAssert(invokes.count == 2)
+        XCTAssert(invokes[0].params.count == 2)
+        XCTAssert(invokes[1].params.count == 0)
+    }
+    
+    func testMultiMethodParams() {
+        let invokes = run("add(a: method() + method2(), and: 5)")
+        
+        XCTAssert(invokes.count == 3)
+        XCTAssert(invokes[0].params.count == 2)
+        XCTAssert(invokes[1].params.count == 0)
+        XCTAssert(invokes[2].params.count == 0)
     }
     
     func testInvokeSeq() {

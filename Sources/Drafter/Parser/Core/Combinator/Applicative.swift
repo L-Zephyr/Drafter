@@ -15,14 +15,6 @@ func <*> <T, U>(lhs: Parser<(T) -> U>, rhs: Parser<T>) -> Parser<U> {
 /// 顺序执行两个parser，最后直接抛弃左侧parser的结果，返回右侧parser的结果
 func *> <T, U>(lhs: Parser<T>, rhs: Parser<U>) -> Parser<U> {
     return Parser<U> { (tokens) -> Result<(U, Tokens)> in
-//        guard let (_, lrest) = lhs.parse(tokens) else {
-//            return nil
-//        }
-//        guard let (r, rrest) = rhs.parse(lrest) else {
-//            return nil
-//        }
-//        return (r, rrest)
-        
         let lresult = lhs.parse(tokens)
         guard let l = lresult.value else {
             return .failure(lresult.error!)
@@ -40,14 +32,6 @@ func *> <T, U>(lhs: Parser<T>, rhs: Parser<U>) -> Parser<U> {
 /// 顺序执行两个parser，最后直接抛弃有侧parser的结果，返回左侧parser的结果
 func <* <T, U>(lhs: Parser<T>, rhs: Parser<U>) -> Parser<T> {
     return Parser<T> { (tokens) -> Result<(T, Tokens)> in
-//        guard let (l, lrest) = lhs.parse(tokens) else {
-//            return nil
-//        }
-//        guard let (_, rrest) = rhs.parse(lrest) else {
-//            return nil
-//        }
-//        return (l, rrest)
-        
         let lresult = lhs.parse(tokens)
         guard let l = lresult.value else {
             return .failure(lresult.error!)
@@ -65,13 +49,6 @@ func <* <T, U>(lhs: Parser<T>, rhs: Parser<U>) -> Parser<T> {
 extension Parser {
     func apply<U>(_ parser: Parser<(T) -> U>) -> Parser<U> {
         return Parser<U> { (tokens) -> Result<(U, Tokens)> in
-//            guard let (l, lrest) = parser.parse(tokens) else {
-//                return nil
-//            }
-//            guard let (r, rrest) = self.parse(lrest) else {
-//                return nil
-//            }
-//            return (l(r), rrest)
             let lresult = parser.parse(tokens)
             guard let l = lresult.value else {
                 return .failure(lresult.error!)

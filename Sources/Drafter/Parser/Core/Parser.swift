@@ -82,8 +82,8 @@ func pure<T>(_ t: T) -> Parser<T> {
 }
 
 /// 创建一个始终返回错误的parser
-func fail(_ error: ParserError = .unknown) -> Parser<Token> {
-    return Parser(parse: { (tokens) -> Result<(Token, Tokens)> in
+func fail<T>(_ error: ParserError = .unknown) -> Parser<T> {
+    return Parser(parse: { (tokens) -> Result<(T, Tokens)> in
         return .failure(error)
     })
 }
@@ -166,7 +166,7 @@ func anyTokens(inside l: Parser<Token>, and r: Parser<Token>) -> Parser<[Token]>
 }
 
 /// 任意被包围在{}、[]、()或<>中的符号
-var anyEnclosureTokens: Parser<[Token]> {
+var anyEnclosedTokens: Parser<[Token]> {
     return anyTokens(encloseBy: token(.leftBrace), and: token(.rightBrace)) // {..}
         <|> anyTokens(encloseBy: token(.leftSquare), and: token(.rightSquare)) // [..]
         <|> anyTokens(encloseBy: token(.leftParen), and: token(.rightParen)) // (..)
@@ -176,7 +176,7 @@ var anyEnclosureTokens: Parser<[Token]> {
 /// 匹配任意字符直到p失败为止，p只有在不被{}、[]、()或<>包围时进行判断
 func anyOpenTokens(until p: Parser<Token>) -> Parser<[Token]> {
     return { $0.flatMap {$0} }
-        <^> (not(p) *> (anyEnclosureTokens <|> anyToken.map { [$0] })).many
+        <^> (not(p) *> (anyEnclosedTokens <|> anyToken.map { [$0] })).many
         <|> pure([])
 }
 

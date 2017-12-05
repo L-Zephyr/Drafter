@@ -11,12 +11,6 @@ class InterfaceParser: ParserType {
     var parser: Parser<[ClassNode]> {
         return curry({ $0.distinct }) <^> (categoryParser <|> classParser).continuous
     }
-    
-    // v1
-//    let parser = curry(ClassNode.init)
-//            <^> (token(.interface) *> token(.name)).map({ $0.text })
-//            <*> (curry(ClassNode.init(clsName:)) <^> (curry({ $0.text }) <^> token(.colon) *> token(.name))
-//            <*> token(.name).separateBy(token(.comma)).between(l, r).map({ $0.map { $0.text } })
 }
 
 // MARK: - Parser
