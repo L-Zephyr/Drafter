@@ -17,6 +17,7 @@ class Executor {
     /// - Parameters:
     ///   - executable: 可执行文件的名称
     ///   - args:       参数
+    ///   - help:       失败时附加的信息
     /// - Returns:      执行结果输出
     @discardableResult
     static func execute(_ executable: String, _ args: String..., help: String = "") -> String {

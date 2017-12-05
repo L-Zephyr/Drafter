@@ -14,7 +14,13 @@ class DotGenerator {
     // MARK: - Public
     
     /// 在当前位置生成类图
-    static func generate(classes clsNodes: [ClassNode], protocols: [ProtocolNode], filePath: String) {
+    ///
+    /// - Parameters:
+    ///   - clsNodes:  类型节点数据
+    ///   - protocols: 协议节点数据
+    ///   - filePath:  路径，作为结果图片命名的前缀
+    @discardableResult
+    static func generate(classes clsNodes: [ClassNode], protocols: [ProtocolNode], filePath: String) -> String {
         let dot = DotGenerator()
         var nodesSet = Set<String>()
         
@@ -56,11 +62,16 @@ class DotGenerator {
         
         dot.end()
         
-        dot.create(file: filePath)
+        return dot.create(file: filePath)
     }
     
     /// 在当前位置生成调用关系图
-    static func generate(_ methods: [MethodNode], filePath: String) {
+    ///
+    /// - Parameters:
+    ///   - methods: 方法节点
+    ///   - filePath: 源代码文件的路径
+    @discardableResult
+    static func generate(_ methods: [MethodNode], filePath: String) -> String {
         // 生成Dot描述
         let dot = DotGenerator()
         dot.begin(name: "CallGraph")
@@ -97,14 +108,14 @@ class DotGenerator {
         
         dot.end()
         
-        dot.create(file: filePath)
+        return dot.create(file: filePath)
     }
     
     // MARK: - Private
     
     fileprivate var dot: String = ""
     
-    fileprivate func create(file filePath: String) {
+    fileprivate func create(file filePath: String) -> String {
         // 写入文件
         let filename = URL(fileURLWithPath: filePath).lastPathComponent
         let dotFile = "./\(filename).dot"
@@ -121,6 +132,8 @@ class DotGenerator {
         
         // 删除.dot文件
         try? FileManager.default.removeItem(at: URL(fileURLWithPath: dotFile))
+        
+        return target
     }
 }
 

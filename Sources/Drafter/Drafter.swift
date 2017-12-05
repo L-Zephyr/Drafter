@@ -67,50 +67,7 @@ class Drafter {
         }
         return false
     }
-    
-    /// 生成继承关系图
-//    fileprivate func craftInheritGraph() {
-//        var classes = [ClassNode]()
-//
-//        // oc files
-//        for file in files.filter({ !$0.isSwift }) {
-//            let tokens = SourceLexer(file: file).allTokens
-//            classes.merge(InterfaceParser().parser.run(tokens) ?? [])
-//        }
-//
-//
-////        let swiftFiles = files.filter({ $0.isSwift })
-////
-////        // 1. 解析protocol
-//        var protocols = [ProtocolNode]()
-////        for file in swiftFiles {
-////            protocols.append(contentsOf: SwiftProtocolParser().parser.run(SourceLexer(file: file).allTokens) ?? [])
-////        }
-////
-////        // 2. 解析class
-////        for file in swiftFiles {
-////            classes.merge(SwiftClassParser().run(SourceLexer(file: file).allTokens) ?? [])
-////        }
-//
-//        // swift files
-//        for file in files.filter({ $0.isSwift }) {
-//            let tokens = SourceLexer(file: file).allTokens
-//            let (protos, cls) = SwiftInheritParser().parser.run(tokens) ?? ([], [])
-//            protocols.append(contentsOf: protos)
-//            classes.merge(cls)
-//        }
-//
-//        classes = classes.filter({ $0.className.contains(keywords) })
-//        protocols = protocols.filter({ $0.name.contains(keywords) })
-//
-//        DotGenerator.generate(classes: classes, protocols: protocols, filePath: "Inheritance")
-//
-//        // Log to terminal
-//        for node in classes {
-//            print(node)
-//        }
-//    }
-    
+
     fileprivate func craftInheritGraph() {
         var classes = [ClassNode]()
         var protocols = [ProtocolNode]()
@@ -160,17 +117,19 @@ class Drafter {
         classes = classes.filter({ $0.className.contains(keywords) })
         protocols = protocols.filter({ $0.name.contains(keywords) })
 
-        DotGenerator.generate(classes: classes, protocols: protocols, filePath: "Inheritance")
+        let resultPath = DotGenerator.generate(classes: classes, protocols: protocols, filePath: "Inheritance")
 
         // Log result
         for node in classes {
             print(node)
         }
+        
+        Executor.execute("open", resultPath, help: "Auto open failed")
     }
     
     /// 生成方法调用关系图
     fileprivate func craftinvokeGraph() {
-        func parseMethods(_ file: String) {
+        func parseMethods(_ file: String) -> String {
             print("Parsing \(file)...")
             let tokens = SourceLexer(file: file).allTokens
             
@@ -183,18 +142,24 @@ class Drafter {
                 nodes.append(contentsOf: filted(result))
             }
             
-            DotGenerator.generate(nodes, filePath: file)
+            return DotGenerator.generate(nodes, filePath: file)
         }
         
+        var resultPaths = [String]()
         for file in files.filter({ !$0.hasSuffix(".h") }) {
             semaphore.wait()
             DispatchQueue.global().async {
-                parseMethods(file)
+                resultPaths.append(parseMethods(file))
                 self.semaphore.signal()
             }
         }
 
         waitUntilFinished()
+        
+        // 如果只有一张图片则自动打开
+        if resultPaths.count == 1 {
+            Executor.execute("open", resultPaths[0], help: "Auto open failed")
+        }
     }
     
     /// 等待直到所有任务完成
