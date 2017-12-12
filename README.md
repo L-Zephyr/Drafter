@@ -1,5 +1,5 @@
 # Drafter
-[English ver](#English)
+[English Version](#english version)
 
 ## Drafter是什么
 
@@ -76,7 +76,7 @@ curl "https://raw.githubusercontent.com/L-Zephyr/Drafter/master/install.sh" | /b
 
 
 
-# English
+## english version
 
 ## What is Drafter
 
