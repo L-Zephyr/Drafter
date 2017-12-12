@@ -1,4 +1,5 @@
 # Drafter
+[English ver](#English)
 
 ## Drafter是什么
 
@@ -40,13 +41,13 @@ curl "https://raw.githubusercontent.com/L-Zephyr/Drafter/master/install.sh" | /b
 
 ## 参数
 
-- **-f、—file \<arg>** 
+- **-f、—file \<arg>**   
   必要参数，指定一个文件或文件夹，多个参数之间用逗号分隔，切勿出现空格。
 
-- **-m、—mode \<arg>**
+- **-m、—mode \<arg>**  
   可选参数，指定解析模式，参数值可以为invoke、inherit、both。invoke表示只解析方法调用关系、inherit表示只解析类继承关系、both表示同时执行两种解析模式。默认为invoke。
 
-- **-s、—search \<arg>**
+- **-s、—search \<arg>**  
   可选参数，指定关键字，多个关键字之间用逗号分隔，关键字忽略大小写。根据关键字过滤解析结果，只保留包含指定关键字的节点分支，如:
 
   ```shell
@@ -57,7 +58,7 @@ curl "https://raw.githubusercontent.com/L-Zephyr/Drafter/master/install.sh" | /b
 
   ![4](./.res/4.png)
 
-- **-self、—self-method-only**
+- **-self、—self-method-only**  
   可选参数，仅在解析调用关系图时起效，生成结果仅保留用户自定义的方法。
   默认情况下解析调用关系时会将所有的方法调用都解析出来，文件较大时结果会比较杂乱，开启该选项仅保留本文件中定义的方法，让结果更加清晰：
 
@@ -72,3 +73,81 @@ curl "https://raw.githubusercontent.com/L-Zephyr/Drafter/master/install.sh" | /b
 ## 实现原理
 
 实现细节请看[http://www.jianshu.com/p/9a1a32ec0af6](http://www.jianshu.com/p/9a1a32ec0af6)
+
+
+
+# English
+
+## What is Drafter
+
+- Drafter is a command-line tool for analyzing iOS code, supporting Objective-C and Swift.
+- Automatically generates [call graph](https://en.wikipedia.org/wiki/Call_graph).
+- Automatically generates Inheritance graph.
+
+## Install
+
+Run the following command, drafter will automatically install into the `/usr/local/bin` directory.
+
+```shell
+curl "https://raw.githubusercontent.com/L-Zephyr/Drafter/master/install.sh" | /bin/sh
+```
+Or you can download and compile the source directly.
+
+## Basic Use
+
+- First make sure [Graphviz](http://www.graphviz.org/Download_macos.php) was correctly installed. You can install Graphviz by brew: `brew install graphviz`.
+
+- Generate the method call graph, for example:
+
+  ```shell
+  drafter -f ./AFHTTPSessionManager.m
+  ```
+
+  A picture will automatically generate in the current path, name as "file name + .png": 
+
+  ![1](./.res/1.png)
+
+- Generate the inheritance graph
+
+  ```shell
+  drafter -f ./AFNetworking -m inherit
+  ```
+  A picture named "Inheritance.png" will be generated in the current path:
+
+  ![3](./.res/3.png)
+
+## Parameter
+
+- **-f、—file \<arg>**   
+  Required. Specify a file or folder, multiple parameters are separated by commas, don't use space.
+
+- **-m、—mode \<arg>**  
+  Optional. Specify the parsing mode. Assigning `invoke` will generate call graph, assigning `inherit` will generate inheritance graph, or `both` to do both call and inheritance analysis. Defaults to `invoke`
+
+- **-s、—search \<arg>**  
+  Optional. Specify  keywords to filter the results. Multiple arguments are separated by commas. 
+  For example:
+
+  ```shell
+  drafter -f ./XXViewController.swift -s viewdidload
+  ```
+
+  The generated graph will only contains the  `viewDidLoad` branch.
+
+  ![4](./.res/4.png)
+
+- **-self、—self-method-only**  
+  Optional. Only takes effect when parsing the call graph, the generated graph will only contains the methods that user defined in the same file. 
+
+  By default, all the method calls will be parsed. The result will get cluttered when dealing with the large file. Turn on this option, only the methods defined in this file are saved. This will help you highlight the main logic in you code.
+
+  For example:
+
+  ```shell
+  drafter -f ./AFHTTPSessionManager.m -self
+  ```
+
+  As you can see, in contrast to the first example above, the connection to the external method is removed:
+
+  ![2](./.res/2.png)
+
