@@ -100,7 +100,7 @@ func not(_ p: Parser<Token>) -> Parser<Token> {
     }
 }
 
-/// 创建解析单个token并消耗输入, 失败时不消耗输入
+/// 解析单个token并消耗输入, 失败时不消耗输入
 func token(_ t: TokenType) -> Parser<Token> {
     return Parser(parse: { (tokens) -> Result<(Token, Tokens)> in
         guard let first = tokens.first, first.type == t else {

@@ -15,6 +15,7 @@ class Drafter {
     // MARK: - Public
     
     var mode: DraftMode = .invokeGraph
+    var outputType: DraftOutputType = .html
     var keywords: [String] = []
     var selfOnly: Bool = false // 只包含定义在用户代码中的方法节点
     
@@ -26,7 +27,7 @@ class Drafter {
             for path in pathValues {
                 var isDir: ObjCBool = ObjCBool.init(false)
                 if FileManager.default.fileExists(atPath: path, isDirectory: &isDir) {
-                    // 如果是文件夹则获取所有.h和.m文件
+                    // 如果是文件夹则遍历所有文件
                     if isDir.boolValue, let enumerator = FileManager.default.enumerator(atPath: path) {
                         while let file = enumerator.nextObject() as? String {
                             if supported(file) {
@@ -40,19 +41,26 @@ class Drafter {
                     print("File: \(path) not exist")
                 }
             }
+            
+            // 如果输出类型为html，则需要对数据做进一步的处理
         }
     }
     
     /// 生成调用图
     func craft() {
-        switch mode {
-        case .invokeGraph:
-            craftinvokeGraph()
-        case .inheritGraph:
-            craftInheritGraph()
-        case .both:
+        if outputType == .html {
             craftInheritGraph()
             craftinvokeGraph()
+        } else { // 输出为图片的话需要根据选项做进一步的处理
+            switch mode {
+            case .invokeGraph:
+                craftinvokeGraph()
+            case .inheritGraph:
+                craftInheritGraph()
+            case .both:
+                craftInheritGraph()
+                craftinvokeGraph()
+            }
         }
     }
     
@@ -61,13 +69,6 @@ class Drafter {
     fileprivate var files: [String] = []
     fileprivate let semaphore = DispatchSemaphore(value: maxConcurrent)
     
-    fileprivate func supported(_ file: String) -> Bool {
-        if file.hasSuffix(".h") || file.hasSuffix(".m") || file.hasSuffix(".swift") {
-            return true
-        }
-        return false
-    }
-
     fileprivate func craftInheritGraph() {
         var classes = [ClassNode]()
         var protocols = [ProtocolNode]()
@@ -94,7 +95,7 @@ class Drafter {
             }
         }
 
-        // 解析OC文件
+        // 1. 解析OC文件
         for file in files.filter({ !$0.isSwift }) {
             semaphore.wait()
             DispatchQueue.global().async {
@@ -103,7 +104,7 @@ class Drafter {
             }
         }
 
-        // 解析swift文件
+        // 2. 解析swift文件
         for file in files.filter({ $0.isSwift }) {
             semaphore.wait()
             DispatchQueue.global().async {
@@ -113,7 +114,16 @@ class Drafter {
         }
 
         waitUntilFinished()
+        
+        // TODO: 输出HTML或png
+        
+        if outputType == .html {
+            
+        } else {
+            
+        }
 
+        // 3. 过滤、生成结果
         classes = classes.filter({ $0.className.contains(keywords) })
         protocols = protocols.filter({ $0.name.contains(keywords) })
 
@@ -129,36 +139,46 @@ class Drafter {
     
     /// 生成方法调用关系图
     fileprivate func craftinvokeGraph() {
-        func parseMethods(_ file: String) -> String {
+        var results = [String: [MethodNode]]()
+        
+        func parseMethods(_ file: String) -> [MethodNode] {
             print("Parsing \(file)...")
             let tokens = SourceLexer(file: file).allTokens
-            
             var nodes = [MethodNode]()
+            
             if file.isSwift {
                 let result = SwiftMethodParser().parser.run(tokens) ?? []
-                nodes.append(contentsOf: filted(result))
+                nodes.append(contentsOf: result)
             } else {
                 let result = ObjcMethodParser().parser.run(tokens) ?? []
-                nodes.append(contentsOf: filted(result))
+                nodes.append(contentsOf: result)
             }
-            
-            return DotGenerator.generate(nodes, filePath: file)
+            return nodes
         }
         
-        var resultPaths = [String]()
-        for file in files.filter({ !$0.hasSuffix(".h") }) {
+        // 1. 解析方法调用
+        let sources = files.filter({ !$0.hasSuffix(".h") })
+        for file in sources {
             semaphore.wait()
             DispatchQueue.global().async {
-                resultPaths.append(parseMethods(file))
+                results[file] = parseMethods(file)
                 self.semaphore.signal()
             }
         }
 
         waitUntilFinished()
         
+        // TODO:
+        
+        // 2. 过滤、生成结果
+        var outputFiles = [String]()
+        for (file, nodes) in results {
+            outputFiles.append(DotGenerator.generate(filted(nodes), filePath: file))
+        }
+        
         // 如果只有一张图片则自动打开
-        if resultPaths.count == 1 {
-            Executor.execute("open", resultPaths[0], help: "Auto open failed")
+        if outputFiles.count == 1 {
+            Executor.execute("open", outputFiles[0], help: "Auto open failed")
         }
     }
     
@@ -237,5 +257,17 @@ fileprivate extension Drafter {
         
         return subtrees
     }
+}
+
+// MARK: - 文件处理
+
+fileprivate extension Drafter {
     
+    func supported(_ file: String) -> Bool {
+        if file.hasSuffix(".h") || file.hasSuffix(".m") || file.hasSuffix(".swift") {
+            return true
+        }
+        return false
+    }
+
 }

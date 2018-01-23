@@ -150,12 +150,13 @@ fileprivate extension DotGenerator {
     }
     
     func append<T: Hashable>(_ node: T, label: String) {
+        // 节点的id以'node_xxx'的形式命名
         var escaped = label
         escaped = escaped.replacingOccurrences(of: "->", with: "\\-\\>")
         escaped = escaped.replacingOccurrences(of: "<", with: "\\<")
         escaped = escaped.replacingOccurrences(of: ">", with: "\\>")
         
-        dot.append(contentsOf: "\(node.hashValue) [label=\"\(escaped)\"];")
+        dot.append(contentsOf: "\(node.hashValue) [label=\"\(escaped)\", id=node_\(node.hashValue)];")
     }
     
     func point<T: Hashable, A: Hashable>(from: T, to: A, emptyArrow: Bool = false, dashed: Bool = false) {
@@ -167,10 +168,11 @@ fileprivate extension DotGenerator {
             style.append(contentsOf: "style=\"dashed\"")
         }
         
+        // 连线的id以'line_xxx_yyy'的形式命名
         if !style.isEmpty {
-            dot.append(contentsOf: "\(from.hashValue)->\(to.hashValue) [\(style)];")
+            dot.append(contentsOf: "\(from.hashValue)->\(to.hashValue)[\(style), id=line_\(from.hashValue)_\(to.hashValue)];")
         } else {
-            dot.append(contentsOf: "\(from.hashValue)->\(to.hashValue);")
+            dot.append(contentsOf: "\(from.hashValue)->\(to.hashValue)[id=line_\(from.hashValue)_\(to.hashValue)];")
         }
     }
 }

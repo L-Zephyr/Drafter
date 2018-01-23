@@ -14,10 +14,19 @@ enum ParserError: Error {
     case unknown
 }
 
-protocol Node { } // AST节点
+// AST节点
+protocol Node {
+    func toJson() -> String // 将结果转换成JSON的描述
+}
 
 protocol ParserType {
     associatedtype T
     var parser: Parser<T> { get }
 }
 
+extension Node {
+    func toJson() -> String {
+        fatalError("Error: toJson() method not implement!")
+        return ""
+    }
+}
