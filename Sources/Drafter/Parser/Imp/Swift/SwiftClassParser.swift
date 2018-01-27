@@ -33,6 +33,7 @@ extension SwiftClassParser {
             <^> (token(.cls) <|> token(.structure)) *> token(.name) <* trying (genericType) => stringify // 类名
             <*> trying (superCls) => stringify // 父类
             <*> trying (token(.comma) *> protocols) => stringify // 协议列表
+            <*> anyTokens(inside: token(.leftBrace), and: token(.rightBrace)).map { SwiftMethodParser().parser.run($0) ?? [] } // 方法
     }
     
     /// 解析extension定义
@@ -44,6 +45,7 @@ extension SwiftClassParser {
             <^> token(.exten) *> token(.name) => stringify
             <*> pure(nil)
             <*> trying (token(.colon) *> protocols) => stringify
+            <*> anyTokens(inside: token(.leftBrace), and: token(.rightBrace)).map { SwiftMethodParser().parser.run($0) ?? [] } // 方法
     }
     
     /// 解析泛型

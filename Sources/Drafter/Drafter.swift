@@ -8,8 +8,6 @@
 
 import Foundation
 
-let maxConcurrent: Int = 4
-
 class Drafter {
     
     // MARK: - Public
@@ -49,8 +47,7 @@ class Drafter {
     /// 生成调用图
     func craft() {
         if outputType == .html {
-            craftInheritGraph()
-            craftinvokeGraph()
+            craftHTML()
         } else { // 输出为图片的话需要根据选项做进一步的处理
             switch mode {
             case .invokeGraph:
@@ -67,63 +64,11 @@ class Drafter {
     // MARK: - Private
     
     fileprivate var files: [String] = []
-    fileprivate let semaphore = DispatchSemaphore(value: maxConcurrent)
     
     fileprivate func craftInheritGraph() {
-        var classes = [ClassNode]()
-        var protocols = [ProtocolNode]()
-        let writeQueue = DispatchQueue(label: "WriteClass")
+        let (classes, protocols) = ParserRunner.runner.parseInerit(files: files)
 
-        // 解析OC类型
-        func parseObjcClass(_ file: String) {
-            print("Parsing \(file)...")
-            let tokens = SourceLexer(file: file).allTokens
-            let result = InterfaceParser().parser.run(tokens) ?? []
-            writeQueue.sync {
-                classes.merge(result)
-            }
-        }
-
-        // 解析swift类型
-        func parseSwiftClass(_ file: String) {
-            print("Parsing \(file)...")
-            let tokens = SourceLexer(file: file).allTokens
-            let (protos, cls) = SwiftInheritParser().parser.run(tokens) ?? ([], [])
-            writeQueue.sync {
-                protocols.append(contentsOf: protos)
-                classes.merge(cls)
-            }
-        }
-
-        // 1. 解析OC文件
-        for file in files.filter({ !$0.isSwift }) {
-            semaphore.wait()
-            DispatchQueue.global().async {
-                parseObjcClass(file)
-                self.semaphore.signal()
-            }
-        }
-
-        // 2. 解析swift文件
-        for file in files.filter({ $0.isSwift }) {
-            semaphore.wait()
-            DispatchQueue.global().async {
-                parseSwiftClass(file)
-                self.semaphore.signal()
-            }
-        }
-
-        waitUntilFinished()
-        
-        // TODO: 输出HTML或png
-        
-        if outputType == .html {
-            
-        } else {
-            
-        }
-
-        // 3. 过滤、生成结果
+        // 过滤、生成结果
         classes = classes.filter({ $0.className.contains(keywords) })
         protocols = protocols.filter({ $0.name.contains(keywords) })
 
@@ -139,36 +84,8 @@ class Drafter {
     
     /// 生成方法调用关系图
     fileprivate func craftinvokeGraph() {
-        var results = [String: [MethodNode]]()
-        
-        func parseMethods(_ file: String) -> [MethodNode] {
-            print("Parsing \(file)...")
-            let tokens = SourceLexer(file: file).allTokens
-            var nodes = [MethodNode]()
-            
-            if file.isSwift {
-                let result = SwiftMethodParser().parser.run(tokens) ?? []
-                nodes.append(contentsOf: result)
-            } else {
-                let result = ObjcMethodParser().parser.run(tokens) ?? []
-                nodes.append(contentsOf: result)
-            }
-            return nodes
-        }
-        
-        // 1. 解析方法调用
-        let sources = files.filter({ !$0.hasSuffix(".h") })
-        for file in sources {
-            semaphore.wait()
-            DispatchQueue.global().async {
-                results[file] = parseMethods(file)
-                self.semaphore.signal()
-            }
-        }
-
-        waitUntilFinished()
-        
-        // TODO:
+        // 1. 解析每个文件中的方法
+        let results = ParserRunner.runner.parseMethods(files: files)
         
         // 2. 过滤、生成结果
         var outputFiles = [String]()
@@ -182,14 +99,12 @@ class Drafter {
         }
     }
     
-    /// 等待直到所有任务完成
-    func waitUntilFinished() {
-        for _ in 0..<maxConcurrent {
-            semaphore.wait()
-        }
-        for _ in 0..<maxConcurrent {
-            semaphore.signal()
-        }
+    /// 解析所有输入并生成一个HTML的输出
+    func craftHTML() {
+        let ocFiles = files.filter({ $0.hasSuffix(".h") || $0.hasSuffix(".m") })
+        let swiftFiles = files.filter({ $0.hasSuffix(".swift") })
+        
+        
     }
 }
 

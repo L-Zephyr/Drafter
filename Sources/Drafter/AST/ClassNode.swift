@@ -10,28 +10,47 @@ import Cocoa
 
 /// 保存类型信息的节点
 class ClassNode: Node {    
-    var superCls: String? = nil // 父类
+    var superCls: String? = nil    // 父类
     var className: String = ""     // 类名
     var protocols: [String] = []   // 实现的协议
-    
-    init(_ name: String, _ superClass: String?, _ protos: [String]) {
+    var methods: [MethodNode] = [] // 方法
+}
+
+// MARK: - 自定义初始化方法
+
+extension ClassNode {
+    convenience init(_ name: String, _ superClass: String?, _ protos: [String], _ methods: [MethodNode]) {
+        self.init()
+        
         if let superClass = superClass, !superClass.isEmpty {
-            superCls = superClass
+            self.superCls = superClass
         }
-        className = name
-        protocols = protos
+        self.className = name
+        self.protocols = protos
+        self.methods = methods
+    }
+    
+    convenience init(clsName: String) {
+        self.init(clsName, nil, [], [])
+    }
+    
+    // 解析OC时所用的初始化方法
+    convenience init(interface: InterfaceNode? = nil, implementation: ImplementationNode? = nil) {
+        self.init()
+        
+        if let interface = interface {
+            self.className = interface.className
+            self.superCls = interface.superCls ?? ""
+            self.protocols = interface.protocols
+        }
+        
+        if let imp = implementation {
+            self.methods = imp.methods
+        }
     }
 }
 
-extension ClassNode {
-    convenience init(clsName: String) {
-        self.init(clsName, nil, [])
-    }
-    
-    convenience init() {
-        self.init("", nil, [])
-    }
-}
+// MARK: - CustomStringConvertible
 
 extension ClassNode: CustomStringConvertible {
     var description: String {

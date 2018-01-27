@@ -35,8 +35,8 @@ class InterfaceTest: XCTestCase {
     }
     
     func run(_ input: String) -> [ClassNode] {
-        let tokens = SourceLexer(input: input).allTokens
-        guard let result = InterfaceParser().parser.run(tokens) else {
+        let tokens = SourceLexer(input: input)
+        guard let result = InterfaceParser().parser.toClassNode.run(tokens) else {
             XCTAssert(false)
             return []
         }
@@ -83,6 +83,10 @@ class InterfaceTest: XCTestCase {
         let input = """
         @interface MyClass() <Delegate1, Delegate2>
         int a = 2;
+        - (void)method {
+            a = b
+        }
+        @end
         @interface MyClass2()
         """
         
@@ -97,5 +101,19 @@ class InterfaceTest: XCTestCase {
         XCTAssert(nodes[1].className == "MyClass")
         XCTAssert(nodes[1].superCls == nil)
         XCTAssert(nodes[1].protocols == ["Delegate1", "Delegate2"])
+    }
+    
+    func testTokens() {
+        let input = """
+        int a = 2;
+        - (void)method {
+            a = b
+        }
+        @end
+        @interface MyClass2()
+        """
+        
+        let tokens = SourceLexer(input: input).allTokens
+        let result = anyTokens(until: token(.end)).run(tokens)
     }
 }
