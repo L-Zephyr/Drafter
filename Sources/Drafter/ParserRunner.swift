@@ -18,7 +18,7 @@ class ParserRunner {
     // MARK: - 0.3.0接口
     
     func parse(files: [String]) -> [ClassNode] {
-        
+        return []
     }
     
     // MARK: - 0.2.0接口

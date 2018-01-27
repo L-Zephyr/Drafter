@@ -66,7 +66,7 @@ class Drafter {
     fileprivate var files: [String] = []
     
     fileprivate func craftInheritGraph() {
-        let (classes, protocols) = ParserRunner.runner.parseInerit(files: files)
+        var (classes, protocols) = ParserRunner.runner.parseInerit(files: files)
 
         // 过滤、生成结果
         classes = classes.filter({ $0.className.contains(keywords) })
