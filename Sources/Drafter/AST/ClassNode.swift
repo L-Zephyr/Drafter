@@ -9,7 +9,8 @@
 import Cocoa
 
 /// 保存类型信息的节点
-class ClassNode: Node {    
+class ClassNode: Node {
+    var isSwift: Bool = false      // 是否为swift
     var superCls: String? = nil    // 父类
     var className: String = ""     // 类名
     var protocols: [String] = []   // 实现的协议
@@ -19,25 +20,27 @@ class ClassNode: Node {
 // MARK: - 自定义初始化方法
 
 extension ClassNode {
-    convenience init(_ name: String, _ superClass: String?, _ protos: [String], _ methods: [MethodNode]) {
+    convenience init(_ isSwift: Bool, _ name: String, _ superClass: String?, _ protos: [String], _ methods: [MethodNode]) {
         self.init()
         
         if let superClass = superClass, !superClass.isEmpty {
             self.superCls = superClass
         }
+        self.isSwift = isSwift
         self.className = name
         self.protocols = protos
         self.methods = methods
     }
     
     convenience init(clsName: String) {
-        self.init(clsName, nil, [], [])
+        self.init(false, clsName, nil, [], [])
     }
     
     // 解析OC时所用的初始化方法
     convenience init(interface: InterfaceNode? = nil, implementation: ImplementationNode? = nil) {
         self.init()
         
+        self.isSwift = false
         if let interface = interface {
             self.className = interface.className
             self.superCls = interface.superCls ?? ""
@@ -50,7 +53,7 @@ extension ClassNode {
     }
 }
 
-// MARK: - 自定义数据转换
+// MARK: - 数据格式化
 
 extension ClassNode: CustomStringConvertible {
     var description: String {
@@ -71,8 +74,23 @@ extension ClassNode: CustomStringConvertible {
 
 extension ClassNode {
     /// 转换成JSON数据
-    var toJson: String {
-        return ""
+    func toJson() -> [String: Any] {
+        var info = [String: Any]()
+        let methodIds = self.methods.map { String($0.hashValue) }
+        let clsId = "\(className.hashValue)"
+        
+        info["type"] = "class"              // type
+        info["name"] = className            // name
+        if let superClass = superCls {      // super
+            info["super"] = superClass
+        }
+        
+        info["protocols"] = protocols.map { ["name": $0] }  // protocols
+        info["isSwift"] = isSwift           // isSwift
+        info["id"] = clsId                  // id
+        info["methods"] = methods.map { $0.toJson(clsId: clsId, methods: methodIds) } // methods
+        
+        return info
     }
 }
 

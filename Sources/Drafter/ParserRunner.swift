@@ -57,7 +57,7 @@ class ParserRunner {
             let cls = ClassNode(interface: interface, implementation: impDic[interface.className])
             classList.append(cls)
         }
-        
+                
         return classList
     }
 

@@ -30,7 +30,8 @@ extension SwiftClassParser {
     var classDef: Parser<ClassNode> {
         // TODO: 区分struct和class
         return curry(ClassNode.init)
-            <^> (token(.cls) <|> token(.structure)) *> token(.name) <* trying (genericType) => stringify // 类名
+            <^> pure(true)
+            <*> (token(.cls) <|> token(.structure)) *> token(.name) <* trying (genericType) => stringify // 类名
             <*> trying (superCls) => stringify // 父类
             <*> trying (token(.comma) *> protocols) => stringify // 协议列表
             <*> anyTokens(inside: token(.leftBrace), and: token(.rightBrace)).map { SwiftMethodParser().parser.run($0) ?? [] } // 方法
@@ -42,7 +43,8 @@ extension SwiftClassParser {
      */
     var extensionDef: Parser<ClassNode> {
         return curry(ClassNode.init)
-            <^> token(.exten) *> token(.name) => stringify
+            <^> pure(true)
+            <*> token(.exten) *> token(.name) => stringify
             <*> pure(nil)
             <*> trying (token(.colon) *> protocols) => stringify
             <*> anyTokens(inside: token(.leftBrace), and: token(.rightBrace)).map { SwiftMethodParser().parser.run($0) ?? [] } // 方法

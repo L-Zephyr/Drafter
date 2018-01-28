@@ -16,7 +16,7 @@ enum ParserError: Error {
 
 // AST节点
 protocol Node {
-    func toJson() -> String // 将结果转换成JSON的描述
+    
 }
 
 protocol ParserType {
@@ -24,9 +24,10 @@ protocol ParserType {
     var parser: Parser<T> { get }
 }
 
-extension Node {
-    // 将结果节点转换成JSON格式
-    func toJson() -> String {
-        fatalError("Error: toJson() method not implement!")
-    }
-}
+//extension Node {
+//    // 将结果节点转换成JSON格式
+//    func toJson() -> String {
+//        fatalError("Error: toJson() method not implement!")
+//    }
+//}
+

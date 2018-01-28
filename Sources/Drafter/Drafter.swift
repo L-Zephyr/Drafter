@@ -101,10 +101,25 @@ class Drafter {
     
     /// 解析所有输入并生成一个HTML的输出
     func craftHTML() {
-        let ocFiles = files.filter({ $0.hasSuffix(".h") || $0.hasSuffix(".m") })
-        let swiftFiles = files.filter({ $0.hasSuffix(".swift") })
+        let classNodes = ParserRunner.runner.parse(files: files)
         
+        // 格式化
+        var jsonString: String? = nil
+        let jsonDic = classNodes.map { $0.toJson() }
+        do {
+            let data = try JSONSerialization.data(withJSONObject: jsonDic, options: .prettyPrinted)
+            jsonString = String(data: data, encoding: .utf8)
+        } catch {
+            print("Error: \(error)")
+        }
         
+        guard let json = jsonString else {
+            print("Fail to generate json data!")
+            return
+        }
+        
+        // TODO: 将json数据替换到前端文件模板中
+        print(json)
     }
 }
 
