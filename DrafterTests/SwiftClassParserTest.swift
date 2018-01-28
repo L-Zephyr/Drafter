@@ -74,4 +74,21 @@ class SwiftClassParserTest: XCTestCase {
         XCTAssert(cls[0].superCls! == "Super")
         XCTAssert(cls[0].protocols == ["Proto1"])
     }
+    
+    func testXXX() {
+        let input = """
+        class MyClass<T, A>: Super {
+            func method() {
+                method2()
+            }
+        }
+        """
+        let tokens = SourceLexer(input: input, isSwift: true).allTokens
+        guard let cls = SwiftClassParser().parser.run(tokens) else {
+            XCTAssert(false)
+            return
+        }
+        
+
+    }
 }

@@ -13,16 +13,63 @@ class ParserRunner {
     
     static let runner = ParserRunner()
     
-    fileprivate let semaphore = DispatchSemaphore(value: maxConcurrent)
     
-    // MARK: - 0.3.0接口
     
     func parse(files: [String]) -> [ClassNode] {
-        return []
+        let ocFiles = files.filter { $0.hasSuffix(".h") || $0.hasSuffix(".m") }
+        let swiftFiles = files.filter { $0.hasSuffix(".swift") }
+        
+        interfaces = []
+        implementations = []
+        classList = []
+        
+        // 1. 解析OC文件
+        for file in ocFiles {
+            semaphore.wait()
+            DispatchQueue.global().async {
+                let tokens = SourceLexer(file: file).allTokens
+                let interface = InterfaceParser().parser.run(tokens) ?? []
+                let imp = ImplementationParser().parser.run(tokens) ?? []
+                
+                self.interfaces.append(contentsOf: interface)
+                self.implementations.append(contentsOf: imp)
+                self.semaphore.signal()
+            }
+        }
+        
+        // 2. 解析Swift文件
+        for file in swiftFiles {
+            semaphore.wait()
+            DispatchQueue.global().async {
+                let tokens = SourceLexer(file: file).allTokens
+                let classes = SwiftClassParser().parser.run(tokens) ?? []
+                
+                self.classList.append(contentsOf: classes)
+                self.semaphore.signal()
+            }
+        }
+        
+        waitUntilFinished()
+        
+        // 3. 结果整合
+        let impDic = implementations.merged()
+        for interface in interfaces {
+            let cls = ClassNode(interface: interface, implementation: impDic[interface.className])
+            classList.append(cls)
+        }
+        
+        return classList
     }
-    
-    // MARK: - 0.2.0接口
-    
+
+    fileprivate let semaphore = DispatchSemaphore(value: maxConcurrent)
+    fileprivate var interfaces: [InterfaceNode] = []
+    fileprivate var implementations: [ImplementationNode] = []
+    fileprivate var classList: [ClassNode] = []
+}
+
+// MARK: - 0.2.0以前的旧接口
+
+extension ParserRunner {
     /// 解析代码中的方法调用
     ///
     /// - Parameter files: 输入的文件路径
@@ -60,6 +107,10 @@ class ParserRunner {
         return results
     }
     
+    /// 解析代码中的类型
+    ///
+    /// - Parameter files: 文件
+    /// - Returns: 返回一个元组，分别为所有的类型和协议数据
     func parseInerit(files: [String]) -> ([ClassNode], [ProtocolNode]) {
         var classes = [ClassNode]()
         var protocols = [ProtocolNode]()
@@ -109,7 +160,11 @@ class ParserRunner {
         
         return (classes, protocols)
     }
-    
+}
+
+// MARK: - Private
+
+extension ParserRunner {
     /// 等待直到所有任务完成
     private func waitUntilFinished() {
         for _ in 0..<maxConcurrent {
@@ -118,5 +173,21 @@ class ParserRunner {
         for _ in 0..<maxConcurrent {
             semaphore.signal()
         }
+    }
+}
+
+fileprivate extension Array where Element == ImplementationNode {
+    /// 合并相同类型的Imp节点，保存在字典中返回
+    func merged() -> [String: ImplementationNode] {
+        var impDic = [String: ImplementationNode]()
+        for imp in self {
+            if impDic.keys.contains(imp.className) {
+                impDic[imp.className]?.methods.append(contentsOf: imp.methods)
+            } else {
+                impDic[imp.className] = imp
+            }
+        }
+        
+        return impDic
     }
 }

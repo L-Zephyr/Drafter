@@ -88,6 +88,7 @@
 		BB6F71161FAEB92D00FE815A /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6F71131FAEB92900FE815A /* Operator.swift */; };
 		BB6FCBDC201CB60E00F59BD9 /* ParserRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6FCBDA201CB60500F59BD9 /* ParserRunner.swift */; };
 		BB6FCBDD201CB60E00F59BD9 /* ParserRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6FCBDA201CB60500F59BD9 /* ParserRunner.swift */; };
+		BB6FCBDF201DB2BF00F59BD9 /* ImplementationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6FCBDE201DB2BF00F59BD9 /* ImplementationTest.swift */; };
 		BBA0C7401FAB489400DCBBB0 /* ParserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA0C73C1FAB46C200DCBBB0 /* ParserResult.swift */; };
 		BBA0C7411FAB489400DCBBB0 /* ParserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA0C73C1FAB46C200DCBBB0 /* ParserResult.swift */; };
 		BBFC154C1FB4987E0057E7FE /* SwiftProtocolParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFC154B1FB4987E0057E7FE /* SwiftProtocolParserTest.swift */; };
@@ -149,6 +150,7 @@
 		BB6F710C1FAEADBC00FE815A /* InterfaceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceTest.swift; sourceTree = "<group>"; };
 		BB6F71131FAEB92900FE815A /* Operator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
 		BB6FCBDA201CB60500F59BD9 /* ParserRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ParserRunner.swift; path = Sources/Drafter/ParserRunner.swift; sourceTree = SOURCE_ROOT; };
+		BB6FCBDE201DB2BF00F59BD9 /* ImplementationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplementationTest.swift; sourceTree = "<group>"; };
 		BBA0C73C1FAB46C200DCBBB0 /* ParserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserResult.swift; sourceTree = "<group>"; };
 		BBFC154B1FB4987E0057E7FE /* SwiftProtocolParserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftProtocolParserTest.swift; sourceTree = "<group>"; };
 		BBFC15511FB556980057E7FE /* SwiftClassParserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftClassParserTest.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 			children = (
 				BB38A65D1FA9BC060022D28A /* CombinatorTest.swift */,
 				BB6F710C1FAEADBC00FE815A /* InterfaceTest.swift */,
+				BB6FCBDE201DB2BF00F59BD9 /* ImplementationTest.swift */,
 				BB2D40F01FB1947900986078 /* OCMethodTest.swift */,
 				BB12AA8E1FB2FE67007EB55A /* OCMsgSendTest.swift */,
 				BBFC154B1FB4987E0057E7FE /* SwiftProtocolParserTest.swift */,
@@ -547,6 +550,7 @@
 				BB38A6551FA8BBDA0022D28A /* Extensions.swift in Sources */,
 				BB38A6441FA8B64C0022D28A /* Optional+Alternative.swift in Sources */,
 				BB5057DE2018C81300723F65 /* SwiftProtocolParser.swift in Sources */,
+				BB6FCBDF201DB2BF00F59BD9 /* ImplementationTest.swift in Sources */,
 				BB38A6521FA8BB5A0022D28A /* Curry.swift in Sources */,
 				BB0EAB141F8E419000C48449 /* Executor.swift in Sources */,
 				BB4FA2451FA87C290082391D /* Functor.swift in Sources */,

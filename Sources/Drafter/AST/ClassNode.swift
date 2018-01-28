@@ -50,7 +50,7 @@ extension ClassNode {
     }
 }
 
-// MARK: - CustomStringConvertible
+// MARK: - 自定义数据转换
 
 extension ClassNode: CustomStringConvertible {
     var description: String {
@@ -69,16 +69,30 @@ extension ClassNode: CustomStringConvertible {
     }
 }
 
+extension ClassNode {
+    /// 转换成JSON数据
+    var toJson: String {
+        return ""
+    }
+}
+
 // MARK: - Merge
 
 extension ClassNode {
-    /// 将两个node合并成一个
+    /// 将两个相同的node合并成一个
     func merge(_ node: ClassNode) {
+        if className != node.className {
+            return
+        }
+        
+        // 合并协议
         for proto in node.protocols {
             if !protocols.contains(proto) {
                 protocols.append(proto)
             }
         }
+        // 合并方法
+        self.methods.append(contentsOf: node.methods)
         
         if superCls == nil && node.superCls != nil {
             superCls = node.superCls

@@ -35,7 +35,7 @@ class InterfaceTest: XCTestCase {
     }
     
     func run(_ input: String) -> [ClassNode] {
-        let tokens = SourceLexer(input: input)
+        let tokens = SourceLexer(input: input).allTokens
         guard let result = InterfaceParser().parser.toClassNode.run(tokens) else {
             XCTAssert(false)
             return []

@@ -27,8 +27,8 @@ class DrafterParser: ParserType {
 
 extension DrafterParser {
     var ocParser: Parser<[ClassNode]> {
-        let inerface = InterfaceParser().parser
-        let imp = ImplementationParser().parser
+//        let inerface = InterfaceParser().parser
+//        let imp = ImplementationParser().parser
         
         
         

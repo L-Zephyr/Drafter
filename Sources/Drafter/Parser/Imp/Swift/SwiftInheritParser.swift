@@ -55,9 +55,9 @@ class SwiftInheritParser: ParserType {
 
 fileprivate extension SwiftInheritParser {
     var inheritParser: Parser<[Intermediate]> {
-        let intermediate
-            = curry(Intermediate.proto) <^> SwiftProtocolParser().protocolParser
-                <|> curry(Intermediate.cls) <^> SwiftClassParser().classParser
+        let intermediate =
+            curry(Intermediate.proto) <^> SwiftProtocolParser().protocolParser
+            <|> curry(Intermediate.cls) <^> SwiftClassParser().classParser
         return intermediate.continuous
     }
 }
