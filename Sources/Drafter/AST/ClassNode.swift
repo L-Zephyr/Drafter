@@ -76,8 +76,8 @@ extension ClassNode {
     /// 转换成JSON数据
     func toJson() -> [String: Any] {
         var info = [String: Any]()
-        let methodIds = self.methods.map { String($0.hashValue) }
-        let clsId = "\(className.hashValue)"
+        let methodIds = self.methods.map { $0.hashValue }
+        let clsId = ID_MD5(className)
         
         info["type"] = "class"              // type
         info["name"] = className            // name

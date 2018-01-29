@@ -14,11 +14,11 @@ class InterfaceNode: Node {
 }
 
 extension InterfaceNode {
-    convenience init(_ superCls: String, _ clsName: String?, _ protocols: [String]) {
+    convenience init(_ clsName: String, _ superCls: String?, _ protocols: [String]) {
         self.init()
         
-        self.superCls = superCls
-        self.className = clsName ?? ""
+        self.superCls = superCls ?? ""
+        self.className = clsName
         self.protocols = protocols
     }
 }

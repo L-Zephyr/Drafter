@@ -12,9 +12,7 @@ fileprivate let maxConcurrent: Int = 4 // 多线程解析最大并发数
 class ParserRunner {
     
     static let runner = ParserRunner()
-    
-    
-    
+
     func parse(files: [String]) -> [ClassNode] {
         let ocFiles = files.filter { $0.hasSuffix(".h") || $0.hasSuffix(".m") }
         let swiftFiles = files.filter { $0.hasSuffix(".swift") }
@@ -51,8 +49,14 @@ class ParserRunner {
         
         waitUntilFinished()
         
+        print(interfaces[0].className)
+        print(implementations[0].className)
+        
         // 3. 结果整合
         let impDic = implementations.merged()
+        
+        print("\(impDic)")
+        
         for interface in interfaces {
             let cls = ClassNode(interface: interface, implementation: impDic[interface.className])
             classList.append(cls)

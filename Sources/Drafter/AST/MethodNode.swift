@@ -110,40 +110,40 @@ extension MethodNode: CustomStringConvertible {
 
 extension MethodNode {
     /// 将方法转化成JSON字典
-    func toJson(clsId: String, methods: [String]) -> [String: Any] {
+    func toJson(clsId: String, methods: [Int]) -> [String: Any] {
         var info: [String: Any] = [:]
-        info["type"] = "method"
-        info["classId"] = clsId
-        info["static"] = self.isStatic ? true : false
+        info["type"] = "method"                         // type
+        info["classId"] = clsId                         // classId
+        info["static"] = self.isStatic ? true : false   // static
         
         if isSwift {
-            info["name"] = methodName
+            info["name"] = methodName                   // name
         }
         
-        info["returnType"] = returnType
-        info["id"] = "\(clsId)\(self.hashValue)".hashValue // 类id加上自身的id作为方法的id
+        info["returnType"] = returnType                 // returnType
+        info["id"] = ID_MD5("\(clsId)\(self.hashValue)") // 类id加上自身的id作为方法的id
         
         // 参数
         var paramInfo: [[String: String]] = []
         for param in params {
             paramInfo.append(["type": param.type, "sel": param.outterName, "name": param.innerName])
         }
-        info["params"] = paramInfo
+        info["params"] = paramInfo                      // params
         
         // 调用的方法
         var invokeInfos: [[String: String]] = []
         for invoke in invokes {
             // 如果调用的是自身的方法
-            if methods.contains(String(invoke.hashValue)) {
+            if methods.contains(invoke.hashValue) {
                 invokeInfos.append([
-                    "methodId": String("\(clsId)\(invoke.hashValue)".hashValue),
+                    "methodId": ID_MD5("\(clsId)\(invoke.hashValue)"),
                     "classId": clsId
                     ])
             } else {
                 invokeInfos.append(["formatedName": invoke.description])
             }
         }
-        info["invokes"] = invokeInfos
+        info["invokes"] = invokeInfos                   // invokes
         
         return info
     }
