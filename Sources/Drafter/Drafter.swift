@@ -8,6 +8,9 @@
 
 import Foundation
 
+let OutputFolder = "DrafterStage"
+let DataPlaceholder = "DrafterDataPlaceholder"
+
 class Drafter {
     
     // MARK: - Public
@@ -39,8 +42,6 @@ class Drafter {
                     print("File: \(path) not exist")
                 }
             }
-            
-            // 如果输出类型为html，则需要对数据做进一步的处理
         }
     }
     
@@ -118,8 +119,47 @@ class Drafter {
             return
         }
         
-        // TODO: 将json数据替换到前端文件模板中
         print(json)
+        
+        // 目标输出位置
+        let targetFolder = "./\(OutputFolder)"
+        let targetHtml = "\(targetFolder)/index.html"
+        let targetJs = "\(targetFolder)/bundle.js"
+        
+        // 前端模板位置
+        let templateHtml = URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent(".drafter/index.html").path
+        let templateJs = URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent(".drafter/bundle.js").path
+        
+        guard FileManager.default.fileExists(atPath: templateHtml), FileManager.default.fileExists(atPath: templateJs) else {
+            print("Error: Missing drafter template files. Try to reinstall Drafter")
+            return
+        }
+        
+        do {
+            // 创建文件夹
+            if FileManager.default.fileExists(atPath: targetFolder) {
+                try FileManager.default.removeItem(atPath: targetFolder)
+            }
+            try FileManager.default.createDirectory(atPath: targetFolder, withIntermediateDirectories: true, attributes: nil)
+            
+            var htmlContent = try String(contentsOfFile: templateHtml)
+            htmlContent = htmlContent.replacingOccurrences(of: DataPlaceholder, with: json)
+            
+            // 创建HTML文件
+            if FileManager.default.fileExists(atPath: targetHtml) {
+                try FileManager.default.removeItem(atPath: targetHtml)
+            }
+            FileManager.default.createFile(atPath: targetHtml, contents: htmlContent.data(using: .utf8), attributes: nil)
+            
+            try FileManager.default.copyItem(atPath: templateJs, toPath: targetJs)
+        } catch {
+            print("Error: Fail to copy resource!")
+        }
+        
+        print("Parse result save to './DrafterStage/index.html'")
+        
+        // 自动打开网页
+        Executor.execute("open", targetHtml, help: "Auto open failed")
     }
 }
 

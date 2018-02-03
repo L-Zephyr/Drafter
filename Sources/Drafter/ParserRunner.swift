@@ -23,6 +23,7 @@ class ParserRunner {
         
         // 1. 解析OC文件
         for file in ocFiles {
+            print("Parsing: \(file.components(separatedBy: "/").last ?? file)")
             semaphore.wait()
             DispatchQueue.global().async {
                 let tokens = SourceLexer(file: file).allTokens
@@ -37,6 +38,7 @@ class ParserRunner {
         
         // 2. 解析Swift文件
         for file in swiftFiles {
+            print("Parsing: \(file.components(separatedBy: "/").last ?? file)")
             semaphore.wait()
             DispatchQueue.global().async {
                 let tokens = SourceLexer(file: file).allTokens
