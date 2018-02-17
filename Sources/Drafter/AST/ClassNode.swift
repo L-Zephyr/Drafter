@@ -88,7 +88,16 @@ extension ClassNode {
         info["protocols"] = protocols.map { ["name": $0] }  // protocols
         info["isSwift"] = isSwift           // isSwift
         info["id"] = clsId                  // id
-        info["methods"] = methods.map { $0.toJson(clsId: clsId, methods: methodIds) } // methods
+//        info["methods"] = methods.map { $0.toJson(clsId: clsId, methods: methodIds) } // methods
+        
+        // 以方法的id作为Key转换成字典
+        info["methods"] =                   // methods
+            methods.map {
+                $0.toJson(clsId: clsId, methods: methodIds)
+            }
+            .toDictionary({ (json) -> String? in
+                return json["id"] as? String
+            })
         
         return info
     }

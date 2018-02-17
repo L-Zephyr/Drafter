@@ -36,6 +36,23 @@ extension Array where Element: Hashable {
     }
 }
 
+extension Array {
+    /// 将Array转换成字典
+    ///
+    /// - Parameter selectKey: 将数组中的元素转成成Key，返回nil则跳过这个元素
+    /// - Returns: 字典
+    func toDictionary(_ selectKey: (Element) -> String?) -> [String: Element] {
+        var dic = [String: Element]()
+        for item in self {
+            if let key = selectKey(item) {
+                dic[key] = item
+            }
+        }
+        
+        return dic
+    }
+}
+
 extension String {
     /// 检查字符串是否包含关键字，忽略大小写
     ///

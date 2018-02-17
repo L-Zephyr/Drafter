@@ -118,9 +118,7 @@ class Drafter {
             print("Fail to generate json data!")
             return
         }
-        
-        print(json)
-        
+                
         // 目标输出位置
         let targetFolder = "./\(OutputFolder)"
         let targetHtml = "\(targetFolder)/index.html"

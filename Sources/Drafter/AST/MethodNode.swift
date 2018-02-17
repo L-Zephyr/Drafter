@@ -114,7 +114,8 @@ extension MethodNode {
         var info: [String: Any] = [:]
         info["type"] = "method"                         // type
         info["classId"] = clsId                         // classId
-        info["static"] = self.isStatic ? true : false   // static
+        info["static"] = self.isStatic                  // static
+        info["isSwift"] = self.isSwift                  // isSwift
         
         if isSwift {
             info["name"] = methodName                   // name

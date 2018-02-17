@@ -103,17 +103,17 @@ class InterfaceTest: XCTestCase {
         XCTAssert(nodes[1].protocols == ["Delegate1", "Delegate2"])
     }
     
-    func testTokens() {
-        let input = """
-        int a = 2;
-        - (void)method {
-            a = b
-        }
-        @end
-        @interface MyClass2()
-        """
-        
-        let tokens = SourceLexer(input: input).allTokens
-        let result = anyTokens(until: token(.end)).run(tokens)
-    }
+//    func testTokens() {
+//        let input = """
+//        int a = 2;
+//        - (void)method {
+//            a = b
+//        }
+//        @end
+//        @interface MyClass2()
+//        """
+//
+//        let tokens = SourceLexer(input: input).allTokens
+//        let result = anyTokens(until: token(.end)).run(tokens)
+//    }
 }
