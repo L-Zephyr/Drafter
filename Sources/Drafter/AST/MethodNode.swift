@@ -133,7 +133,11 @@ extension MethodNode {
         
         // 调用的方法
         var invokeInfos: [[String: String]] = []
+        var set = Set<MethodInvokeNode>() // 去重
         for invoke in invokes {
+            if set.contains(invoke) {
+                continue
+            }
             // 如果调用的是自身的方法
             if methods.contains(invoke.hashValue) {
                 invokeInfos.append([
@@ -143,6 +147,7 @@ extension MethodNode {
             } else {
                 invokeInfos.append(["formatedName": invoke.description])
             }
+            set.insert(invoke)
         }
         info["invokes"] = invokeInfos                   // invokes
         
