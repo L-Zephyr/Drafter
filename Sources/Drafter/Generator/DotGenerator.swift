@@ -152,9 +152,9 @@ fileprivate extension DotGenerator {
     func append<T: Hashable>(_ node: T, label: String) {
         // 节点的id以'node_xxx'的形式命名
         var escaped = label
-        escaped = escaped.replacingOccurrences(of: "->", with: "\\-\\>")
         escaped = escaped.replacingOccurrences(of: "<", with: "\\<")
         escaped = escaped.replacingOccurrences(of: ">", with: "\\>")
+        escaped = escaped.replacingOccurrences(of: "->", with: "\\-\\>")
         
         dot.append(contentsOf: "\(node.hashValue) [label=\"\(escaped)\", id=node_\(node.hashValue)];")
     }
