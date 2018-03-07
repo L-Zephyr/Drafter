@@ -75,3 +75,13 @@ extension String {
         return hasSuffix(".swift")
     }
 }
+
+extension Optional where Wrapped == String {
+    /// 判断可选字符串是否为空
+    var isEmpty: Bool {
+        if let str = self {
+            return str.count == 0
+        }
+        return true
+    }
+}

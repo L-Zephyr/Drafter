@@ -83,9 +83,11 @@ extension ClassNode {
         info["name"] = className            // name
         if let superClass = superCls {      // super
             info["super"] = superClass
+        } else {
+            info["super"] = ""
         }
         
-        info["protocols"] = protocols.map { ["name": $0] }  // protocols
+        info["protocols"] = protocols.map { ["name": $0, "id": ID_MD5($0)] }  // protocols
         info["isSwift"] = isSwift           // isSwift
         info["id"] = clsId                  // id
 //        info["methods"] = methods.map { $0.toJson(clsId: clsId, methods: methodIds) } // methods
@@ -120,8 +122,8 @@ extension ClassNode {
         }
         // 合并方法
         self.methods.append(contentsOf: node.methods)
-        
-        if superCls == nil && node.superCls != nil {
+        // 合并父类
+        if superCls.isEmpty && !node.superCls.isEmpty {
             superCls = node.superCls
         }
     }

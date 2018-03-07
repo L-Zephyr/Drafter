@@ -1,5 +1,5 @@
 //
-//  SwiftInheritParser.swift
+//  SwiftParser.swift
 //  drafterPackageDescription
 //
 //  Created by LZephyr on 2017/11/20.
@@ -28,10 +28,10 @@ extension Array where Element == Intermediate {
     }
 }
 
-// MARK: - SwiftInheritParser
+// MARK: - SwiftParser
 
-// 解析Swift的继承关系
-class SwiftInheritParser: ParserType {
+// 在一个pass中将所有的Class和Protocol节点解析出来
+class SwiftParser: ParserType {
     var parser: Parser<([ProtocolNode], [ClassNode])> {
         // 合并protocol和class的解析结果
         return inheritParser.map { (result) -> ([ProtocolNode], [ClassNode]) in
@@ -53,7 +53,7 @@ class SwiftInheritParser: ParserType {
     }
 }
 
-fileprivate extension SwiftInheritParser {
+fileprivate extension SwiftParser {
     var inheritParser: Parser<[Intermediate]> {
         let intermediate =
             curry(Intermediate.proto) <^> SwiftProtocolParser().protocolParser

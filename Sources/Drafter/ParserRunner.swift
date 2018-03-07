@@ -42,7 +42,7 @@ class ParserRunner {
             semaphore.wait()
             DispatchQueue.global().async {
                 let tokens = SourceLexer(file: file).allTokens
-                let classes = SwiftClassParser().parser.run(tokens) ?? []
+                let (_, classes) = SwiftParser().parser.run(tokens) ?? ([],[])
                 
                 self.classList.append(contentsOf: classes)
                 self.semaphore.signal()
@@ -58,7 +58,7 @@ class ParserRunner {
             classList.append(cls)
         }
                 
-        return classList
+        return classList.distinct
     }
 
     fileprivate let semaphore = DispatchSemaphore(value: maxConcurrent)
@@ -130,7 +130,7 @@ extension ParserRunner {
         func parseSwiftClass(_ file: String) {
             print("Parsing \(file)...")
             let tokens = SourceLexer(file: file).allTokens
-            let (protos, cls) = SwiftInheritParser().parser.run(tokens) ?? ([], [])
+            let (protos, cls) = SwiftParser().parser.run(tokens) ?? ([], [])
             writeQueue.sync {
                 protocols.append(contentsOf: protos)
                 classes.merge(cls)

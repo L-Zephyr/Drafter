@@ -74,8 +74,8 @@
 		BB5057D42018C80300723F65 /* ObjcMessageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5057BC2018C7EE00723F65 /* ObjcMessageParser.swift */; };
 		BB5057D52018C80600723F65 /* ImplementationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5057BD2018C7EE00723F65 /* ImplementationParser.swift */; };
 		BB5057D62018C80600723F65 /* ImplementationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5057BD2018C7EE00723F65 /* ImplementationParser.swift */; };
-		BB5057D72018C80900723F65 /* SwiftInheritParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5057BF2018C7EF00723F65 /* SwiftInheritParser.swift */; };
-		BB5057D82018C80A00723F65 /* SwiftInheritParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5057BF2018C7EF00723F65 /* SwiftInheritParser.swift */; };
+		BB5057D72018C80900723F65 /* SwiftParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5057BF2018C7EF00723F65 /* SwiftParser.swift */; };
+		BB5057D82018C80A00723F65 /* SwiftParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5057BF2018C7EF00723F65 /* SwiftParser.swift */; };
 		BB5057D92018C80C00723F65 /* SwiftClassParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5057C02018C7EF00723F65 /* SwiftClassParser.swift */; };
 		BB5057DA2018C80D00723F65 /* SwiftClassParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5057C02018C7EF00723F65 /* SwiftClassParser.swift */; };
 		BB5057DB2018C80F00723F65 /* SwiftMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5057C12018C7EF00723F65 /* SwiftMethodParser.swift */; };
@@ -146,7 +146,7 @@
 		BB5057BB2018C7EE00723F65 /* ObjcMethodParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjcMethodParser.swift; sourceTree = "<group>"; };
 		BB5057BC2018C7EE00723F65 /* ObjcMessageParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjcMessageParser.swift; sourceTree = "<group>"; };
 		BB5057BD2018C7EE00723F65 /* ImplementationParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImplementationParser.swift; sourceTree = "<group>"; };
-		BB5057BF2018C7EF00723F65 /* SwiftInheritParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftInheritParser.swift; sourceTree = "<group>"; };
+		BB5057BF2018C7EF00723F65 /* SwiftParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftParser.swift; sourceTree = "<group>"; };
 		BB5057C02018C7EF00723F65 /* SwiftClassParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftClassParser.swift; sourceTree = "<group>"; };
 		BB5057C12018C7EF00723F65 /* SwiftMethodParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftMethodParser.swift; sourceTree = "<group>"; };
 		BB5057C22018C7EF00723F65 /* SwiftProtocolParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftProtocolParser.swift; sourceTree = "<group>"; };
@@ -313,7 +313,7 @@
 		BB5057BE2018C7EF00723F65 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
-				BB5057BF2018C7EF00723F65 /* SwiftInheritParser.swift */,
+				BB5057BF2018C7EF00723F65 /* SwiftParser.swift */,
 				BB5057C02018C7EF00723F65 /* SwiftClassParser.swift */,
 				BB5057C12018C7EF00723F65 /* SwiftMethodParser.swift */,
 				BB5057C22018C7EF00723F65 /* SwiftProtocolParser.swift */,
@@ -573,7 +573,7 @@
 				BB053658201F667B003F27BA /* Array+Monad.swift in Sources */,
 				BB0EAB0A1F8E417800C48449 /* ProtocolNode.swift in Sources */,
 				BB5057E62018DDBB00723F65 /* ImplementationNode.swift in Sources */,
-				BB5057D82018C80A00723F65 /* SwiftInheritParser.swift in Sources */,
+				BB5057D82018C80A00723F65 /* SwiftParser.swift in Sources */,
 				BB0C15871FB84D4C00FE154B /* SwiftMethodTest.swift in Sources */,
 				BB053652201F667B003F27BA /* Curry.swift in Sources */,
 				BB6FCBDC201CB60E00F59BD9 /* ParserRunner.swift in Sources */,
@@ -655,7 +655,7 @@
 				BB4FA2411FA87C1B0082391D /* Alternative.swift in Sources */,
 				BB5057E22018DDAF00723F65 /* InterfaceNode.swift in Sources */,
 				BBA0C7401FAB489400DCBBB0 /* ParserResult.swift in Sources */,
-				BB5057D72018C80900723F65 /* SwiftInheritParser.swift in Sources */,
+				BB5057D72018C80900723F65 /* SwiftParser.swift in Sources */,
 				BB05365F201F667B003F27BA /* Optional+Monad.swift in Sources */,
 				BB5057DD2018C81200723F65 /* SwiftProtocolParser.swift in Sources */,
 				BB05365D201F667B003F27BA /* Optional+Alternative.swift in Sources */,
