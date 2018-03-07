@@ -94,7 +94,7 @@ drafter -f ./AFNetworking
 
 ## 实现原理
 
-实现细节请看[http://www.jianshu.com/p/9a1a32ec0af6](http://www.jianshu.com/p/9a1a32ec0af6)
+实现细节请看[https://juejin.im/post/5a3088e95188253ee45b6cbe](https://juejin.im/post/5a3088e95188253ee45b6cbe)
 
 
 
