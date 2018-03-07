@@ -22,7 +22,7 @@ curl "https://raw.githubusercontent.com/L-Zephyr/Drafter/master/install.sh" | /b
 
 ### 导出为HTML
 
-在命令行中执行如下命令，在参数`-f`后输入文件或目录：
+以AFNetworking的源码为例，在命令行中执行如下命令，在参数`-f`后输入文件或目录：
 
 ```shell
 drafter -f ./AFNetworking
@@ -32,7 +32,7 @@ drafter -f ./AFNetworking
 
 ![1](./.res/5.png)
 
-在浏览器中可以交互式的浏览各个class中的方法调用，以及整体的类图关系，强烈建议通过这种方式来使用。
+在浏览器中可以交互式的浏览各个类型中的方法调用，以及整体的类图关系，强烈建议通过这种方式来使用Drafter。前端部分的代码开源在[DrafterStage](https://github.com/L-Zephyr/DrafterStage)，本人并非前端开发，所以代码还有许多不完善的地方，仅在chrome环境中经过测试。
 
 ### 导出为PNG
 
