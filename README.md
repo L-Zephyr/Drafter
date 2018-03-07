@@ -129,8 +129,6 @@ Analysis result will be generated to the path `./DrafterStage`. Then just open t
 
 ![1](./.res/5.png)
 
-在浏览器中可以交互式的浏览各个class中的方法调用，以及整体的类图关系，强烈建议通过这种方式来使用。
-
 In the browser you can interactively browse the Call Graph and the Class Dragram, it is strongly recommended to use drafter in this way.
 
 ### Export to PNG
@@ -161,7 +159,7 @@ In the browser you can interactively browse the Call Graph and the Class Dragram
 - **-f , —file \<arg>**   
   Required. Specify a file or folder, multiple parameters are separated by commas, don't use space.
 
-- **-t , —type \<arg>**     
+- **-t , —type \<arg>**  
 
   Optional. Specify the output type, `html` or `png`. Defaults to `html`.
 
