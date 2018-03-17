@@ -104,7 +104,7 @@ drafter -f ./AFNetworking
 
 - Drafter is a command-line tool for analyzing iOS code, supporting Objective-C and Swift.
 - Automatically generates [call graph](https://en.wikipedia.org/wiki/Call_graph).
-- Automatically generates Inheritance graph.
+- Automatically generates [Class Diagram](https://en.wikipedia.org/wiki/Class_diagram).
 
 ## Install
 
