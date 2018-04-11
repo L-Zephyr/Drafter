@@ -7,11 +7,11 @@
 
 import Foundation
 
-func >>- <T, U>(lhs: Parser<T>, rhs: @autoclosure @escaping (T) -> Parser<U>) -> Parser<U> {
+func >>- <T, U>(lhs: Parser<T>, rhs: @escaping (T) -> Parser<U>) -> Parser<U> {
     return lhs.flatMap(rhs)
 }
 
-func -<< <T, U>(lhs: @autoclosure @escaping (T) -> Parser<U>, rhs: Parser<T>) -> Parser<U> {
+func -<< <T, U>(lhs: @escaping (T) -> Parser<U>, rhs: Parser<T>) -> Parser<U> {
     return rhs.flatMap(lhs)
 }
 
