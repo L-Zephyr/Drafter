@@ -1,59 +1,15 @@
 //
-//  Lexer.swift
-//  Mapper
+//  SourceLexer.swift
+//  DrafterTests
 //
-//  Created by LZephyr on 2017/9/23.
-//  Copyright © 2017年 LZephyr. All rights reserved.
+//  Created by LZephyr on 2018/5/17.
 //
 
 import Foundation
 
-enum LexerError: Error {
-    case notMatch
-}
-
-protocol Lexer {
-    var nextToken: Token { get } // 获取Token
-}
-
-extension Lexer {
-    /// 获取所有的Token
-    var allTokens: [Token] {
-        var result = [Token]()
-        var next = self.nextToken
-        
-        while next.type != .endOfFile {
-            result.append(next)
-            next = self.nextToken
-        }
-        return result
-    }
-}
-
-// MARK: - TokenLexer
-
-class TokenLexer: Lexer {
-    
-    init(tokens: [Token]) {
-        self.tokens = tokens
-    }
-    
-    var nextToken: Token {
-        if index != tokens.count {
-            let token = tokens[index]
-            index += 1
-            return token
-        }
-        return Token(type: .endOfFile, text: "")
-    }
-    
-    fileprivate var index: Int = 0
-    fileprivate var tokens: [Token] = []
-}
-
 // MARK: - SourceLexer
 
-/// 解析源码的Lexer
+/// 一个基本的LL(1)词法分析器
 class SourceLexer: Lexer {
     // MARK: - 初始化方法
     
@@ -79,9 +35,9 @@ class SourceLexer: Lexer {
     }
     
     /// 直接通过Token列表初始化
-//    init(tokens: [Token]) {
-//        self.tokens = tokens
-//    }
+    //    init(tokens: [Token]) {
+    //        self.tokens = tokens
+    //    }
     
     // MARK: - 获取Token
     
@@ -140,7 +96,7 @@ class SourceLexer: Lexer {
             case "+":
                 consume()
                 return Token(type: .plus, text: "+")
-
+                
             case "-":
                 consume()
                 if currentChar == ">" {
@@ -197,7 +153,7 @@ class SourceLexer: Lexer {
         return Token(type: .endOfFile, text: "")
     }
     
-    // MARK: - private 
+    // MARK: - private
     
     fileprivate var input: String = ""
     fileprivate var index: String.Index

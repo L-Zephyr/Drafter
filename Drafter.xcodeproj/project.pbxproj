@@ -22,6 +22,62 @@
 
 /* Begin PBXBuildFile section */
 		BB07CE9F20AC7A0C00921AAE /* Path+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CE9D20AC620000921AAE /* Path+Extension.swift */; };
+		BB07CEA520ADBE0000921AAE /* FileParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEA420ADBE0000921AAE /* FileParser.swift */; };
+		BB07CEA720ADBE3500921AAE /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEA620ADBE3500921AAE /* Array+Extension.swift */; };
+		BB07CEA820ADBE4D00921AAE /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEA620ADBE3500921AAE /* Array+Extension.swift */; };
+		BB07CEA920ADBE5200921AAE /* Path+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CE9D20AC620000921AAE /* Path+Extension.swift */; };
+		BB07CEAC20ADC20B00921AAE /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEAB20ADC20B00921AAE /* String+Extension.swift */; };
+		BB07CEAE20ADC37400921AAE /* SourceLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEAD20ADC37400921AAE /* SourceLexer.swift */; };
+		BB07CEB020ADC37E00921AAE /* TokenLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEAF20ADC37E00921AAE /* TokenLexer.swift */; };
+		BB07CEB120ADC38400921AAE /* SourceLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEAD20ADC37400921AAE /* SourceLexer.swift */; };
+		BB07CEB220ADC38600921AAE /* TokenLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEAF20ADC37E00921AAE /* TokenLexer.swift */; };
+		BB07CEB320ADC3FA00921AAE /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* Lexer.swift */; };
+		BB07CEB420ADC3FF00921AAE /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Token.swift */; };
+		BB07CEB520ADC40E00921AAE /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_70 /* main.swift */; };
+		BB07CEB620ADC40E00921AAE /* Drafter.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* Drafter.swift */; };
+		BB07CEB720ADC40E00921AAE /* ParserRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_48 /* ParserRunner.swift */; };
+		BB07CEB820ADC40E00921AAE /* ClassNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* ClassNode.swift */; };
+		BB07CEB920ADC40E00921AAE /* ImplementationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* ImplementationNode.swift */; };
+		BB07CEBA20ADC40E00921AAE /* InterfaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* InterfaceNode.swift */; };
+		BB07CEBB20ADC40E00921AAE /* MethodInvokeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* MethodInvokeNode.swift */; };
+		BB07CEBC20ADC40E00921AAE /* MethodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* MethodNode.swift */; };
+		BB07CEBD20ADC40E00921AAE /* ProtocolNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* ProtocolNode.swift */; };
+		BB07CEBE20ADC40E00921AAE /* DotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* DotGenerator.swift */; };
+		BB07CEBF20ADC40E00921AAE /* Executor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* Executor.swift */; };
+		BB07CEC020ADC40E00921AAE /* Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* Alternative.swift */; };
+		BB07CEC120ADC40E00921AAE /* Applicative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* Applicative.swift */; };
+		BB07CEC220ADC40E00921AAE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* Extensions.swift */; };
+		BB07CEC320ADC40E00921AAE /* Functor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* Functor.swift */; };
+		BB07CEC420ADC40E00921AAE /* Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* Monad.swift */; };
+		BB07CEC520ADC40E00921AAE /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* Operator.swift */; };
+		BB07CEC620ADC40E00921AAE /* ParserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* ParserType.swift */; };
+		BB07CEC720ADC40E00921AAE /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* Parser.swift */; };
+		BB07CEC820ADC40E00921AAE /* ParserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* ParserResult.swift */; };
+		BB07CEC920ADC40E00921AAE /* ImplementationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* ImplementationParser.swift */; };
+		BB07CECA20ADC40E00921AAE /* InterfaceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* InterfaceParser.swift */; };
+		BB07CECB20ADC40E00921AAE /* ObjcMessageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_40 /* ObjcMessageParser.swift */; };
+		BB07CECC20ADC40E00921AAE /* ObjcMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* ObjcMethodParser.swift */; };
+		BB07CECD20ADC40E00921AAE /* SwiftClassParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_43 /* SwiftClassParser.swift */; };
+		BB07CECE20ADC40E00921AAE /* SwiftInvokeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_44 /* SwiftInvokeParser.swift */; };
+		BB07CECF20ADC40E00921AAE /* SwiftMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_45 /* SwiftMethodParser.swift */; };
+		BB07CED020ADC40E00921AAE /* SwiftParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_46 /* SwiftParser.swift */; };
+		BB07CED120ADC40E00921AAE /* SwiftProtocolParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_47 /* SwiftProtocolParser.swift */; };
+		BB07CED220ADC40E00921AAE /* CommandLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_51 /* CommandLine.swift */; };
+		BB07CED320ADC40E00921AAE /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_52 /* Option.swift */; };
+		BB07CED420ADC40E00921AAE /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_53 /* StringExtensions.swift */; };
+		BB07CED520ADC40E00921AAE /* Array+Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_56 /* Array+Alternative.swift */; };
+		BB07CED620ADC40E00921AAE /* Array+Applicative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_57 /* Array+Applicative.swift */; };
+		BB07CED720ADC40E00921AAE /* Array+Functor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_58 /* Array+Functor.swift */; };
+		BB07CED820ADC40E00921AAE /* Array+Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_59 /* Array+Monad.swift */; };
+		BB07CED920ADC40E00921AAE /* Curry.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_60 /* Curry.swift */; };
+		BB07CEDA20ADC40E00921AAE /* Optional+Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_62 /* Optional+Alternative.swift */; };
+		BB07CEDB20ADC40E00921AAE /* Optional+Applicative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_63 /* Optional+Applicative.swift */; };
+		BB07CEDC20ADC40E00921AAE /* Optional+Functor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_64 /* Optional+Functor.swift */; };
+		BB07CEDD20ADC40E00921AAE /* Optional+Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_65 /* Optional+Monad.swift */; };
+		BB07CEDE20ADC40E00921AAE /* Runes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_66 /* Runes.swift */; };
+		BB07CEDF20ADC40E00921AAE /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* MD5.swift */; };
+		BB07CEE120ADC44700921AAE /* FileParserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEE020ADC44700921AAE /* FileParserResult.swift */; };
+		BB07CEE220ADC44700921AAE /* FileParserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEE020ADC44700921AAE /* FileParserResult.swift */; };
 		OBJ_100 /* OCMethodTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_76 /* OCMethodTest.swift */; };
 		OBJ_101 /* OCMsgSendTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_77 /* OCMsgSendTest.swift */; };
 		OBJ_102 /* SwiftClassParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_78 /* SwiftClassParserTest.swift */; };
@@ -37,7 +93,6 @@
 		OBJ_131 /* MethodInvokeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* MethodInvokeNode.swift */; };
 		OBJ_132 /* MethodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* MethodNode.swift */; };
 		OBJ_133 /* ProtocolNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* ProtocolNode.swift */; };
-		OBJ_134 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* Extension.swift */; };
 		OBJ_135 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* Lexer.swift */; };
 		OBJ_136 /* ParserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* ParserType.swift */; };
 		OBJ_137 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Token.swift */; };
@@ -76,7 +131,6 @@
 		OBJ_170 /* Optional+Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_65 /* Optional+Monad.swift */; };
 		OBJ_171 /* Runes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_66 /* Runes.swift */; };
 		OBJ_172 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* MD5.swift */; };
-		OBJ_173 /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_69 /* SHA1.swift */; };
 		OBJ_174 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_70 /* main.swift */; };
 		OBJ_176 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "PathKit::PathKit::Product" /* PathKit.framework */; };
 		OBJ_183 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
@@ -118,13 +172,18 @@
 
 /* Begin PBXFileReference section */
 		BB07CE9D20AC620000921AAE /* Path+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Path+Extension.swift"; path = "Sources/Drafter/Utils/Path+Extension.swift"; sourceTree = SOURCE_ROOT; };
+		BB07CEA420ADBE0000921AAE /* FileParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileParser.swift; sourceTree = "<group>"; };
+		BB07CEA620ADBE3500921AAE /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Array+Extension.swift"; path = "Sources/Drafter/Utils/Array+Extension.swift"; sourceTree = SOURCE_ROOT; };
+		BB07CEAB20ADC20B00921AAE /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		BB07CEAD20ADC37400921AAE /* SourceLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SourceLexer.swift; path = Sources/Drafter/Lexer/SourceLexer.swift; sourceTree = SOURCE_ROOT; };
+		BB07CEAF20ADC37E00921AAE /* TokenLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenLexer.swift; sourceTree = "<group>"; };
+		BB07CEE020ADC44700921AAE /* FileParserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileParserResult.swift; path = Sources/Drafter/Parser/FileParserResult.swift; sourceTree = SOURCE_ROOT; };
 		OBJ_10 /* ClassNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassNode.swift; sourceTree = "<group>"; };
 		OBJ_11 /* ImplementationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplementationNode.swift; sourceTree = "<group>"; };
 		OBJ_12 /* InterfaceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceNode.swift; sourceTree = "<group>"; };
 		OBJ_13 /* MethodInvokeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodInvokeNode.swift; sourceTree = "<group>"; };
 		OBJ_14 /* MethodNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodNode.swift; sourceTree = "<group>"; };
 		OBJ_15 /* ProtocolNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolNode.swift; sourceTree = "<group>"; };
-		OBJ_17 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		OBJ_18 /* Lexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lexer.swift; sourceTree = "<group>"; };
 		OBJ_19 /* ParserType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserType.swift; sourceTree = "<group>"; };
 		OBJ_20 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
@@ -164,7 +223,6 @@
 		OBJ_65 /* Optional+Monad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Monad.swift"; sourceTree = "<group>"; };
 		OBJ_66 /* Runes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Runes.swift; sourceTree = "<group>"; };
 		OBJ_68 /* MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
-		OBJ_69 /* SHA1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHA1.swift; sourceTree = "<group>"; };
 		OBJ_70 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		OBJ_73 /* CombinatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinatorTest.swift; sourceTree = "<group>"; };
 		OBJ_74 /* ImplementationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplementationTest.swift; sourceTree = "<group>"; };
@@ -215,19 +273,21 @@
 			isa = PBXGroup;
 			children = (
 				BB07CE9D20AC620000921AAE /* Path+Extension.swift */,
+				BB07CEA620ADBE3500921AAE /* Array+Extension.swift */,
+				BB07CEAB20ADC20B00921AAE /* String+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		OBJ_16 /* Base */ = {
+		OBJ_16 /* Lexer */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_17 /* Extension.swift */,
-				OBJ_18 /* Lexer.swift */,
-				OBJ_19 /* ParserType.swift */,
 				OBJ_20 /* Token.swift */,
+				OBJ_18 /* Lexer.swift */,
+				BB07CEAD20ADC37400921AAE /* SourceLexer.swift */,
+				BB07CEAF20ADC37E00921AAE /* TokenLexer.swift */,
 			);
-			path = Base;
+			path = Lexer;
 			sourceTree = "<group>";
 		};
 		OBJ_22 /* Generator */ = {
@@ -245,6 +305,8 @@
 				OBJ_26 /* Core */,
 				OBJ_37 /* OC */,
 				OBJ_42 /* Swift */,
+				BB07CEA420ADBE0000921AAE /* FileParser.swift */,
+				BB07CEE020ADC44700921AAE /* FileParserResult.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -254,6 +316,7 @@
 			children = (
 				OBJ_27 /* Combinator */,
 				OBJ_33 /* Operator */,
+				OBJ_19 /* ParserType.swift */,
 				OBJ_35 /* Parser.swift */,
 				OBJ_36 /* ParserResult.swift */,
 			);
@@ -373,7 +436,6 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_68 /* MD5.swift */,
-				OBJ_69 /* SHA1.swift */,
 			);
 			path = SwiftHash;
 			sourceTree = "<group>";
@@ -418,7 +480,7 @@
 				OBJ_21 /* Drafter.swift */,
 				OBJ_48 /* ParserRunner.swift */,
 				OBJ_9 /* AST */,
-				OBJ_16 /* Base */,
+				OBJ_16 /* Lexer */,
 				OBJ_22 /* Generator */,
 				OBJ_25 /* Parser */,
 				BB07CE9C20AC61E500921AAE /* Utils */,
@@ -609,7 +671,6 @@
 				BB07CE9F20AC7A0C00921AAE /* Path+Extension.swift in Sources */,
 				OBJ_132 /* MethodNode.swift in Sources */,
 				OBJ_133 /* ProtocolNode.swift in Sources */,
-				OBJ_134 /* Extension.swift in Sources */,
 				OBJ_135 /* Lexer.swift in Sources */,
 				OBJ_136 /* ParserType.swift in Sources */,
 				OBJ_137 /* Token.swift in Sources */,
@@ -626,11 +687,15 @@
 				OBJ_148 /* ParserResult.swift in Sources */,
 				OBJ_149 /* ImplementationParser.swift in Sources */,
 				OBJ_150 /* InterfaceParser.swift in Sources */,
+				BB07CEE220ADC44700921AAE /* FileParserResult.swift in Sources */,
 				OBJ_151 /* ObjcMessageParser.swift in Sources */,
+				BB07CEA820ADBE4D00921AAE /* Array+Extension.swift in Sources */,
 				OBJ_152 /* ObjcMethodParser.swift in Sources */,
 				OBJ_153 /* SwiftClassParser.swift in Sources */,
+				BB07CEB220ADC38600921AAE /* TokenLexer.swift in Sources */,
 				OBJ_154 /* SwiftInvokeParser.swift in Sources */,
 				OBJ_155 /* SwiftMethodParser.swift in Sources */,
+				BB07CEB120ADC38400921AAE /* SourceLexer.swift in Sources */,
 				OBJ_156 /* SwiftParser.swift in Sources */,
 				OBJ_157 /* SwiftProtocolParser.swift in Sources */,
 				OBJ_158 /* ParserRunner.swift in Sources */,
@@ -648,7 +713,6 @@
 				OBJ_170 /* Optional+Monad.swift in Sources */,
 				OBJ_171 /* Runes.swift in Sources */,
 				OBJ_172 /* MD5.swift in Sources */,
-				OBJ_173 /* SHA1.swift in Sources */,
 				OBJ_174 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -665,15 +729,67 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				BB07CEB520ADC40E00921AAE /* main.swift in Sources */,
+				BB07CEB620ADC40E00921AAE /* Drafter.swift in Sources */,
+				BB07CEB720ADC40E00921AAE /* ParserRunner.swift in Sources */,
+				BB07CEB820ADC40E00921AAE /* ClassNode.swift in Sources */,
+				BB07CEB920ADC40E00921AAE /* ImplementationNode.swift in Sources */,
+				BB07CEBA20ADC40E00921AAE /* InterfaceNode.swift in Sources */,
+				BB07CEBB20ADC40E00921AAE /* MethodInvokeNode.swift in Sources */,
+				BB07CEBC20ADC40E00921AAE /* MethodNode.swift in Sources */,
+				BB07CEBD20ADC40E00921AAE /* ProtocolNode.swift in Sources */,
+				BB07CEBE20ADC40E00921AAE /* DotGenerator.swift in Sources */,
+				BB07CEBF20ADC40E00921AAE /* Executor.swift in Sources */,
+				BB07CEC020ADC40E00921AAE /* Alternative.swift in Sources */,
+				BB07CEC120ADC40E00921AAE /* Applicative.swift in Sources */,
+				BB07CEC220ADC40E00921AAE /* Extensions.swift in Sources */,
+				BB07CEC320ADC40E00921AAE /* Functor.swift in Sources */,
+				BB07CEC420ADC40E00921AAE /* Monad.swift in Sources */,
+				BB07CEC520ADC40E00921AAE /* Operator.swift in Sources */,
+				BB07CEC620ADC40E00921AAE /* ParserType.swift in Sources */,
+				BB07CEC720ADC40E00921AAE /* Parser.swift in Sources */,
+				BB07CEC820ADC40E00921AAE /* ParserResult.swift in Sources */,
+				BB07CEC920ADC40E00921AAE /* ImplementationParser.swift in Sources */,
+				BB07CECA20ADC40E00921AAE /* InterfaceParser.swift in Sources */,
+				BB07CECB20ADC40E00921AAE /* ObjcMessageParser.swift in Sources */,
+				BB07CECC20ADC40E00921AAE /* ObjcMethodParser.swift in Sources */,
+				BB07CECD20ADC40E00921AAE /* SwiftClassParser.swift in Sources */,
+				BB07CECE20ADC40E00921AAE /* SwiftInvokeParser.swift in Sources */,
+				BB07CECF20ADC40E00921AAE /* SwiftMethodParser.swift in Sources */,
+				BB07CED020ADC40E00921AAE /* SwiftParser.swift in Sources */,
+				BB07CED120ADC40E00921AAE /* SwiftProtocolParser.swift in Sources */,
+				BB07CED220ADC40E00921AAE /* CommandLine.swift in Sources */,
+				BB07CED320ADC40E00921AAE /* Option.swift in Sources */,
+				BB07CED420ADC40E00921AAE /* StringExtensions.swift in Sources */,
+				BB07CED520ADC40E00921AAE /* Array+Alternative.swift in Sources */,
+				BB07CED620ADC40E00921AAE /* Array+Applicative.swift in Sources */,
+				BB07CED720ADC40E00921AAE /* Array+Functor.swift in Sources */,
+				BB07CED820ADC40E00921AAE /* Array+Monad.swift in Sources */,
+				BB07CED920ADC40E00921AAE /* Curry.swift in Sources */,
+				BB07CEDA20ADC40E00921AAE /* Optional+Alternative.swift in Sources */,
+				BB07CEDB20ADC40E00921AAE /* Optional+Applicative.swift in Sources */,
+				BB07CEDC20ADC40E00921AAE /* Optional+Functor.swift in Sources */,
+				BB07CEDD20ADC40E00921AAE /* Optional+Monad.swift in Sources */,
+				BB07CEDE20ADC40E00921AAE /* Runes.swift in Sources */,
+				BB07CEDF20ADC40E00921AAE /* MD5.swift in Sources */,
 				OBJ_97 /* CombinatorTest.swift in Sources */,
 				OBJ_98 /* ImplementationTest.swift in Sources */,
+				BB07CEE120ADC44700921AAE /* FileParserResult.swift in Sources */,
 				OBJ_99 /* InterfaceTest.swift in Sources */,
+				BB07CEA720ADBE3500921AAE /* Array+Extension.swift in Sources */,
+				BB07CEA920ADBE5200921AAE /* Path+Extension.swift in Sources */,
 				OBJ_100 /* OCMethodTest.swift in Sources */,
+				BB07CEB320ADC3FA00921AAE /* Lexer.swift in Sources */,
 				OBJ_101 /* OCMsgSendTest.swift in Sources */,
+				BB07CEB020ADC37E00921AAE /* TokenLexer.swift in Sources */,
 				OBJ_102 /* SwiftClassParserTest.swift in Sources */,
+				BB07CEAC20ADC20B00921AAE /* String+Extension.swift in Sources */,
+				BB07CEA520ADBE0000921AAE /* FileParser.swift in Sources */,
 				OBJ_103 /* SwiftMethodInvokeTest.swift in Sources */,
 				OBJ_104 /* SwiftMethodTest.swift in Sources */,
 				OBJ_105 /* SwiftProtocolParserTest.swift in Sources */,
+				BB07CEB420ADC3FF00921AAE /* Token.swift in Sources */,
+				BB07CEAE20ADC37400921AAE /* SourceLexer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

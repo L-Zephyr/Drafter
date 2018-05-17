@@ -32,8 +32,10 @@ let search = StringOption("s", "search", false, "Specify a keyword, the generate
 
 let selfOnly = BoolOption("self", "self-method-only", false, "Only contains the methods defined in the user code")
 
+let version = BoolOption("v", "version", false, "Print Drafter version")
+
 let cli = CommandLine()
-cli.addOptions(filePath, output, mode, search, selfOnly)
+cli.addOptions(filePath, output, mode, search, selfOnly, version)
 
 do {
     try cli.parse()
@@ -42,7 +44,13 @@ do {
     exit(EX_USAGE)
 }
 
-// 指定文件
+// 打印版本号
+if version.value {
+    print(DrafterVersion)
+    exit(EX_USAGE)
+}
+
+// 必须指定文件路径
 guard let paths = filePath.value else {
     exit(EX_USAGE)
 }
