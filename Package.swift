@@ -10,11 +10,11 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "Drafter",
+            name: "drafter",
             dependencies: ["PathKit"]),
         .testTarget(
             name: "DrafterTests",
-            dependencies: ["Drafter"]
+            dependencies: ["drafter"]
         ),
     ]
 )

@@ -21,139 +21,93 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		BB7793F920AC5D72006DCAB4 /* ClassNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* ClassNode.swift */; };
-		BB7793FA20AC5D72006DCAB4 /* ImplementationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* ImplementationNode.swift */; };
-		BB7793FB20AC5D72006DCAB4 /* InterfaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* InterfaceNode.swift */; };
-		BB7793FC20AC5D72006DCAB4 /* MethodInvokeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* MethodInvokeNode.swift */; };
-		BB7793FD20AC5D72006DCAB4 /* MethodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* MethodNode.swift */; };
-		BB7793FE20AC5D72006DCAB4 /* ProtocolNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* ProtocolNode.swift */; };
-		BB7793FF20AC5D72006DCAB4 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* Extension.swift */; };
-		BB77940020AC5D72006DCAB4 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* Lexer.swift */; };
-		BB77940120AC5D72006DCAB4 /* ParserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* ParserType.swift */; };
-		BB77940220AC5D72006DCAB4 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Token.swift */; };
-		BB77940320AC5D72006DCAB4 /* Drafter.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* Drafter.swift */; };
-		BB77940420AC5D72006DCAB4 /* DotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* DotGenerator.swift */; };
-		BB77940520AC5D72006DCAB4 /* Executor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* Executor.swift */; };
-		BB77940620AC5D72006DCAB4 /* Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* Alternative.swift */; };
-		BB77940720AC5D72006DCAB4 /* Applicative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* Applicative.swift */; };
-		BB77940820AC5D72006DCAB4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* Extensions.swift */; };
-		BB77940920AC5D72006DCAB4 /* Functor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* Functor.swift */; };
-		BB77940A20AC5D72006DCAB4 /* Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* Monad.swift */; };
-		BB77940B20AC5D72006DCAB4 /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* Operator.swift */; };
-		BB77940C20AC5D72006DCAB4 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* Parser.swift */; };
-		BB77940D20AC5D72006DCAB4 /* ParserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* ParserResult.swift */; };
-		BB77940E20AC5D72006DCAB4 /* ImplementationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* ImplementationParser.swift */; };
-		BB77940F20AC5D72006DCAB4 /* InterfaceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* InterfaceParser.swift */; };
-		BB77941020AC5D72006DCAB4 /* ObjcMessageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_40 /* ObjcMessageParser.swift */; };
-		BB77941120AC5D72006DCAB4 /* ObjcMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* ObjcMethodParser.swift */; };
-		BB77941220AC5D72006DCAB4 /* SwiftClassParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_43 /* SwiftClassParser.swift */; };
-		BB77941320AC5D72006DCAB4 /* SwiftInvokeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_44 /* SwiftInvokeParser.swift */; };
-		BB77941420AC5D72006DCAB4 /* SwiftMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_45 /* SwiftMethodParser.swift */; };
-		BB77941520AC5D72006DCAB4 /* SwiftParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_46 /* SwiftParser.swift */; };
-		BB77941620AC5D72006DCAB4 /* SwiftProtocolParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_47 /* SwiftProtocolParser.swift */; };
-		BB77941720AC5D72006DCAB4 /* ParserRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_48 /* ParserRunner.swift */; };
-		BB77941820AC5D72006DCAB4 /* CommandLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_51 /* CommandLine.swift */; };
-		BB77941920AC5D72006DCAB4 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_52 /* Option.swift */; };
-		BB77941A20AC5D72006DCAB4 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_53 /* StringExtensions.swift */; };
-		BB77941B20AC5D72006DCAB4 /* Array+Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_56 /* Array+Alternative.swift */; };
-		BB77941C20AC5D72006DCAB4 /* Array+Applicative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_57 /* Array+Applicative.swift */; };
-		BB77941D20AC5D72006DCAB4 /* Array+Functor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_58 /* Array+Functor.swift */; };
-		BB77941E20AC5D72006DCAB4 /* Array+Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_59 /* Array+Monad.swift */; };
-		BB77941F20AC5D72006DCAB4 /* Curry.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_60 /* Curry.swift */; };
-		BB77942020AC5D72006DCAB4 /* Optional+Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_62 /* Optional+Alternative.swift */; };
-		BB77942120AC5D72006DCAB4 /* Optional+Applicative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_63 /* Optional+Applicative.swift */; };
-		BB77942220AC5D72006DCAB4 /* Optional+Functor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_64 /* Optional+Functor.swift */; };
-		BB77942320AC5D72006DCAB4 /* Optional+Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_65 /* Optional+Monad.swift */; };
-		BB77942420AC5D72006DCAB4 /* Runes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_66 /* Runes.swift */; };
-		BB77942520AC5D72006DCAB4 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* MD5.swift */; };
-		BB77942620AC5D72006DCAB4 /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_69 /* SHA1.swift */; };
-		BB77942720AC5D72006DCAB4 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_70 /* main.swift */; };
-		OBJ_100 /* MethodInvokeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* MethodInvokeNode.swift */; };
-		OBJ_101 /* MethodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* MethodNode.swift */; };
-		OBJ_102 /* ProtocolNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* ProtocolNode.swift */; };
-		OBJ_103 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* Extension.swift */; };
-		OBJ_104 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* Lexer.swift */; };
-		OBJ_105 /* ParserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* ParserType.swift */; };
-		OBJ_106 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Token.swift */; };
-		OBJ_107 /* Drafter.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* Drafter.swift */; };
-		OBJ_108 /* DotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* DotGenerator.swift */; };
-		OBJ_109 /* Executor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* Executor.swift */; };
-		OBJ_110 /* Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* Alternative.swift */; };
-		OBJ_111 /* Applicative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* Applicative.swift */; };
-		OBJ_112 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* Extensions.swift */; };
-		OBJ_113 /* Functor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* Functor.swift */; };
-		OBJ_114 /* Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* Monad.swift */; };
-		OBJ_115 /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* Operator.swift */; };
-		OBJ_116 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* Parser.swift */; };
-		OBJ_117 /* ParserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* ParserResult.swift */; };
-		OBJ_118 /* ImplementationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* ImplementationParser.swift */; };
-		OBJ_119 /* InterfaceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* InterfaceParser.swift */; };
-		OBJ_120 /* ObjcMessageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_40 /* ObjcMessageParser.swift */; };
-		OBJ_121 /* ObjcMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* ObjcMethodParser.swift */; };
-		OBJ_122 /* SwiftClassParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_43 /* SwiftClassParser.swift */; };
-		OBJ_123 /* SwiftInvokeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_44 /* SwiftInvokeParser.swift */; };
-		OBJ_124 /* SwiftMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_45 /* SwiftMethodParser.swift */; };
-		OBJ_125 /* SwiftParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_46 /* SwiftParser.swift */; };
-		OBJ_126 /* SwiftProtocolParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_47 /* SwiftProtocolParser.swift */; };
-		OBJ_127 /* ParserRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_48 /* ParserRunner.swift */; };
-		OBJ_128 /* CommandLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_51 /* CommandLine.swift */; };
-		OBJ_129 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_52 /* Option.swift */; };
-		OBJ_130 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_53 /* StringExtensions.swift */; };
-		OBJ_131 /* Array+Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_56 /* Array+Alternative.swift */; };
-		OBJ_132 /* Array+Applicative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_57 /* Array+Applicative.swift */; };
-		OBJ_133 /* Array+Functor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_58 /* Array+Functor.swift */; };
-		OBJ_134 /* Array+Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_59 /* Array+Monad.swift */; };
-		OBJ_135 /* Curry.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_60 /* Curry.swift */; };
-		OBJ_136 /* Optional+Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_62 /* Optional+Alternative.swift */; };
-		OBJ_137 /* Optional+Applicative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_63 /* Optional+Applicative.swift */; };
-		OBJ_138 /* Optional+Functor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_64 /* Optional+Functor.swift */; };
-		OBJ_139 /* Optional+Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_65 /* Optional+Monad.swift */; };
-		OBJ_140 /* Runes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_66 /* Runes.swift */; };
-		OBJ_141 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* MD5.swift */; };
-		OBJ_142 /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_69 /* SHA1.swift */; };
-		OBJ_143 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_70 /* main.swift */; };
-		OBJ_145 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "PathKit::PathKit::Product" /* PathKit.framework */; };
-		OBJ_153 /* CombinatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_73 /* CombinatorTest.swift */; };
-		OBJ_154 /* ImplementationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_74 /* ImplementationTest.swift */; };
-		OBJ_155 /* InterfaceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_75 /* InterfaceTest.swift */; };
-		OBJ_156 /* OCMethodTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_76 /* OCMethodTest.swift */; };
-		OBJ_157 /* OCMsgSendTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_77 /* OCMsgSendTest.swift */; };
-		OBJ_158 /* SwiftClassParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_78 /* SwiftClassParserTest.swift */; };
-		OBJ_159 /* SwiftMethodInvokeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_79 /* SwiftMethodInvokeTest.swift */; };
-		OBJ_160 /* SwiftMethodTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_80 /* SwiftMethodTest.swift */; };
-		OBJ_161 /* SwiftProtocolParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_81 /* SwiftProtocolParserTest.swift */; };
-		OBJ_163 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "PathKit::PathKit::Product" /* PathKit.framework */; };
-		OBJ_170 /* PathKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_87 /* PathKit.swift */; };
-		OBJ_177 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_86 /* Package.swift */; };
+		BB07CE9F20AC7A0C00921AAE /* Path+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CE9D20AC620000921AAE /* Path+Extension.swift */; };
+		OBJ_100 /* OCMethodTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_76 /* OCMethodTest.swift */; };
+		OBJ_101 /* OCMsgSendTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_77 /* OCMsgSendTest.swift */; };
+		OBJ_102 /* SwiftClassParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_78 /* SwiftClassParserTest.swift */; };
+		OBJ_103 /* SwiftMethodInvokeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_79 /* SwiftMethodInvokeTest.swift */; };
+		OBJ_104 /* SwiftMethodTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_80 /* SwiftMethodTest.swift */; };
+		OBJ_105 /* SwiftProtocolParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_81 /* SwiftProtocolParserTest.swift */; };
+		OBJ_107 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "PathKit::PathKit::Product" /* PathKit.framework */; };
+		OBJ_116 /* PathKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_87 /* PathKit.swift */; };
+		OBJ_123 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_86 /* Package.swift */; };
+		OBJ_128 /* ClassNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* ClassNode.swift */; };
+		OBJ_129 /* ImplementationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* ImplementationNode.swift */; };
+		OBJ_130 /* InterfaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* InterfaceNode.swift */; };
+		OBJ_131 /* MethodInvokeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* MethodInvokeNode.swift */; };
+		OBJ_132 /* MethodNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* MethodNode.swift */; };
+		OBJ_133 /* ProtocolNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* ProtocolNode.swift */; };
+		OBJ_134 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* Extension.swift */; };
+		OBJ_135 /* Lexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* Lexer.swift */; };
+		OBJ_136 /* ParserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* ParserType.swift */; };
+		OBJ_137 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Token.swift */; };
+		OBJ_138 /* Drafter.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* Drafter.swift */; };
+		OBJ_139 /* DotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* DotGenerator.swift */; };
+		OBJ_140 /* Executor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* Executor.swift */; };
+		OBJ_141 /* Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* Alternative.swift */; };
+		OBJ_142 /* Applicative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* Applicative.swift */; };
+		OBJ_143 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* Extensions.swift */; };
+		OBJ_144 /* Functor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* Functor.swift */; };
+		OBJ_145 /* Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* Monad.swift */; };
+		OBJ_146 /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* Operator.swift */; };
+		OBJ_147 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* Parser.swift */; };
+		OBJ_148 /* ParserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* ParserResult.swift */; };
+		OBJ_149 /* ImplementationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* ImplementationParser.swift */; };
+		OBJ_150 /* InterfaceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* InterfaceParser.swift */; };
+		OBJ_151 /* ObjcMessageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_40 /* ObjcMessageParser.swift */; };
+		OBJ_152 /* ObjcMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* ObjcMethodParser.swift */; };
+		OBJ_153 /* SwiftClassParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_43 /* SwiftClassParser.swift */; };
+		OBJ_154 /* SwiftInvokeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_44 /* SwiftInvokeParser.swift */; };
+		OBJ_155 /* SwiftMethodParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_45 /* SwiftMethodParser.swift */; };
+		OBJ_156 /* SwiftParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_46 /* SwiftParser.swift */; };
+		OBJ_157 /* SwiftProtocolParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_47 /* SwiftProtocolParser.swift */; };
+		OBJ_158 /* ParserRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_48 /* ParserRunner.swift */; };
+		OBJ_159 /* CommandLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_51 /* CommandLine.swift */; };
+		OBJ_160 /* Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_52 /* Option.swift */; };
+		OBJ_161 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_53 /* StringExtensions.swift */; };
+		OBJ_162 /* Array+Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_56 /* Array+Alternative.swift */; };
+		OBJ_163 /* Array+Applicative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_57 /* Array+Applicative.swift */; };
+		OBJ_164 /* Array+Functor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_58 /* Array+Functor.swift */; };
+		OBJ_165 /* Array+Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_59 /* Array+Monad.swift */; };
+		OBJ_166 /* Curry.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_60 /* Curry.swift */; };
+		OBJ_167 /* Optional+Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_62 /* Optional+Alternative.swift */; };
+		OBJ_168 /* Optional+Applicative.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_63 /* Optional+Applicative.swift */; };
+		OBJ_169 /* Optional+Functor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_64 /* Optional+Functor.swift */; };
+		OBJ_170 /* Optional+Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_65 /* Optional+Monad.swift */; };
+		OBJ_171 /* Runes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_66 /* Runes.swift */; };
+		OBJ_172 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* MD5.swift */; };
+		OBJ_173 /* SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_69 /* SHA1.swift */; };
+		OBJ_174 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_70 /* main.swift */; };
+		OBJ_176 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "PathKit::PathKit::Product" /* PathKit.framework */; };
 		OBJ_183 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
-		OBJ_97 /* ClassNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* ClassNode.swift */; };
-		OBJ_98 /* ImplementationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* ImplementationNode.swift */; };
-		OBJ_99 /* InterfaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* InterfaceNode.swift */; };
+		OBJ_97 /* CombinatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_73 /* CombinatorTest.swift */; };
+		OBJ_98 /* ImplementationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_74 /* ImplementationTest.swift */; };
+		OBJ_99 /* InterfaceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_75 /* InterfaceTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		BB7793B720AC5AB4006DCAB4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "drafter::Drafter";
-			remoteInfo = Drafter;
-		};
-		BB7793B820AC5AB4006DCAB4 /* PBXContainerItemProxy */ = {
+		BB77942820AC6004006DCAB4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = "PathKit::PathKit";
 			remoteInfo = PathKit;
 		};
-		BB7793B920AC5AB4006DCAB4 /* PBXContainerItemProxy */ = {
+		BB77942920AC6004006DCAB4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "drafter::drafter";
+			remoteInfo = drafter;
+		};
+		BB77942A20AC6004006DCAB4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = "PathKit::PathKit";
 			remoteInfo = PathKit;
 		};
-		BB7793BA20AC5AB4006DCAB4 /* PBXContainerItemProxy */ = {
+		BB77942B20AC6005006DCAB4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
@@ -163,6 +117,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BB07CE9D20AC620000921AAE /* Path+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Path+Extension.swift"; path = "Sources/Drafter/Utils/Path+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		OBJ_10 /* ClassNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassNode.swift; sourceTree = "<group>"; };
 		OBJ_11 /* ImplementationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplementationNode.swift; sourceTree = "<group>"; };
 		OBJ_12 /* InterfaceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceNode.swift; sourceTree = "<group>"; };
@@ -225,37 +180,45 @@
 		OBJ_86 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/lzephyr/Desktop/code/github/Drafter/.build/checkouts/PathKit.git--1865447967743163058/Package.swift"; sourceTree = "<group>"; };
 		OBJ_87 /* PathKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathKit.swift; sourceTree = "<group>"; };
 		"PathKit::PathKit::Product" /* PathKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PathKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"drafter::Drafter::Product" /* Drafter */ = {isa = PBXFileReference; lastKnownFileType = text; path = Drafter; sourceTree = BUILT_PRODUCTS_DIR; };
 		"drafter::DrafterTests::Product" /* DrafterTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = DrafterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		"drafter::drafter::Product" /* drafter */ = {isa = PBXFileReference; lastKnownFileType = text; path = drafter; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		OBJ_144 /* Frameworks */ = {
+		OBJ_106 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_145 /* PathKit.framework in Frameworks */,
+				OBJ_107 /* PathKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_162 /* Frameworks */ = {
+		OBJ_117 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_163 /* PathKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_171 /* Frameworks */ = {
+		OBJ_175 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
+				OBJ_176 /* PathKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB07CE9C20AC61E500921AAE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				BB07CE9D20AC620000921AAE /* Path+Extension.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		OBJ_16 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,7 +313,7 @@
 			path = Thirdparty;
 			sourceTree = "<group>";
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -361,7 +324,6 @@
 				OBJ_84 /* Dependencies */,
 				OBJ_88 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_50 /* CommandLineKit */ = {
@@ -419,7 +381,7 @@
 		OBJ_7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_8 /* Drafter */,
+				OBJ_8 /* drafter */,
 			);
 			name = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -449,20 +411,21 @@
 			path = Tests/DrafterTests;
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_8 /* Drafter */ = {
+		OBJ_8 /* drafter */ = {
 			isa = PBXGroup;
 			children = (
 				OBJ_70 /* main.swift */,
 				OBJ_21 /* Drafter.swift */,
 				OBJ_48 /* ParserRunner.swift */,
-				OBJ_16 /* Base */,
 				OBJ_9 /* AST */,
+				OBJ_16 /* Base */,
 				OBJ_22 /* Generator */,
 				OBJ_25 /* Parser */,
+				BB07CE9C20AC61E500921AAE /* Utils */,
 				OBJ_49 /* Thirdparty */,
 			);
-			name = Drafter;
-			path = Sources/Drafter;
+			name = drafter;
+			path = Sources/drafter;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_84 /* Dependencies */ = {
@@ -486,8 +449,8 @@
 		OBJ_88 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				"drafter::drafter::Product" /* drafter */,
 				"drafter::DrafterTests::Product" /* DrafterTests.xctest */,
-				"drafter::Drafter::Product" /* Drafter */,
 				"PathKit::PathKit::Product" /* PathKit.framework */,
 			);
 			name = Products;
@@ -511,10 +474,10 @@
 /* Begin PBXNativeTarget section */
 		"PathKit::PathKit" /* PathKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_166 /* Build configuration list for PBXNativeTarget "PathKit" */;
+			buildConfigurationList = OBJ_112 /* Build configuration list for PBXNativeTarget "PathKit" */;
 			buildPhases = (
-				OBJ_169 /* Sources */,
-				OBJ_171 /* Frameworks */,
+				OBJ_115 /* Sources */,
+				OBJ_117 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -527,9 +490,9 @@
 		};
 		"PathKit::SwiftPMPackageDescription" /* PathKitPackageDescription */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_173 /* Build configuration list for PBXNativeTarget "PathKitPackageDescription" */;
+			buildConfigurationList = OBJ_119 /* Build configuration list for PBXNativeTarget "PathKitPackageDescription" */;
 			buildPhases = (
-				OBJ_176 /* Sources */,
+				OBJ_122 /* Sources */,
 			);
 			buildRules = (
 			);
@@ -539,35 +502,18 @@
 			productName = PathKitPackageDescription;
 			productType = "com.apple.product-type.framework";
 		};
-		"drafter::Drafter" /* Drafter */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_93 /* Build configuration list for PBXNativeTarget "Drafter" */;
-			buildPhases = (
-				OBJ_96 /* Sources */,
-				OBJ_144 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				OBJ_146 /* PBXTargetDependency */,
-			);
-			name = Drafter;
-			productName = Drafter;
-			productReference = "drafter::Drafter::Product" /* Drafter */;
-			productType = "com.apple.product-type.tool";
-		};
 		"drafter::DrafterTests" /* DrafterTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_149 /* Build configuration list for PBXNativeTarget "DrafterTests" */;
+			buildConfigurationList = OBJ_93 /* Build configuration list for PBXNativeTarget "DrafterTests" */;
 			buildPhases = (
-				OBJ_152 /* Sources */,
-				OBJ_162 /* Frameworks */,
+				OBJ_96 /* Sources */,
+				OBJ_106 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				OBJ_164 /* PBXTargetDependency */,
-				OBJ_165 /* PBXTargetDependency */,
+				OBJ_108 /* PBXTargetDependency */,
+				OBJ_110 /* PBXTargetDependency */,
 			);
 			name = DrafterTests;
 			productName = DrafterTests;
@@ -588,6 +534,23 @@
 			productName = drafterPackageDescription;
 			productType = "com.apple.product-type.framework";
 		};
+		"drafter::drafter" /* drafter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_124 /* Build configuration list for PBXNativeTarget "drafter" */;
+			buildPhases = (
+				OBJ_127 /* Sources */,
+				OBJ_175 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				OBJ_177 /* PBXTargetDependency */,
+			);
+			name = drafter;
+			productName = drafter;
+			productReference = "drafter::drafter::Product" /* drafter */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -603,15 +566,15 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_88 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				"drafter::Drafter" /* Drafter */,
 				"drafter::DrafterTests" /* DrafterTests */,
 				"PathKit::PathKit" /* PathKit */,
 				"PathKit::SwiftPMPackageDescription" /* PathKitPackageDescription */,
+				"drafter::drafter" /* drafter */,
 				"drafter::SwiftPMPackageDescription" /* drafterPackageDescription */,
 				"drafter::drafterPackageTests::ProductTarget" /* drafterPackageTests */,
 			);
@@ -619,82 +582,74 @@
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		OBJ_152 /* Sources */ = {
+		OBJ_115 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				BB7793F920AC5D72006DCAB4 /* ClassNode.swift in Sources */,
-				BB7793FA20AC5D72006DCAB4 /* ImplementationNode.swift in Sources */,
-				BB7793FB20AC5D72006DCAB4 /* InterfaceNode.swift in Sources */,
-				BB7793FC20AC5D72006DCAB4 /* MethodInvokeNode.swift in Sources */,
-				BB7793FD20AC5D72006DCAB4 /* MethodNode.swift in Sources */,
-				BB7793FE20AC5D72006DCAB4 /* ProtocolNode.swift in Sources */,
-				BB7793FF20AC5D72006DCAB4 /* Extension.swift in Sources */,
-				BB77940020AC5D72006DCAB4 /* Lexer.swift in Sources */,
-				BB77940120AC5D72006DCAB4 /* ParserType.swift in Sources */,
-				BB77940220AC5D72006DCAB4 /* Token.swift in Sources */,
-				BB77940320AC5D72006DCAB4 /* Drafter.swift in Sources */,
-				BB77940420AC5D72006DCAB4 /* DotGenerator.swift in Sources */,
-				BB77940520AC5D72006DCAB4 /* Executor.swift in Sources */,
-				BB77940620AC5D72006DCAB4 /* Alternative.swift in Sources */,
-				BB77940720AC5D72006DCAB4 /* Applicative.swift in Sources */,
-				BB77940820AC5D72006DCAB4 /* Extensions.swift in Sources */,
-				BB77940920AC5D72006DCAB4 /* Functor.swift in Sources */,
-				BB77940A20AC5D72006DCAB4 /* Monad.swift in Sources */,
-				BB77940B20AC5D72006DCAB4 /* Operator.swift in Sources */,
-				BB77940C20AC5D72006DCAB4 /* Parser.swift in Sources */,
-				BB77940D20AC5D72006DCAB4 /* ParserResult.swift in Sources */,
-				BB77940E20AC5D72006DCAB4 /* ImplementationParser.swift in Sources */,
-				BB77940F20AC5D72006DCAB4 /* InterfaceParser.swift in Sources */,
-				BB77941020AC5D72006DCAB4 /* ObjcMessageParser.swift in Sources */,
-				BB77941120AC5D72006DCAB4 /* ObjcMethodParser.swift in Sources */,
-				BB77941220AC5D72006DCAB4 /* SwiftClassParser.swift in Sources */,
-				BB77941320AC5D72006DCAB4 /* SwiftInvokeParser.swift in Sources */,
-				BB77941420AC5D72006DCAB4 /* SwiftMethodParser.swift in Sources */,
-				BB77941520AC5D72006DCAB4 /* SwiftParser.swift in Sources */,
-				BB77941620AC5D72006DCAB4 /* SwiftProtocolParser.swift in Sources */,
-				BB77941720AC5D72006DCAB4 /* ParserRunner.swift in Sources */,
-				BB77941820AC5D72006DCAB4 /* CommandLine.swift in Sources */,
-				BB77941920AC5D72006DCAB4 /* Option.swift in Sources */,
-				BB77941A20AC5D72006DCAB4 /* StringExtensions.swift in Sources */,
-				BB77941B20AC5D72006DCAB4 /* Array+Alternative.swift in Sources */,
-				BB77941C20AC5D72006DCAB4 /* Array+Applicative.swift in Sources */,
-				BB77941D20AC5D72006DCAB4 /* Array+Functor.swift in Sources */,
-				BB77941E20AC5D72006DCAB4 /* Array+Monad.swift in Sources */,
-				BB77941F20AC5D72006DCAB4 /* Curry.swift in Sources */,
-				BB77942020AC5D72006DCAB4 /* Optional+Alternative.swift in Sources */,
-				BB77942120AC5D72006DCAB4 /* Optional+Applicative.swift in Sources */,
-				BB77942220AC5D72006DCAB4 /* Optional+Functor.swift in Sources */,
-				BB77942320AC5D72006DCAB4 /* Optional+Monad.swift in Sources */,
-				BB77942420AC5D72006DCAB4 /* Runes.swift in Sources */,
-				BB77942520AC5D72006DCAB4 /* MD5.swift in Sources */,
-				BB77942620AC5D72006DCAB4 /* SHA1.swift in Sources */,
-				BB77942720AC5D72006DCAB4 /* main.swift in Sources */,
-				OBJ_153 /* CombinatorTest.swift in Sources */,
-				OBJ_154 /* ImplementationTest.swift in Sources */,
-				OBJ_155 /* InterfaceTest.swift in Sources */,
-				OBJ_156 /* OCMethodTest.swift in Sources */,
-				OBJ_157 /* OCMsgSendTest.swift in Sources */,
-				OBJ_158 /* SwiftClassParserTest.swift in Sources */,
-				OBJ_159 /* SwiftMethodInvokeTest.swift in Sources */,
-				OBJ_160 /* SwiftMethodTest.swift in Sources */,
-				OBJ_161 /* SwiftProtocolParserTest.swift in Sources */,
+				OBJ_116 /* PathKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_169 /* Sources */ = {
+		OBJ_122 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_170 /* PathKit.swift in Sources */,
+				OBJ_123 /* Package.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_176 /* Sources */ = {
+		OBJ_127 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_177 /* Package.swift in Sources */,
+				OBJ_128 /* ClassNode.swift in Sources */,
+				OBJ_129 /* ImplementationNode.swift in Sources */,
+				OBJ_130 /* InterfaceNode.swift in Sources */,
+				OBJ_131 /* MethodInvokeNode.swift in Sources */,
+				BB07CE9F20AC7A0C00921AAE /* Path+Extension.swift in Sources */,
+				OBJ_132 /* MethodNode.swift in Sources */,
+				OBJ_133 /* ProtocolNode.swift in Sources */,
+				OBJ_134 /* Extension.swift in Sources */,
+				OBJ_135 /* Lexer.swift in Sources */,
+				OBJ_136 /* ParserType.swift in Sources */,
+				OBJ_137 /* Token.swift in Sources */,
+				OBJ_138 /* Drafter.swift in Sources */,
+				OBJ_139 /* DotGenerator.swift in Sources */,
+				OBJ_140 /* Executor.swift in Sources */,
+				OBJ_141 /* Alternative.swift in Sources */,
+				OBJ_142 /* Applicative.swift in Sources */,
+				OBJ_143 /* Extensions.swift in Sources */,
+				OBJ_144 /* Functor.swift in Sources */,
+				OBJ_145 /* Monad.swift in Sources */,
+				OBJ_146 /* Operator.swift in Sources */,
+				OBJ_147 /* Parser.swift in Sources */,
+				OBJ_148 /* ParserResult.swift in Sources */,
+				OBJ_149 /* ImplementationParser.swift in Sources */,
+				OBJ_150 /* InterfaceParser.swift in Sources */,
+				OBJ_151 /* ObjcMessageParser.swift in Sources */,
+				OBJ_152 /* ObjcMethodParser.swift in Sources */,
+				OBJ_153 /* SwiftClassParser.swift in Sources */,
+				OBJ_154 /* SwiftInvokeParser.swift in Sources */,
+				OBJ_155 /* SwiftMethodParser.swift in Sources */,
+				OBJ_156 /* SwiftParser.swift in Sources */,
+				OBJ_157 /* SwiftProtocolParser.swift in Sources */,
+				OBJ_158 /* ParserRunner.swift in Sources */,
+				OBJ_159 /* CommandLine.swift in Sources */,
+				OBJ_160 /* Option.swift in Sources */,
+				OBJ_161 /* StringExtensions.swift in Sources */,
+				OBJ_162 /* Array+Alternative.swift in Sources */,
+				OBJ_163 /* Array+Applicative.swift in Sources */,
+				OBJ_164 /* Array+Functor.swift in Sources */,
+				OBJ_165 /* Array+Monad.swift in Sources */,
+				OBJ_166 /* Curry.swift in Sources */,
+				OBJ_167 /* Optional+Alternative.swift in Sources */,
+				OBJ_168 /* Optional+Applicative.swift in Sources */,
+				OBJ_169 /* Optional+Functor.swift in Sources */,
+				OBJ_170 /* Optional+Monad.swift in Sources */,
+				OBJ_171 /* Runes.swift in Sources */,
+				OBJ_172 /* MD5.swift in Sources */,
+				OBJ_173 /* SHA1.swift in Sources */,
+				OBJ_174 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -710,121 +665,45 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_97 /* ClassNode.swift in Sources */,
-				OBJ_98 /* ImplementationNode.swift in Sources */,
-				OBJ_99 /* InterfaceNode.swift in Sources */,
-				OBJ_100 /* MethodInvokeNode.swift in Sources */,
-				OBJ_101 /* MethodNode.swift in Sources */,
-				OBJ_102 /* ProtocolNode.swift in Sources */,
-				OBJ_103 /* Extension.swift in Sources */,
-				OBJ_104 /* Lexer.swift in Sources */,
-				OBJ_105 /* ParserType.swift in Sources */,
-				OBJ_106 /* Token.swift in Sources */,
-				OBJ_107 /* Drafter.swift in Sources */,
-				OBJ_108 /* DotGenerator.swift in Sources */,
-				OBJ_109 /* Executor.swift in Sources */,
-				OBJ_110 /* Alternative.swift in Sources */,
-				OBJ_111 /* Applicative.swift in Sources */,
-				OBJ_112 /* Extensions.swift in Sources */,
-				OBJ_113 /* Functor.swift in Sources */,
-				OBJ_114 /* Monad.swift in Sources */,
-				OBJ_115 /* Operator.swift in Sources */,
-				OBJ_116 /* Parser.swift in Sources */,
-				OBJ_117 /* ParserResult.swift in Sources */,
-				OBJ_118 /* ImplementationParser.swift in Sources */,
-				OBJ_119 /* InterfaceParser.swift in Sources */,
-				OBJ_120 /* ObjcMessageParser.swift in Sources */,
-				OBJ_121 /* ObjcMethodParser.swift in Sources */,
-				OBJ_122 /* SwiftClassParser.swift in Sources */,
-				OBJ_123 /* SwiftInvokeParser.swift in Sources */,
-				OBJ_124 /* SwiftMethodParser.swift in Sources */,
-				OBJ_125 /* SwiftParser.swift in Sources */,
-				OBJ_126 /* SwiftProtocolParser.swift in Sources */,
-				OBJ_127 /* ParserRunner.swift in Sources */,
-				OBJ_128 /* CommandLine.swift in Sources */,
-				OBJ_129 /* Option.swift in Sources */,
-				OBJ_130 /* StringExtensions.swift in Sources */,
-				OBJ_131 /* Array+Alternative.swift in Sources */,
-				OBJ_132 /* Array+Applicative.swift in Sources */,
-				OBJ_133 /* Array+Functor.swift in Sources */,
-				OBJ_134 /* Array+Monad.swift in Sources */,
-				OBJ_135 /* Curry.swift in Sources */,
-				OBJ_136 /* Optional+Alternative.swift in Sources */,
-				OBJ_137 /* Optional+Applicative.swift in Sources */,
-				OBJ_138 /* Optional+Functor.swift in Sources */,
-				OBJ_139 /* Optional+Monad.swift in Sources */,
-				OBJ_140 /* Runes.swift in Sources */,
-				OBJ_141 /* MD5.swift in Sources */,
-				OBJ_142 /* SHA1.swift in Sources */,
-				OBJ_143 /* main.swift in Sources */,
+				OBJ_97 /* CombinatorTest.swift in Sources */,
+				OBJ_98 /* ImplementationTest.swift in Sources */,
+				OBJ_99 /* InterfaceTest.swift in Sources */,
+				OBJ_100 /* OCMethodTest.swift in Sources */,
+				OBJ_101 /* OCMsgSendTest.swift in Sources */,
+				OBJ_102 /* SwiftClassParserTest.swift in Sources */,
+				OBJ_103 /* SwiftMethodInvokeTest.swift in Sources */,
+				OBJ_104 /* SwiftMethodTest.swift in Sources */,
+				OBJ_105 /* SwiftProtocolParserTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		OBJ_146 /* PBXTargetDependency */ = {
+		OBJ_108 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "drafter::drafter" /* drafter */;
+			targetProxy = BB77942920AC6004006DCAB4 /* PBXContainerItemProxy */;
+		};
+		OBJ_110 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "PathKit::PathKit" /* PathKit */;
-			targetProxy = BB7793B820AC5AB4006DCAB4 /* PBXContainerItemProxy */;
+			targetProxy = BB77942A20AC6004006DCAB4 /* PBXContainerItemProxy */;
 		};
-		OBJ_164 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "drafter::Drafter" /* Drafter */;
-			targetProxy = BB7793B720AC5AB4006DCAB4 /* PBXContainerItemProxy */;
-		};
-		OBJ_165 /* PBXTargetDependency */ = {
+		OBJ_177 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "PathKit::PathKit" /* PathKit */;
-			targetProxy = BB7793B920AC5AB4006DCAB4 /* PBXContainerItemProxy */;
+			targetProxy = BB77942820AC6004006DCAB4 /* PBXContainerItemProxy */;
 		};
 		OBJ_188 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "drafter::DrafterTests" /* DrafterTests */;
-			targetProxy = BB7793BA20AC5AB4006DCAB4 /* PBXContainerItemProxy */;
+			targetProxy = BB77942B20AC6005006DCAB4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		OBJ_150 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = drafter.xcodeproj/DrafterTests_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = DrafterTests;
-			};
-			name = Debug;
-		};
-		OBJ_151 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = drafter.xcodeproj/DrafterTests_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = DrafterTests;
-			};
-			name = Release;
-		};
-		OBJ_167 /* Debug */ = {
+		OBJ_113 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -847,7 +726,7 @@
 			};
 			name = Debug;
 		};
-		OBJ_168 /* Release */ = {
+		OBJ_114 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -870,7 +749,7 @@
 			};
 			name = Release;
 		};
-		OBJ_174 /* Debug */ = {
+		OBJ_120 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LD = /usr/bin/true;
@@ -879,12 +758,52 @@
 			};
 			name = Debug;
 		};
-		OBJ_175 /* Release */ = {
+		OBJ_121 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LD = /usr/bin/true;
 				OTHER_SWIFT_FLAGS = "-swift-version 4 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
 				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		OBJ_125 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = drafter.xcodeproj/drafter_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
+				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = drafter;
+			};
+			name = Debug;
+		};
+		OBJ_126 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = drafter.xcodeproj/drafter_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
+				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
+				SWIFT_VERSION = 4.0;
+				TARGET_NAME = drafter;
 			};
 			name = Release;
 		};
@@ -963,69 +882,67 @@
 		OBJ_94 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = drafter.xcodeproj/Drafter_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
+				INFOPLIST_FILE = drafter.xcodeproj/DrafterTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
-				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
 				SWIFT_VERSION = 4.0;
-				TARGET_NAME = Drafter;
+				TARGET_NAME = DrafterTests;
 			};
 			name = Debug;
 		};
 		OBJ_95 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = drafter.xcodeproj/Drafter_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
+				INFOPLIST_FILE = drafter.xcodeproj/DrafterTests_Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
-				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
 				SWIFT_VERSION = 4.0;
-				TARGET_NAME = Drafter;
+				TARGET_NAME = DrafterTests;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		OBJ_149 /* Build configuration list for PBXNativeTarget "DrafterTests" */ = {
+		OBJ_112 /* Build configuration list for PBXNativeTarget "PathKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_150 /* Debug */,
-				OBJ_151 /* Release */,
+				OBJ_113 /* Debug */,
+				OBJ_114 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		OBJ_166 /* Build configuration list for PBXNativeTarget "PathKit" */ = {
+		OBJ_119 /* Build configuration list for PBXNativeTarget "PathKitPackageDescription" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_167 /* Debug */,
-				OBJ_168 /* Release */,
+				OBJ_120 /* Debug */,
+				OBJ_121 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		OBJ_173 /* Build configuration list for PBXNativeTarget "PathKitPackageDescription" */ = {
+		OBJ_124 /* Build configuration list for PBXNativeTarget "drafter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_174 /* Debug */,
-				OBJ_175 /* Release */,
+				OBJ_125 /* Debug */,
+				OBJ_126 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1057,7 +974,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		OBJ_93 /* Build configuration list for PBXNativeTarget "Drafter" */ = {
+		OBJ_93 /* Build configuration list for PBXNativeTarget "DrafterTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				OBJ_94 /* Debug */,

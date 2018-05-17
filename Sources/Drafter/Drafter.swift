@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PathKit
 
 let OutputFolder = "DrafterStage"
 let DataPlaceholder = "DrafterDataPlaceholder"
@@ -23,25 +24,37 @@ class Drafter {
     /// 待解析的文件或文件夹, 目前只支持.h、.m和.swift文件
     var paths: String = "" {
         didSet {
-            let pathValues = paths.split(by: ",")
             // 多个文件用逗号分隔
-            for path in pathValues {
-                var isDir: ObjCBool = ObjCBool.init(false)
-                if FileManager.default.fileExists(atPath: path, isDirectory: &isDir) {
-                    // 如果是文件夹则遍历所有文件
-                    if isDir.boolValue, let enumerator = FileManager.default.enumerator(atPath: path) {
-                        while let file = enumerator.nextObject() as? String {
-                            if supported(file) {
-                                files.append("\(path)/\(file)")
-                            }
-                        }
-                    } else {
-                        files = [path]
-                    }
-                } else {
-                    print("File: \(path) not exist")
+            let pathValues = paths.split(by: ",")
+            
+            files = pathValues
+                .map {
+                    return Path($0)
                 }
-            }
+                .flatMap { (path) -> [Path] in
+                    guard path.exists else {
+                        return []
+                    }
+                    return path.files
+                }
+//
+//            for path in pathValues {
+//                var isDir: ObjCBool = ObjCBool.init(false)
+//                if FileManager.default.fileExists(atPath: path, isDirectory: &isDir) {
+//                    // 如果是文件夹则遍历所有文件
+//                    if isDir.boolValue, let enumerator = FileManager.default.enumerator(atPath: path) {
+//                        while let file = enumerator.nextObject() as? String {
+//                            if supported(file) {
+//                                files.append("\(path)/\(file)")
+//                            }
+//                        }
+//                    } else {
+//                        files = [path]
+//                    }
+//                } else {
+//                    print("File: \(path) not exist")
+//                }
+//            }
         }
     }
     
@@ -64,10 +77,12 @@ class Drafter {
     
     // MARK: - Private
     
-    fileprivate var files: [String] = []
+    /// 等待处理的所有源文件
+    fileprivate var files: [Path] = []
     
     fileprivate func craftInheritGraph() {
-        var (classes, protocols) = ParserRunner.runner.parseInerit(files: files)
+        // TODO: 重构
+        var (classes, protocols) = ParserRunner.runner.parseInerit(files: files.map { $0.string })
 
         // 过滤、生成结果
         classes = classes.filter({ $0.className.contains(keywords) })
@@ -85,8 +100,9 @@ class Drafter {
     
     /// 生成方法调用关系图
     fileprivate func craftinvokeGraph() {
+        // TODO: 重构
         // 1. 解析每个文件中的方法
-        let results = ParserRunner.runner.parseMethods(files: files)
+        let results = ParserRunner.runner.parseMethods(files: files.map { $0.string })
         
         // 2. 过滤、生成结果
         var outputFiles = [String]()
@@ -102,7 +118,8 @@ class Drafter {
     
     /// 解析所有输入并生成一个HTML的输出
     func craftHTML() {
-        let classNodes = ParserRunner.runner.parse(files: files)
+        // TODO: 重构
+        let classNodes = ParserRunner.runner.parse(files: files.map { $0.string })
         
         // 格式化
         var jsonString: String? = nil
