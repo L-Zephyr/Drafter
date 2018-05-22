@@ -83,7 +83,7 @@ class Drafter {
     
     fileprivate func craftInheritGraph() {
         // TODO: 重构
-        var (classes, protocols) = ParserRunner.runner.parseInerit(files: files.map { $0.string })
+        var (classes, protocols) = ParserRunner.runner.parseInerit(files: files)
 
         // 过滤、生成结果
         classes = classes.filter({ $0.className.contains(keywords) })
@@ -103,7 +103,7 @@ class Drafter {
     fileprivate func craftinvokeGraph() {
         // TODO: 重构
         // 1. 解析每个文件中的方法
-        let results = ParserRunner.runner.parseMethods(files: files.map { $0.string })
+        let results = ParserRunner.runner.parseMethods(files: files)
         
         // 2. 过滤、生成结果
         var outputFiles = [String]()
@@ -120,7 +120,7 @@ class Drafter {
     /// 解析所有输入并生成一个HTML的输出
     func craftHTML() {
         // TODO: 重构
-        let classNodes = ParserRunner.runner.parse(files: files.map { $0.string })
+        let classNodes = ParserRunner.runner.parse(files: files)
         
         // 格式化
         var jsonString: String? = nil

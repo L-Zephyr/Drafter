@@ -20,6 +20,30 @@ extension ClassNode {
 
 }
 
+// MARK: - FileParserResult Codable
+extension FileParserResult {
+    enum CodingKeys: String, CodingKey {
+        case md5 
+        case drafterVersion 
+        case path 
+        case isSwift 
+        case swiftClasses 
+        case interfaces 
+        case implementations 
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        md5 = try container.decode(String.self, forKey: .md5)
+        drafterVersion = try container.decode(String.self, forKey: .drafterVersion)
+        path = try container.decode(String.self, forKey: .path)
+        isSwift = try container.decode(Bool.self, forKey: .isSwift)
+        swiftClasses = try container.decode([ClassNode].self, forKey: .swiftClasses)
+        interfaces = try container.decode([InterfaceNode].self, forKey: .interfaces)
+        implementations = try container.decode([ImplementationNode].self, forKey: .implementations)
+    }
+}
+
 // MARK: - ImplementationNode Codable
 extension ImplementationNode {
     enum CodingKeys: String, CodingKey {

@@ -17,7 +17,7 @@ extension Path {
         }
         
         let hash = self.absolute().string.hashValue
-        return cacheDir + "\(hash).srf"
+        return cacheDir + "\(hash)"
     }
     
     /// 获取文件夹下的所有文件
@@ -34,6 +34,16 @@ extension Path {
     /// 获取绝对路径的散列值
     var pathHash: String {
         return self.absolute().string.md5
+    }
+    
+    /// 该文件是否为swift文件
+    var isSwift: Bool {
+        return self.extension == "swift"
+    }
+    
+    /// 该文件是否为oc文件，.h或.m
+    var isObjc: Bool {
+        return self.extension == "m" || self.extension == "h"
     }
     
 //    /// 获取文件内容的散列值

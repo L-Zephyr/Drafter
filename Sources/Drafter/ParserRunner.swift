@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PathKit
 
 fileprivate let maxConcurrent: Int = 4 // 多线程解析最大并发数
 
@@ -13,38 +14,36 @@ class ParserRunner {
     
     static let runner = ParserRunner()
 
-    func parse(files: [String]) -> [ClassNode] {
-        let ocFiles = files.filter { $0.hasSuffix(".h") || $0.hasSuffix(".m") }
-        let swiftFiles = files.filter { $0.hasSuffix(".swift") }
+    func parse(files: [Path]) -> [ClassNode] {
+        let ocFiles = files.filter { $0.isObjc }
+        let swiftFiles = files.filter { $0.isSwift }
         
         interfaces = []
         implementations = []
         classList = []
         
+        var results: [FileParserResult] = []
+        
         // 1. 解析OC文件
         for file in ocFiles {
-            print("Parsing: \(file.components(separatedBy: "/").last ?? file)")
+            print("Parsing: \(file.lastComponent)")
             semaphore.wait()
             DispatchQueue.global().async {
-                let tokens = SourceLexer(file: file).allTokens
-                let interface = InterfaceParser().parser.run(tokens) ?? []
-                let imp = ImplementationParser().parser.run(tokens) ?? []
-                
-                self.interfaces.append(contentsOf: interface)
-                self.implementations.append(contentsOf: imp)
+                if let result = FileParser(file).run() {
+                    results.append(result)
+                }
                 self.semaphore.signal()
             }
         }
         
         // 2. 解析Swift文件
         for file in swiftFiles {
-            print("Parsing: \(file.components(separatedBy: "/").last ?? file)")
+            print("Parsing: \(file.lastComponent)")
             semaphore.wait()
             DispatchQueue.global().async {
-                let tokens = SourceLexer(file: file).allTokens
-                let (_, classes) = SwiftParser().parser.run(tokens) ?? ([],[])
-                
-                self.classList.append(contentsOf: classes)
+                if let result = FileParser(file).run() {
+                    results.append(result)
+                }
                 self.semaphore.signal()
             }
         }
@@ -52,16 +51,18 @@ class ParserRunner {
         waitUntilFinished()
 
         // 3. 结果整合
-        let impDic = implementations.merged()
-        for interface in interfaces {
-            let cls = ClassNode(interface: interface, implementation: impDic[interface.className])
-            classList.append(cls)
-        }
-                
-        return classList.distinct
+//        let impDic = implementations.merged()
+//        for interface in interfaces {
+//            let cls = ClassNode(interface: interface, implementation: impDic[interface.className])
+//            classList.append(cls)
+//        }
+//
+//        return classList.distinct
+        return results.processed()
     }
 
     fileprivate let semaphore = DispatchSemaphore(value: maxConcurrent)
+    
     fileprivate var interfaces: [InterfaceNode] = []
     fileprivate var implementations: [ImplementationNode] = []
     fileprivate var classList: [ClassNode] = []
@@ -74,7 +75,7 @@ extension ParserRunner {
     ///
     /// - Parameter files: 输入的文件路径
     /// - Returns: 字典，key为文件，value为方法数组
-    func parseMethods(files: [String]) -> [String: [MethodNode]] {
+    func parseMethods(files: [Path]) -> [String: [MethodNode]] {
         var results = [String: [MethodNode]]()
         
         func runParse(_ file: String) -> [MethodNode] {
@@ -93,11 +94,11 @@ extension ParserRunner {
         }
         
         // 1. 解析方法调用
-        let sources = files.filter({ !$0.hasSuffix(".h") })
+        let sources = files.filter({ !$0.string.hasSuffix(".h") })
         for file in sources {
             semaphore.wait()
             DispatchQueue.global().async {
-                results[file] = runParse(file)
+                results[file.string] = runParse(file.string)
                 self.semaphore.signal()
             }
         }
@@ -111,7 +112,7 @@ extension ParserRunner {
     ///
     /// - Parameter files: 文件
     /// - Returns: 返回一个元组，分别为所有的类型和协议数据
-    func parseInerit(files: [String]) -> ([ClassNode], [ProtocolNode]) {
+    func parseInerit(files: [Path]) -> ([ClassNode], [ProtocolNode]) {
         var classes = [ClassNode]()
         var protocols = [ProtocolNode]()
         let writeQueue = DispatchQueue(label: "WriteClass")
@@ -138,10 +139,10 @@ extension ParserRunner {
         }
         
         // 1. 解析OC文件
-        for file in files.filter({ !$0.isSwift }) {
+        for file in files.filter({ $0.isObjc }) {
             semaphore.wait()
             DispatchQueue.global().async {
-                parseObjcClass(file)
+                parseObjcClass(file.string)
                 self.semaphore.signal()
             }
         }
@@ -150,7 +151,7 @@ extension ParserRunner {
         for file in files.filter({ $0.isSwift }) {
             semaphore.wait()
             DispatchQueue.global().async {
-                parseSwiftClass(file)
+                parseSwiftClass(file.string)
                 self.semaphore.signal()
             }
         }
@@ -173,21 +174,5 @@ extension ParserRunner {
         for _ in 0..<maxConcurrent {
             semaphore.signal()
         }
-    }
-}
-
-fileprivate extension Array where Element == ImplementationNode {
-    /// 合并相同类型的Imp节点，保存在字典中返回
-    func merged() -> [String: ImplementationNode] {
-        var impDic = [String: ImplementationNode]()
-        for imp in self {
-            if impDic.keys.contains(imp.className) {
-                impDic[imp.className]?.methods.append(contentsOf: imp.methods)
-            } else {
-                impDic[imp.className] = imp
-            }
-        }
-        
-        return impDic
     }
 }

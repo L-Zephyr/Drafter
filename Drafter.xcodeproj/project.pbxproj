@@ -81,6 +81,7 @@
 		BB07CEDF20ADC40E00921AAE /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* MD5.swift */; };
 		BB07CEE120ADC44700921AAE /* FileParserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEE020ADC44700921AAE /* FileParserResult.swift */; };
 		BB07CEE220ADC44700921AAE /* FileParserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEE020ADC44700921AAE /* FileParserResult.swift */; };
+		BB8B0E4820B4434900391A76 /* FileParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEA420ADBE0000921AAE /* FileParser.swift */; };
 		BBEDC25D20B00AF00006DC8A /* AutoCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEDC25C20B00AF00006DC8A /* AutoCodable.swift */; };
 		BBEDC25E20B00AF00006DC8A /* AutoCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEDC25C20B00AF00006DC8A /* AutoCodable.swift */; };
 		OBJ_100 /* OCMethodTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_76 /* OCMethodTest.swift */; };
@@ -739,6 +740,7 @@
 				OBJ_159 /* CommandLine.swift in Sources */,
 				OBJ_160 /* Option.swift in Sources */,
 				OBJ_161 /* StringExtensions.swift in Sources */,
+				BB8B0E4820B4434900391A76 /* FileParser.swift in Sources */,
 				OBJ_162 /* Array+Alternative.swift in Sources */,
 				OBJ_163 /* Array+Applicative.swift in Sources */,
 				OBJ_164 /* Array+Functor.swift in Sources */,

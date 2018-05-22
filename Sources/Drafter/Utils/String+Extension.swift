@@ -45,3 +45,36 @@ extension Optional where Wrapped == String {
         return true
     }
 }
+
+// MARK: - 比较
+
+/// 可选和非可选的两个字符串的相等性比较
+func == (_ lhs: String?, _ rhs: String) -> Bool {
+    if let str = lhs {
+        return str == rhs
+    }
+    return false
+}
+
+/// 可选和非可选的两个字符串的相等性比较
+func == (_ lhs: String, _ rhs: String?) -> Bool {
+    if let str = rhs {
+        return str == lhs
+    }
+    return false
+}
+
+// MARK: - 选择
+
+// TODO: superCls要改成非可选类型
+
+/// 在左右两个字符串中选择一个非空的，如果都非空则返回左边的
+func select(_ lhs: String?, _ rhs: String?) -> String? {
+    if !lhs.isEmpty {
+        return lhs
+    }
+    if !rhs.isEmpty {
+        return rhs
+    }
+    return ""
+}

@@ -32,3 +32,15 @@ extension InterfaceNode {
         self.protocols = protocols
     }
 }
+
+// MARK: - Hashable
+
+extension InterfaceNode: Hashable {
+    static func ==(lhs: InterfaceNode, rhs: InterfaceNode) -> Bool {
+        return lhs.className == rhs.className
+    }
+    
+    var hashValue: Int {
+        return className.hashValue
+    }
+}
