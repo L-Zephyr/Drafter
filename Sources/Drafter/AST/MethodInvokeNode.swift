@@ -10,24 +10,14 @@ import Foundation
 
 // MARK: - MethodInvoker
 
-enum MethodInvoker {
+enum MethodInvoker: AutoCodable {
     case name(String)    // 普通变量
     case method(MethodInvokeNode) // 另一个方法调用
 }
 
-//extension MethodInvoker {
-//    static func name(_ n: String) -> MethodInvoker {
-//        return .name(n)
-//    }
-//    
-//    static func method(_ m: MethodInvokeNode) -> MethodInvoker {
-//        return .method(m)
-//    }
-//}
-
 // MARK: - InvokeParam
 
-struct InvokeParam {
+struct InvokeParam: AutoCodable {
     var name: String // 参数的名称
     var invokes: [MethodInvokeNode] // 包含在参数体中的方法调用，没有则为空
 }
@@ -40,6 +30,17 @@ class MethodInvokeNode: Node {
     var invoker: MethodInvoker = .name("") // 该方法的调用者
     var methodName: String = "" // 只有解析swift用到这个属性
     var params: [InvokeParam] = [] // 参数, 只记录参数名称
+    
+    // sourcery:inline:MethodInvokeNode.AutoCodable
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        isSwift = try container.decode(Bool.self, forKey: .isSwift)
+        invoker = try container.decode(MethodInvoker.self, forKey: .invoker)
+        methodName = try container.decode(String.self, forKey: .methodName)
+        params = try container.decode([InvokeParam].self, forKey: .params)
+    }
+    init() { }
+    // sourcery:end
 }
 
 extension MethodInvokeNode {

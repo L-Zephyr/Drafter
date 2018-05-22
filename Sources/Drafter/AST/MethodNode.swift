@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: - Param
 
-struct Param {
+struct Param: AutoCodable {
     var outterName: String  // 参数的名字
     var type: String  // 参数类型
     var innerName: String  // 内部形参的名字
@@ -26,6 +26,19 @@ class MethodNode: Node {
     var methodName: String = "" // 方法的名字
     var params: [Param] = [] // 方法的参数
     var invokes: [MethodInvokeNode] = [] // 方法体中调用的方法
+    
+    // sourcery:inline:MethodNode.AutoCodable
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        isSwift = try container.decode(Bool.self, forKey: .isSwift)
+        isStatic = try container.decode(Bool.self, forKey: .isStatic)
+        returnType = try container.decode(String.self, forKey: .returnType)
+        methodName = try container.decode(String.self, forKey: .methodName)
+        params = try container.decode([Param].self, forKey: .params)
+        invokes = try container.decode([MethodInvokeNode].self, forKey: .invokes)
+    }
+    init() { }
+    // sourcery:end
 }
 
 // MARK: - 初始化方法

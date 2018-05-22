@@ -15,6 +15,18 @@ class ClassNode: Node {
     var className: String = ""     // 类名
     var protocols: [String] = []   // 实现的协议
     var methods: [MethodNode] = [] // 方法
+    
+    // sourcery:inline:ClassNode.AutoCodable
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        isSwift = try container.decode(Bool.self, forKey: .isSwift)
+        superCls = try container.decode(String?.self, forKey: .superCls)
+        className = try container.decode(String.self, forKey: .className)
+        protocols = try container.decode([String].self, forKey: .protocols)
+        methods = try container.decode([MethodNode].self, forKey: .methods)
+    }
+    init() { }
+    // sourcery:end
 }
 
 // MARK: - 自定义初始化方法

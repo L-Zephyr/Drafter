@@ -15,7 +15,7 @@ enum ParserError: Error {
 }
 
 // AST节点
-protocol Node {
+protocol Node: AutoCodable {
     
 }
 

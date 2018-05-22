@@ -12,6 +12,15 @@ import Foundation
 class ProtocolNode: Node {
     var name: String = ""
     var supers: [String] = []
+    
+    // sourcery:inline:ProtocolNode.AutoCodable
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        supers = try container.decode([String].self, forKey: .supers)
+    }
+    init() { }
+    // sourcery:end
 }
 
 extension ProtocolNode {

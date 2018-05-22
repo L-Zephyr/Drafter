@@ -1,0 +1,127 @@
+{# Decode一个非Bool类型的属性 #}
+{% macro decodeVariable var %}
+    {% if var|annotated:"default" %} {# 有默认值 #}
+        {{var.name}} = try container.decodeIfPresent({{var.typeName}}.self, forKey: .{{var.name}}) ?? {{var.annotations.default}}
+    {% else %} {# 无默认值 #}
+        {{var.name}} = try container.decode({{var.typeName}}.self, forKey: .{{var.name}})
+    {% endif %}
+{% endmacro %}
+
+{# Decode一个Bool类型的属性 #}
+{# {% macro decodeBoolVariable var %}
+        if let r = try? container.decode(Bool.self, forKey: .{{var.name}}) {
+            {{var.name}} = r
+        } else if let r = try? container.decode(Int.self, forKey: .{{var.name}}) {
+            {{var.name}} = (r == 0 ? false : true)
+        }
+        {% if var|annotated:"default" %}
+        else {
+            {{var.name}} = {{var.annotations.default}}
+        }
+        {% else %}
+        else {
+            let context = DecodingError.Context(codingPath: [CodingKeys.{{var.name}}], debugDescription: "Expected to decode Bool")
+            throw DecodingError.typeMismatch(Bool.self, context) 
+        }
+        {% endif %} 
+{% endmacro %} #}
+
+{# 处理Enum类型的Codable #}
+{% macro codableForEnum type %}
+{% if type.rawType == nil %}
+extension {{type.name}} {
+    enum CodingKeys: String, CodingKey {
+        case key
+        {% for case in type.cases %}
+            {% map case.associatedValues into counters %}{{maploop.counter}}{% endmap %} 
+            {% for count in counters %}
+        case {{case.name}}_{{count}}
+            {% endfor %}
+        {% endfor %}
+    }
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        switch self {
+        {% for case in type.cases %}
+            {% map case.associatedValues into valnames %}let val{{maploop.counter}}{% endmap %} 
+            case .{{case.name}}{% if case.hasAssociatedValue %}({{valnames|join:","}}){% else %}(){% endif %}:
+                try container.encode("{{case.name}}", forKey: .key)
+                {% map case.associatedValues into counters %}{{maploop.counter}}{% endmap %} 
+                {% for count in counters %}
+                try container.encode(val{{count}}, forKey: .{{case.name}}_{{count}})
+                {% endfor %}
+        {% endfor %}
+        }
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let key = try container.decode(String.self, forKey: .key)
+        
+        switch key {
+        {% map type.cases into caseTemplates %}
+            {% if maploop.last %}
+        default:
+            {% else %}
+        case "{{maploop.item.name}}":
+            {% endif %}
+            {% set caseName %}{{maploop.item.name}}{% endset %} 
+            {% map maploop.item.associatedValues into values %}
+                try container.decode({{maploop.item.typeName}}.self, forKey: .{{caseName}}_{{maploop.counter}})
+            {% endmap %} 
+            self = .{{maploop.item.name}}({{values|join:","}})
+        {% endmap %} 
+        {{ caseTemplates|join }}
+        }
+    }
+}
+{% endif %}
+{% endmacro %}
+
+{% macro codableInit type %}
+    {% if type.kind == "class" %}required {% endif %}init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        {% for var in type.storedVariables %}
+            {% if var|!annotated:"skip" and not var.isComputed %}
+                {% call decodeVariable var %}
+            {% endif %}
+        {% endfor %}
+    }
+    {% if type.kind == "class" %}
+    init() { }
+    {% endif %}
+{% endmacro%}
+
+{# 处理struct类型 #}
+{% macro codableForOthers type %}
+extension {{type.name}} {
+    enum CodingKeys: String, CodingKey {
+    {% for var in type.storedVariables %}
+        {% if var|!annotated:"skip" %}
+        case {{var.name}} {% if var|annotated:"key" %}= "{{var.annotations.key}}"{% endif %}
+        {% endif %}
+    {% endfor %}
+    }
+
+    {% if type.kind == "class" %}
+    // sourcery:inline:{{ type.name }}.AutoCodable
+        {% call codableInit type %}
+    // sourcery:end
+    {% else %}
+        {% call codableInit type %}
+    {% endif %}
+}
+{% endmacro %}
+
+{# 处理所有实现了AutoCodable协议的类型 #}
+{% for type in types.implementing.AutoCodable %}
+{% if type.kind != "protocol" %}
+// MARK: - {{type.name}} Codable
+    {% if type.kind == "enum" %}
+        {% call codableForEnum type%}
+    {% else %}
+        {% call codableForOthers type%}
+    {% endif %}
+
+{% endif %}
+{% endfor %}
