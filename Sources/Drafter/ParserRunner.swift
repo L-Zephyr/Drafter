@@ -50,14 +50,6 @@ class ParserRunner {
         
         waitUntilFinished()
 
-        // 3. 结果整合
-//        let impDic = implementations.merged()
-//        for interface in interfaces {
-//            let cls = ClassNode(interface: interface, implementation: impDic[interface.className])
-//            classList.append(cls)
-//        }
-//
-//        return classList.merged()
         return results.processed()
     }
 
