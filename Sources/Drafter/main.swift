@@ -22,7 +22,7 @@ enum DraftOutputType: String {
 }
 
 // 命令行参数解析
-let filePath = StringOption("f", "file", true, "The file or directory to be parsed, supported: .h and .m. Multiple arguments are separated by commas.")
+let filePath = StringOption("f", "file", false, "The file or directory to be parsed, supported: .h and .m. Multiple arguments are separated by commas.")
 
 let output = EnumOption<DraftOutputType>(shortFlag: "t", longFlag: "type", required: false, helpMessage: "The output type. Choose 'html' to generate a html page, choose 'png' to generate a picture. Defaults to 'html'")
 
@@ -52,6 +52,8 @@ if version.value {
 
 // 必须指定文件路径
 guard let paths = filePath.value else {
+    print("Error: File path was missing!")
+    cli.printUsage()
     exit(EX_USAGE)
 }
 
