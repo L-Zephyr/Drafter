@@ -31,9 +31,19 @@ extension Array where Element == FileParserResult {
         var results: [ClassNode] = []
         
         // 1. 将OC的Interface和Implementation整合成Class
+        let interfaces = self.filter({ !$0.isSwift }).flatMap({ $0.interfaces }).merged()
+        let impDic = self.filter({ !$0.isSwift }).flatMap({ $0.implementations }).merged()
         
+        for interface in interfaces {
+            if let imp = impDic[interface.className] {
+                results.append(ClassNode(interface: interface, implementation: imp))
+            }
+        }
         
-        return results
+        // 2. 加上swift的Class
+        results.append(contentsOf: self.filter({ $0.isSwift }).flatMap({ $0.swiftClasses }))
+        
+        return results.merged()
     }
 }
 
@@ -76,7 +86,7 @@ extension Array where Element == ClassNode {
     }
     
     /// 合并重复的结果
-    var distinct: [ClassNode] {
+    func merged() -> [ClassNode] {
         guard self.count > 1 else {
             return self
         }

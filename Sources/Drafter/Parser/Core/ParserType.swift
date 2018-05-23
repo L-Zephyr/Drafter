@@ -26,8 +26,8 @@ protocol ParserType {
 
 //extension Node {
 //    // 将结果节点转换成JSON格式
-//    func toJson() -> String {
-//        fatalError("Error: toJson() method not implement!")
+//    func toTemplateJSON() -> String {
+//        fatalError("Error: toTemplateJSON() method not implement!")
 //    }
 //}
 

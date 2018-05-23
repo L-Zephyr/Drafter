@@ -85,8 +85,8 @@ extension ClassNode: CustomStringConvertible {
 }
 
 extension ClassNode {
-    /// 转换成JSON数据
-    func toJson() -> [String: Any] {
+    /// 转换成前端模板用的JSON数据
+    func toTemplateJSON() -> [String: Any] {
         var info = [String: Any]()
         let methodIds = self.methods.map { $0.hashValue }
         let clsId = ID_MD5(className)
@@ -102,12 +102,12 @@ extension ClassNode {
         info["protocols"] = protocols.map { ["name": $0, "id": ID_MD5($0)] }  // protocols
         info["isSwift"] = isSwift           // isSwift
         info["id"] = clsId                  // id
-//        info["methods"] = methods.map { $0.toJson(clsId: clsId, methods: methodIds) } // methods
+//        info["methods"] = methods.map { $0.toTemplateJSON(clsId: clsId, methods: methodIds) } // methods
         
         // 以方法的id作为Key转换成字典
         info["methods"] =                   // methods
             methods.map {
-                $0.toJson(clsId: clsId, methods: methodIds)
+                $0.toTemplateJSON(clsId: clsId, methods: methodIds)
             }
             .toDictionary({ (json) -> String? in
                 return json["id"] as? String

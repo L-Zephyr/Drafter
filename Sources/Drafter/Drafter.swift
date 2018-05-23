@@ -124,7 +124,7 @@ class Drafter {
         
         // 格式化
         var jsonString: String? = nil
-        let jsonDic = classNodes.map { $0.toJson() }
+        let jsonDic = classNodes.map { $0.toTemplateJSON() }
         do {
             let data = try JSONSerialization.data(withJSONObject: jsonDic, options: .prettyPrinted)
             jsonString = String(data: data, encoding: .utf8)

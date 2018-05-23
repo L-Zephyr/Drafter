@@ -123,7 +123,7 @@ extension MethodNode: CustomStringConvertible {
 
 extension MethodNode {
     /// 将方法转化成JSON字典
-    func toJson(clsId: String, methods: [Int]) -> [String: Any] {
+    func toTemplateJSON(clsId: String, methods: [Int]) -> [String: Any] {
         var info: [String: Any] = [:]
         info["type"] = "method"                         // type
         info["classId"] = clsId                         // classId

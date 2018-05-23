@@ -11,7 +11,7 @@ import Foundation
 
 class SwiftClassParser: ParserType {
     var parser: Parser<[ClassNode]> {
-        return curry({ $0.distinct }) <^> classParser.continuous
+        return curry({ $0.merged() }) <^> classParser.continuous
     }
 }
 

@@ -57,7 +57,7 @@ class ParserRunner {
 //            classList.append(cls)
 //        }
 //
-//        return classList.distinct
+//        return classList.merged()
         return results.processed()
     }
 

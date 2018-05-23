@@ -10,7 +10,7 @@ import Foundation
 // 解析OC中的Interface定义
 class InterfaceParser: ParserType {
     var parser: Parser<[InterfaceNode]> {
-//        return curry({ $0.distinct }) <^> (categoryParser <|> classParser).continuous
+//        return curry({ $0.merged() }) <^> (categoryParser <|> classParser).continuous
         return (categoryParser <|> classParser).continuous
     }
 }
@@ -22,7 +22,7 @@ extension Parser where T == Array<InterfaceNode> {
     var toClassNode: Parser<[ClassNode]> {
         return self.map { (interfaces) -> [ClassNode] in
             let clsNodes = interfaces.map { ClassNode(interface: $0) }
-            return clsNodes.distinct
+            return clsNodes.merged()
         }
     }
 }

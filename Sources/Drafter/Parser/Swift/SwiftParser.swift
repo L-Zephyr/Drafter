@@ -36,7 +36,7 @@ class SwiftParser: ParserType {
         // 合并protocol和class的解析结果
         return inheritParser.map { (result) -> ([ProtocolNode], [ClassNode]) in
             var (protocols, classes) = result.separate()
-            classes = classes.distinct
+            classes = classes.merged()
             
             var set = Set<String>()
             for proto in protocols {
