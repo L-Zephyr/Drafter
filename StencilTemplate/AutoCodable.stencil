@@ -35,7 +35,7 @@ extension {{type.name}} {
         {% for case in type.cases %}
             {% map case.associatedValues into counters %}{{maploop.counter}}{% endmap %} 
             {% for count in counters %}
-        case {{case.name}}_{{count}}
+        case {{case.name|replace:"`",""}}_{{count}}
             {% endfor %}
         {% endfor %}
     }
@@ -44,11 +44,11 @@ extension {{type.name}} {
         switch self {
         {% for case in type.cases %}
             {% map case.associatedValues into valnames %}let val{{maploop.counter}}{% endmap %} 
-            case .{{case.name}}{% if case.hasAssociatedValue %}({{valnames|join:","}}){% else %}(){% endif %}:
+            case .{{case.name|replace:"`",""}}{% if case.hasAssociatedValue %}({{valnames|join:","}}){% else %}(){% endif %}:
                 try container.encode("{{case.name}}", forKey: .key)
                 {% map case.associatedValues into counters %}{{maploop.counter}}{% endmap %} 
                 {% for count in counters %}
-                try container.encode(val{{count}}, forKey: .{{case.name}}_{{count}})
+                try container.encode(val{{count}}, forKey: .{{case.name|replace:"`",""}}_{{count}})
                 {% endfor %}
         {% endfor %}
         }
@@ -65,7 +65,7 @@ extension {{type.name}} {
             {% else %}
         case "{{maploop.item.name}}":
             {% endif %}
-            {% set caseName %}{{maploop.item.name}}{% endset %} 
+            {% set caseName %}{{maploop.item.name|replace:"`",""}}{% endset %} 
             {% map maploop.item.associatedValues into values %}
                 try container.decode({{maploop.item.typeName}}.self, forKey: .{{caseName}}_{{maploop.counter}})
             {% endmap %} 

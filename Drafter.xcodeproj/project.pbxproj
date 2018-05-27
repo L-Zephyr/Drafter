@@ -81,6 +81,10 @@
 		BB07CEDF20ADC40E00921AAE /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* MD5.swift */; };
 		BB07CEE120ADC44700921AAE /* FileParserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEE020ADC44700921AAE /* FileParserResult.swift */; };
 		BB07CEE220ADC44700921AAE /* FileParserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEE020ADC44700921AAE /* FileParserResult.swift */; };
+		BB86F20F20BA567900EB5D45 /* ExtensionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB86F20E20BA567900EB5D45 /* ExtensionNode.swift */; };
+		BB86F21020BA567900EB5D45 /* ExtensionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB86F20E20BA567900EB5D45 /* ExtensionNode.swift */; };
+		BB86F21220BA568500EB5D45 /* SwiftTypeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB86F21120BA568500EB5D45 /* SwiftTypeNode.swift */; };
+		BB86F21320BA568500EB5D45 /* SwiftTypeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB86F21120BA568500EB5D45 /* SwiftTypeNode.swift */; };
 		BB8B0E4820B4434900391A76 /* FileParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEA420ADBE0000921AAE /* FileParser.swift */; };
 		BBEDC25D20B00AF00006DC8A /* AutoCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEDC25C20B00AF00006DC8A /* AutoCodable.swift */; };
 		BBEDC25E20B00AF00006DC8A /* AutoCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEDC25C20B00AF00006DC8A /* AutoCodable.swift */; };
@@ -185,6 +189,8 @@
 		BB07CEAD20ADC37400921AAE /* SourceLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SourceLexer.swift; path = Sources/Drafter/Lexer/SourceLexer.swift; sourceTree = SOURCE_ROOT; };
 		BB07CEAF20ADC37E00921AAE /* TokenLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenLexer.swift; sourceTree = "<group>"; };
 		BB07CEE020ADC44700921AAE /* FileParserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileParserResult.swift; path = Sources/Drafter/Parser/FileParserResult.swift; sourceTree = SOURCE_ROOT; };
+		BB86F20E20BA567900EB5D45 /* ExtensionNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionNode.swift; path = Sources/Drafter/AST/Swift/ExtensionNode.swift; sourceTree = SOURCE_ROOT; };
+		BB86F21120BA568500EB5D45 /* SwiftTypeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftTypeNode.swift; sourceTree = "<group>"; };
 		BBEDC25C20B00AF00006DC8A /* AutoCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AutoCodable.swift; path = Sources/Drafter/Utils/AutoCodable.swift; sourceTree = SOURCE_ROOT; };
 		OBJ_10 /* ClassNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassNode.swift; sourceTree = "<group>"; };
 		OBJ_11 /* ImplementationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplementationNode.swift; sourceTree = "<group>"; };
@@ -297,6 +303,35 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		BB86F20B20BA565900EB5D45 /* OC */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_11 /* ImplementationNode.swift */,
+				OBJ_12 /* InterfaceNode.swift */,
+			);
+			path = OC;
+			sourceTree = "<group>";
+		};
+		BB86F20C20BA566100EB5D45 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				BB86F21120BA568500EB5D45 /* SwiftTypeNode.swift */,
+				BB86F20E20BA567900EB5D45 /* ExtensionNode.swift */,
+				OBJ_15 /* ProtocolNode.swift */,
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
+		BB86F20D20BA566A00EB5D45 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_10 /* ClassNode.swift */,
+				OBJ_13 /* MethodInvokeNode.swift */,
+				OBJ_14 /* MethodNode.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		OBJ_16 /* Lexer */ = {
 			isa = PBXGroup;
 			children = (
@@ -375,10 +410,10 @@
 		OBJ_42 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				OBJ_46 /* SwiftParser.swift */,
 				OBJ_43 /* SwiftClassParser.swift */,
 				OBJ_44 /* SwiftInvokeParser.swift */,
 				OBJ_45 /* SwiftMethodParser.swift */,
-				OBJ_46 /* SwiftParser.swift */,
 				OBJ_47 /* SwiftProtocolParser.swift */,
 			);
 			path = Swift;
@@ -540,12 +575,9 @@
 		OBJ_9 /* AST */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_10 /* ClassNode.swift */,
-				OBJ_11 /* ImplementationNode.swift */,
-				OBJ_12 /* InterfaceNode.swift */,
-				OBJ_13 /* MethodInvokeNode.swift */,
-				OBJ_14 /* MethodNode.swift */,
-				OBJ_15 /* ProtocolNode.swift */,
+				BB86F20D20BA566A00EB5D45 /* Common */,
+				BB86F20B20BA565900EB5D45 /* OC */,
+				BB86F20C20BA566100EB5D45 /* Swift */,
 			);
 			path = AST;
 			sourceTree = "<group>";
@@ -717,9 +749,11 @@
 				OBJ_142 /* Applicative.swift in Sources */,
 				OBJ_143 /* Extensions.swift in Sources */,
 				OBJ_144 /* Functor.swift in Sources */,
+				BB86F21320BA568500EB5D45 /* SwiftTypeNode.swift in Sources */,
 				OBJ_145 /* Monad.swift in Sources */,
 				OBJ_146 /* Operator.swift in Sources */,
 				OBJ_147 /* Parser.swift in Sources */,
+				BB86F21020BA567900EB5D45 /* ExtensionNode.swift in Sources */,
 				OBJ_148 /* ParserResult.swift in Sources */,
 				OBJ_149 /* ImplementationParser.swift in Sources */,
 				BBEDC25E20B00AF00006DC8A /* AutoCodable.swift in Sources */,
@@ -772,6 +806,7 @@
 				BB07CEB520ADC40E00921AAE /* main.swift in Sources */,
 				BB07CEB620ADC40E00921AAE /* Drafter.swift in Sources */,
 				BB07CEB720ADC40E00921AAE /* ParserRunner.swift in Sources */,
+				BB86F21220BA568500EB5D45 /* SwiftTypeNode.swift in Sources */,
 				BB07CEB820ADC40E00921AAE /* ClassNode.swift in Sources */,
 				BB07CEB920ADC40E00921AAE /* ImplementationNode.swift in Sources */,
 				BB07CEBA20ADC40E00921AAE /* InterfaceNode.swift in Sources */,
@@ -818,6 +853,7 @@
 				BB07CEE120ADC44700921AAE /* FileParserResult.swift in Sources */,
 				OBJ_99 /* InterfaceTest.swift in Sources */,
 				BB07CEA720ADBE3500921AAE /* Array+Extension.swift in Sources */,
+				BB86F20F20BA567900EB5D45 /* ExtensionNode.swift in Sources */,
 				BB07CEA920ADBE5200921AAE /* Path+Extension.swift in Sources */,
 				OBJ_100 /* OCMethodTest.swift in Sources */,
 				BB07CEB320ADC3FA00921AAE /* Lexer.swift in Sources */,

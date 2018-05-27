@@ -20,6 +20,16 @@ extension ClassNode {
 
 }
 
+// MARK: - ExtensionNode Codable
+extension ExtensionNode {
+    enum CodingKeys: String, CodingKey {
+        case name 
+        case protocols 
+        case method 
+    }
+
+}
+
 // MARK: - FileParserResult Codable
 extension FileParserResult {
     enum CodingKeys: String, CodingKey {
@@ -159,5 +169,40 @@ extension ProtocolNode {
         case supers 
     }
 
+}
+
+// MARK: - SwiftType Codable
+extension SwiftType {
+    enum CodingKeys: String, CodingKey {
+        case key
+        case class_0
+        case extension_0
+    }
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        switch self {
+            case .class(let val0):
+                try container.encode("`class`", forKey: .key)
+                try container.encode(val0, forKey: .class_0)
+            case .extension(let val0):
+                try container.encode("`extension`", forKey: .key)
+                try container.encode(val0, forKey: .extension_0)
+        }
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let key = try container.decode(String.self, forKey: .key)
+        switch key {
+        case "`class`":
+            self = .`class`(
+                try container.decode(ClassNode.self, forKey: .class_0)
+            )
+        default:
+            self = .`extension`(
+                try container.decode(ExtensionNode.self, forKey: .extension_0)
+            )
+        }
+    }
 }
 
