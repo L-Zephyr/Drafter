@@ -25,7 +25,7 @@ extension ExtensionNode {
     enum CodingKeys: String, CodingKey {
         case name 
         case protocols 
-        case method 
+        case methods 
     }
 
 }

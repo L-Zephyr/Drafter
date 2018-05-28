@@ -20,7 +20,7 @@ class SwiftClassParser: ParserType {
 extension SwiftClassParser {
     
     var classParser: Parser<ClassNode> {
-        return classDef <|> extensionDef
+        return classDef
     }
     
     /// 解析class和struct的定义
@@ -34,19 +34,6 @@ extension SwiftClassParser {
             <*> (token(.cls) <|> token(.structure)) *> token(.name) <* trying (genericType) => stringify // 类名
             <*> trying (superCls) => stringify // 父类
             <*> trying (token(.comma) *> protocols) => stringify // 协议列表
-            <*> anyTokens(inside: token(.leftBrace), and: token(.rightBrace)).map { SwiftMethodParser().parser.run($0) ?? [] } // 方法
-    }
-    
-    /// 解析extension定义
-    /**
-     extension_definition = 'extension' NAME (':' protocols)?
-     */
-    var extensionDef: Parser<ClassNode> {
-        return curry(ClassNode.init)
-            <^> pure(true)
-            <*> token(.exten) *> token(.name) => stringify
-            <*> pure(nil)
-            <*> trying (token(.colon) *> protocols) => stringify
             <*> anyTokens(inside: token(.leftBrace), and: token(.rightBrace)).map { SwiftMethodParser().parser.run($0) ?? [] } // 方法
     }
     
@@ -74,3 +61,4 @@ extension SwiftClassParser {
         return token(.name).separateBy(token(.comma))
     }
 }
+

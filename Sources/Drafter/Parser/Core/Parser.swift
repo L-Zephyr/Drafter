@@ -147,7 +147,7 @@ func anyTokens(until p: Parser<Token>) -> Parser<[Token]> {
     return (not(p) *> anyToken).many <|> pure([])
 }
 
-/// 匹配在l和r之间的任意Token，l和r也会被消耗掉，l和r会出现在结果中，lr匹配失败时会返回错误
+/// 匹配在l和r之间的任意Token，l和r也会被消耗掉并出现在结果中，lr匹配失败时会返回错误
 func anyTokens(encloseBy l: Parser<Token>, and r: Parser<Token>) -> Parser<[Token]> {
     let content = lookAhead(l) *> lazy(anyTokens(encloseBy: l, and: r)) // 递归匹配
         <|> ({ [$0] } <^> (not(r) *> anyToken)) // 匹配任意token直到碰到r
