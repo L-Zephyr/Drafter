@@ -75,7 +75,7 @@ extension ObjcMethodParser {
                     <^> token(.name) <* token(.colon) => stringify
                     <*> type
                     <*> token(.name) => stringify
-        return param.many
+        return param.many1
     }
     
     /// 函数体

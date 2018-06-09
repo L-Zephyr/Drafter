@@ -53,7 +53,7 @@ extension SwiftMethodParser {
      param_list = (param (',' param)*)?
      */
     var paramList: TokenParser<[Param]> {
-        return param.separateBy(token(.comma)) // 参数
+        return param.sepBy(token(.comma)) // 参数
     }
     
     /// 参数
@@ -93,9 +93,9 @@ extension SwiftMethodParser {
         // 匹配一个独立的类型
         let singleType =
             anyEnclosedTokens => joinedText // (..)、[..]
-            <|> token(.name).separateBy(token(.dot)) <* generic.try => joinedText // xx.xx<T>
+            <|> token(.name).sepBy(token(.dot)) <* generic.try => joinedText // xx.xx<T>
         
-        return singleType.separateBy(token(.rightArrow)) => joinedText("->") // (xx)->xx...
+        return singleType.sepBy(token(.rightArrow)) => joinedText("->") // (xx)->xx...
     }
 
     /// 函数体定义

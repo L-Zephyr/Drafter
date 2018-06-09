@@ -48,7 +48,7 @@
 		BB07CEBE20ADC40E00921AAE /* DotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* DotGenerator.swift */; };
 		BB07CEBF20ADC40E00921AAE /* Executor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* Executor.swift */; };
 		BB07CEC220ADC40E00921AAE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* Extensions.swift */; };
-		BB07CEC520ADC40E00921AAE /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* Operator.swift */; };
+		BB07CEC520ADC40E00921AAE /* Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* Transformer.swift */; };
 		BB07CEC620ADC40E00921AAE /* ConcreteParserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* ConcreteParserType.swift */; };
 		BB07CEC720ADC40E00921AAE /* TokenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* TokenParser.swift */; };
 		BB07CEC920ADC40E00921AAE /* ImplementationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* ImplementationParser.swift */; };
@@ -85,6 +85,7 @@
 		BB3D233D20CBB5DD00AEEA2E /* Functor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232C20CBB5DC00AEEA2E /* Functor.swift */; };
 		BB3D233E20CBB5DD00AEEA2E /* PriorityDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232D20CBB5DC00AEEA2E /* PriorityDefine.swift */; };
 		BB3D233F20CBB5DD00AEEA2E /* PriorityDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232D20CBB5DC00AEEA2E /* PriorityDefine.swift */; };
+		BB3D234820CC17EF00AEEA2E /* SwiftExtensionParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D234720CC17EF00AEEA2E /* SwiftExtensionParserTest.swift */; };
 		BB86F20F20BA567900EB5D45 /* ExtensionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB86F20E20BA567900EB5D45 /* ExtensionNode.swift */; };
 		BB86F21020BA567900EB5D45 /* ExtensionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB86F20E20BA567900EB5D45 /* ExtensionNode.swift */; };
 		BB86F21220BA568500EB5D45 /* SwiftTypeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB86F21120BA568500EB5D45 /* SwiftTypeNode.swift */; };
@@ -116,7 +117,7 @@
 		OBJ_139 /* DotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* DotGenerator.swift */; };
 		OBJ_140 /* Executor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* Executor.swift */; };
 		OBJ_143 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* Extensions.swift */; };
-		OBJ_146 /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* Operator.swift */; };
+		OBJ_146 /* Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* Transformer.swift */; };
 		OBJ_147 /* TokenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* TokenParser.swift */; };
 		OBJ_149 /* ImplementationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* ImplementationParser.swift */; };
 		OBJ_150 /* InterfaceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* InterfaceParser.swift */; };
@@ -191,6 +192,7 @@
 		BB3D232C20CBB5DC00AEEA2E /* Functor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functor.swift; sourceTree = "<group>"; };
 		BB3D232D20CBB5DC00AEEA2E /* PriorityDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityDefine.swift; sourceTree = "<group>"; };
 		BB3D234420CBC3E700AEEA2E /* Runes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Runes.swift; path = Sources/Drafter/Thirdparty/Runes/Runes.swift; sourceTree = SOURCE_ROOT; };
+		BB3D234720CC17EF00AEEA2E /* SwiftExtensionParserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExtensionParserTest.swift; sourceTree = "<group>"; };
 		BB86F20E20BA567900EB5D45 /* ExtensionNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionNode.swift; path = Sources/Drafter/AST/Swift/ExtensionNode.swift; sourceTree = SOURCE_ROOT; };
 		BB86F21120BA568500EB5D45 /* SwiftTypeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftTypeNode.swift; sourceTree = "<group>"; };
 		BB86F21420BA7BB700EB5D45 /* SwiftExtensionParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwiftExtensionParser.swift; path = Sources/Drafter/Parser/Swift/SwiftExtensionParser.swift; sourceTree = SOURCE_ROOT; };
@@ -208,7 +210,7 @@
 		OBJ_23 /* DotGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotGenerator.swift; sourceTree = "<group>"; };
 		OBJ_24 /* Executor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Executor.swift; sourceTree = "<group>"; };
 		OBJ_30 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		OBJ_34 /* Operator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
+		OBJ_34 /* Transformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformer.swift; sourceTree = "<group>"; };
 		OBJ_35 /* TokenParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenParser.swift; sourceTree = "<group>"; };
 		OBJ_38 /* ImplementationParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplementationParser.swift; sourceTree = "<group>"; };
 		OBJ_39 /* InterfaceParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceParser.swift; sourceTree = "<group>"; };
@@ -320,6 +322,9 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_35 /* TokenParser.swift */,
+				OBJ_30 /* Extensions.swift */,
+				OBJ_34 /* Transformer.swift */,
+				OBJ_19 /* ConcreteParserType.swift */,
 			);
 			path = TokenParser;
 			sourceTree = "<group>";
@@ -377,39 +382,12 @@
 			isa = PBXGroup;
 			children = (
 				BB3D234020CBB5F500AEEA2E /* TokenParser */,
-				OBJ_26 /* Core */,
 				OBJ_37 /* OC */,
 				OBJ_42 /* Swift */,
 				BB07CEA420ADBE0000921AAE /* FileParser.swift */,
 				BB07CEE020ADC44700921AAE /* FileParserResult.swift */,
 			);
 			path = Parser;
-			sourceTree = "<group>";
-		};
-		OBJ_26 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_27 /* Combinator */,
-				OBJ_33 /* Operator */,
-				OBJ_19 /* ConcreteParserType.swift */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		OBJ_27 /* Combinator */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_30 /* Extensions.swift */,
-			);
-			path = Combinator;
-			sourceTree = "<group>";
-		};
-		OBJ_33 /* Operator */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_34 /* Operator.swift */,
-			);
-			path = Operator;
 			sourceTree = "<group>";
 		};
 		OBJ_37 /* OC */ = {
@@ -510,6 +488,7 @@
 				OBJ_76 /* OCMethodTest.swift */,
 				OBJ_77 /* OCMsgSendTest.swift */,
 				OBJ_78 /* SwiftClassParserTest.swift */,
+				BB3D234720CC17EF00AEEA2E /* SwiftExtensionParserTest.swift */,
 				OBJ_79 /* SwiftMethodInvokeTest.swift */,
 				OBJ_80 /* SwiftMethodTest.swift */,
 				OBJ_81 /* SwiftProtocolParserTest.swift */,
@@ -744,7 +723,7 @@
 				BB3D233520CBB5DD00AEEA2E /* Plus.swift in Sources */,
 				OBJ_143 /* Extensions.swift in Sources */,
 				BB86F21320BA568500EB5D45 /* SwiftTypeNode.swift in Sources */,
-				OBJ_146 /* Operator.swift in Sources */,
+				OBJ_146 /* Transformer.swift in Sources */,
 				OBJ_147 /* TokenParser.swift in Sources */,
 				BB86F21020BA567900EB5D45 /* ExtensionNode.swift in Sources */,
 				OBJ_149 /* ImplementationParser.swift in Sources */,
@@ -798,6 +777,7 @@
 				BB86F21220BA568500EB5D45 /* SwiftTypeNode.swift in Sources */,
 				BB07CEB820ADC40E00921AAE /* ClassNode.swift in Sources */,
 				BB07CEB920ADC40E00921AAE /* ImplementationNode.swift in Sources */,
+				BB3D234820CC17EF00AEEA2E /* SwiftExtensionParserTest.swift in Sources */,
 				BB07CEBA20ADC40E00921AAE /* InterfaceNode.swift in Sources */,
 				BB07CEBB20ADC40E00921AAE /* MethodInvokeNode.swift in Sources */,
 				BB07CEBC20ADC40E00921AAE /* MethodNode.swift in Sources */,
@@ -808,7 +788,7 @@
 				BB07CEBF20ADC40E00921AAE /* Executor.swift in Sources */,
 				BB07CEC220ADC40E00921AAE /* Extensions.swift in Sources */,
 				BB3D233620CBB5DD00AEEA2E /* Parser.swift in Sources */,
-				BB07CEC520ADC40E00921AAE /* Operator.swift in Sources */,
+				BB07CEC520ADC40E00921AAE /* Transformer.swift in Sources */,
 				BB07CEC620ADC40E00921AAE /* ConcreteParserType.swift in Sources */,
 				BB07CEC720ADC40E00921AAE /* TokenParser.swift in Sources */,
 				BB046FB820B03F1000DD5546 /* CodableExtension.swift in Sources */,

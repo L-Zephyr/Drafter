@@ -29,7 +29,7 @@ class CombinatorTest: XCTestCase {
                                Token(type: .name, text: "name2"),
                                Token(type: .comma, text: ",")]
         let comma = token(.comma)
-        let parser = token(.name).separateBy(comma)
+        let parser = token(.name).sepBy(comma)
         
         if case .failure(_) = parser.parse(tokens) {
             XCTAssert(true)
@@ -41,7 +41,7 @@ class CombinatorTest: XCTestCase {
                                Token(type: .comma, text: ","),
                                Token(type: .name, text: "name2")]
         let comma = token(.comma)
-        let parser = token(.name).separateBy(comma)
+        let parser = token(.name).sepBy(comma)
         
         guard case .success(let (result, rest)) = parser.parse(tokens) else {
             XCTAssert(true)

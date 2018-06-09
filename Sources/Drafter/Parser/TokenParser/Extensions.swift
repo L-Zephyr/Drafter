@@ -34,18 +34,18 @@ extension Parser where Stream == Tokens {
             }
         }
     }
-        
-    /// 尝试解析0个或多个由指定标签分隔的值，返回结果的集合，该组合子不会返回错误
-    func separateBy<U>(_ p: Parser<U, Tokens>) -> Parser<[Token], Tokens> {
-        return curry({ $0 + [$1] }) <^> (self <* p).many <*> self
-            <|> self => array()
-            <|> pure([])
-    }
     
-    /// 解析包含在指定标签之间的值: p self p
-    func between<A, B>(_ left: Parser<A, Tokens>, _ right: Parser<B, Tokens>) -> Parser<Token, Tokens> {
-        return left *> self <* right
-    }
+//    /// 尝试解析0个或多个由指定标签分隔的值，返回结果的集合，该组合子不会返回错误
+//    func separateBy<U>(_ p: Parser<U, Tokens>) -> Parser<[Token], Tokens> {
+//        return curry({ $0 + [$1] }) <^> (self <* p).many <*> self
+//            <|> self => array()
+//            <|> pure([])
+//    }
+    
+//    /// 解析包含在指定标签之间的值: p self p
+//    func between<A, B>(_ left: Parser<A, Tokens>, _ right: Parser<B, Tokens>) -> Parser<Token, Tokens> {
+//        return left *> self <* right
+//    }
     
 //    /// 仅当self成功，other失败时才会返回成功，other不会消耗任何输入
 //    func notFollowedBy<U>(_ other: Parser<U, Tokens>) -> Parser<Token, Tokens> {

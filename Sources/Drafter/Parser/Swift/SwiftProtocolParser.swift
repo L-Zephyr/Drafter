@@ -31,6 +31,6 @@ extension SwiftProtocolParser {
      inherit_list = ':' NAME (',' NAME)*
      */
     var inheritList: TokenParser<[String]> {
-        return token(.colon) *> token(.name).separateBy(token(.comma)) => stringify
+        return token(.colon) *> token(.name).sepBy(token(.comma)) => stringify
     }
 }

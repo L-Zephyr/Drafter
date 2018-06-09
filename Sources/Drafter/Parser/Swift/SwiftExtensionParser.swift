@@ -36,7 +36,7 @@ extension SwiftExtensionParser {
      protocols = NAME (',' NAME)*
      */
     var protocols: TokenParser<[Token]> {
-        return token(.name).separateBy(token(.comma))
+        return token(.name).sepBy(token(.comma))
     }
     
     /**

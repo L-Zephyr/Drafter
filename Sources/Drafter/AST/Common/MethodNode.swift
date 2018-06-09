@@ -23,7 +23,7 @@ class MethodNode: Node {
     var isSwift = false  // 是否为swift方法
     var isStatic = false  // 是否为类方法
     var returnType: String = "" // 返回值类型
-    var methodName: String = "" // 方法的名字
+    var methodName: String = "" // 方法的名字, 只有解析swift文件用这个字段
     var params: [Param] = [] // 方法的参数
     var invokes: [MethodInvokeNode] = [] // 方法体中调用的方法
     
