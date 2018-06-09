@@ -7,8 +7,8 @@
 
 import Foundation
 
-class SwiftProtocolParser: ParserType {
-    var parser: Parser<[ProtocolNode]> {
+class SwiftProtocolParser: ConcreteParserType {
+    var parser: TokenParser<[ProtocolNode]> {
         return protocolParser.continuous
     }
 }
@@ -20,17 +20,17 @@ extension SwiftProtocolParser {
     /**
      protocol_definition = 'protocol' NAME inherit_list?
      */
-    var protocolParser: Parser<ProtocolNode> {
+    var protocolParser: TokenParser<ProtocolNode> {
         return curry(ProtocolNode.init)
             <^> token(.proto) *> token(.name) => stringify
-            <*> trying(inheritList) <* token(.leftBrace)
+            <*> inheritList.try <* token(.leftBrace)
     }
     
     /// 解析协议的继承列表
     /**
      inherit_list = ':' NAME (',' NAME)*
      */
-    var inheritList: Parser<[String]> {
+    var inheritList: TokenParser<[String]> {
         return token(.colon) *> token(.name).separateBy(token(.comma)) => stringify
     }
 }

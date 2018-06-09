@@ -7,14 +7,14 @@
 
 import Cocoa
 
-class ImplementationParser: ParserType {
-    var parser: Parser<[ImplementationNode]> {
+class ImplementationParser: ConcreteParserType {
+    var parser: TokenParser<[ImplementationNode]> {
         return implementation.continuous
     }
 }
 
 extension ImplementationParser {
-    var implementation: Parser<ImplementationNode> {
+    var implementation: TokenParser<ImplementationNode> {
         return curry(ImplementationNode.init)
             <^> token(.implementation) *> token(.name) => stringify
             <*> anyTokens(until: token(.end)).map { ObjcMethodParser().parser.run($0) ?? [] }

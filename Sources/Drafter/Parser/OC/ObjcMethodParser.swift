@@ -7,8 +7,8 @@
 
 import Foundation
 
-class ObjcMethodParser: ParserType {
-    var parser: Parser<[MethodNode]> {
+class ObjcMethodParser: ConcreteParserType {
+    var parser: TokenParser<[MethodNode]> {
         return (methodDefParser <|> methodDeclParser).continuous
     }
 }
@@ -20,7 +20,7 @@ extension ObjcMethodParser {
     /**
      method_decl = is_static type method_selector ';'
      */
-    var methodDeclParser: Parser<MethodNode> {
+    var methodDeclParser: TokenParser<MethodNode> {
         return curry(MethodNode.ocInit)
             <^> isStatic 
             <*> type
@@ -32,7 +32,7 @@ extension ObjcMethodParser {
     /**
      method_definition = is_static type method_selector method_body
      */
-    var methodDefParser: Parser<MethodNode> {
+    var methodDefParser: TokenParser<MethodNode> {
         return curry(MethodNode.ocInit)
             <^> isStatic
             <*> type
@@ -44,7 +44,7 @@ extension ObjcMethodParser {
     /**
      ('-' | '+')
      */
-    var isStatic: Parser<Bool> {
+    var isStatic: TokenParser<Bool> {
         return token(.minus) *> pure(false)
             <|> token(.plus) *> pure(true)
     }
@@ -53,7 +53,7 @@ extension ObjcMethodParser {
     /**
      type = '(' TYPE_NAME ')'
      */
-    var type: Parser<String> {
+    var type: TokenParser<String> {
         return anyTokens(inside: token(.leftParen), and: token(.rightParen)) => joinedText(" ")
     }
     
@@ -61,7 +61,7 @@ extension ObjcMethodParser {
     /**
      method_selector   = NAME | method_param_list
      */
-    var methodSelector: Parser<[Param]> {
+    var methodSelector: TokenParser<[Param]> {
         return paramList
             <|> curry({ [Param(outterName: $0.text, type: "", innerName: "")] }) <^> token(.name)
     }
@@ -70,7 +70,7 @@ extension ObjcMethodParser {
     /**
      method_param_list = (NAME ':' type NAME)+
      */
-    var paramList: Parser<[Param]> {
+    var paramList: TokenParser<[Param]> {
         let param = curry(Param.init)
                     <^> token(.name) <* token(.colon) => stringify
                     <*> type
@@ -82,7 +82,7 @@ extension ObjcMethodParser {
     /**
      method_body = '{' BODY '}'
      */
-    var body: Parser<[Token]> {
+    var body: TokenParser<[Token]> {
         return anyTokens(inside: token(.leftBrace), and: token(.rightBrace))
     }
 }

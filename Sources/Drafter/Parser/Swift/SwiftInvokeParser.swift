@@ -7,9 +7,9 @@
 
 import Foundation
 
-class SwiftInvokeParser: ParserType {
+class SwiftInvokeParser: ConcreteParserType {
     
-    var parser: Parser<[MethodInvokeNode]> {
+    var parser: TokenParser<[MethodInvokeNode]> {
         return methodInvoke.continuous.map({ (methods) -> [MethodInvokeNode] in
             var result = methods
             for method in methods {
@@ -25,10 +25,10 @@ class SwiftInvokeParser: ParserType {
 extension SwiftInvokeParser {
     
     /// method_invoke = single_method ('.' single_method)
-    var methodInvoke: Parser<MethodInvokeNode> {
+    var methodInvoke: TokenParser<MethodInvokeNode> {
         return singleMethod
             .separateBy(token(.dot))
-            .flatMap({ (methods) -> Parser<MethodInvokeNode> in
+            .flatMap({ (methods) -> TokenParser<MethodInvokeNode> in
                 guard methods.count > 0 else {
                     return fail()
                 }
@@ -42,7 +42,7 @@ extension SwiftInvokeParser {
     // FIXME: 尾随闭包
     /// 匹配一个单独的方法调用
     /// single_method = (invoker '.')? NAME '(' param_list? ')'
-    var singleMethod: Parser<MethodInvokeNode> {
+    var singleMethod: TokenParser<MethodInvokeNode> {
         return curry(MethodInvokeNode.swiftInit)
             <^> token(.name) => stringify // 方法名
             <*> paramList.between(token(.leftParen), token(.rightParen)) // 参数列表
@@ -52,7 +52,7 @@ extension SwiftInvokeParser {
     /**
      param_list = param (param ',')*
      */
-    var paramList: Parser<[InvokeParam]> {
+    var paramList: TokenParser<[InvokeParam]> {
         // FIXME: 目前没有匹配数字，如 method(2) 这种情况无法正确解析参数个数
         return lookAhead(token(.rightParen)) *> pure([])
             <|> param.separateBy(token(.comma))
@@ -62,14 +62,14 @@ extension SwiftInvokeParser {
     /**
      param =  (NAME ':')? param_body
      */
-    var param: Parser<InvokeParam> {
+    var param: TokenParser<InvokeParam> {
         return curry(InvokeParam.init)
-            <^> trying (token(.name) <* token(.colon)) => stringify
-            <*> trying (paramBody) ?? []
+            <^> (token(.name) <* token(.colon)).try => stringify
+            <*> paramBody.try ?? []
     }
     
     /// 匹配参数体中的的方法调用，没有则为空
-    var paramBody: Parser<[MethodInvokeNode]> {
+    var paramBody: TokenParser<[MethodInvokeNode]> {
         return { lazy(self.singleMethod).continuous.run($0) ?? [] }
             <^> anyOpenTokens(until: token(.rightParen) <|> token(.comma))
     }

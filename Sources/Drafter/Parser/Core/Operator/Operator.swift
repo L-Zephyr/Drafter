@@ -7,8 +7,8 @@
 
 import Foundation
 
-func <?> <T>(_ parser: Parser<T>, _ err: String) -> Parser<T> {
-    return Parser<T> { (tokens) -> Result<(T, Tokens)> in
+func <?> <T>(_ parser: Parser<T, Tokens>, _ err: String) -> Parser<T, Tokens> {
+    return Parser<T, Tokens> { (tokens) -> ParseResult<(T, Tokens)> in
         let result = parser.parse(tokens)
         if case .failure(let error) = result {
             return .failure(.custom("\(err): \(error)"))
@@ -18,8 +18,8 @@ func <?> <T>(_ parser: Parser<T>, _ err: String) -> Parser<T> {
 }
 
 /// parser结果为可选值，如果parser成功但结果为空则用defaultVal替换结果
-func ?? <T>(_ parser: Parser<T?>, _ defaultVal: T) -> Parser<T> {
-    return Parser<T> { (tokens) -> Result<(T, Tokens)> in
+func ?? <T>(_ parser: Parser<T?, Tokens>, _ defaultVal: T) -> Parser<T, Tokens> {
+    return Parser<T, Tokens> { (tokens) -> ParseResult<(T, Tokens)> in
         switch parser.parse(tokens) {
         case .success(let (result, rest)):
             if let result = result {
@@ -35,18 +35,18 @@ func ?? <T>(_ parser: Parser<T?>, _ defaultVal: T) -> Parser<T> {
 
 // MARK: - 类型转换操作符
 
-/// => 是一个将Parser<T>转换成指定类型的操作符
-func => <T, U>(_ lhs: Parser<T>, _ transfrom: @escaping (T) -> U) -> Parser<U> {
+/// => 是一个将Parser<T, Tokens>转换成指定类型的操作符
+func => <T, U>(_ lhs: Parser<T, Tokens>, _ transfrom: @escaping (T) -> U) -> Parser<U, Tokens> {
     return lhs.map { transfrom($0) }
 }
 
-func => <T, U>(_ lhs: Parser<[T]>, _ transfrom: @escaping (T) -> U) -> Parser<[U]> {
+func => <T, U>(_ lhs: Parser<[T], Tokens>, _ transfrom: @escaping (T) -> U) -> Parser<[U], Tokens> {
     return lhs.map { list in
         list.map { transfrom($0) }
     }
 }
 
-func => <T, U>(_ lhs: Parser<[T]?>, _ transfrom: @escaping (T) -> U) -> Parser<[U]> {
+func => <T, U>(_ lhs: Parser<[T]?, Tokens>, _ transfrom: @escaping (T) -> U) -> Parser<[U], Tokens> {
     return lhs.map { list in
         if let list = list {
             return list.map { transfrom($0) }
