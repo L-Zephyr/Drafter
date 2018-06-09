@@ -72,9 +72,7 @@ extension Parser where Stream == Tokens {
 
 /// 创建一个始终返回指定值的的算子，不消耗输入
 func pure<T>(_ t: T) -> TokenParser<T> {
-    return Parser(parse: { (tokens) -> ParseResult<(T, Tokens)> in
-        return .success((t, tokens))
-    })
+    return TokenParser<T>.result(t)
 }
 
 // MARK: - 这些都要去掉
