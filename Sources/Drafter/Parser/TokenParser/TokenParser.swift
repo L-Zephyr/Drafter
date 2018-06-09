@@ -7,18 +7,12 @@
 
 import Foundation
 
-// MARK: - Parser
-//
-//typealias Tokens = [Token]
-//
-//struct TokenParser<T> {
-//    var parse: (Tokens) -> ParseResult<(T, Tokens)>
-//}
+// MARK: - TokenParser
 
 typealias Tokens = [Token]
 typealias TokenParser<T> = Parser<T, Tokens>
 
-// MARK: - Parser Extensions
+// MARK: - TokenParser Extensions
 
 extension Parser where Stream == Tokens {
     /// 执行parser，只返回结果
@@ -58,18 +52,6 @@ extension Parser where Stream == Tokens {
     }
 }
 
-///// 尝试执行Parser，执行结果为可选值，如果成功则包含执行结果，失败也同样返回success，结果为nil，失败时不消耗输入
-//func trying<T>(_ p: TokenParser<T>) -> TokenParser<T?> {
-//    return TokenParser<T?> { (tokens) -> ParseResult<(T?, Tokens)> in
-//        switch p.parse(tokens) {
-//        case .success(let (result, rest)):
-//            return .success((result, rest))
-//        case .failure(_):
-//            return .success((nil, tokens))
-//        }
-//    }
-//}
-
 /// 创建一个始终返回指定值的的算子，不消耗输入
 func pure<T>(_ t: T) -> TokenParser<T> {
     return TokenParser<T>.result(t)
@@ -78,22 +60,8 @@ func pure<T>(_ t: T) -> TokenParser<T> {
 // MARK: - 这些都要去掉
 
 /// 创建一个始终返回错误的parser
-func fail<T>(_ error: ParseError = .unkown) -> TokenParser<T> {
-    return Parser(parse: { (tokens) -> ParseResult<(T, Tokens)> in
-        return .failure(error)
-    })
-}
-
-/// 只有当p失败时才返回成功，成功时不消耗输入
-func not(_ p: TokenParser<Token>) -> TokenParser<Token> {
-    return TokenParser<Token> { (tokens) -> ParseResult<(Token, Tokens)> in
-        switch p.parse(tokens) {
-        case .success(let (r, _)):
-            return .failure(.notMatch("Unexpected found: \(r)"))
-        case .failure(_):
-            return .success((Token(type: .unknown, text: ""), tokens))
-        }
-    }
+func error<T>(_ err: ParseError = .unkown) -> TokenParser<T> {
+    return TokenParser<T>.error(err)
 }
 
 /// 解析单个token并消耗输入, 失败时不消耗输入
@@ -140,13 +108,13 @@ func anyTokens(until: @escaping (Token) -> Bool) -> Parser<[Token], Tokens> {
 
 /// 获取任意Token知道p成功为止, p不会消耗输入，该方法不会返回错误
 func anyTokens(until p: TokenParser<Token>) -> TokenParser<[Token]> {
-    return (not(p) *> anyToken).many <|> pure([])
+    return (p.not *> anyToken).many <|> pure([])
 }
 
 /// 匹配在l和r之间的任意Token，l和r也会被消耗掉并出现在结果中，lr匹配失败时会返回错误
 func anyTokens(encloseBy l: TokenParser<Token>, and r: TokenParser<Token>) -> TokenParser<[Token]> {
-    let content = lookAhead(l) *> lazy(anyTokens(encloseBy: l, and: r)) // 递归匹配
-        <|> ({ [$0] } <^> (not(r) *> anyToken)) // 匹配任意token直到碰到r
+    let content = l.lookahead *> lazy(anyTokens(encloseBy: l, and: r)) // 递归匹配
+        <|> ({ [$0] } <^> (r.not *> anyToken)) // 匹配任意token直到碰到r
     
     return curry({ [$0] + Array($1.joined()) + [$2] })
         <^> l
@@ -172,37 +140,14 @@ var anyEnclosedTokens: TokenParser<[Token]> {
 /// 匹配任意字符直到p失败为止，p只有在不被{}、[]、()或<>包围时进行判断
 func anyOpenTokens(until p: TokenParser<Token>) -> TokenParser<[Token]> {
     return { $0.flatMap {$0} }
-        <^> (not(p) *> (anyEnclosedTokens <|> anyToken.map { [$0] })).many
+        <^> (p.not *> (anyEnclosedTokens <|> anyToken.map { [$0] })).many
         <|> pure([])
 }
 
-// MARK: -
+// MARK: - lazy
 
 ///
 func lazy<T>(_ parser: @autoclosure @escaping () -> TokenParser<T>) -> TokenParser<T> {
     return TokenParser<T> { parser().parse($0) }
 }
 
-/// 尝试列表中的每一个parser，直到有一个成功为止，如果全部失败则返回一个错误
-func choice<T>(_ parsers: [TokenParser<T>]) -> TokenParser<T> {
-    return TokenParser<T> { (tokens) -> ParseResult<(T, Tokens)> in
-        for parser in parsers {
-            if case .success(let (r, rest)) = parser.parse(tokens) {
-                return .success((r, rest))
-            }
-        }
-        return .failure(.custom("None parser success!"))
-    }
-}
-
-/// 执行parser，解析成功时不消耗输入
-func lookAhead<T>(_ parser: TokenParser<T>) -> TokenParser<T> {
-    return TokenParser<T> { (tokens) -> ParseResult<(T, Tokens)> in
-        switch parser.parse(tokens) {
-        case .success(let (r, _)):
-            return .success((r, tokens))
-        case .failure(let error):
-            return .failure(error)
-        }
-    }
-}

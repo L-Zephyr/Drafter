@@ -21,6 +21,13 @@ public extension Parser {
             return .success((t, stream))
         })
     }
+    
+    /// 始终返回failure
+    static func error(_ err: ParseError) -> Parser<Token, Stream> {
+        return Parser(parse: { (_) -> ParseResult<(Token, Stream)> in
+            return .failure(err)
+        })
+    }
 }
 
 // MARK: - ParseResult

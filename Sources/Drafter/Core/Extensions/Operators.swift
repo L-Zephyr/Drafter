@@ -234,15 +234,18 @@ public extension Parser {
     /// - Parameter p: 任意结果类型的Parser
     /// - Returns: 新的Parser，成功时返回self的结果
     func notFollowedBy<U>(_ p: Parser<U, Stream>) -> Parser<Token, Stream> {
-        let not = Parser<U?, Stream>(parse: { (input) -> ParseResult<(U?, Stream)> in
-            switch p.parse(input) {
+        return self <* p.not
+    }
+    
+    /// `p.not`当p解析成功的时候返回failure，p解析失败的时候返回success, 不消耗输入
+    var not: Parser<Token?, Stream> {
+        return Parser<Token?, Stream>(parse: { (input) -> ParseResult<(Token?, Stream)> in
+            switch self.parse(input) {
             case .success(let (r, _)):
                 return .failure(.notMatch("Unexpected found: \(r)"))
             case .failure(_):
                 return .success((nil, input))
             }
         })
-        
-        return self <* not
     }
 }

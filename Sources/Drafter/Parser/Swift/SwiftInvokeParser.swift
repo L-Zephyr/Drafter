@@ -30,7 +30,7 @@ extension SwiftInvokeParser {
             .separateBy(token(.dot))
             .flatMap({ (methods) -> TokenParser<MethodInvokeNode> in
                 guard methods.count > 0 else {
-                    return fail()
+                    return error()
                 }
                 return pure(methods.dropFirst().reduce(methods[0]) { (last, current) in
                     current.invoker = .method(last)
@@ -54,7 +54,7 @@ extension SwiftInvokeParser {
      */
     var paramList: TokenParser<[InvokeParam]> {
         // FIXME: 目前没有匹配数字，如 method(2) 这种情况无法正确解析参数个数
-        return lookAhead(token(.rightParen)) *> pure([])
+        return token(.rightParen).lookahead *> pure([])
             <|> param.separateBy(token(.comma))
     }
     

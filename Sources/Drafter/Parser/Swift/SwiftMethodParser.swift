@@ -62,7 +62,7 @@ extension SwiftMethodParser {
      */
     var param: TokenParser<Param> {
         let outter = token(.underline) *> pure("") // "_ param:"
-            <|> lookAhead(token(.name) <* token(.colon)) => stringify // "param:"
+            <|> (token(.name) <* token(.colon)).lookahead => stringify // "param:"
             <|> token(.name) => stringify // "outter inner:"
         
         return curry(Param.swiftInit)
@@ -81,7 +81,7 @@ extension SwiftMethodParser {
      return_type = (-> type)?
      */
     var retType: TokenParser<String> {
-        return lookAhead(token(.rightArrow)) *> token(.rightArrow) *> type
+        return token(.rightArrow).lookahead *> token(.rightArrow) *> type
             <|> pure("")
     }
     

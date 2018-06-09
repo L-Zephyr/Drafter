@@ -7,6 +7,8 @@
 
 import Foundation
 
+// TODO: 删除
+
 extension Parser where Stream == Tokens {
     
     /// 多次重复该parser直到失败为止，将结果保存在数组中返回，如果结果数组为空则返回错误
@@ -45,29 +47,29 @@ extension Parser where Stream == Tokens {
         return left *> self <* right
     }
     
-    /// 仅当self成功，other失败时才会返回成功，other不会消耗任何输入
-    func notFollowedBy<U>(_ other: Parser<U, Tokens>) -> Parser<Token, Tokens> {
-        return self.flatMap { result in
-            Parser<Token, Tokens> { (tokens) -> ParseResult<(Token, Tokens)> in
-                if case .failure(_) = other.parse(tokens) { // other失败才会返回成功
-                    return .success((result, tokens))
-                } else {
-                    return .failure(.custom("notFollowedBy fail"))
-                }
-            }
-        }
-    }
+//    /// 仅当self成功，other失败时才会返回成功，other不会消耗任何输入
+//    func notFollowedBy<U>(_ other: Parser<U, Tokens>) -> Parser<Token, Tokens> {
+//        return self.flatMap { result in
+//            Parser<Token, Tokens> { (tokens) -> ParseResult<(Token, Tokens)> in
+//                if case .failure(_) = other.parse(tokens) { // other失败才会返回成功
+//                    return .success((result, tokens))
+//                } else {
+//                    return .failure(.custom("notFollowedBy fail"))
+//                }
+//            }
+//        }
+//    }
     
     /// 尝试将self应用多次，每次将上一次和这一次的结果传入到next闭包，并将结果作为下一次的输入
-    func reduce<U>(_ initVal: U, _ next: @escaping (U, Token) -> U) -> Parser<U, Tokens> {
-        return Parser<U, Tokens> { (tokens) -> ParseResult<(U, Tokens)> in
-            var remainder = tokens
-            var last = initVal
-            while case .success(let (current, rest)) = self.parse(remainder) {
-                last = next(last, current)
-                remainder = rest
-            }
-            return .success((last, remainder))
-        }
-    }
+//    func reduce<U>(_ initVal: U, _ next: @escaping (U, Token) -> U) -> Parser<U, Tokens> {
+//        return Parser<U, Tokens> { (tokens) -> ParseResult<(U, Tokens)> in
+//            var remainder = tokens
+//            var last = initVal
+//            while case .success(let (current, rest)) = self.parse(remainder) {
+//                last = next(last, current)
+//                remainder = rest
+//            }
+//            return .success((last, remainder))
+//        }
+//    }
 }
