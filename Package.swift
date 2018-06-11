@@ -12,7 +12,7 @@ let package = Package(
     targets: [
         .target(
             name: "drafter",
-            dependencies: ["PathKit", "SwiftyParse"]),
+            dependencies: ["SwiftyParse", "PathKit"]),
         .testTarget(
             name: "DrafterTests",
             dependencies: ["drafter", "SwiftyParse"]
