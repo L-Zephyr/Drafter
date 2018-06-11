@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftyParse
 
 class SwiftMethodParser: ConcreteParserType {
     
@@ -26,7 +27,7 @@ extension SwiftMethodParser {
             <^> isStatic
             <*> methodName
             <*> paramList.between(token(.leftParen), token(.rightParen))
-            <*> modifier.try *> retType
+            <*> modifiers *> retType
             <*> ({ SwiftInvokeParser().parser.run($0) ?? [] } <^> body)
     }
 
@@ -68,7 +69,7 @@ extension SwiftMethodParser {
         return curry(Param.swiftInit)
             <^> outter
             <*> token(.name) <* token(.colon) => stringify
-            <*> modifier.try *> type <* defaultValue.try
+            <*> modifiers *> type <* defaultValue.try
     }
     
     /// 解析参数的默认值: "= xx"
@@ -104,8 +105,8 @@ extension SwiftMethodParser {
     }
     
     /// 处理swift方法中的修饰符: @autoclosure, inout, rethrow等
-    var modifier: TokenParser<[Token]> {
-        return ( token(.autoclosure) <|> token(.`inout`) <|> token(.`throw`) <|> token(.escaping) ).many
+    var modifiers: TokenParser<[Token]> {
+        return (token(.autoclosure) <|> token(.`inout`) <|> token(.`throw`) <|> token(.escaping)).many
     }
 }
 

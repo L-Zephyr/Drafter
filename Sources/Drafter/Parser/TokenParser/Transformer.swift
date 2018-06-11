@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftyParse
 
 func <?> <T>(_ parser: Parser<T, Tokens>, _ err: String) -> Parser<T, Tokens> {
     return Parser<T, Tokens> { (tokens) -> ParseResult<(T, Tokens)> in
@@ -34,6 +35,8 @@ func ?? <T>(_ parser: Parser<T?, Tokens>, _ defaultVal: T) -> Parser<T, Tokens> 
 }
 
 // MARK: - 类型转换操作符
+
+infix operator => : BetweenApplicativeAndSequence
 
 /// => 是一个将Parser<T, Tokens>转换成指定类型的操作符
 func => <T, U>(_ lhs: Parser<T, Tokens>, _ transfrom: @escaping (T) -> U) -> Parser<U, Tokens> {

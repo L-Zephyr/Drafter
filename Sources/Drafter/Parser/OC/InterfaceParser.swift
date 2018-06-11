@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftyParse
 
 // 解析OC中的Interface定义
 class InterfaceParser: ConcreteParserType {
@@ -17,7 +18,7 @@ class InterfaceParser: ConcreteParserType {
 
 // MARK: - 类型转换
 
-extension Parser where Token == Array<InterfaceNode>, Stream == Tokens {
+extension Parser where Result == Array<InterfaceNode>, Stream == Tokens {
     // 将结果直接转换成ClassNode类型
     var toClassNode: TokenParser<[ClassNode]> {
         return self.map { (interfaces) -> [ClassNode] in

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftyParse
 
 class SwiftProtocolParser: ConcreteParserType {
     var parser: TokenParser<[ProtocolNode]> {

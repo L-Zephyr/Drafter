@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftyParse
 
 fileprivate enum Intermediate {
     case proto(ProtocolNode)

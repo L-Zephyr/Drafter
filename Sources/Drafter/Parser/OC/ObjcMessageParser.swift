@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftyParse
 
 class ObjcMessageParser: ConcreteParserType {
     
@@ -61,7 +62,7 @@ extension ObjcMessageParser {
      param_list = (param)+
      */
     var paramList: TokenParser<[InvokeParam]> {
-        return param.many <?> "param_list解析失败"
+        return param.many1 <?> "param_list解析失败"
     }
     
     /// 参数

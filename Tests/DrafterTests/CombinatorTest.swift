@@ -170,22 +170,22 @@ class CombinatorTest: XCTestCase {
         XCTAssert(rest.count == 0)
     }
 
-    func testReduce() {
-        let tokens = SourceLexer(input: "name1.name2.name3;").allTokens
-        
-        let single = token(.name) <* token(.dot)
-        let parser =
-            single.reduce([]) { (last, current) in
-                return last + [current]
-            }.flatMap { (results) -> Parser<[Token], Tokens> in
-                return { results + [$0] } <^> token(.name)
-            }
-        
-        guard case let .success((result, rest)) = parser.parse(tokens) else {
-            XCTAssert(false)
-            return
-        }
-        XCTAssert(result.count == 3)
-        XCTAssert(rest.count == 1)
-    }
+//    func testReduce() {
+//        let tokens = SourceLexer(input: "name1.name2.name3;").allTokens
+//        
+//        let single = token(.name) <* token(.dot)
+//        let parser =
+//            single.reduce([]) { (last, current) in
+//                return last + [current]
+//            }.flatMap { (results) -> Parser<[Token], Tokens> in
+//                return { results + [$0] } <^> token(.name)
+//            }
+//        
+//        guard case let .success((result, rest)) = parser.parse(tokens) else {
+//            XCTAssert(false)
+//            return
+//        }
+//        XCTAssert(result.count == 3)
+//        XCTAssert(rest.count == 1)
+//    }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftyParse
 
 // MARK: - TokenParser
 
@@ -16,7 +17,7 @@ typealias TokenParser<T> = Parser<T, Tokens>
 
 extension Parser where Stream == Tokens {
     /// 执行parser，只返回结果
-    func run(_ tokens: Tokens) -> Token? {
+    func run(_ tokens: Tokens) -> Result? {
         switch self.parse(tokens) {
         case .success(let (result, _)):
             return result
@@ -29,9 +30,9 @@ extension Parser where Stream == Tokens {
     }
 
     /// 连续执行该Parser直到输入耗尽为止，将所有的结果放在数组中返回，不会返回错误
-    var continuous: TokenParser<[Token]> {
-        return TokenParser<[Token]> { (tokens) -> ParseResult<([Token], Tokens)> in
-            var result = [Token]()
+    var continuous: TokenParser<[Result]> {
+        return TokenParser<[Result]> { (tokens) -> ParseResult<([Result], Tokens)> in
+            var result = [Result]()
             var remainder = tokens
             while remainder.count != 0 {
                 switch self.parse(remainder) {
@@ -108,7 +109,7 @@ func anyTokens(until: @escaping (Token) -> Bool) -> Parser<[Token], Tokens> {
 
 /// 获取任意Token知道p成功为止, p不会消耗输入，该方法不会返回错误
 func anyTokens(until p: TokenParser<Token>) -> TokenParser<[Token]> {
-    return (p.not *> anyToken).many <|> pure([])
+    return (p.not *> anyToken).many
 }
 
 /// 匹配在l和r之间的任意Token，l和r也会被消耗掉并出现在结果中，lr匹配失败时会返回错误
@@ -118,7 +119,7 @@ func anyTokens(encloseBy l: TokenParser<Token>, and r: TokenParser<Token>) -> To
     
     return curry({ [$0] + Array($1.joined()) + [$2] })
         <^> l
-        <*> (content.many <|> pure([])) // many为空的时候会失败
+        <*> content.many
         <*> r
 }
 
@@ -141,7 +142,6 @@ var anyEnclosedTokens: TokenParser<[Token]> {
 func anyOpenTokens(until p: TokenParser<Token>) -> TokenParser<[Token]> {
     return { $0.flatMap {$0} }
         <^> (p.not *> (anyEnclosedTokens <|> anyToken.map { [$0] })).many
-        <|> pure([])
 }
 
 // MARK: - lazy

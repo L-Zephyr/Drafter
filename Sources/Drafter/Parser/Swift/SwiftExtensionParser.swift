@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftyParse
 
 /// 解析Swift的Extension
 class SwiftExtensionParser: ConcreteParserType {

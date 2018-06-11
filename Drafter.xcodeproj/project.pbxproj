@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		705F13139E6690C8572B8E2A /* Pods_drafterPackageDescription.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081810339D1AF85858B06AF0 /* Pods_drafterPackageDescription.framework */; };
 		BB046F9F20B00CA200DD5546 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEAB20ADC20B00921AAE /* String+Extension.swift */; };
 		BB046FB820B03F1000DD5546 /* CodableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB046FB720B03F1000DD5546 /* CodableExtension.swift */; };
 		BB046FB920B03F1000DD5546 /* CodableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB046FB720B03F1000DD5546 /* CodableExtension.swift */; };
@@ -47,7 +48,6 @@
 		BB07CEBD20ADC40E00921AAE /* ProtocolNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* ProtocolNode.swift */; };
 		BB07CEBE20ADC40E00921AAE /* DotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* DotGenerator.swift */; };
 		BB07CEBF20ADC40E00921AAE /* Executor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* Executor.swift */; };
-		BB07CEC220ADC40E00921AAE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* Extensions.swift */; };
 		BB07CEC520ADC40E00921AAE /* Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* Transformer.swift */; };
 		BB07CEC620ADC40E00921AAE /* ConcreteParserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* ConcreteParserType.swift */; };
 		BB07CEC720ADC40E00921AAE /* TokenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* TokenParser.swift */; };
@@ -67,24 +67,6 @@
 		BB07CEDF20ADC40E00921AAE /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* MD5.swift */; };
 		BB07CEE120ADC44700921AAE /* FileParserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEE020ADC44700921AAE /* FileParserResult.swift */; };
 		BB07CEE220ADC44700921AAE /* FileParserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEE020ADC44700921AAE /* FileParserResult.swift */; };
-		BB3D232E20CBB5DD00AEEA2E /* Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232420CBB5DC00AEEA2E /* Alternative.swift */; };
-		BB3D232F20CBB5DD00AEEA2E /* Alternative.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232420CBB5DC00AEEA2E /* Alternative.swift */; };
-		BB3D233020CBB5DD00AEEA2E /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232620CBB5DC00AEEA2E /* Operators.swift */; };
-		BB3D233120CBB5DD00AEEA2E /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232620CBB5DC00AEEA2E /* Operators.swift */; };
-		BB3D233220CBB5DD00AEEA2E /* Reduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232720CBB5DC00AEEA2E /* Reduce.swift */; };
-		BB3D233320CBB5DD00AEEA2E /* Reduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232720CBB5DC00AEEA2E /* Reduce.swift */; };
-		BB3D233420CBB5DD00AEEA2E /* Plus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232820CBB5DC00AEEA2E /* Plus.swift */; };
-		BB3D233520CBB5DD00AEEA2E /* Plus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232820CBB5DC00AEEA2E /* Plus.swift */; };
-		BB3D233620CBB5DD00AEEA2E /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232920CBB5DC00AEEA2E /* Parser.swift */; };
-		BB3D233720CBB5DD00AEEA2E /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232920CBB5DC00AEEA2E /* Parser.swift */; };
-		BB3D233820CBB5DD00AEEA2E /* Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232A20CBB5DC00AEEA2E /* Monad.swift */; };
-		BB3D233920CBB5DD00AEEA2E /* Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232A20CBB5DC00AEEA2E /* Monad.swift */; };
-		BB3D233A20CBB5DD00AEEA2E /* Applicative.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232B20CBB5DC00AEEA2E /* Applicative.swift */; };
-		BB3D233B20CBB5DD00AEEA2E /* Applicative.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232B20CBB5DC00AEEA2E /* Applicative.swift */; };
-		BB3D233C20CBB5DD00AEEA2E /* Functor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232C20CBB5DC00AEEA2E /* Functor.swift */; };
-		BB3D233D20CBB5DD00AEEA2E /* Functor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232C20CBB5DC00AEEA2E /* Functor.swift */; };
-		BB3D233E20CBB5DD00AEEA2E /* PriorityDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232D20CBB5DC00AEEA2E /* PriorityDefine.swift */; };
-		BB3D233F20CBB5DD00AEEA2E /* PriorityDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D232D20CBB5DC00AEEA2E /* PriorityDefine.swift */; };
 		BB3D234820CC17EF00AEEA2E /* SwiftExtensionParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D234720CC17EF00AEEA2E /* SwiftExtensionParserTest.swift */; };
 		BB86F20F20BA567900EB5D45 /* ExtensionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB86F20E20BA567900EB5D45 /* ExtensionNode.swift */; };
 		BB86F21020BA567900EB5D45 /* ExtensionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB86F20E20BA567900EB5D45 /* ExtensionNode.swift */; };
@@ -95,6 +77,10 @@
 		BB8B0E4820B4434900391A76 /* FileParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEA420ADBE0000921AAE /* FileParser.swift */; };
 		BBEDC25D20B00AF00006DC8A /* AutoCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEDC25C20B00AF00006DC8A /* AutoCodable.swift */; };
 		BBEDC25E20B00AF00006DC8A /* AutoCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEDC25C20B00AF00006DC8A /* AutoCodable.swift */; };
+		C24DE550A3814E2E2D82CC12 /* Pods_PathKitPackageDescription.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC86D8D4FD48559A55FC17B8 /* Pods_PathKitPackageDescription.framework */; };
+		CBF1436D2267047AE9C550DD /* Pods_PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E0A817117E56296194E76DA /* Pods_PathKit.framework */; };
+		CF4E1F02BF51263346C041A6 /* Pods_drafter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EAFC62709AC963D7948F7CF /* Pods_drafter.framework */; };
+		EDA03BDDA7945D204961E429 /* Pods_DrafterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F42C84691EC643693D1F8CB /* Pods_DrafterTests.framework */; };
 		OBJ_100 /* OCMethodTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_76 /* OCMethodTest.swift */; };
 		OBJ_101 /* OCMsgSendTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_77 /* OCMsgSendTest.swift */; };
 		OBJ_102 /* SwiftClassParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_78 /* SwiftClassParserTest.swift */; };
@@ -116,7 +102,6 @@
 		OBJ_138 /* Drafter.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* Drafter.swift */; };
 		OBJ_139 /* DotGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* DotGenerator.swift */; };
 		OBJ_140 /* Executor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* Executor.swift */; };
-		OBJ_143 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* Extensions.swift */; };
 		OBJ_146 /* Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* Transformer.swift */; };
 		OBJ_147 /* TokenParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* TokenParser.swift */; };
 		OBJ_149 /* ImplementationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* ImplementationParser.swift */; };
@@ -174,6 +159,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		081810339D1AF85858B06AF0 /* Pods_drafterPackageDescription.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_drafterPackageDescription.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		12ECCC12C50E5475D635C05E /* Pods-drafter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-drafter.release.xcconfig"; path = "Pods/Target Support Files/Pods-drafter/Pods-drafter.release.xcconfig"; sourceTree = "<group>"; };
+		14A91E45681349D9CD19CFC9 /* Pods-DrafterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrafterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DrafterTests/Pods-DrafterTests.release.xcconfig"; sourceTree = "<group>"; };
+		1BD7FBDA73CBF11FBB4629C7 /* Pods-drafterPackageDescription.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-drafterPackageDescription.debug.xcconfig"; path = "Pods/Target Support Files/Pods-drafterPackageDescription/Pods-drafterPackageDescription.debug.xcconfig"; sourceTree = "<group>"; };
+		3EB703B5295B01926E2FB8F8 /* Pods-PathKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PathKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PathKit/Pods-PathKit.debug.xcconfig"; sourceTree = "<group>"; };
+		3F42C84691EC643693D1F8CB /* Pods_DrafterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DrafterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		483D3E90D947238095902350 /* Pods-DrafterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrafterTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrafterTests/Pods-DrafterTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5C6BA3B357FA5284D9EB6A47 /* Pods-PathKitPackageDescription.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PathKitPackageDescription.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PathKitPackageDescription/Pods-PathKitPackageDescription.debug.xcconfig"; sourceTree = "<group>"; };
+		6F41AC8682BD959F047F8A34 /* Pods-drafterPackageDescription.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-drafterPackageDescription.release.xcconfig"; path = "Pods/Target Support Files/Pods-drafterPackageDescription/Pods-drafterPackageDescription.release.xcconfig"; sourceTree = "<group>"; };
+		71C7008AE31F065CA7E6FAB9 /* Pods-drafter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-drafter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-drafter/Pods-drafter.debug.xcconfig"; sourceTree = "<group>"; };
+		7E0A817117E56296194E76DA /* Pods_PathKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PathKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EAFC62709AC963D7948F7CF /* Pods_drafter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_drafter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B06B3751BCCA15B8E90E3631 /* Pods-PathKitPackageDescription.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PathKitPackageDescription.release.xcconfig"; path = "Pods/Target Support Files/Pods-PathKitPackageDescription/Pods-PathKitPackageDescription.release.xcconfig"; sourceTree = "<group>"; };
 		BB046FB720B03F1000DD5546 /* CodableExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableExtension.swift; sourceTree = "<group>"; };
 		BB07CE9D20AC620000921AAE /* Path+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Path+Extension.swift"; path = "Sources/Drafter/Utils/Path+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		BB07CEA420ADBE0000921AAE /* FileParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileParser.swift; sourceTree = "<group>"; };
@@ -182,21 +180,14 @@
 		BB07CEAD20ADC37400921AAE /* SourceLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SourceLexer.swift; path = Sources/Drafter/Lexer/SourceLexer.swift; sourceTree = SOURCE_ROOT; };
 		BB07CEAF20ADC37E00921AAE /* TokenLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenLexer.swift; sourceTree = "<group>"; };
 		BB07CEE020ADC44700921AAE /* FileParserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileParserResult.swift; path = Sources/Drafter/Parser/FileParserResult.swift; sourceTree = SOURCE_ROOT; };
-		BB3D232420CBB5DC00AEEA2E /* Alternative.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alternative.swift; sourceTree = "<group>"; };
-		BB3D232620CBB5DC00AEEA2E /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
-		BB3D232720CBB5DC00AEEA2E /* Reduce.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reduce.swift; sourceTree = "<group>"; };
-		BB3D232820CBB5DC00AEEA2E /* Plus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plus.swift; sourceTree = "<group>"; };
-		BB3D232920CBB5DC00AEEA2E /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
-		BB3D232A20CBB5DC00AEEA2E /* Monad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Monad.swift; sourceTree = "<group>"; };
-		BB3D232B20CBB5DC00AEEA2E /* Applicative.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Applicative.swift; sourceTree = "<group>"; };
-		BB3D232C20CBB5DC00AEEA2E /* Functor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functor.swift; sourceTree = "<group>"; };
-		BB3D232D20CBB5DC00AEEA2E /* PriorityDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityDefine.swift; sourceTree = "<group>"; };
 		BB3D234420CBC3E700AEEA2E /* Runes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Runes.swift; path = Sources/Drafter/Thirdparty/Runes/Runes.swift; sourceTree = SOURCE_ROOT; };
 		BB3D234720CC17EF00AEEA2E /* SwiftExtensionParserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExtensionParserTest.swift; sourceTree = "<group>"; };
 		BB86F20E20BA567900EB5D45 /* ExtensionNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionNode.swift; path = Sources/Drafter/AST/Swift/ExtensionNode.swift; sourceTree = SOURCE_ROOT; };
 		BB86F21120BA568500EB5D45 /* SwiftTypeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftTypeNode.swift; sourceTree = "<group>"; };
 		BB86F21420BA7BB700EB5D45 /* SwiftExtensionParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwiftExtensionParser.swift; path = Sources/Drafter/Parser/Swift/SwiftExtensionParser.swift; sourceTree = SOURCE_ROOT; };
 		BBEDC25C20B00AF00006DC8A /* AutoCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AutoCodable.swift; path = Sources/Drafter/Utils/AutoCodable.swift; sourceTree = SOURCE_ROOT; };
+		CB0344BC89CB0D775376792A /* Pods-PathKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PathKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-PathKit/Pods-PathKit.release.xcconfig"; sourceTree = "<group>"; };
+		EC86D8D4FD48559A55FC17B8 /* Pods_PathKitPackageDescription.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PathKitPackageDescription.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_10 /* ClassNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassNode.swift; sourceTree = "<group>"; };
 		OBJ_11 /* ImplementationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplementationNode.swift; sourceTree = "<group>"; };
 		OBJ_12 /* InterfaceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceNode.swift; sourceTree = "<group>"; };
@@ -209,7 +200,6 @@
 		OBJ_21 /* Drafter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drafter.swift; sourceTree = "<group>"; };
 		OBJ_23 /* DotGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotGenerator.swift; sourceTree = "<group>"; };
 		OBJ_24 /* Executor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Executor.swift; sourceTree = "<group>"; };
-		OBJ_30 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		OBJ_34 /* Transformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformer.swift; sourceTree = "<group>"; };
 		OBJ_35 /* TokenParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenParser.swift; sourceTree = "<group>"; };
 		OBJ_38 /* ImplementationParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImplementationParser.swift; sourceTree = "<group>"; };
@@ -247,11 +237,28 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		09DAE985C92C80AE93B0AE82 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C24DE550A3814E2E2D82CC12 /* Pods_PathKitPackageDescription.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BB8FC572DBAC3B22A5DAB962 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				705F13139E6690C8572B8E2A /* Pods_drafterPackageDescription.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		OBJ_106 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
 				OBJ_107 /* PathKit.framework in Frameworks */,
+				EDA03BDDA7945D204961E429 /* Pods_DrafterTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +266,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
+				CBF1436D2267047AE9C550DD /* Pods_PathKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,12 +275,25 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_176 /* PathKit.framework in Frameworks */,
+				CF4E1F02BF51263346C041A6 /* Pods_drafter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4040A5C799DC17F8836675AF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3F42C84691EC643693D1F8CB /* Pods_DrafterTests.framework */,
+				7E0A817117E56296194E76DA /* Pods_PathKit.framework */,
+				EC86D8D4FD48559A55FC17B8 /* Pods_PathKitPackageDescription.framework */,
+				8EAFC62709AC963D7948F7CF /* Pods_drafter.framework */,
+				081810339D1AF85858B06AF0 /* Pods_drafterPackageDescription.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BB046FB620B03F1000DD5546 /* AutoGenerated */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,36 +314,10 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		BB3D232320CBB5DC00AEEA2E /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				BB3D232920CBB5DC00AEEA2E /* Parser.swift */,
-				BB3D232420CBB5DC00AEEA2E /* Alternative.swift */,
-				BB3D232520CBB5DC00AEEA2E /* Extensions */,
-				BB3D232A20CBB5DC00AEEA2E /* Monad.swift */,
-				BB3D232B20CBB5DC00AEEA2E /* Applicative.swift */,
-				BB3D232C20CBB5DC00AEEA2E /* Functor.swift */,
-				BB3D232D20CBB5DC00AEEA2E /* PriorityDefine.swift */,
-			);
-			name = Core;
-			path = Sources/Drafter/Core;
-			sourceTree = SOURCE_ROOT;
-		};
-		BB3D232520CBB5DC00AEEA2E /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				BB3D232620CBB5DC00AEEA2E /* Operators.swift */,
-				BB3D232720CBB5DC00AEEA2E /* Reduce.swift */,
-				BB3D232820CBB5DC00AEEA2E /* Plus.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		BB3D234020CBB5F500AEEA2E /* TokenParser */ = {
 			isa = PBXGroup;
 			children = (
 				OBJ_35 /* TokenParser.swift */,
-				OBJ_30 /* Extensions.swift */,
 				OBJ_34 /* Transformer.swift */,
 				OBJ_19 /* ConcreteParserType.swift */,
 			);
@@ -356,6 +351,23 @@
 				OBJ_14 /* MethodNode.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		D48BAD4775A37724324D07D3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				483D3E90D947238095902350 /* Pods-DrafterTests.debug.xcconfig */,
+				14A91E45681349D9CD19CFC9 /* Pods-DrafterTests.release.xcconfig */,
+				3EB703B5295B01926E2FB8F8 /* Pods-PathKit.debug.xcconfig */,
+				CB0344BC89CB0D775376792A /* Pods-PathKit.release.xcconfig */,
+				5C6BA3B357FA5284D9EB6A47 /* Pods-PathKitPackageDescription.debug.xcconfig */,
+				B06B3751BCCA15B8E90E3631 /* Pods-PathKitPackageDescription.release.xcconfig */,
+				71C7008AE31F065CA7E6FAB9 /* Pods-drafter.debug.xcconfig */,
+				12ECCC12C50E5475D635C05E /* Pods-drafter.release.xcconfig */,
+				1BD7FBDA73CBF11FBB4629C7 /* Pods-drafterPackageDescription.debug.xcconfig */,
+				6F41AC8682BD959F047F8A34 /* Pods-drafterPackageDescription.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		OBJ_16 /* Lexer */ = {
@@ -433,6 +445,8 @@
 				OBJ_83 /* Template */,
 				OBJ_84 /* Dependencies */,
 				OBJ_88 /* Products */,
+				D48BAD4775A37724324D07D3 /* Pods */,
+				4040A5C799DC17F8836675AF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -500,7 +514,6 @@
 		OBJ_8 /* drafter */ = {
 			isa = PBXGroup;
 			children = (
-				BB3D232320CBB5DC00AEEA2E /* Core */,
 				OBJ_70 /* main.swift */,
 				OBJ_21 /* Drafter.swift */,
 				OBJ_48 /* ParserRunner.swift */,
@@ -561,6 +574,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_112 /* Build configuration list for PBXNativeTarget "PathKit" */;
 			buildPhases = (
+				F934CF16108C63EA8324A036 /* [CP] Check Pods Manifest.lock */,
 				OBJ_115 /* Sources */,
 				OBJ_117 /* Frameworks */,
 			);
@@ -577,7 +591,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_119 /* Build configuration list for PBXNativeTarget "PathKitPackageDescription" */;
 			buildPhases = (
+				603DDFFFEE7E7E9BBBF9E445 /* [CP] Check Pods Manifest.lock */,
 				OBJ_122 /* Sources */,
+				09DAE985C92C80AE93B0AE82 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -591,8 +607,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_93 /* Build configuration list for PBXNativeTarget "DrafterTests" */;
 			buildPhases = (
+				A77D1958C0FAB0B4D02E581A /* [CP] Check Pods Manifest.lock */,
 				OBJ_96 /* Sources */,
 				OBJ_106 /* Frameworks */,
+				B4AA35DBDED3723E6C4F15FF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -609,7 +627,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_179 /* Build configuration list for PBXNativeTarget "drafterPackageDescription" */;
 			buildPhases = (
+				0E8B614663E298138C558213 /* [CP] Check Pods Manifest.lock */,
 				OBJ_182 /* Sources */,
+				BB8FC572DBAC3B22A5DAB962 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -623,6 +643,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_124 /* Build configuration list for PBXNativeTarget "drafter" */;
 			buildPhases = (
+				B0C1DAF28627FE19CE63BD32 /* [CP] Check Pods Manifest.lock */,
 				BB046FB520B03E5400DD5546 /* ShellScript */,
 				OBJ_127 /* Sources */,
 				OBJ_175 /* Frameworks */,
@@ -668,6 +689,96 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0E8B614663E298138C558213 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-drafterPackageDescription-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		603DDFFFEE7E7E9BBBF9E445 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PathKitPackageDescription-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A77D1958C0FAB0B4D02E581A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DrafterTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B0C1DAF28627FE19CE63BD32 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-drafter-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B4AA35DBDED3723E6C4F15FF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DrafterTests/Pods-DrafterTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftyParse/SwiftyParse.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyParse.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DrafterTests/Pods-DrafterTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		BB046FB520B03E5400DD5546 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -680,6 +791,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "sourcery --sources ./Sources --templates ./StencilTemplate/AutoCodable.stencil --output ./Sources/Drafter/AutoGenerated/CodableExtension.swift";
+		};
+		F934CF16108C63EA8324A036 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PathKit-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -708,20 +837,15 @@
 				OBJ_129 /* ImplementationNode.swift in Sources */,
 				OBJ_130 /* InterfaceNode.swift in Sources */,
 				OBJ_131 /* MethodInvokeNode.swift in Sources */,
-				BB3D233120CBB5DD00AEEA2E /* Operators.swift in Sources */,
 				BB07CE9F20AC7A0C00921AAE /* Path+Extension.swift in Sources */,
 				OBJ_132 /* MethodNode.swift in Sources */,
 				OBJ_133 /* ProtocolNode.swift in Sources */,
 				OBJ_135 /* Lexer.swift in Sources */,
 				OBJ_136 /* ConcreteParserType.swift in Sources */,
-				BB3D233F20CBB5DD00AEEA2E /* PriorityDefine.swift in Sources */,
 				OBJ_137 /* Token.swift in Sources */,
 				OBJ_138 /* Drafter.swift in Sources */,
 				OBJ_139 /* DotGenerator.swift in Sources */,
 				OBJ_140 /* Executor.swift in Sources */,
-				BB3D233D20CBB5DD00AEEA2E /* Functor.swift in Sources */,
-				BB3D233520CBB5DD00AEEA2E /* Plus.swift in Sources */,
-				OBJ_143 /* Extensions.swift in Sources */,
 				BB86F21320BA568500EB5D45 /* SwiftTypeNode.swift in Sources */,
 				OBJ_146 /* Transformer.swift in Sources */,
 				OBJ_147 /* TokenParser.swift in Sources */,
@@ -731,7 +855,6 @@
 				OBJ_150 /* InterfaceParser.swift in Sources */,
 				BB07CEE220ADC44700921AAE /* FileParserResult.swift in Sources */,
 				OBJ_151 /* ObjcMessageParser.swift in Sources */,
-				BB3D233B20CBB5DD00AEEA2E /* Applicative.swift in Sources */,
 				BB07CEA820ADBE4D00921AAE /* Array+Extension.swift in Sources */,
 				OBJ_152 /* ObjcMethodParser.swift in Sources */,
 				OBJ_153 /* SwiftClassParser.swift in Sources */,
@@ -747,13 +870,9 @@
 				OBJ_160 /* Option.swift in Sources */,
 				OBJ_161 /* StringExtensions.swift in Sources */,
 				BB8B0E4820B4434900391A76 /* FileParser.swift in Sources */,
-				BB3D233720CBB5DD00AEEA2E /* Parser.swift in Sources */,
 				BB86F21620BA7BBA00EB5D45 /* SwiftExtensionParser.swift in Sources */,
 				OBJ_166 /* Curry.swift in Sources */,
 				BB046FB920B03F1000DD5546 /* CodableExtension.swift in Sources */,
-				BB3D233920CBB5DD00AEEA2E /* Monad.swift in Sources */,
-				BB3D232F20CBB5DD00AEEA2E /* Alternative.swift in Sources */,
-				BB3D233320CBB5DD00AEEA2E /* Reduce.swift in Sources */,
 				OBJ_172 /* MD5.swift in Sources */,
 				OBJ_174 /* main.swift in Sources */,
 			);
@@ -781,13 +900,10 @@
 				BB07CEBA20ADC40E00921AAE /* InterfaceNode.swift in Sources */,
 				BB07CEBB20ADC40E00921AAE /* MethodInvokeNode.swift in Sources */,
 				BB07CEBC20ADC40E00921AAE /* MethodNode.swift in Sources */,
-				BB3D233A20CBB5DD00AEEA2E /* Applicative.swift in Sources */,
 				BB07CEBD20ADC40E00921AAE /* ProtocolNode.swift in Sources */,
 				BB86F21520BA7BB700EB5D45 /* SwiftExtensionParser.swift in Sources */,
 				BB07CEBE20ADC40E00921AAE /* DotGenerator.swift in Sources */,
 				BB07CEBF20ADC40E00921AAE /* Executor.swift in Sources */,
-				BB07CEC220ADC40E00921AAE /* Extensions.swift in Sources */,
-				BB3D233620CBB5DD00AEEA2E /* Parser.swift in Sources */,
 				BB07CEC520ADC40E00921AAE /* Transformer.swift in Sources */,
 				BB07CEC620ADC40E00921AAE /* ConcreteParserType.swift in Sources */,
 				BB07CEC720ADC40E00921AAE /* TokenParser.swift in Sources */,
@@ -798,19 +914,13 @@
 				BB07CECC20ADC40E00921AAE /* ObjcMethodParser.swift in Sources */,
 				BB07CECD20ADC40E00921AAE /* SwiftClassParser.swift in Sources */,
 				BB07CECE20ADC40E00921AAE /* SwiftInvokeParser.swift in Sources */,
-				BB3D233020CBB5DD00AEEA2E /* Operators.swift in Sources */,
 				BB07CECF20ADC40E00921AAE /* SwiftMethodParser.swift in Sources */,
-				BB3D233C20CBB5DD00AEEA2E /* Functor.swift in Sources */,
 				BB07CED020ADC40E00921AAE /* SwiftParser.swift in Sources */,
 				BB07CED120ADC40E00921AAE /* SwiftProtocolParser.swift in Sources */,
 				BB07CED220ADC40E00921AAE /* CommandLine.swift in Sources */,
 				BB07CED320ADC40E00921AAE /* Option.swift in Sources */,
 				BB07CED420ADC40E00921AAE /* StringExtensions.swift in Sources */,
-				BB3D233820CBB5DD00AEEA2E /* Monad.swift in Sources */,
-				BB3D232E20CBB5DD00AEEA2E /* Alternative.swift in Sources */,
-				BB3D233E20CBB5DD00AEEA2E /* PriorityDefine.swift in Sources */,
 				BB07CED920ADC40E00921AAE /* Curry.swift in Sources */,
-				BB3D233220CBB5DD00AEEA2E /* Reduce.swift in Sources */,
 				BB07CEDF20ADC40E00921AAE /* MD5.swift in Sources */,
 				OBJ_97 /* CombinatorTest.swift in Sources */,
 				OBJ_98 /* ImplementationTest.swift in Sources */,
@@ -826,7 +936,6 @@
 				OBJ_102 /* SwiftClassParserTest.swift in Sources */,
 				BB07CEAC20ADC20B00921AAE /* String+Extension.swift in Sources */,
 				BB07CEA520ADBE0000921AAE /* FileParser.swift in Sources */,
-				BB3D233420CBB5DD00AEEA2E /* Plus.swift in Sources */,
 				BBEDC25D20B00AF00006DC8A /* AutoCodable.swift in Sources */,
 				OBJ_103 /* SwiftMethodInvokeTest.swift in Sources */,
 				OBJ_104 /* SwiftMethodTest.swift in Sources */,
@@ -864,6 +973,7 @@
 /* Begin XCBuildConfiguration section */
 		OBJ_113 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3EB703B5295B01926E2FB8F8 /* Pods-PathKit.debug.xcconfig */;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -887,6 +997,7 @@
 		};
 		OBJ_114 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB0344BC89CB0D775376792A /* Pods-PathKit.release.xcconfig */;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -910,6 +1021,7 @@
 		};
 		OBJ_120 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5C6BA3B357FA5284D9EB6A47 /* Pods-PathKitPackageDescription.debug.xcconfig */;
 			buildSettings = {
 				LD = /usr/bin/true;
 				OTHER_SWIFT_FLAGS = "-swift-version 4 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
@@ -919,6 +1031,7 @@
 		};
 		OBJ_121 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B06B3751BCCA15B8E90E3631 /* Pods-PathKitPackageDescription.release.xcconfig */;
 			buildSettings = {
 				LD = /usr/bin/true;
 				OTHER_SWIFT_FLAGS = "-swift-version 4 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
@@ -928,6 +1041,7 @@
 		};
 		OBJ_125 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71C7008AE31F065CA7E6FAB9 /* Pods-drafter.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -948,6 +1062,7 @@
 		};
 		OBJ_126 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 12ECCC12C50E5475D635C05E /* Pods-drafter.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -968,6 +1083,7 @@
 		};
 		OBJ_180 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1BD7FBDA73CBF11FBB4629C7 /* Pods-drafterPackageDescription.debug.xcconfig */;
 			buildSettings = {
 				LD = /usr/bin/true;
 				OTHER_SWIFT_FLAGS = "-swift-version 4 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
@@ -977,6 +1093,7 @@
 		};
 		OBJ_181 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F41AC8682BD959F047F8A34 /* Pods-drafterPackageDescription.release.xcconfig */;
 			buildSettings = {
 				LD = /usr/bin/true;
 				OTHER_SWIFT_FLAGS = "-swift-version 4 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
@@ -1040,6 +1157,7 @@
 		};
 		OBJ_94 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 483D3E90D947238095902350 /* Pods-DrafterTests.debug.xcconfig */;
 			buildSettings = {
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1059,6 +1177,7 @@
 		};
 		OBJ_95 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 14A91E45681349D9CD19CFC9 /* Pods-DrafterTests.release.xcconfig */;
 			buildSettings = {
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (

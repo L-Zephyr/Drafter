@@ -7,13 +7,14 @@
 //
 
 import Foundation
+import SwiftyParse
 
 // AST节点
 protocol Node: AutoCodable {
     
 }
 
-// 具体的Parser类型
+// 具体的Parser类型，解析特定的语法结构，对TokenParser封装
 protocol ConcreteParserType {
     associatedtype T
     var parser: Parser<T, Tokens> { get }

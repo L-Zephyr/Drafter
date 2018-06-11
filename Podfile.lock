@@ -1,0 +1,21 @@
+PODS:
+  - SwiftyParse/Core (0.1.0)
+
+DEPENDENCIES:
+  - SwiftyParse/Core (from `https://github.com/L-Zephyr/SwiftyParse.git`)
+
+EXTERNAL SOURCES:
+  SwiftyParse:
+    :git: https://github.com/L-Zephyr/SwiftyParse.git
+
+CHECKOUT OPTIONS:
+  SwiftyParse:
+    :commit: 933dfdafe0218bb2d3a468f9855a9f7b6bd93d1d
+    :git: https://github.com/L-Zephyr/SwiftyParse.git
+
+SPEC CHECKSUMS:
+  SwiftyParse: b41595b1e661594a495c99b4c4fd98d5f0867f4c
+
+PODFILE CHECKSUM: 0863a507c612f3c4ffeea4e987922314fc5ef07e
+
+COCOAPODS: 1.5.0

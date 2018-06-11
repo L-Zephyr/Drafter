@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import SwiftyParse
 
 class ImplementationParser: ConcreteParserType {
     var parser: TokenParser<[ImplementationNode]> {
