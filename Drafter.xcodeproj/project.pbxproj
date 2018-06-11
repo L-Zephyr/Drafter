@@ -180,7 +180,6 @@
 		BB07CEAD20ADC37400921AAE /* SourceLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SourceLexer.swift; path = Sources/Drafter/Lexer/SourceLexer.swift; sourceTree = SOURCE_ROOT; };
 		BB07CEAF20ADC37E00921AAE /* TokenLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenLexer.swift; sourceTree = "<group>"; };
 		BB07CEE020ADC44700921AAE /* FileParserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileParserResult.swift; path = Sources/Drafter/Parser/FileParserResult.swift; sourceTree = SOURCE_ROOT; };
-		BB3D234420CBC3E700AEEA2E /* Runes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Runes.swift; path = Sources/Drafter/Thirdparty/Runes/Runes.swift; sourceTree = SOURCE_ROOT; };
 		BB3D234720CC17EF00AEEA2E /* SwiftExtensionParserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExtensionParserTest.swift; sourceTree = "<group>"; };
 		BB86F20E20BA567900EB5D45 /* ExtensionNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionNode.swift; path = Sources/Drafter/AST/Swift/ExtensionNode.swift; sourceTree = SOURCE_ROOT; };
 		BB86F21120BA568500EB5D45 /* SwiftTypeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftTypeNode.swift; sourceTree = "<group>"; };
@@ -463,7 +462,6 @@
 		OBJ_54 /* Runes */ = {
 			isa = PBXGroup;
 			children = (
-				BB3D234420CBC3E700AEEA2E /* Runes.swift */,
 				OBJ_60 /* Curry.swift */,
 			);
 			path = Runes;
