@@ -9,7 +9,7 @@ import Foundation
 import PathKit
 
 /*
- FileParser并没有继承自ParserType，它整合了底层所有Parser并对所有类型的源文件提供一致的接口（Facade模式），
+ FileParser并没有继承自ConcreteParserType，它整合了底层所有ConcreteParser并对所有类型的源文件提供一致的接口（Facade模式），
  封装了将一个源码文件解析成FileParserResult的过程，并缓存结果
  */
 class FileParser {

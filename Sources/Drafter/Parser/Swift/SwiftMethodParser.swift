@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import SwiftyParse
 
-class SwiftMethodParser: ParserType {
+class SwiftMethodParser: ConcreteParserType {
     
-    var parser: Parser<[MethodNode]> {
+    var parser: TokenParser<[MethodNode]> {
         return methodDef.continuous
     }
 }
@@ -21,12 +22,12 @@ extension SwiftMethodParser {
     /**
      method_definition  = is_static 'func' NAME ‘(' param_list ')' return_type method_body
      */
-    var methodDef: Parser<MethodNode> {
+    var methodDef: TokenParser<MethodNode> {
         return curry(MethodNode.swiftInit)
             <^> isStatic
             <*> methodName
             <*> paramList.between(token(.leftParen), token(.rightParen))
-            <*> trying(modifier) *> retType
+            <*> modifiers *> retType
             <*> ({ SwiftInvokeParser().parser.run($0) ?? [] } <^> body)
     }
 
@@ -34,7 +35,7 @@ extension SwiftMethodParser {
     /**
      is_static = ('class' | 'static')
      */
-    var isStatic: Parser<Bool> {
+    var isStatic: TokenParser<Bool> {
         return (token(.cls) <|> token(.statical)) *> pure(true)
             <|> pure(false)
     }
@@ -43,7 +44,7 @@ extension SwiftMethodParser {
     /**
      method_name = 'func' NAME | 'init`
      */
-    var methodName: Parser<String> {
+    var methodName: TokenParser<String> {
         return token(.function) *> token(.name) => stringify
             <|> token(.`init`) *> pure("init")
     }
@@ -52,27 +53,27 @@ extension SwiftMethodParser {
     /**
      param_list = (param (',' param)*)?
      */
-    var paramList: Parser<[Param]> {
-        return param.separateBy(token(.comma)) // 参数
+    var paramList: TokenParser<[Param]> {
+        return param.sepBy(token(.comma)) // 参数
     }
     
     /// 参数
     /**
      param = ('_' | NAME)? NAME ':' param_type default_val
      */
-    var param: Parser<Param> {
+    var param: TokenParser<Param> {
         let outter = token(.underline) *> pure("") // "_ param:"
-            <|> lookAhead(token(.name) <* token(.colon)) => stringify // "param:"
+            <|> (token(.name) <* token(.colon)).lookahead => stringify // "param:"
             <|> token(.name) => stringify // "outter inner:"
         
         return curry(Param.swiftInit)
             <^> outter
             <*> token(.name) <* token(.colon) => stringify
-            <*> trying(modifier) *> type <* trying(defaultValue)
+            <*> modifiers *> type <* defaultValue.try
     }
     
     /// 解析参数的默认值: "= xx"
-    var defaultValue: Parser<[Token]> {
+    var defaultValue: TokenParser<[Token]> {
         return token(.equal) *> anyOpenTokens(until: token(.comma) <|> token(.rightParen))
     }
 
@@ -80,32 +81,32 @@ extension SwiftMethodParser {
     /**
      return_type = (-> type)?
      */
-    var retType: Parser<String> {
-        return lookAhead(token(.rightArrow)) *> token(.rightArrow) *> type
+    var retType: TokenParser<String> {
+        return token(.rightArrow).lookahead *> token(.rightArrow) *> type
             <|> pure("")
     }
     
     /// 解析一个类型声明
-    var type: Parser<String> {
+    var type: TokenParser<String> {
         // 泛型
         let generic = anyTokens(inside: token(.leftAngle), and: token(.rightAngle))
         
         // 匹配一个独立的类型
         let singleType =
             anyEnclosedTokens => joinedText // (..)、[..]
-            <|> token(.name).separateBy(token(.dot)) <* trying(generic) => joinedText // xx.xx<T>
+            <|> token(.name).sepBy(token(.dot)) <* generic.try => joinedText // xx.xx<T>
         
-        return singleType.separateBy(token(.rightArrow)) => joinedText("->") // (xx)->xx...
+        return singleType.sepBy(token(.rightArrow)) => joinedText("->") // (xx)->xx...
     }
 
     /// 函数体定义
-    var body: Parser<[Token]> {
+    var body: TokenParser<[Token]> {
         return anyTokens(inside: token(.leftBrace), and: token(.rightBrace))
     }
     
     /// 处理swift方法中的修饰符: @autoclosure, inout, rethrow等
-    var modifier: Parser<[Token]> {
-        return ( token(.autoclosure) <|> token(.`inout`) <|> token(.`throw`) <|> token(.escaping) ).many
+    var modifiers: TokenParser<[Token]> {
+        return (token(.autoclosure) <|> token(.`inout`) <|> token(.`throw`) <|> token(.escaping)).many
     }
 }
 

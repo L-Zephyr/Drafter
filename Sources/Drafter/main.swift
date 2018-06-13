@@ -52,7 +52,7 @@ if version.value {
 
 // 必须指定文件路径
 guard let paths = filePath.value else {
-    print("Error: File path was missing!")
+    print("Error: File path was missing!\n")
     cli.printUsage()
     exit(EX_USAGE)
 }

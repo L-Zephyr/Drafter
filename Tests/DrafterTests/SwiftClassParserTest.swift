@@ -60,8 +60,7 @@ class SwiftClassParserTest: XCTestCase {
     
     func testClassWithExtension() {
         let input = """
-        class MyClass<T, A>: Super {}
-        extension MyClass: Proto1 {}
+        class MyClass<T, A>: Super, Proto1, Proto2 {}
         """
         let tokens = SourceLexer(input: input, isSwift: true).allTokens
         guard let cls = SwiftClassParser().parser.run(tokens) else {
@@ -72,7 +71,7 @@ class SwiftClassParserTest: XCTestCase {
         XCTAssert(cls.count == 1)
         XCTAssert(cls[0].className == "MyClass")
         XCTAssert(cls[0].superCls! == "Super")
-        XCTAssert(cls[0].protocols == ["Proto1"])
+        XCTAssert(cls[0].protocols == ["Proto1", "Proto2"])
     }
     
 //    func testXXX() {

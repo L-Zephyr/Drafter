@@ -18,6 +18,15 @@
           "revision": "e34d5687e1e9d865e3527dd58bc2f7464ef6d936",
           "version": "0.8.0"
         }
+      },
+      {
+        "package": "SwiftyParse",
+        "repositoryURL": "https://github.com/L-Zephyr/SwiftyParse.git",
+        "state": {
+          "branch": null,
+          "revision": "b0cdef43e7659e3f51bc86384a303d709b9ab68e",
+          "version": "0.1.0"
+        }
       }
     ]
   },

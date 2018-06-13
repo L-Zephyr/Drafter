@@ -6,15 +6,16 @@ import PackageDescription
 let package = Package(
     name: "drafter",
     dependencies: [
-        .package(url: "https://github.com/kylef/PathKit.git", from: "0.9.1")
+        .package(url: "https://github.com/kylef/PathKit.git", from: "0.9.1"),
+        .package(url: "https://github.com/L-Zephyr/SwiftyParse.git", from: "0.1.0"),
     ],
     targets: [
         .target(
             name: "drafter",
-            dependencies: ["PathKit"]),
+            dependencies: ["SwiftyParse", "PathKit"]),
         .testTarget(
             name: "DrafterTests",
-            dependencies: ["drafter"]
+            dependencies: ["drafter", "SwiftyParse"]
         ),
     ]
 )

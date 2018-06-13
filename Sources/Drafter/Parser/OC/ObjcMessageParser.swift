@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import SwiftyParse
 
-class ObjcMessageParser: ParserType {
+class ObjcMessageParser: ConcreteParserType {
     
-    var parser: Parser<[MethodInvokeNode]> {
+    var parser: TokenParser<[MethodInvokeNode]> {
         return messageSend.continuous.map({ (methods) -> [MethodInvokeNode] in
             var result = methods
             for method in methods {
@@ -28,7 +29,7 @@ extension ObjcMessageParser {
     /**
      message_send = '[' receiver param_selector ']'
      */
-    var messageSend: Parser<MethodInvokeNode> {
+    var messageSend: TokenParser<MethodInvokeNode> {
         let msg = curry(MethodInvokeNode.ocInit)
             <^> receiver
             <*> paramSelector
@@ -40,7 +41,7 @@ extension ObjcMessageParser {
     /**
      receiver = message_send | NAME
      */
-    var receiver: Parser<MethodInvoker> {
+    var receiver: TokenParser<MethodInvoker> {
         return  lazy(self.messageSend) => toMethodInvoker()
             <|> token(.name) => toMethodInvoker()
             <?> "receiver解析失败"
@@ -50,7 +51,7 @@ extension ObjcMessageParser {
     /**
      param_selector = param_list | NAME
      */
-    var paramSelector: Parser<[InvokeParam]> {
+    var paramSelector: TokenParser<[InvokeParam]> {
         return paramList
             <|> { [InvokeParam(name: $0.text, invokes: [])] } <^> token(.name)
             <?> "param_selector解析失败"
@@ -60,22 +61,22 @@ extension ObjcMessageParser {
     /**
      param_list = (param)+
      */
-    var paramList: Parser<[InvokeParam]> {
-        return param.many <?> "param_list解析失败"
+    var paramList: TokenParser<[InvokeParam]> {
+        return param.many1 <?> "param_list解析失败"
     }
     
     /// 参数
     /**
      param = NAME ':' param_body
      */
-    var param: Parser<InvokeParam> {
+    var param: TokenParser<InvokeParam> {
         return curry(InvokeParam.init)
             <^> (curry({ "\($0.text)\($1.text)" }) <^> token(.name) <*> token(.colon))
             <*> paramBody
     }
     
     /// 解析具体参数内容，参数中的方法调用也解析出来
-    var paramBody: Parser<[MethodInvokeNode]> {
+    var paramBody: TokenParser<[MethodInvokeNode]> {
         return { lazy(self.messageSend).continuous.run($0) ?? [] }
             <^> anyOpenTokens(until: token(.rightSquare) <|> token(.name) *> token(.colon))
     }

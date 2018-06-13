@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftyParse
 
 fileprivate enum Intermediate {
     case proto(ProtocolNode)
@@ -31,8 +32,8 @@ extension Array where Element == Intermediate {
 // MARK: - SwiftParser
 
 // 在一个pass中将所有的Class和Protocol节点解析出来
-class SwiftParser: ParserType {
-    var parser: Parser<([ProtocolNode], [ClassNode])> {
+class SwiftParser: ConcreteParserType {
+    var parser: TokenParser<([ProtocolNode], [ClassNode])> {
         // 合并protocol和class的解析结果
         return inheritParser.map { (result) -> ([ProtocolNode], [ClassNode]) in
             var (protocols, classes) = result.separate()
@@ -54,7 +55,7 @@ class SwiftParser: ParserType {
 }
 
 fileprivate extension SwiftParser {
-    var inheritParser: Parser<[Intermediate]> {
+    var inheritParser: TokenParser<[Intermediate]> {
         let intermediate =
             curry(Intermediate.proto) <^> SwiftProtocolParser().protocolParser
             <|> curry(Intermediate.cls) <^> SwiftClassParser().classParser

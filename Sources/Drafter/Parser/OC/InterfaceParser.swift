@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import SwiftyParse
 
 // 解析OC中的Interface定义
-class InterfaceParser: ParserType {
-    var parser: Parser<[InterfaceNode]> {
+class InterfaceParser: ConcreteParserType {
+    var parser: TokenParser<[InterfaceNode]> {
 //        return curry({ $0.merged() }) <^> (categoryParser <|> classParser).continuous
         return (categoryParser <|> classParser).continuous
     }
@@ -17,9 +18,9 @@ class InterfaceParser: ParserType {
 
 // MARK: - 类型转换
 
-extension Parser where T == Array<InterfaceNode> {
+extension Parser where Result == Array<InterfaceNode>, Stream == Tokens {
     // 将结果直接转换成ClassNode类型
-    var toClassNode: Parser<[ClassNode]> {
+    var toClassNode: TokenParser<[ClassNode]> {
         return self.map { (interfaces) -> [ClassNode] in
             let clsNodes = interfaces.map { ClassNode(interface: $0) }
             return clsNodes.merged()
@@ -37,15 +38,15 @@ extension InterfaceParser {
      className = NAME
      protocols = '<' NAME (',' NAME)* '>' | ''
      */
-    var classParser: Parser<InterfaceNode> {
+    var classParser: TokenParser<InterfaceNode> {
         let lAngle = token(.leftAngle)
         let rAngle = token(.rightAngle)
         
         // @interface xx : xx <xx, xx>
         let parser = curry(InterfaceNode.init)
             <^> token(.interface) *> token(.name) => stringify // 类名
-            <*> trying (token(.colon) *> token(.name)) => stringify // 父类名
-            <*> trying (token(.name).separateBy(token(.comma)).between(lAngle, rAngle)) => stringify // 协议
+            <*> (token(.colon) *> token(.name)).try => stringify // 父类名
+            <*> (token(.name).sepBy(token(.comma)).between(lAngle, rAngle)).try => stringify // 协议
         return parser
     }
     
@@ -55,7 +56,7 @@ extension InterfaceParser {
      className = NAME
      protocols = '<' NAME (',' NAME)* '>' | ''
      */
-    var categoryParser: Parser<InterfaceNode> {
+    var categoryParser: TokenParser<InterfaceNode> {
         let lParen = token(.leftParen)
         let rParen = token(.rightParen)
         let lAngle = token(.leftAngle)
@@ -64,7 +65,7 @@ extension InterfaceParser {
         // @interface xx(xx?) <xx, xx>
         return curry(InterfaceNode.init)
             <^> token(.interface) *> token(.name) => stringify
-            <*> trying(token(.name)).between(lParen, rParen) *> pure(nil) // 分类的名字是可选项, 忽略结果
-            <*> trying(token(.name).separateBy(token(.comma)).between(lAngle, rAngle)) => stringify // 协议列表
+            <*> (token(.name)).try.between(lParen, rParen) *> pure(nil) // 分类的名字是可选项, 忽略结果
+            <*> (token(.name).sepBy(token(.comma)).between(lAngle, rAngle)).try => stringify // 协议列表
     }
 }

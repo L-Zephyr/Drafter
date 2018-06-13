@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import SwiftyParse
 
 // MARK: - SwiftClassParser
 
-class SwiftClassParser: ParserType {
-    var parser: Parser<[ClassNode]> {
+class SwiftClassParser: ConcreteParserType {
+    var parser: TokenParser<[ClassNode]> {
         return curry({ $0.merged() }) <^> classParser.continuous
     }
 }
@@ -19,34 +20,21 @@ class SwiftClassParser: ParserType {
 
 extension SwiftClassParser {
     
-    var classParser: Parser<ClassNode> {
-        return classDef <|> extensionDef
+    var classParser: TokenParser<ClassNode> {
+        return classDef
     }
     
     /// 解析class和struct的定义
     /**
      class_definition = 'class' NAME generics_type? super_class? ',' protocols?
      */
-    var classDef: Parser<ClassNode> {
+    var classDef: TokenParser<ClassNode> {
         // TODO: 区分struct和class
         return curry(ClassNode.init)
             <^> pure(true)
-            <*> (token(.cls) <|> token(.structure)) *> token(.name) <* trying (genericType) => stringify // 类名
-            <*> trying (superCls) => stringify // 父类
-            <*> trying (token(.comma) *> protocols) => stringify // 协议列表
-            <*> anyTokens(inside: token(.leftBrace), and: token(.rightBrace)).map { SwiftMethodParser().parser.run($0) ?? [] } // 方法
-    }
-    
-    /// 解析extension定义
-    /**
-     extension_definition = 'extension' NAME (':' protocols)?
-     */
-    var extensionDef: Parser<ClassNode> {
-        return curry(ClassNode.init)
-            <^> pure(true)
-            <*> token(.exten) *> token(.name) => stringify
-            <*> pure(nil)
-            <*> trying (token(.colon) *> protocols) => stringify
+            <*> (token(.cls) <|> token(.structure)) *> token(.name) <* genericType.try => stringify // 类名
+            <*> superCls.try => stringify // 父类
+            <*> (token(.comma) *> protocols).try => stringify // 协议列表
             <*> anyTokens(inside: token(.leftBrace), and: token(.rightBrace)).map { SwiftMethodParser().parser.run($0) ?? [] } // 方法
     }
     
@@ -54,7 +42,7 @@ extension SwiftClassParser {
     /**
       generics_type = '<' ANY '>'
      */
-    var genericType: Parser<String> {
+    var genericType: TokenParser<String> {
         return anyTokens(inside: token(.leftAngle), and: token(.rightAngle)) *> pure("")
     }
     
@@ -62,7 +50,7 @@ extension SwiftClassParser {
     /**
      super_class = ':' NAME
      */
-    var superCls: Parser<Token> {
+    var superCls: TokenParser<Token> {
         return token(.colon) *> token(.name)
     }
     
@@ -70,7 +58,8 @@ extension SwiftClassParser {
     /**
      protocols = NAME (',' NAME)*
      */
-    var protocols: Parser<[Token]> {
-        return token(.name).separateBy(token(.comma))
+    var protocols: TokenParser<[Token]> {
+        return token(.name).sepBy(token(.comma))
     }
 }
+
