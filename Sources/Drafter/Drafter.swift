@@ -38,24 +38,6 @@ class Drafter {
                     }
                     return path.files
                 }
-//
-//            for path in pathValues {
-//                var isDir: ObjCBool = ObjCBool.init(false)
-//                if FileManager.default.fileExists(atPath: path, isDirectory: &isDir) {
-//                    // 如果是文件夹则遍历所有文件
-//                    if isDir.boolValue, let enumerator = FileManager.default.enumerator(atPath: path) {
-//                        while let file = enumerator.nextObject() as? String {
-//                            if supported(file) {
-//                                files.append("\(path)/\(file)")
-//                            }
-//                        }
-//                    } else {
-//                        files = [path]
-//                    }
-//                } else {
-//                    print("File: \(path) not exist")
-//                }
-//            }
         }
     }
     
