@@ -24,6 +24,11 @@ enum DraftOutputType: String {
 // 命令行参数解析
 let filePath = StringOption("f", "file", false, "The file or directory to be parsed, supported: .h and .m. Multiple arguments are separated by commas.")
 
+let version = BoolOption("v", "version", false, "Print Drafter version")
+
+let disableAutoOpen = BoolOption("disable-auto-open", "disable-auto-open", false, "Do not browse the result automatically when analysis finished. Default by false")
+
+// Deprecated
 let output = EnumOption<DraftOutputType>(shortFlag: "t", longFlag: "type", required: false, helpMessage: "The output type. Choose 'html' to generate a html page, choose 'png' to generate a picture. Defaults to 'html'")
 
 let mode = EnumOption<DraftMode>(shortFlag: "m", longFlag: "mode", required: false, helpMessage: "The parsing mode. Assign 'invoke' will generate call graph, assign 'inherit' will generate class inheritance graph, or 'both' to do both call and inheritance analysis. Defaults to 'invoke'")
@@ -32,10 +37,8 @@ let search = StringOption("s", "search", false, "Specify a keyword, the generate
 
 let selfOnly = BoolOption("self", "self-method-only", false, "Only contains the methods defined in the user code")
 
-let version = BoolOption("v", "version", false, "Print Drafter version")
-
 let cli = CommandLine()
-cli.addOptions(filePath, output, mode, search, selfOnly, version)
+cli.addOptions(filePath, disableAutoOpen, output, mode, search, selfOnly, version)
 
 do {
     try cli.parse()
@@ -63,4 +66,5 @@ drafter.outputType = output.value ?? .html
 drafter.mode = mode.value ?? .invokeGraph
 drafter.selfOnly = selfOnly.value
 drafter.paths = paths
+drafter.disableAutoOpen = disableAutoOpen.value
 drafter.craft()

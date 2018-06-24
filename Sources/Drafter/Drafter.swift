@@ -21,6 +21,10 @@ class Drafter {
     var outputType: DraftOutputType = .html
     var keywords: [String] = []
     var selfOnly: Bool = false // 只包含定义在用户代码中的方法节点
+    var disableAutoOpen: Bool = false // 解析完成不要自动打开结果
+    
+    /// 等待处理的所有源文件
+    fileprivate var files: [Path] = []
     
     /// 待解析的文件或文件夹, 目前只支持.h、.m和.swift文件
     var paths: String = "" {
@@ -60,45 +64,6 @@ class Drafter {
     
     // MARK: - Private
     
-    /// 等待处理的所有源文件
-    fileprivate var files: [Path] = []
-    
-    fileprivate func craftInheritGraph() {
-        // TODO: 重构
-        var (classes, protocols) = ParserRunner.runner.parseInerit(files: files)
-
-        // 过滤、生成结果
-        classes = classes.filter({ $0.className.contains(keywords) })
-        protocols = protocols.filter({ $0.name.contains(keywords) })
-
-        let resultPath = DotGenerator.generate(classes: classes, protocols: protocols, filePath: "Inheritance")
-
-        // Log result
-        for node in classes {
-            print(node)
-        }
-        
-        Executor.execute("open", resultPath, help: "Auto open failed")
-    }
-    
-    /// 生成方法调用关系图
-    fileprivate func craftinvokeGraph() {
-        // TODO: 重构
-        // 1. 解析每个文件中的方法
-        let results = ParserRunner.runner.parseMethods(files: files)
-        
-        // 2. 过滤、生成结果
-        var outputFiles = [String]()
-        for (file, nodes) in results {
-            outputFiles.append(DotGenerator.generate(filted(nodes), filePath: file))
-        }
-        
-        // 如果只有一张图片则自动打开
-        if outputFiles.count == 1 {
-            Executor.execute("open", outputFiles[0], help: "Auto open failed")
-        }
-    }
-    
     /// 解析所有输入并生成一个HTML的输出
     func craftHTML() {
         // TODO: 重构
@@ -118,7 +83,7 @@ class Drafter {
             print("Fail to generate json data!")
             return
         }
-                
+        
         // 目标输出位置
         let targetFolder = "./\(OutputFolder)"
         let targetHtml = "\(targetFolder)/index.html"
@@ -157,7 +122,50 @@ class Drafter {
         print("Parse result save to './DrafterStage/index.html'")
         
         // 自动打开网页
-        Executor.execute("open", targetHtml, help: "Auto open failed")
+        if !disableAutoOpen {
+            Executor.execute("open", targetHtml, help: "Auto open failed")
+        }
+    }
+}
+
+// MARK: - Deprecated
+
+fileprivate extension Drafter {
+    /// 生成类继承关系图
+    fileprivate func craftInheritGraph() {
+        var (classes, protocols) = ParserRunner.runner.parseInerit(files: files)
+        
+        // 过滤、生成结果
+        classes = classes.filter({ $0.className.contains(keywords) })
+        protocols = protocols.filter({ $0.name.contains(keywords) })
+        
+        let resultPath = DotGenerator.generate(classes: classes, protocols: protocols, filePath: "Inheritance")
+        
+        // Log result
+        for node in classes {
+            print(node)
+        }
+        
+        if !disableAutoOpen {
+            Executor.execute("open", resultPath, help: "Auto open failed")
+        }
+    }
+    
+    /// 生成方法调用关系图
+    fileprivate func craftinvokeGraph() {
+        // 1. 解析每个文件中的方法
+        let results = ParserRunner.runner.parseMethods(files: files)
+        
+        // 2. 过滤、生成结果
+        var outputFiles = [String]()
+        for (file, nodes) in results {
+            outputFiles.append(DotGenerator.generate(filted(nodes), filePath: file))
+        }
+        
+        // 如果只有一张图片则自动打开
+        if outputFiles.count == 1, !disableAutoOpen {
+            Executor.execute("open", outputFiles[0], help: "Auto open failed")
+        }
     }
 }
 
