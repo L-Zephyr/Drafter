@@ -62,6 +62,10 @@ drafter -f ./AFNetworking
 - **-f、—file \<arg>**   
   必要参数，指定一个文件或文件夹，多个参数之间用逗号分隔，切勿出现空格。
 
+- **-disable-auto-open**   
+
+  禁止解析结束后自动打开结果。
+
 - **-t、--type**  
 
   可选参数，指定结果的输出形式，参数值为html或png，默认为html。
@@ -158,6 +162,10 @@ In the browser you can interactively browse the Call Graph and the Class Dragram
 
 - **-f , —file \<arg>**   
   Required. Specify a file or folder, multiple parameters are separated by commas, don't use space.
+
+- **-disable-auto-open, --disable-auto-open**   
+
+  Do not browse the result automatically when analysis finished.
 
 - **-t , —type \<arg>**  
 

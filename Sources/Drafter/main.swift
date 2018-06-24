@@ -26,7 +26,7 @@ let filePath = StringOption("f", "file", false, "The file or directory to be par
 
 let version = BoolOption("v", "version", false, "Print Drafter version")
 
-let disableAutoOpen = BoolOption("disable-auto-open", "disable-auto-open", false, "Do not browse the result automatically when analysis finished. Default by false")
+let disableAutoOpen = BoolOption("disable-auto-open", "disable-auto-open", false, "Do not browse the result automatically when analysis finished.")
 
 // Deprecated
 let output = EnumOption<DraftOutputType>(shortFlag: "t", longFlag: "type", required: false, helpMessage: "The output type. Choose 'html' to generate a html page, choose 'png' to generate a picture. Defaults to 'html'")
