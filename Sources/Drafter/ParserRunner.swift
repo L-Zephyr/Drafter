@@ -123,10 +123,10 @@ extension ParserRunner {
         func parseSwiftClass(_ file: String) {
             print("Parsing \(file)...")
             let tokens = SourceLexer(file: file).allTokens
-            let (protos, cls) = SwiftParser().parser.run(tokens) ?? ([], [])
+            let types = SwiftTypeParser().parser.run(tokens) ?? []
             writeQueue.sync {
-                protocols.append(contentsOf: protos)
-                classes.merge(cls)
+                protocols.append(contentsOf: types.protocols)
+                classes.merge(types.classes)
             }
         }
         

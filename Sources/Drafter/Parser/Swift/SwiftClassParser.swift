@@ -20,6 +20,7 @@ class SwiftClassParser: ConcreteParserType {
 
 extension SwiftClassParser {
     
+    /// 解析单个Class节点
     var classParser: TokenParser<ClassNode> {
         return classDef
     }

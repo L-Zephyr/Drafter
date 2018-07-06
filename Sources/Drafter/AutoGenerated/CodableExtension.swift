@@ -171,11 +171,12 @@ extension ProtocolNode {
 
 }
 
-// MARK: - SwiftType Codable
-extension SwiftType {
+// MARK: - SwiftTypeNode Codable
+extension SwiftTypeNode {
     enum CodingKeys: String, CodingKey {
         case key
         case class_0
+        case protocol_0
         case extension_0
     }
     func encode(to encoder: Encoder) throws {
@@ -184,6 +185,9 @@ extension SwiftType {
             case .class(let val0):
                 try container.encode("`class`", forKey: .key)
                 try container.encode(val0, forKey: .class_0)
+            case .protocol(let val0):
+                try container.encode("`protocol`", forKey: .key)
+                try container.encode(val0, forKey: .protocol_0)
             case .extension(let val0):
                 try container.encode("`extension`", forKey: .key)
                 try container.encode(val0, forKey: .extension_0)
@@ -197,6 +201,10 @@ extension SwiftType {
         case "`class`":
             self = .`class`(
                 try container.decode(ClassNode.self, forKey: .class_0)
+            )
+        case "`protocol`":
+            self = .`protocol`(
+                try container.decode(ProtocolNode.self, forKey: .protocol_0)
             )
         default:
             self = .`extension`(

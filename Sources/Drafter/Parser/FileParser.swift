@@ -52,13 +52,13 @@ class FileParser {
         var result: FileParserResult
         if sourcePath.isSwift {
             let tokens = SourceLexer(file: sourcePath.string).allTokens
-            let (_, classes) = SwiftParser().parser.run(tokens) ?? ([],[]) // TODO
+            let types = SwiftTypeParser().parser.run(tokens) ?? []
             
             result = FileParserResult(md5: sourceMD5,
                                       drafterVersion: DrafterVersion,
                                       path: sourcePath.absolute().string,
                                       isSwift: true,
-                                      swiftClasses: classes,
+                                      swiftClasses: types.classes,
                                       interfaces: [],
                                       implementations: [])
         } else {

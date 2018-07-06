@@ -17,7 +17,7 @@ class SwiftExtensionParser: ConcreteParserType {
 
 extension SwiftExtensionParser {
     /**
-     解析swift的extension
+     解析单个extension节点
      extension_definition = 'extension' NAME (':' protocols)? condition extension_body
      */
     var extensionParser: TokenParser<ExtensionNode> {
