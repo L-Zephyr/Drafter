@@ -22,7 +22,7 @@ extension SwiftExtensionParser {
      */
     var extensionParser: TokenParser<ExtensionNode> {
         return curry(ExtensionNode.init)
-            <^> token(.name) => stringify
+            <^> token(.exten) *> token(.name) => stringify
             <*> (token(.colon) *> protocols).try => stringify
             <*> condition *> extensionBody
     }

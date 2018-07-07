@@ -138,7 +138,7 @@ extension MethodInvokeNode: Hashable {
     
     var swiftHashValue: Int {
         let paramSign = params.join(stringify: { (param) -> String in
-            return "\(param.name):"
+            return "\(param.name.count == 0 ? "_" : param.name):"
         }, separator: ",")
         let methodSign = "\(methodName)\(paramSign)"
         
