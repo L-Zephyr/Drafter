@@ -41,7 +41,6 @@ class FileParser {
             let cache = try? JSONDecoder().decode(FileParserResult.self, from: data) { // 有缓存
             
             if cache.drafterVersion == DrafterVersion && cache.md5 == sourceMD5 {
-                print("缓存命中")
                 return cache
             } else { // 缓存失效
                 return parseAndCache()
@@ -53,7 +52,6 @@ class FileParser {
     
     /// 缓存未命中，执行解析并缓存结果
     fileprivate func parseAndCache() -> FileParserResult {
-        print("缓存未命中")
         // 1. parse
         var result: FileParserResult
         if sourcePath.isSwift {
