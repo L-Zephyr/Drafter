@@ -22,6 +22,7 @@ class Drafter {
     var keywords: [String] = []
     var selfOnly: Bool = false // 只包含定义在用户代码中的方法节点
     var disableAutoOpen: Bool = false // 解析完成不要自动打开结果
+    var disableCache: Bool = false // 不使用缓存
     
     /// 等待处理的所有源文件
     fileprivate var files: [Path] = []
@@ -66,8 +67,7 @@ class Drafter {
     
     /// 解析所有输入并生成一个HTML的输出
     func craftHTML() {
-        // TODO: 重构
-        let classNodes = ParserRunner.runner.parse(files: files)
+        let classNodes = ParserRunner.runner.parse(files: files, usingCache: !disableCache)
         
         // 格式化
         var jsonString: String? = nil

@@ -26,7 +26,9 @@ let filePath = StringOption("f", "file", false, "The file or directory to be par
 
 let version = BoolOption("v", "version", false, "Print Drafter version")
 
-let disableAutoOpen = BoolOption("disable-auto-open", "disable-auto-open", false, "Do not browse the result automatically when analysis finished.")
+let disableAutoOpen = BoolOption("dao", "disable-auto-open", false, "Do not browse the result automatically when analysis finished.")
+
+let disableCache = BoolOption("dc", "disable-cache", false, "Disable cache in this running")
 
 // Deprecated
 let output = EnumOption<DraftOutputType>(shortFlag: "t", longFlag: "type", required: false, helpMessage: "The output type. Choose 'html' to generate a html page, choose 'png' to generate a picture. Defaults to 'html'")
@@ -38,7 +40,7 @@ let search = StringOption("s", "search", false, "Specify a keyword, the generate
 let selfOnly = BoolOption("self", "self-method-only", false, "Only contains the methods defined in the user code")
 
 let cli = CommandLine()
-cli.addOptions(filePath, disableAutoOpen, output, mode, search, selfOnly, version)
+cli.addOptions(filePath, disableAutoOpen, disableCache, output, mode, search, selfOnly, version)
 
 do {
     try cli.parse()
@@ -67,4 +69,5 @@ drafter.mode = mode.value ?? .invokeGraph
 drafter.selfOnly = selfOnly.value
 drafter.paths = paths
 drafter.disableAutoOpen = disableAutoOpen.value
+drafter.disableCache = disableCache.value
 drafter.craft()

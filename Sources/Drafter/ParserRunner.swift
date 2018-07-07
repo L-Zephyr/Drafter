@@ -14,7 +14,7 @@ class ParserRunner {
     
     static let runner = ParserRunner()
 
-    func parse(files: [Path]) -> [ClassNode] {
+    func parse(files: [Path], usingCache: Bool = true) -> [ClassNode] {
         let ocFiles = files.filter { $0.isObjc }
         let swiftFiles = files.filter { $0.isSwift }
         
@@ -29,7 +29,7 @@ class ParserRunner {
             print("Parsing: \(file.lastComponent)")
             semaphore.wait()
             DispatchQueue.global().async {
-                if let result = FileParser(file).run() {
+                if let result = FileParser(file).run(usingCache) {
                     results.append(result)
                 }
                 self.semaphore.signal()
@@ -41,7 +41,7 @@ class ParserRunner {
             print("Parsing: \(file.lastComponent)")
             semaphore.wait()
             DispatchQueue.global().async {
-                if let result = FileParser(file).run() {
+                if let result = FileParser(file).run(usingCache) {
                     results.append(result)
                 }
                 self.semaphore.signal()
