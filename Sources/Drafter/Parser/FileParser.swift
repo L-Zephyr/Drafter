@@ -54,11 +54,13 @@ class FileParser {
             let tokens = SourceLexer(file: sourcePath.string).allTokens
             let types = SwiftTypeParser().parser.run(tokens) ?? []
             
+            print("Types \(types.count) ")
+            
             result = FileParserResult(md5: sourceMD5,
                                       drafterVersion: DrafterVersion,
                                       path: sourcePath.absolute().string,
                                       isSwift: true,
-                                      swiftClasses: types.classes,
+                                      swiftTypes: types,
                                       interfaces: [],
                                       implementations: [])
         } else {
@@ -70,7 +72,7 @@ class FileParser {
                                       drafterVersion: DrafterVersion,
                                       path: sourcePath.absolute().string,
                                       isSwift: false,
-                                      swiftClasses: [],
+                                      swiftTypes: [],
                                       interfaces: interface,
                                       implementations: imp)
         }

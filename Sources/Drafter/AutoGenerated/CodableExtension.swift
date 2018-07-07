@@ -37,7 +37,7 @@ extension FileParserResult {
         case drafterVersion 
         case path 
         case isSwift 
-        case swiftClasses 
+        case swiftTypes 
         case interfaces 
         case implementations 
     }
@@ -48,7 +48,7 @@ extension FileParserResult {
         drafterVersion = try container.decode(String.self, forKey: .drafterVersion)
         path = try container.decode(String.self, forKey: .path)
         isSwift = try container.decode(Bool.self, forKey: .isSwift)
-        swiftClasses = try container.decode([ClassNode].self, forKey: .swiftClasses)
+        swiftTypes = try container.decode([SwiftTypeNode].self, forKey: .swiftTypes)
         interfaces = try container.decode([InterfaceNode].self, forKey: .interfaces)
         implementations = try container.decode([ImplementationNode].self, forKey: .implementations)
     }

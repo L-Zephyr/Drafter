@@ -79,7 +79,6 @@
 		BBEDC25D20B00AF00006DC8A /* AutoCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEDC25C20B00AF00006DC8A /* AutoCodable.swift */; };
 		BBEDC25E20B00AF00006DC8A /* AutoCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEDC25C20B00AF00006DC8A /* AutoCodable.swift */; };
 		C24DE550A3814E2E2D82CC12 /* Pods_PathKitPackageDescription.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC86D8D4FD48559A55FC17B8 /* Pods_PathKitPackageDescription.framework */; };
-		CBF1436D2267047AE9C550DD /* Pods_PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E0A817117E56296194E76DA /* Pods_PathKit.framework */; };
 		CF4E1F02BF51263346C041A6 /* Pods_drafter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EAFC62709AC963D7948F7CF /* Pods_drafter.framework */; };
 		EDA03BDDA7945D204961E429 /* Pods_DrafterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F42C84691EC643693D1F8CB /* Pods_DrafterTests.framework */; };
 		OBJ_100 /* OCMethodTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_76 /* OCMethodTest.swift */; };
@@ -88,9 +87,6 @@
 		OBJ_103 /* SwiftMethodInvokeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_79 /* SwiftMethodInvokeTest.swift */; };
 		OBJ_104 /* SwiftMethodTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_80 /* SwiftMethodTest.swift */; };
 		OBJ_105 /* SwiftProtocolParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_81 /* SwiftProtocolParserTest.swift */; };
-		OBJ_107 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "PathKit::PathKit::Product" /* PathKit.framework */; };
-		OBJ_116 /* PathKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_87 /* PathKit.swift */; };
-		OBJ_123 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_86 /* Package.swift */; };
 		OBJ_128 /* ClassNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* ClassNode.swift */; };
 		OBJ_129 /* ImplementationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* ImplementationNode.swift */; };
 		OBJ_130 /* InterfaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* InterfaceNode.swift */; };
@@ -120,7 +116,6 @@
 		OBJ_166 /* Curry.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_60 /* Curry.swift */; };
 		OBJ_172 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* MD5.swift */; };
 		OBJ_174 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_70 /* main.swift */; };
-		OBJ_176 /* PathKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "PathKit::PathKit::Product" /* PathKit.framework */; };
 		OBJ_183 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_97 /* CombinatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_73 /* CombinatorTest.swift */; };
 		OBJ_98 /* ImplementationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_74 /* ImplementationTest.swift */; };
@@ -128,26 +123,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		BB77942820AC6004006DCAB4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "PathKit::PathKit";
-			remoteInfo = PathKit;
-		};
 		BB77942920AC6004006DCAB4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = "drafter::drafter";
 			remoteInfo = drafter;
-		};
-		BB77942A20AC6004006DCAB4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "PathKit::PathKit";
-			remoteInfo = PathKit;
 		};
 		BB77942B20AC6005006DCAB4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -228,9 +209,6 @@
 		OBJ_80 /* SwiftMethodTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMethodTest.swift; sourceTree = "<group>"; };
 		OBJ_81 /* SwiftProtocolParserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftProtocolParserTest.swift; sourceTree = "<group>"; };
 		OBJ_83 /* Template */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Template; sourceTree = SOURCE_ROOT; };
-		OBJ_86 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/lzephyr/Desktop/code/github/Drafter/.build/checkouts/PathKit.git--1865447967743163058/Package.swift"; sourceTree = "<group>"; };
-		OBJ_87 /* PathKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathKit.swift; sourceTree = "<group>"; };
-		"PathKit::PathKit::Product" /* PathKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PathKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"drafter::DrafterTests::Product" /* DrafterTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = DrafterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		"drafter::drafter::Product" /* drafter */ = {isa = PBXFileReference; lastKnownFileType = text; path = drafter; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -256,16 +234,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_107 /* PathKit.framework in Frameworks */,
 				EDA03BDDA7945D204961E429 /* Pods_DrafterTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_117 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 0;
-			files = (
-				CBF1436D2267047AE9C550DD /* Pods_PathKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,7 +242,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_176 /* PathKit.framework in Frameworks */,
 				CF4E1F02BF51263346C041A6 /* Pods_drafter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -530,27 +498,15 @@
 		OBJ_84 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_85 /* PathKit 0.9.1 */,
 			);
 			name = Dependencies;
 			sourceTree = "<group>";
-		};
-		OBJ_85 /* PathKit 0.9.1 */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_86 /* Package.swift */,
-				OBJ_87 /* PathKit.swift */,
-			);
-			name = "PathKit 0.9.1";
-			path = ".build/checkouts/PathKit.git--1865447967743163058/Sources";
-			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_88 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				"drafter::drafter::Product" /* drafter */,
 				"drafter::DrafterTests::Product" /* DrafterTests.xctest */,
-				"PathKit::PathKit::Product" /* PathKit.framework */,
 			);
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -568,23 +524,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		"PathKit::PathKit" /* PathKit */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_112 /* Build configuration list for PBXNativeTarget "PathKit" */;
-			buildPhases = (
-				F934CF16108C63EA8324A036 /* [CP] Check Pods Manifest.lock */,
-				OBJ_115 /* Sources */,
-				OBJ_117 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = PathKit;
-			productName = PathKit;
-			productReference = "PathKit::PathKit::Product" /* PathKit.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		"PathKit::SwiftPMPackageDescription" /* PathKitPackageDescription */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_119 /* Build configuration list for PBXNativeTarget "PathKitPackageDescription" */;
@@ -614,7 +553,6 @@
 			);
 			dependencies = (
 				OBJ_108 /* PBXTargetDependency */,
-				OBJ_110 /* PBXTargetDependency */,
 			);
 			name = DrafterTests;
 			productName = DrafterTests;
@@ -649,7 +587,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				OBJ_177 /* PBXTargetDependency */,
 			);
 			name = drafter;
 			productName = drafter;
@@ -677,7 +614,6 @@
 			projectRoot = "";
 			targets = (
 				"drafter::DrafterTests" /* DrafterTests */,
-				"PathKit::PathKit" /* PathKit */,
 				"PathKit::SwiftPMPackageDescription" /* PathKitPackageDescription */,
 				"drafter::drafter" /* drafter */,
 				"drafter::SwiftPMPackageDescription" /* drafterPackageDescription */,
@@ -790,40 +726,13 @@
 			shellPath = /bin/sh;
 			shellScript = "sourcery --sources ./Sources --templates ./StencilTemplate/AutoCodable.stencil --output ./Sources/Drafter/AutoGenerated/CodableExtension.swift";
 		};
-		F934CF16108C63EA8324A036 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PathKit-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		OBJ_115 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_116 /* PathKit.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		OBJ_122 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_123 /* Package.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -951,16 +860,6 @@
 			target = "drafter::drafter" /* drafter */;
 			targetProxy = BB77942920AC6004006DCAB4 /* PBXContainerItemProxy */;
 		};
-		OBJ_110 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "PathKit::PathKit" /* PathKit */;
-			targetProxy = BB77942A20AC6004006DCAB4 /* PBXContainerItemProxy */;
-		};
-		OBJ_177 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "PathKit::PathKit" /* PathKit */;
-			targetProxy = BB77942820AC6004006DCAB4 /* PBXContainerItemProxy */;
-		};
 		OBJ_188 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = "drafter::DrafterTests" /* DrafterTests */;
@@ -969,54 +868,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		OBJ_113 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3EB703B5295B01926E2FB8F8 /* Pods-PathKit.debug.xcconfig */;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = drafter.xcodeproj/PathKit_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = PathKit;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = PathKit;
-			};
-			name = Debug;
-		};
-		OBJ_114 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB0344BC89CB0D775376792A /* Pods-PathKit.release.xcconfig */;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = drafter.xcodeproj/PathKit_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_CFLAGS = "$(inherited)";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = PathKit;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = PathKit;
-			};
-			name = Release;
-		};
 		OBJ_120 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5C6BA3B357FA5284D9EB6A47 /* Pods-PathKitPackageDescription.debug.xcconfig */;
@@ -1196,15 +1047,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		OBJ_112 /* Build configuration list for PBXNativeTarget "PathKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_113 /* Debug */,
-				OBJ_114 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		OBJ_119 /* Build configuration list for PBXNativeTarget "PathKitPackageDescription" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

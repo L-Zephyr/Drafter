@@ -16,7 +16,7 @@ struct FileParserResult: AutoCodable {
     let isSwift: Bool
     
     // Swift文件用这个
-    let swiftClasses: [ClassNode]
+    let swiftTypes: [SwiftTypeNode]
     
     // OC文件用这个
     let interfaces: [InterfaceNode]
@@ -41,9 +41,32 @@ extension Array where Element == FileParserResult {
         }
         
         // 2. 加上swift的Class
-        results.append(contentsOf: self.filter({ $0.isSwift }).flatMap({ $0.swiftClasses }))
+        results.append(contentsOf: self.filter({ $0.isSwift }).flatMap({ $0.swiftTypes }).preprocessed)
         
+        // 3. 合并相同结果
         return results.merged()
+    }
+}
+
+// MARK: - SwiftTypeNode预处理
+
+extension Array where Element == SwiftTypeNode {
+    
+    /// 对结果进行预处理，将extension中定义的方法合并到ClassNode中
+    var preprocessed: [ClassNode] {
+        let clsDic = self.classes.toDictionary { (node) -> Int? in
+            return node.hashValue
+        }
+        
+        for exten in self.extensions {
+            // 自定义类型的扩展
+            if clsDic.keys.contains(exten.hashValue) {
+                clsDic[exten.hashValue]?.methods.append(contentsOf: exten.methods)
+                clsDic[exten.hashValue]?.protocols.append(contentsOf: exten.protocols)
+            }
+        }
+        
+        return Array<ClassNode>(clsDic)
     }
 }
 

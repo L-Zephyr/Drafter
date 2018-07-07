@@ -15,10 +15,11 @@ enum SwiftTypeNode: Node {
     case `extension`(ExtensionNode)
 }
 
+// MARK: -
+
 extension Array where Element == SwiftTypeNode {
     /// 过滤出所有class类型
     var classes: [ClassNode] {
-
         return self.compactMap { type in
             if case .class(let node) = type {
                 return node

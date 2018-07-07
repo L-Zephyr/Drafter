@@ -29,8 +29,8 @@ extension Array {
     ///
     /// - Parameter selectKey: 将数组中的元素转成成Key，返回nil则跳过这个元素
     /// - Returns: 字典
-    func toDictionary(_ selectKey: (Element) -> String?) -> [String: Element] {
-        var dic = [String: Element]()
+    func toDictionary<Key: Hashable>(_ selectKey: (Element) -> Key?) -> [Key: Element] {
+        var dic = [Key: Element]()
         for item in self {
             if let key = selectKey(item) {
                 dic[key] = item
@@ -38,6 +38,14 @@ extension Array {
         }
         
         return dic
+    }
+    
+    /// 通过一个字典创建数组，数组中包含字典的所有value
+    init<Key: Hashable>(_ dic: [Key: Element]) {
+        self.init()
+        for (_, value) in dic {
+            self.append(value)
+        }
     }
 }
 

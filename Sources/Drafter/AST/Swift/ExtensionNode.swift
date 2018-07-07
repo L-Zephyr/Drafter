@@ -32,3 +32,15 @@ extension ExtensionNode {
         self.methods = methods
     }
 }
+
+// MARK: - Hashable
+
+extension ExtensionNode: Hashable {
+    static func ==(lhs: ExtensionNode, rhs: ExtensionNode) -> Bool {
+        return lhs.name == rhs.name
+    }
+    
+    var hashValue: Int {
+        return name.hashValue
+    }
+}
