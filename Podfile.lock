@@ -1,21 +1,29 @@
 PODS:
+  - PathKit (0.9.1)
   - SwiftyParse/Core (0.1.0)
 
 DEPENDENCIES:
+  - PathKit (from `https://github.com/kylef/PathKit.git`)
   - SwiftyParse/Core (from `https://github.com/L-Zephyr/SwiftyParse.git`)
 
 EXTERNAL SOURCES:
+  PathKit:
+    :git: https://github.com/kylef/PathKit.git
   SwiftyParse:
     :git: https://github.com/L-Zephyr/SwiftyParse.git
 
 CHECKOUT OPTIONS:
+  PathKit:
+    :commit: fbfc1d31ebb73987db6a3bcad3be5fcfc6878e4d
+    :git: https://github.com/kylef/PathKit.git
   SwiftyParse:
     :commit: 933dfdafe0218bb2d3a468f9855a9f7b6bd93d1d
     :git: https://github.com/L-Zephyr/SwiftyParse.git
 
 SPEC CHECKSUMS:
+  PathKit: 8ce713f53e908672fc15fe9c08d7c0378270b313
   SwiftyParse: b41595b1e661594a495c99b4c4fd98d5f0867f4c
 
-PODFILE CHECKSUM: 0863a507c612f3c4ffeea4e987922314fc5ef07e
+PODFILE CHECKSUM: 4a1e454d32d85f9b64928a987b3ca0897ec43877
 
 COCOAPODS: 1.5.0

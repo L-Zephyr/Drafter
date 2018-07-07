@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		"drafter::drafterPackageTests::ProductTarget" /* drafterPackageTests */ = {
+		drafter::drafterPackageTests::ProductTarget /* drafterPackageTests */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = OBJ_185 /* Build configuration list for PBXAggregateTarget "drafterPackageTests" */;
 			buildPhases = (
@@ -209,8 +209,8 @@
 		OBJ_80 /* SwiftMethodTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftMethodTest.swift; sourceTree = "<group>"; };
 		OBJ_81 /* SwiftProtocolParserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftProtocolParserTest.swift; sourceTree = "<group>"; };
 		OBJ_83 /* Template */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Template; sourceTree = SOURCE_ROOT; };
-		"drafter::DrafterTests::Product" /* DrafterTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = DrafterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		"drafter::drafter::Product" /* drafter */ = {isa = PBXFileReference; lastKnownFileType = text; path = drafter; sourceTree = BUILT_PRODUCTS_DIR; };
+		drafter::DrafterTests::Product /* DrafterTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = DrafterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		drafter::drafter::Product /* drafter */ = {isa = PBXFileReference; lastKnownFileType = text; path = drafter; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -505,8 +505,8 @@
 		OBJ_88 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				"drafter::drafter::Product" /* drafter */,
-				"drafter::DrafterTests::Product" /* DrafterTests.xctest */,
+				drafter::drafter::Product /* drafter */,
+				drafter::DrafterTests::Product /* DrafterTests.xctest */,
 			);
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -524,7 +524,7 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		"PathKit::SwiftPMPackageDescription" /* PathKitPackageDescription */ = {
+		PathKit::SwiftPMPackageDescription /* PathKitPackageDescription */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_119 /* Build configuration list for PBXNativeTarget "PathKitPackageDescription" */;
 			buildPhases = (
@@ -540,7 +540,7 @@
 			productName = PathKitPackageDescription;
 			productType = "com.apple.product-type.framework";
 		};
-		"drafter::DrafterTests" /* DrafterTests */ = {
+		drafter::DrafterTests /* DrafterTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_93 /* Build configuration list for PBXNativeTarget "DrafterTests" */;
 			buildPhases = (
@@ -556,10 +556,10 @@
 			);
 			name = DrafterTests;
 			productName = DrafterTests;
-			productReference = "drafter::DrafterTests::Product" /* DrafterTests.xctest */;
+			productReference = drafter::DrafterTests::Product /* DrafterTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		"drafter::SwiftPMPackageDescription" /* drafterPackageDescription */ = {
+		drafter::SwiftPMPackageDescription /* drafterPackageDescription */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_179 /* Build configuration list for PBXNativeTarget "drafterPackageDescription" */;
 			buildPhases = (
@@ -575,7 +575,7 @@
 			productName = drafterPackageDescription;
 			productType = "com.apple.product-type.framework";
 		};
-		"drafter::drafter" /* drafter */ = {
+		drafter::drafter /* drafter */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_124 /* Build configuration list for PBXNativeTarget "drafter" */;
 			buildPhases = (
@@ -590,7 +590,7 @@
 			);
 			name = drafter;
 			productName = drafter;
-			productReference = "drafter::drafter::Product" /* drafter */;
+			productReference = drafter::drafter::Product /* drafter */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -613,11 +613,11 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				"drafter::DrafterTests" /* DrafterTests */,
-				"PathKit::SwiftPMPackageDescription" /* PathKitPackageDescription */,
-				"drafter::drafter" /* drafter */,
-				"drafter::SwiftPMPackageDescription" /* drafterPackageDescription */,
-				"drafter::drafterPackageTests::ProductTarget" /* drafterPackageTests */,
+				drafter::DrafterTests /* DrafterTests */,
+				PathKit::SwiftPMPackageDescription /* PathKitPackageDescription */,
+				drafter::drafter /* drafter */,
+				drafter::SwiftPMPackageDescription /* drafterPackageDescription */,
+				drafter::drafterPackageTests::ProductTarget /* drafterPackageTests */,
 			);
 		};
 /* End PBXProject section */
@@ -702,10 +702,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DrafterTests/Pods-DrafterTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/PathKit/PathKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyParse/SwiftyParse.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PathKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyParse.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -857,12 +859,12 @@
 /* Begin PBXTargetDependency section */
 		OBJ_108 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = "drafter::drafter" /* drafter */;
+			target = drafter::drafter /* drafter */;
 			targetProxy = BB77942920AC6004006DCAB4 /* PBXContainerItemProxy */;
 		};
 		OBJ_188 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = "drafter::DrafterTests" /* DrafterTests */;
+			target = drafter::DrafterTests /* DrafterTests */;
 			targetProxy = BB77942B20AC6005006DCAB4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
