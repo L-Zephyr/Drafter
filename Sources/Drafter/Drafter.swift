@@ -11,7 +11,7 @@ import PathKit
 
 let OutputFolder = "DrafterStage"
 let DataPlaceholder = "DrafterDataPlaceholder"
-let DrafterVersion = "0.4.1"
+let DrafterVersion = "0.4.2"
 
 class Drafter {
     

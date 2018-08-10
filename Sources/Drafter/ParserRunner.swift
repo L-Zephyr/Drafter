@@ -10,6 +10,15 @@ import PathKit
 
 fileprivate let maxConcurrent: Int = 4 // 多线程解析最大并发数
 
+/// 线程同步
+fileprivate func sync(_ keyObj: Any, _ handler: () -> Void) {
+    objc_sync_enter(keyObj)
+    handler()
+    objc_sync_exit(keyObj)
+}
+
+// MARK: - ParserRunner
+
 class ParserRunner {
     
     static let runner = ParserRunner()
@@ -30,7 +39,9 @@ class ParserRunner {
             semaphore.wait()
             DispatchQueue.global().async {
                 if let result = FileParser(file).run(usingCache) {
-                    results.append(result)
+                    sync(self) {
+                        results.append(result)
+                    }
                 }
                 self.semaphore.signal()
             }
@@ -42,7 +53,9 @@ class ParserRunner {
             semaphore.wait()
             DispatchQueue.global().async {
                 if let result = FileParser(file).run(usingCache) {
-                    results.append(result)
+                    sync(self) {
+                        results.append(result)
+                    }
                 }
                 self.semaphore.signal()
             }
@@ -52,6 +65,8 @@ class ParserRunner {
 
         return results.processed()
     }
+    
+    // MARK: - Private
 
     fileprivate let semaphore = DispatchSemaphore(value: maxConcurrent)
     
@@ -90,7 +105,10 @@ extension ParserRunner {
         for file in sources {
             semaphore.wait()
             DispatchQueue.global().async {
-                results[file.string] = runParse(file.string)
+                let result = runParse(file.string)
+                sync(self) {
+                    results[file.string] = result
+                }
                 self.semaphore.signal()
             }
         }
@@ -107,14 +125,13 @@ extension ParserRunner {
     func parseInerit(files: [Path]) -> ([ClassNode], [ProtocolNode]) {
         var classes = [ClassNode]()
         var protocols = [ProtocolNode]()
-        let writeQueue = DispatchQueue(label: "WriteClass")
         
         // 解析OC类型
         func parseObjcClass(_ file: String) {
             print("Parsing \(file)...")
             let tokens = SourceLexer(file: file).allTokens
             let result = InterfaceParser().parser.toClassNode.run(tokens) ?? []
-            writeQueue.sync {
+            sync(self) {
                 classes.merge(result)
             }
         }
@@ -124,7 +141,7 @@ extension ParserRunner {
             print("Parsing \(file)...")
             let tokens = SourceLexer(file: file).allTokens
             let types = SwiftTypeParser().parser.run(tokens) ?? []
-            writeQueue.sync {
+            sync(self) {
                 protocols.append(contentsOf: types.protocols)
                 classes.merge(types.classes)
             }
