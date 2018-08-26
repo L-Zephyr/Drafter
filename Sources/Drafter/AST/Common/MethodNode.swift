@@ -10,10 +10,22 @@ import Foundation
 
 // MARK: - Param
 
+/// 参数
 struct Param: AutoCodable {
     var outterName: String  // 参数的名字
     var type: String  // 参数类型
     var innerName: String  // 内部形参的名字
+}
+
+// MARK: - Control Access
+
+/// 访问权限，OC只有`public`和`private`
+enum AccessControlLevel: Int, AutoCodable {
+    case `open`
+    case `public`
+    case `internal`
+    case `fileprivate`
+    case `private`
 }
 
 // MARK: - MethodNode
@@ -22,16 +34,18 @@ struct Param: AutoCodable {
 class MethodNode: Node {
     var isSwift = false  // 是否为swift方法
     var isStatic = false  // 是否为类方法
+    var accessControl: AccessControlLevel = .public // 方法的访问权限
     var returnType: String = "" // 返回值类型
     var methodName: String = "" // 方法的名字, 只有解析swift文件用这个字段
     var params: [Param] = [] // 方法的参数
     var invokes: [MethodInvokeNode] = [] // 方法体中调用的方法
-    
+
     // sourcery:inline:MethodNode.AutoCodable
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         isSwift = try container.decode(Bool.self, forKey: .isSwift)
         isStatic = try container.decode(Bool.self, forKey: .isStatic)
+        accessControl = try container.decode(AccessControlLevel.self, forKey: .accessControl)
         returnType = try container.decode(String.self, forKey: .returnType)
         methodName = try container.decode(String.self, forKey: .methodName)
         params = try container.decode([Param].self, forKey: .params)

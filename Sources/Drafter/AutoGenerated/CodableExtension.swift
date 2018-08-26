@@ -1,4 +1,4 @@
-// Generated using Sourcery 0.11.2 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 0.13.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
 
@@ -7,6 +7,45 @@
 
 
 
+
+// MARK: - AccessControlLevel Codable
+extension AccessControlLevel {
+    enum CodingKeys: String, CodingKey {
+        case key
+    }
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        switch self {
+            case .open:
+                try container.encode("`open`", forKey: .key)
+            case .public:
+                try container.encode("`public`", forKey: .key)
+            case .internal:
+                try container.encode("`internal`", forKey: .key)
+            case .fileprivate:
+                try container.encode("`fileprivate`", forKey: .key)
+            case .private:
+                try container.encode("`private`", forKey: .key)
+        }
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let key = try container.decode(String.self, forKey: .key)
+        switch key {
+        case "`open`":
+            self = .`open`
+        case "`public`":
+            self = .`public`
+        case "`internal`":
+            self = .`internal`
+        case "`fileprivate`":
+            self = .`fileprivate`
+        default:
+            self = .`private`
+        }
+    }
+}
 
 // MARK: - ClassNode Codable
 extension ClassNode {
@@ -69,6 +108,7 @@ extension InterfaceNode {
         case superCls 
         case className 
         case protocols 
+        case methods 
     }
 
 }
@@ -138,6 +178,7 @@ extension MethodNode {
     enum CodingKeys: String, CodingKey {
         case isSwift 
         case isStatic 
+        case accessControl 
         case returnType 
         case methodName 
         case params 

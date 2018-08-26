@@ -314,8 +314,8 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_10 /* ClassNode.swift */,
-				OBJ_13 /* MethodInvokeNode.swift */,
 				OBJ_14 /* MethodNode.swift */,
+				OBJ_13 /* MethodInvokeNode.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
