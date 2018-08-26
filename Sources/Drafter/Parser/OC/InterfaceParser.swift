@@ -47,6 +47,7 @@ extension InterfaceParser {
             <^> token(.interface) *> token(.name) => stringify // 类名
             <*> (token(.colon) *> token(.name)).try => stringify // 父类名
             <*> (token(.name).sepBy(token(.comma)).between(lAngle, rAngle)).try => stringify // 协议
+            <*> anyTokens(until: token(.end)).map { ObjcMethodParser().declsParser.run($0) ?? [] } // 方法定义
         return parser
     }
     
@@ -67,5 +68,6 @@ extension InterfaceParser {
             <^> token(.interface) *> token(.name) => stringify
             <*> (token(.name)).try.between(lParen, rParen) *> pure(nil) // 分类的名字是可选项, 忽略结果
             <*> (token(.name).sepBy(token(.comma)).between(lAngle, rAngle)).try => stringify // 协议列表
+            <*> anyTokens(until: token(.end)).map { ObjcMethodParser().declsParser.run($0) ?? [] } 
     }
 }

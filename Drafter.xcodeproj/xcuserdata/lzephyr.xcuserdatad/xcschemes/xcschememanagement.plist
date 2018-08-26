@@ -27,7 +27,7 @@
 		<key>PathKitPackageDescription.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>8</integer>
 		</dict>
 		<key>drafter.xcscheme</key>
 		<dict>
@@ -37,7 +37,7 @@
 		<key>drafterPackageDescription.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>8</integer>
+			<integer>9</integer>
 		</dict>
 		<key>drafterPackageTests.xcscheme</key>
 		<dict>

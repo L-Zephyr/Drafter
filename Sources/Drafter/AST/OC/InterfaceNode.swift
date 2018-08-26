@@ -11,6 +11,7 @@ class InterfaceNode: Node {
     var superCls: String? = nil    // 父类
     var className: String = ""     // 类名
     var protocols: [String] = []   // 实现的协议
+    var methods: [MethodNode] = [] // 定义的方法
     
     // sourcery:inline:InterfaceNode.AutoCodable
     required init(from decoder: Decoder) throws {
@@ -18,18 +19,20 @@ class InterfaceNode: Node {
         superCls = try container.decode(String?.self, forKey: .superCls)
         className = try container.decode(String.self, forKey: .className)
         protocols = try container.decode([String].self, forKey: .protocols)
+        methods = try container.decode([MethodNode].self, forKey: .methods)
     }
     init() { }
     // sourcery:end
 }
 
 extension InterfaceNode {
-    convenience init(_ clsName: String, _ superCls: String?, _ protocols: [String]) {
+    convenience init(_ clsName: String, _ superCls: String?, _ protocols: [String], _ methods: [MethodNode]) {
         self.init()
         
         self.superCls = superCls ?? ""
         self.className = clsName
         self.protocols = protocols
+        self.methods = methods
     }
 }
 
