@@ -92,6 +92,7 @@ class OCMethodTest: XCTestCase {
             [self method: [self add]];
             int a = 1;
             [self method2];
+            [[self method3] method4];
         }
         """
         let methods = run(input)
@@ -101,6 +102,6 @@ class OCMethodTest: XCTestCase {
         let method = methods[0]
         XCTAssert(method.isStatic == true)
         XCTAssert(method.params.count == 2)
-        XCTAssert(method.invokes.count == 3)
+        XCTAssert(method.invokes.count == 5)
     }
 }

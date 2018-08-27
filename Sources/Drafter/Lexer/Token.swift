@@ -41,7 +41,7 @@ enum TokenType {
     case at                // @
     case rightArrow        // 箭头: ->
     
-    // MARK: - swift特有符号
+    // MARK: swift特有符号
     
     case cls              // swift的class关键字
     case proto            // swift的protocol关键字
@@ -53,13 +53,14 @@ enum TokenType {
     case `init`           // init
     case `inout`          // inout
     case `throw`          // throws、rethrows
+    case accessControl    // 访问控制符: open、public、internal, fileprivate、private
 }
 
-// MARK: - 词法单元类型
+// MARK: - 词法单元
 
 struct Token {
-    var type: TokenType
-    var text: String
+    var type: TokenType // 词法单元类型
+    var text: String    // 词法单元的值
     
     init(type: TokenType, text: String) {
         self.type = type

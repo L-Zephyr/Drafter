@@ -28,6 +28,23 @@ enum AccessControlLevel: Int, AutoCodable {
     case `private`
 }
 
+extension AccessControlLevel: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .open:
+            return "open"
+        case .public:
+            return "public"
+        case .internal:
+            return "internal"
+        case .fileprivate:
+            return "fileprivate"
+        case .private:
+            return "private"
+        }
+    }
+}
+
 // MARK: - MethodNode
 
 /// 方法定义
@@ -136,13 +153,14 @@ extension MethodNode: CustomStringConvertible {
 }
 
 extension MethodNode {
-    /// 将方法转化成JSON字典
+    /// 将方法转化成前端模板用的JSON字典
     func toTemplateJSON(clsId: String, methods: [Int]) -> [String: Any] {
         var info: [String: Any] = [:]
         info["type"] = "method"                         // type
         info["classId"] = clsId                         // classId
         info["static"] = self.isStatic                  // static
         info["isSwift"] = self.isSwift                  // isSwift
+        info["accessControl"] = "\(self.accessControl)" // accessControl
         
         if isSwift {
             info["name"] = methodName                   // name

@@ -130,11 +130,12 @@ class SourceLexer: Lexer {
                 return Token(type: .dot, text: ".")
                 
             case "@":
-                return atSign()
+                return atKeyword()
                 
             default:
                 if isLetter(currentChar) || currentChar == "_" {
                     let value = name()
+                    // 匹配Swift关键字
                     if isSwift, let keyword = swiftKeyword(value) {
                         return keyword
                     }
@@ -243,13 +244,23 @@ fileprivate extension SourceLexer {
             return Token(type: .`init`, text: "init")
         case "throws", "rethrows":
             return Token(type: .`throw`, text: "throw")
+        case "open":
+            return Token(type: .accessControl, text: "open")
+        case "public":
+            return Token(type: .accessControl, text: "public")
+        case "internal":
+            return Token(type: .accessControl, text: "internal")
+        case "fileprivate":
+            return Token(type: .accessControl, text: "fileprivate")
+        case "private":
+            return Token(type: .accessControl, text: "private")
         default:
             return nil
         }
     }
     
-    /// 解析@符号
-    func atSign() -> Token {
+    /// 解析以@开头的关键字
+    func atKeyword() -> Token {
         if isSwift {
             if lookahead("@autoclosure") {
                 return Token(type: .autoclosure, text: "@autoclosure")
