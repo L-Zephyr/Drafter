@@ -10,7 +10,7 @@ import PathKit
 
 /*
  FileParser并没有继承自ConcreteParserType，它整合了底层所有ConcreteParser并对所有类型的源文件提供一致的接口（Facade模式），
- 封装了将一个源码文件解析成FileParserResult的过程，并缓存结果
+ 封装了将一个源码文件解析成FileNode的过程，并缓存结果
  */
 class FileParser {
     
@@ -26,7 +26,7 @@ class FileParser {
     /// 执行解析并获得结果，该方法会优先使用缓存
     ///
     /// - Returns: 解析结果
-    func run(_ usingCache: Bool = true) -> FileParserResult? {
+    func run(_ usingCache: Bool = true) -> FileNode? {
         // Read File
         var content: String
         do {
@@ -40,7 +40,7 @@ class FileParser {
         if usingCache,
             sourcePath.cachePath().exists,
             let data: Data = try? sourcePath.cachePath().read(),
-            let cache = try? JSONDecoder().decode(FileParserResult.self, from: data) { // 有缓存
+            let cache = try? JSONDecoder().decode(FileNode.self, from: data) { // 有缓存
             
             if cache.drafterVersion == DrafterVersion && cache.md5 == sourceMD5 {
                 return cache
@@ -55,17 +55,17 @@ class FileParser {
     // MARK: - Private
     
     /// 缓存未命中，执行解析并缓存结果
-    fileprivate func parseAndCache() -> FileParserResult {
+    fileprivate func parseAndCache() -> FileNode {
         // 1. parse
-        var result: FileParserResult
+        var result: FileNode
         if sourcePath.isSwift {
             let tokens = SourceLexer(file: sourcePath.string).allTokens
             let types = SwiftTypeParser().parser.run(tokens) ?? []
             
-            result = FileParserResult(md5: sourceMD5,
+            result = FileNode(md5: sourceMD5,
                                       drafterVersion: DrafterVersion,
                                       path: sourcePath.absolute().string,
-                                      isSwift: true,
+                                      type: sourcePath.fileType,
                                       swiftTypes: types,
                                       interfaces: [],
                                       implementations: [])
@@ -74,10 +74,10 @@ class FileParser {
             let interface = InterfaceParser().parser.run(tokens) ?? []
             let imp = ImplementationParser().parser.run(tokens) ?? []
             
-            result = FileParserResult(md5: sourceMD5,
+            result = FileNode(md5: sourceMD5,
                                       drafterVersion: DrafterVersion,
                                       path: sourcePath.absolute().string,
-                                      isSwift: false,
+                                      type: sourcePath.fileType,
                                       swiftTypes: [],
                                       interfaces: interface,
                                       implementations: imp)

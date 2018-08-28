@@ -22,7 +22,7 @@ class ParserRunner {
         implementations = []
         classList = []
         
-        var results: [FileParserResult] = []
+        var results: [FileNode] = []
         
         // 1. 解析OC文件
         for file in ocFiles {

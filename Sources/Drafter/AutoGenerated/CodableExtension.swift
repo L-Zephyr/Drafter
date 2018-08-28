@@ -69,13 +69,13 @@ extension ExtensionNode {
 
 }
 
-// MARK: - FileParserResult Codable
-extension FileParserResult {
+// MARK: - FileNode Codable
+extension FileNode {
     enum CodingKeys: String, CodingKey {
         case md5 
         case drafterVersion 
         case path 
-        case isSwift 
+        case type 
         case swiftTypes 
         case interfaces 
         case implementations 
@@ -86,10 +86,45 @@ extension FileParserResult {
         md5 = try container.decode(String.self, forKey: .md5)
         drafterVersion = try container.decode(String.self, forKey: .drafterVersion)
         path = try container.decode(String.self, forKey: .path)
-        isSwift = try container.decode(Bool.self, forKey: .isSwift)
+        type = try container.decode(FileType.self, forKey: .type)
         swiftTypes = try container.decode([SwiftTypeNode].self, forKey: .swiftTypes)
         interfaces = try container.decode([InterfaceNode].self, forKey: .interfaces)
         implementations = try container.decode([ImplementationNode].self, forKey: .implementations)
+    }
+}
+
+// MARK: - FileType Codable
+extension FileType {
+    enum CodingKeys: String, CodingKey {
+        case key
+    }
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        switch self {
+            case .h:
+                try container.encode("h", forKey: .key)
+            case .m:
+                try container.encode("m", forKey: .key)
+            case .swift:
+                try container.encode("swift", forKey: .key)
+            case .unknown:
+                try container.encode("unknown", forKey: .key)
+        }
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let key = try container.decode(String.self, forKey: .key)
+        switch key {
+        case "h":
+            self = .h
+        case "m":
+            self = .m
+        case "swift":
+            self = .swift
+        default:
+            self = .unknown
+        }
     }
 }
 
