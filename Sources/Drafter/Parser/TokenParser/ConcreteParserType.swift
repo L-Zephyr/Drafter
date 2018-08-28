@@ -18,4 +18,10 @@ protocol Node: AutoCodable {
 protocol ConcreteParserType {
     associatedtype T
     var parser: Parser<T, Tokens> { get }
+    
+//    /// 仅解析一次
+//    var single: TokenParser<T> { get }
+//
+//    /// 连续解析直到结束
+//    var continuous: TokenParser<[T]> { get }
 }

@@ -222,6 +222,41 @@ extension MethodNode {
 
 }
 
+// MARK: - ObjcTypeNode Codable
+extension ObjcTypeNode {
+    enum CodingKeys: String, CodingKey {
+        case key
+        case interface_0
+        case implementaion_0
+    }
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        switch self {
+            case .interface(let val0):
+                try container.encode("interface", forKey: .key)
+                try container.encode(val0, forKey: .interface_0)
+            case .implementaion(let val0):
+                try container.encode("implementaion", forKey: .key)
+                try container.encode(val0, forKey: .implementaion_0)
+        }
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let key = try container.decode(String.self, forKey: .key)
+        switch key {
+        case "interface":
+            self = .interface(
+                try container.decode(InterfaceNode.self, forKey: .interface_0)
+            )
+        default:
+            self = .implementaion(
+                try container.decode(ImplementationNode.self, forKey: .implementaion_0)
+            )
+        }
+    }
+}
+
 // MARK: - Param Codable
 extension Param {
     enum CodingKeys: String, CodingKey {

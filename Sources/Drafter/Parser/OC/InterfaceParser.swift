@@ -11,7 +11,6 @@ import SwiftyParse
 // 解析OC中的Interface定义
 class InterfaceParser: ConcreteParserType {
     var parser: TokenParser<[InterfaceNode]> {
-//        return curry({ $0.merged() }) <^> (categoryParser <|> classParser).continuous
         return (categoryParser <|> classParser).continuous
     }
 }
@@ -68,6 +67,6 @@ extension InterfaceParser {
             <^> token(.interface) *> token(.name) => stringify
             <*> (token(.name)).try.between(lParen, rParen) *> pure(nil) // 分类的名字是可选项, 忽略结果
             <*> (token(.name).sepBy(token(.comma)).between(lAngle, rAngle)).try => stringify // 协议列表
-            <*> anyTokens(until: token(.end)).map { ObjcMethodParser().declsParser.run($0) ?? [] } 
+            <*> anyTokens(until: token(.end)).map { ObjcMethodParser().declsParser.run($0) ?? [] }
     }
 }

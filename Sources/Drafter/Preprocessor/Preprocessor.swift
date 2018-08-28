@@ -8,10 +8,14 @@
 import Foundation
 
 protocol Pass {
-    associatedtype N: Node
-    func run(with nodes: [N]) -> [N]
+    func run(onFiles: [FileNode]) -> [FileNode]
 }
 
+extension Pass {
+    func run(onFiles files: [FileNode]) -> [FileNode] {
+        return files
+    }
+}
 
 /// 对AST进行预处理
 class Preprocessor {
@@ -21,14 +25,7 @@ class Preprocessor {
         return []
     }
     
-    func register<P: Pass>(pass: P) {
+    func register(pass: Pass) {
         
-    }
-}
-
-
-class InterfacePass: Pass {
-    func run(with nodes: [InterfaceNode]) -> [InterfaceNode] {
-        return nodes
     }
 }
