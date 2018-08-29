@@ -63,24 +63,21 @@ class FileParser {
             let types = SwiftTypeParser().parser.run(tokens) ?? []
             
             result = FileNode(md5: sourceMD5,
-                                      drafterVersion: DrafterVersion,
-                                      path: sourcePath.absolute().string,
-                                      type: sourcePath.fileType,
-                                      swiftTypes: types,
-                                      interfaces: [],
-                                      implementations: [])
+                              drafterVersion: DrafterVersion,
+                              path: sourcePath.absolute().string,
+                              type: sourcePath.fileType,
+                              swiftTypes: types,
+                              objcTypes: [])
         } else {
             let tokens = SourceLexer(file: sourcePath.string).allTokens
-            let interface = InterfaceParser().parser.run(tokens) ?? []
-            let imp = ImplementationParser().parser.run(tokens) ?? []
+            let types = ObjcTypeParser().parser.run(tokens) ?? []
             
             result = FileNode(md5: sourceMD5,
-                                      drafterVersion: DrafterVersion,
-                                      path: sourcePath.absolute().string,
-                                      type: sourcePath.fileType,
-                                      swiftTypes: [],
-                                      interfaces: interface,
-                                      implementations: imp)
+                              drafterVersion: DrafterVersion,
+                              path: sourcePath.absolute().string,
+                              type: sourcePath.fileType,
+                              swiftTypes: [],
+                              objcTypes: types)
         }
         
         // 2. cache

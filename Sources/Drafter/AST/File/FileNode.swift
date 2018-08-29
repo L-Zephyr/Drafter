@@ -19,8 +19,10 @@ struct FileNode: AutoCodable {
     let swiftTypes: [SwiftTypeNode]
     
     // OC文件用这个
-    let interfaces: [InterfaceNode]
-    let implementations: [ImplementationNode]
+//    let interfaces: [InterfaceNode]
+//    let implementations: [ImplementationNode]
+    
+    let objcTypes: [ObjcTypeNode]
 }
 
 // MARK: - 结果处理
@@ -31,8 +33,11 @@ extension Array where Element == FileNode {
         var results: [ClassNode] = []
         
         // 1. 将OC的Interface和Implementation整合成Class
-        let interfaces = self.filter({ $0.type != .swift }).flatMap({ $0.interfaces }).merged()
-        let impDic = self.filter({ $0.type != .swift }).flatMap({ $0.implementations }).merged()
+        let objcTypes = self.filter({ $0.type != .swift }).flatMap({ $0.objcTypes })
+        
+        // TODO: 重构
+        let interfaces = objcTypes.interfaces.merged()
+        let impDic = objcTypes.implementations.merged()
         
         for interface in interfaces {
             if let imp = impDic[interface.className] {

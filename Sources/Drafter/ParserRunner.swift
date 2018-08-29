@@ -60,7 +60,7 @@ class ParserRunner {
     fileprivate var classList: [ClassNode] = []
 }
 
-// MARK: - 0.2.0以前的接口
+// MARK: - 0.2.0以前的接口, 不建议使用
 
 extension ParserRunner {
     /// 解析代码中的方法调用

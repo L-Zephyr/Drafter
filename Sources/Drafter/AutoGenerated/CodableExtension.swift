@@ -77,8 +77,7 @@ extension FileNode {
         case path 
         case type 
         case swiftTypes 
-        case interfaces 
-        case implementations 
+        case objcTypes 
     }
 
     init(from decoder: Decoder) throws {
@@ -88,8 +87,7 @@ extension FileNode {
         path = try container.decode(String.self, forKey: .path)
         type = try container.decode(FileType.self, forKey: .type)
         swiftTypes = try container.decode([SwiftTypeNode].self, forKey: .swiftTypes)
-        interfaces = try container.decode([InterfaceNode].self, forKey: .interfaces)
-        implementations = try container.decode([ImplementationNode].self, forKey: .implementations)
+        objcTypes = try container.decode([ObjcTypeNode].self, forKey: .objcTypes)
     }
 }
 
