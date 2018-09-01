@@ -9,22 +9,44 @@ import Foundation
 import PathKit
 
 /// 通用的结果类型，表示一个源码文件的解析结果
-struct FileNode: AutoCodable {
+struct FileNode: Node {
     let md5: String // 源码文件内容的md5
     let drafterVersion: String // drafter的版本
     let path: String    // 文件的绝对路径
     let type: FileType  // 文件类型
     
-    // Swift文件用这个
+    // Swift文件类型
     let swiftTypes: [SwiftTypeNode]
     
-    // OC文件用这个
-//    let interfaces: [InterfaceNode]
-//    let implementations: [ImplementationNode]
-    
+    // OC文件类型
     let objcTypes: [ObjcTypeNode]
 }
 
+extension Array where Element == FileNode {
+    /// 取出所有的OC类型
+    var ocTypes: [ObjcTypeNode] {
+        return
+            self.filter { node in
+                return node.type == .h || node.type == .m
+            }
+            .flatMap { node in
+                return node.objcTypes
+            }
+    }
+    
+    /// 取出所有的Swift类型
+    var swiftTypes: [SwiftTypeNode] {
+        return
+            self.filter { node in
+                return node.type == .swift
+            }
+            .flatMap { node in
+                return node.swiftTypes
+            }
+    }
+}
+
+// MARK: - TODO
 // MARK: - 结果处理
 
 extension Array where Element == FileNode {
@@ -36,6 +58,7 @@ extension Array where Element == FileNode {
         let objcTypes = self.filter({ $0.type != .swift }).flatMap({ $0.objcTypes })
         
         // TODO: 重构
+        // 对interface和imp分别去重后合并成ClassNode
         let interfaces = objcTypes.interfaces.merged()
         let impDic = objcTypes.implementations.merged()
         
@@ -46,6 +69,7 @@ extension Array where Element == FileNode {
         }
         
         // 2. 加上swift的Class
+        // swift要合并extension方法
         results.append(contentsOf: self.filter({ $0.type == .swift }).flatMap({ $0.swiftTypes }).preprocessed)
         
         // 3. 合并相同结果

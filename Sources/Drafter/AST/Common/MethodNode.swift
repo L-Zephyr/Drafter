@@ -84,6 +84,7 @@ extension MethodNode {
         method.returnType = retType
         method.params = params
         method.invokes = invokes
+        method.accessControl = .private
         
         return method
     }

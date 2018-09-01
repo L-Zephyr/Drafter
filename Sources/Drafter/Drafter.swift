@@ -126,6 +126,13 @@ class Drafter {
             Executor.execute("open", targetHtml, help: "Auto open failed")
         }
     }
+    
+    // MARK: -
+    
+    init() {
+        Preprocessor.shared.register(pass: AccessControlPass())
+        Preprocessor.shared.register(pass: DistinctPass())
+    }
 }
 
 // MARK: - Deprecated
