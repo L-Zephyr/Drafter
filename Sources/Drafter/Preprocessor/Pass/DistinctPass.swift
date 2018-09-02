@@ -65,7 +65,7 @@ class DistinctPass: Pass {
     }
 }
 
-extension ClassNode {
+fileprivate extension ClassNode {
     /// 将两个相同的node合并成一个
     func merge(_ node: ClassNode) {
         if className != node.className {

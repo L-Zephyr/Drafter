@@ -15,18 +15,6 @@ class InterfaceParser: ConcreteParserType {
     }
 }
 
-// MARK: - 类型转换
-
-extension Parser where Result == Array<InterfaceNode>, Stream == Tokens {
-    // 将结果直接转换成ClassNode类型
-    var toClassNode: TokenParser<[ClassNode]> {
-        return self.map { (interfaces) -> [ClassNode] in
-            let clsNodes = interfaces.map { ClassNode(interface: $0) }
-            return clsNodes.merged()
-        }
-    }
-}
-
 // MARK: - Parser
 
 extension InterfaceParser {

@@ -12,7 +12,7 @@ import SwiftyParse
 
 class SwiftClassParser: ConcreteParserType {
     var parser: TokenParser<[ClassNode]> {
-        return curry({ $0.merged() }) <^> classParser.continuous
+        return classParser.continuous
     }
 }
 

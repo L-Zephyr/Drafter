@@ -113,9 +113,9 @@ extension ParserRunner {
         func parseObjcClass(_ file: String) {
             print("Parsing \(file)...")
             let tokens = SourceLexer(file: file).allTokens
-            let result = InterfaceParser().parser.toClassNode.run(tokens) ?? []
+            let result = InterfaceParser().parser.run(tokens) ?? []
             writeQueue.sync {
-                classes.merge(result)
+                classes.append(contentsOf: result.map { ClassNode(interface: $0) })
             }
         }
         
@@ -126,7 +126,7 @@ extension ParserRunner {
             let types = SwiftTypeParser().parser.run(tokens) ?? []
             writeQueue.sync {
                 protocols.append(contentsOf: types.protocols)
-                classes.merge(types.classes)
+                classes.append(contentsOf: types.classes)
             }
         }
         
@@ -151,7 +151,7 @@ extension ParserRunner {
         // 3. 等待所有线程执行结束
         waitUntilFinished()
         
-        return (classes, protocols)
+        return (DistinctPass().run(onClasses: classes), protocols)
     }
 }
 
