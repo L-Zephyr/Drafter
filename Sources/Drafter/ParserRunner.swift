@@ -50,7 +50,7 @@ class ParserRunner {
         
         waitUntilFinished()
 
-        return results.processed()
+        return Preprocessor.shared.process(results)
     }
 
     fileprivate let semaphore = DispatchSemaphore(value: maxConcurrent)

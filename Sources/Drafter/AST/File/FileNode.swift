@@ -101,28 +101,6 @@ extension Array where Element == SwiftTypeNode {
 
 // MARK: ClassNode去重
 
-extension ClassNode {
-    /// 将两个相同的node合并成一个
-    func merge(_ node: ClassNode) {
-        if className != node.className {
-            return
-        }
-        
-        // 合并协议
-        for proto in node.protocols {
-            if !protocols.contains(proto) {
-                protocols.append(proto)
-            }
-        }
-        // 合并方法
-        self.methods.append(contentsOf: node.methods)
-        // 合并父类
-        if superCls.isEmpty && !node.superCls.isEmpty {
-            superCls = node.superCls
-        }
-    }
-}
-
 extension Array where Element == ClassNode {
     /// 将其他的节点集合合并到当前节点集合中
     mutating func merge(_ others: [ClassNode]) {

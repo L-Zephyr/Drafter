@@ -66,8 +66,10 @@
 		BB07CEDF20ADC40E00921AAE /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* MD5.swift */; };
 		BB10BD7620EE2DDC00D25C65 /* SwiftTypeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB10BD7520EE2DDC00D25C65 /* SwiftTypeParser.swift */; };
 		BB10BD7720EE2FC200D25C65 /* SwiftTypeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB10BD7520EE2DDC00D25C65 /* SwiftTypeParser.swift */; };
-		BB2CD795213A780100303C65 /* Passes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2CD794213A780100303C65 /* Passes.swift */; };
-		BB2CD796213A780100303C65 /* Passes.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2CD794213A780100303C65 /* Passes.swift */; };
+		BB2CD795213A780100303C65 /* DistinctPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2CD794213A780100303C65 /* DistinctPass.swift */; };
+		BB2CD796213A780100303C65 /* DistinctPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2CD794213A780100303C65 /* DistinctPass.swift */; };
+		BB2CD799213B9E5700303C65 /* AccessControlPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2CD798213B9E5700303C65 /* AccessControlPass.swift */; };
+		BB2CD79A213B9E5700303C65 /* AccessControlPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2CD798213B9E5700303C65 /* AccessControlPass.swift */; };
 		BB3D234820CC17EF00AEEA2E /* SwiftExtensionParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3D234720CC17EF00AEEA2E /* SwiftExtensionParserTest.swift */; };
 		BB42972B2133F95200D17529 /* FileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB42972A2133F95200D17529 /* FileNode.swift */; };
 		BB4297352134EFDB00D17529 /* Preprocessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4297342134EFDB00D17529 /* Preprocessor.swift */; };
@@ -169,7 +171,8 @@
 		BB07CEAD20ADC37400921AAE /* SourceLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SourceLexer.swift; path = Sources/Drafter/Lexer/SourceLexer.swift; sourceTree = SOURCE_ROOT; };
 		BB07CEAF20ADC37E00921AAE /* TokenLexer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenLexer.swift; sourceTree = "<group>"; };
 		BB10BD7520EE2DDC00D25C65 /* SwiftTypeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwiftTypeParser.swift; path = Sources/Drafter/Parser/Swift/SwiftTypeParser.swift; sourceTree = SOURCE_ROOT; };
-		BB2CD794213A780100303C65 /* Passes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Passes.swift; path = Sources/drafter/Preprocessor/Pass/Passes.swift; sourceTree = SOURCE_ROOT; };
+		BB2CD794213A780100303C65 /* DistinctPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DistinctPass.swift; path = Sources/drafter/Preprocessor/Pass/DistinctPass.swift; sourceTree = SOURCE_ROOT; };
+		BB2CD798213B9E5700303C65 /* AccessControlPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AccessControlPass.swift; path = Sources/Drafter/Preprocessor/Pass/AccessControlPass.swift; sourceTree = SOURCE_ROOT; };
 		BB3D234720CC17EF00AEEA2E /* SwiftExtensionParserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExtensionParserTest.swift; sourceTree = "<group>"; };
 		BB42972A2133F95200D17529 /* FileNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileNode.swift; path = Sources/Drafter/AST/File/FileNode.swift; sourceTree = SOURCE_ROOT; };
 		BB4297342134EFDB00D17529 /* Preprocessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Preprocessor.swift; path = Sources/Drafter/Preprocessor/Preprocessor.swift; sourceTree = SOURCE_ROOT; };
@@ -296,7 +299,8 @@
 		BB2CD797213ACC3700303C65 /* Pass */ = {
 			isa = PBXGroup;
 			children = (
-				BB2CD794213A780100303C65 /* Passes.swift */,
+				BB2CD798213B9E5700303C65 /* AccessControlPass.swift */,
+				BB2CD794213A780100303C65 /* DistinctPass.swift */,
 			);
 			path = Pass;
 			sourceTree = "<group>";
@@ -795,13 +799,14 @@
 				OBJ_130 /* InterfaceNode.swift in Sources */,
 				BB4297372134F3D700D17529 /* FileNode.swift in Sources */,
 				OBJ_131 /* MethodInvokeNode.swift in Sources */,
-				BB2CD796213A780100303C65 /* Passes.swift in Sources */,
+				BB2CD796213A780100303C65 /* DistinctPass.swift in Sources */,
 				BB07CE9F20AC7A0C00921AAE /* Path+Extension.swift in Sources */,
 				OBJ_132 /* MethodNode.swift in Sources */,
 				OBJ_133 /* ProtocolNode.swift in Sources */,
 				OBJ_135 /* Lexer.swift in Sources */,
 				OBJ_136 /* ConcreteParserType.swift in Sources */,
 				OBJ_137 /* Token.swift in Sources */,
+				BB2CD79A213B9E5700303C65 /* AccessControlPass.swift in Sources */,
 				OBJ_138 /* Drafter.swift in Sources */,
 				OBJ_139 /* DotGenerator.swift in Sources */,
 				OBJ_140 /* Executor.swift in Sources */,
@@ -854,7 +859,7 @@
 				BB07CEB520ADC40E00921AAE /* main.swift in Sources */,
 				BB07CEB620ADC40E00921AAE /* Drafter.swift in Sources */,
 				BB42973C21351B5500D17529 /* ObjcTypeParser.swift in Sources */,
-				BB2CD795213A780100303C65 /* Passes.swift in Sources */,
+				BB2CD795213A780100303C65 /* DistinctPass.swift in Sources */,
 				BB07CEB720ADC40E00921AAE /* ParserRunner.swift in Sources */,
 				BB86F21220BA568500EB5D45 /* SwiftTypeNode.swift in Sources */,
 				BB07CEB820ADC40E00921AAE /* ClassNode.swift in Sources */,
@@ -900,6 +905,7 @@
 				BB07CEB020ADC37E00921AAE /* TokenLexer.swift in Sources */,
 				OBJ_102 /* SwiftClassParserTest.swift in Sources */,
 				BB07CEAC20ADC20B00921AAE /* String+Extension.swift in Sources */,
+				BB2CD799213B9E5700303C65 /* AccessControlPass.swift in Sources */,
 				BB07CEA520ADBE0000921AAE /* FileParser.swift in Sources */,
 				BBEDC25D20B00AF00006DC8A /* AutoCodable.swift in Sources */,
 				OBJ_103 /* SwiftMethodInvokeTest.swift in Sources */,
