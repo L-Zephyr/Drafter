@@ -40,6 +40,15 @@ extension Array {
         return dic
     }
     
+    /// 通过Array来创建一个Set
+    ///
+    /// - Parameter selectKey: 接受一个数组中的元素，返回需要保存在Set中的值
+    /// - Returns: 一个Set对象
+    func toSet<T: Hashable>(_ selectKey: (Element) -> T?) -> Set<T> {
+        let elements = self.compactMap(selectKey)
+        return Set<T>(elements)
+    }
+    
     /// 通过一个字典创建数组，数组中包含字典的所有value
     init<Key: Hashable>(_ dic: [Key: Element]) {
         self.init()

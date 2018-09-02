@@ -132,6 +132,7 @@ class Drafter {
     init() {
         Preprocessor.shared.register(pass: AccessControlPass())
         Preprocessor.shared.register(pass: DistinctPass())
+        Preprocessor.shared.register(pass: SwiftProtocolPass())
     }
 }
 
