@@ -3,6 +3,7 @@
 /Packages
 /Pods
 /*.xcodeproj
+/.idea
 
 xcuserdata
 *.xcuserstate
