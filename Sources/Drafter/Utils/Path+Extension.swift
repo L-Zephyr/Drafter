@@ -47,11 +47,11 @@ extension Path {
     /// 文件类型
     var fileType: FileType {
         switch self.extension {
-        case ".h":
+        case "h":
             return .h
-        case ".m":
+        case "m":
             return .m
-        case ".swift":
+        case "swift":
             return .swift
         default:
             return .unknown

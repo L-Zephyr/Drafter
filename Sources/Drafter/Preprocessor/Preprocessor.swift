@@ -48,11 +48,16 @@ class Preprocessor {
         let files = passList.reduce(nodes, { files, pass in
             return pass.run(onFiles: files)
         })
+
+        print("1: \(files.count), \(files.ocTypes.count), \(files.swiftTypes.count)")
         
         // 2. 处理OC和Swift类型
         let (ocTypes, swiftTypes) = passList.reduce((files.ocTypes, files.swiftTypes), { types, pass in
+            print("\(types.0.count), \(types.1.count), \(pass)")
             return pass.run(onOCTypes: types.0, swiftTypes: types.1)
         })
+
+        print("2: \(ocTypes.count), \(swiftTypes.count)")
         
         // 3. 整合成ClassNode
         let imps = ocTypes.implementations.toDictionary { $0.className }
@@ -63,6 +68,8 @@ class Preprocessor {
             return nil
         }
         let classList = ocClasses + swiftTypes.classes
+
+        print("3: \(classList.count)")
         
         return passList.reduce(classList, { list, pass in
             return pass.run(onClasses: list)

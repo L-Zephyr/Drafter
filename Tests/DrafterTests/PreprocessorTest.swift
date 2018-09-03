@@ -79,6 +79,5 @@ class PreprocessorTest: XCTestCase {
         
         let classes = Preprocessor.shared.process([ocNodes, swiftNodes])
         
-        
     }
 }
