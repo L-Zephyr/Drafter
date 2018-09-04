@@ -60,7 +60,14 @@ extension ClassNode {
         }
         
         if let imp = implementation {
-            self.methods = imp.methods
+            let interfaceMethods = Set<MethodNode>(interface?.methods ?? [])
+            /// 作用域
+            self.methods = imp.methods.map { method -> MethodNode in
+                if let index = interfaceMethods.index(of: method) {
+                    method.accessControl = max(method.accessControl, interfaceMethods[index].accessControl)
+                }
+                return method
+            }
         }
     }
 }

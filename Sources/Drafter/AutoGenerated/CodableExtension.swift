@@ -16,16 +16,16 @@ extension AccessControlLevel {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
-            case .open:
-                try container.encode("`open`", forKey: .key)
-            case .public:
-                try container.encode("`public`", forKey: .key)
-            case .internal:
-                try container.encode("`internal`", forKey: .key)
-            case .fileprivate:
-                try container.encode("`fileprivate`", forKey: .key)
             case .private:
                 try container.encode("`private`", forKey: .key)
+            case .fileprivate:
+                try container.encode("`fileprivate`", forKey: .key)
+            case .internal:
+                try container.encode("`internal`", forKey: .key)
+            case .public:
+                try container.encode("`public`", forKey: .key)
+            case .open:
+                try container.encode("`open`", forKey: .key)
         }
     }
 
@@ -33,16 +33,16 @@ extension AccessControlLevel {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let key = try container.decode(String.self, forKey: .key)
         switch key {
-        case "`open`":
-            self = .`open`
-        case "`public`":
-            self = .`public`
-        case "`internal`":
-            self = .`internal`
+        case "`private`":
+            self = .`private`
         case "`fileprivate`":
             self = .`fileprivate`
+        case "`internal`":
+            self = .`internal`
+        case "`public`":
+            self = .`public`
         default:
-            self = .`private`
+            self = .`open`
         }
     }
 }
