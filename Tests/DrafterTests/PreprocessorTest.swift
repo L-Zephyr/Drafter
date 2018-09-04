@@ -7,17 +7,21 @@
 
 import XCTest
 
-let ocCode = """
+let ocHeaderCode = """
 @interface MyClass1: NSObject
 - (void)method1;
 @end
 
+"""
+
+let ocImpCode = """
 @implementation MyClass1
 - (void)method1 {}
+- (void)method3 {}
 @end
 
-@interface MyClass1 (Category)
-- (void)method2;
+@interface MyClass1 (Category) <MyProtocol>
+- (void)method3;
 @end
 
 @implementation MyClass1 (Category)
@@ -32,6 +36,7 @@ class MyClass2: MyProtocol1 {
 
 extension MyClass2: MyProtocol2 {
     func method2() {}
+    private func method3() {}
 }
 
 protocol MyProtocol1 {}
@@ -48,14 +53,18 @@ class PreprocessorTest: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    
+
     func testPreprocessor() {
         let _ = Drafter()
-        let ocLexer = SourceLexer(input: ocCode, isSwift: false)
+        let ocHeaderLexer = SourceLexer(input: ocHeaderCode, isSwift: false)
+        let ocImpLexer = SourceLexer(input: ocImpCode, isSwift: false)
         let swiftLexer = SourceLexer(input: swiftCode, isSwift: true)
         
-        guard let ocTypes = ObjcTypeParser().parser.run(ocLexer.allTokens) else {
+        guard let ocHeaderTypes = ObjcTypeParser().parser.run(ocHeaderLexer.allTokens) else {
+            XCTAssert(false)
+            return
+        }
+        guard let ocImpTypes = ObjcTypeParser().parser.run(ocImpLexer.allTokens) else {
             XCTAssert(false)
             return
         }
@@ -64,20 +73,52 @@ class PreprocessorTest: XCTestCase {
             return
         }
         
-        let ocNodes = FileNode(md5: "",
-                               drafterVersion: DrafterVersion,
-                               path: "",
-                               type: .m,
-                               swiftTypes: [],
-                               objcTypes: ocTypes)
-        let swiftNodes = FileNode(md5: "",
-                               drafterVersion: DrafterVersion,
-                               path: "",
-                               type: .swift,
-                               swiftTypes: swiftTypes,
-                               objcTypes: [])
+        let ocHeaderNodes = FileNode(md5: "", drafterVersion: DrafterVersion, path: "", type: .h, swiftTypes: [], objcTypes: ocHeaderTypes)
+        let ocImpNodes = FileNode(md5: "", drafterVersion: DrafterVersion, path: "", type: .m, swiftTypes: [], objcTypes: ocImpTypes)
+        let swiftNodes = FileNode(md5: "", drafterVersion: DrafterVersion, path: "", type: .swift, swiftTypes: swiftTypes, objcTypes: [])
         
-        let classes = Preprocessor.shared.process([ocNodes, swiftNodes])
-        
+        let classes = Preprocessor.shared.process([ocHeaderNodes, ocImpNodes, swiftNodes])
+
+        XCTAssert(classes.count == 2)
+        // OC
+        guard let ocClass = classes.find(name: "MyClass1") else {
+            XCTAssert(false, "MyClass1 not found")
+            return
+        }
+        XCTAssert(ocClass.isSwift == false, "ocClass test 1")
+        XCTAssert(ocClass.methods.count == 3, "ocClass test 2")
+        guard let ocMethod1 = ocClass.methods.find(methodName: "method1"), let ocMethod2 = ocClass.methods.find(methodName: "method2") else {
+            XCTAssert(false, "method not found in MyClass1")
+            return
+        }
+        XCTAssert(ocMethod1.params.count == 1, "oc method1 test 1")
+        XCTAssert(ocMethod1.accessControl == .public, "oc method1 test 2")
+        XCTAssert(ocMethod2.accessControl == .private, "oc method1 test 3")
+
+        // Swift
+        guard let swiftClass = classes.find(name: "MyClass2") else {
+            XCTAssert(false)
+            return
+        }
+    }
+}
+
+extension Array where Element == ClassNode {
+    /// 查找指定类型
+    func find(name: String) -> ClassNode? {
+        if let index = self.index(where: { $0.className == name }) {
+            return self[index]
+        }
+        return nil
+    }
+}
+
+extension Array where Element == MethodNode {
+    /// 根据方法的名字查找
+    func find(methodName: String) -> MethodNode? {
+        if let index = self.index(where: { $0.params[0].outterName == methodName }) {
+            return self[index]
+        }
+        return nil
     }
 }
