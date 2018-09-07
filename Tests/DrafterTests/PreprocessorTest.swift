@@ -80,7 +80,7 @@ class PreprocessorTest: XCTestCase {
         let classes = Preprocessor.shared.process([ocHeaderNodes, ocImpNodes, swiftNodes])
 
         XCTAssert(classes.count == 2)
-        // OC
+        // OC test
         guard let ocClass = classes.find(name: "MyClass1") else {
             XCTAssert(false, "MyClass1 not found")
             return
@@ -95,7 +95,7 @@ class PreprocessorTest: XCTestCase {
         XCTAssert(ocMethod1.accessControl == .public, "oc method1 test 2")
         XCTAssert(ocMethod2.accessControl == .private, "oc method1 test 3")
 
-        // Swift
+        // Swift test
         guard let swiftClass = classes.find(name: "MyClass2") else {
             XCTAssert(false)
             return

@@ -24,21 +24,37 @@ extension SwiftMethodParser {
      */
     var methodDef: TokenParser<MethodNode> {
         return curry(MethodNode.swiftInit)
-            <^> isStatic
+            <^> preQualifiers
             <*> methodName
             <*> paramList.between(token(.leftParen), token(.rightParen))
             <*> modifiers *> retType
             <*> ({ SwiftInvokeParser().parser.run($0) ?? [] } <^> body)
     }
-
-    /// 静态方法
-    /**
-     is_static = ('class' | 'static')
-     */
-    var isStatic: TokenParser<Bool> {
-        return (token(.cls) <|> token(.statical)) *> pure(true)
-            <|> pure(false)
+    
+    /// 解析func前的修饰符，static、public等等
+    var preQualifiers: TokenParser<[Token]> {
+        // 解析静态方法和作用域的修饰符，这两种修饰符的位置可以互换
+        return
+            curry({ (tokens: [Token?]) -> [Token] in
+                return tokens.compactMap { $0 }
+            })
+            <^> (token(.accessControl).try ++ staticQualifier.try ++ token(.accessControl).try)
     }
+
+    /// 静态方法修饰符
+    var staticQualifier: TokenParser<Token> {
+        return token(.cls)
+            <|> token(.statical)
+    }
+
+//    /// 静态方法
+//    /**
+//     is_static = ('class' | 'static')
+//     */
+//    var isStatic: TokenParser<Bool> {
+//        return (token(.cls) <|> token(.statical)) *> pure(true)
+//            <|> pure(false)
+//    }
     
     /// 方法名
     /**

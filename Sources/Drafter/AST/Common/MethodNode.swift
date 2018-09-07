@@ -28,6 +28,25 @@ enum AccessControlLevel: Int, AutoCodable {
     case `open` = 4
 }
 
+extension AccessControlLevel: ExpressibleByStringLiteral {
+    public init(stringLiteral value: String) {
+        switch value {
+        case "open":
+            self = .open
+        case "public":
+            self = .public
+        case "internal":
+            self = .internal
+        case "fileprivate":
+            self = .fileprivate
+        case "private":
+            self = .private
+        default:
+            self = .internal
+        }
+    }
+}
+
 extension AccessControlLevel: CustomStringConvertible {
     var description: String {
         switch self {
@@ -97,7 +116,6 @@ extension MethodNode {
     /// OC初始化方法
     class func ocInit(_ isStatic: Bool, _ retType: String, _ params: [Param], _ invokes: [MethodInvokeNode]) -> MethodNode {
         let method = MethodNode()
-        
         method.isSwift = false
         method.isStatic = isStatic
         method.returnType = retType
@@ -109,16 +127,25 @@ extension MethodNode {
     }
     
     /// swift初始化方法
-    class func swiftInit(_ isStatic: Bool, _ name: String, _ params: [Param], _ retType: String, _ invokes: [MethodInvokeNode]) -> MethodNode {
+    class func swiftInit(_ preQualifiers: [Token], _ name: String, _ params: [Param], _ retType: String, _ invokes: [MethodInvokeNode]) -> MethodNode {
         let method = MethodNode()
-        
         method.isSwift = true
-        method.isStatic = isStatic
         method.returnType = retType
         method.methodName = name
         method.params = params
         method.invokes = invokes
-        
+        // static method
+        if preQualifiers.index(where: { $0.type == .statical }) != nil {
+            method.isStatic = true
+        } else {
+            method.isStatic = false
+        }
+        // access control
+        if let index = preQualifiers.index(where: { $0.type == .accessControl }) {
+            method.accessControl = AccessControlLevel(stringLiteral: preQualifiers[index].text)
+        } else {
+            method.accessControl = .internal
+        }
         return method
     }
 }

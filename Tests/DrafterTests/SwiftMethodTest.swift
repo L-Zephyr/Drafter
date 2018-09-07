@@ -104,4 +104,38 @@ class SwiftMethodTest: XCTestCase {
         XCTAssert(methods[0].params.count == 2)
         XCTAssert(methods[0].params == [p1, p2])
     }
+
+    func testInlineFunc() {
+        let code = """
+        func method1() { 
+            func inlineFunc() { 
+            
+            }
+            inlineFunc()
+        }
+        """
+        let methods = run(code)
+
+        XCTAssert(methods.count == 1)
+        XCTAssert(methods[0].methodName == "method1")
+        XCTAssert(methods[0].invokes.count == 2) // TIP: 暂时不处理内联函数
+    }
+
+    func testAccessControl() {
+        let code = """
+        func method1() {}
+        static func method2() {}
+        public func method3() {}
+        public static func method4() {}
+        static open func method5() {}
+        """
+        let methods = run(code)
+
+        XCTAssert(methods.count == 5)
+        XCTAssert(methods[0].isStatic == false && methods[0].accessControl == .internal)
+        XCTAssert(methods[1].isStatic == true && methods[1].accessControl == .internal)
+        XCTAssert(methods[2].isStatic == false && methods[2].accessControl == .public)
+        XCTAssert(methods[3].isStatic == true && methods[3].accessControl == .public)
+        XCTAssert(methods[4].isStatic == true && methods[4].accessControl == .open)
+    }
 }
