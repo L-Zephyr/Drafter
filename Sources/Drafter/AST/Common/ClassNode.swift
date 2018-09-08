@@ -108,12 +108,12 @@ extension ClassNode {
         } else {
             info["super"] = ""
         }
-        
+
+        info["accessControl"] = accessControl.description // access level
         info["protocols"] = protocols.map { ["name": $0, "id": ID_MD5($0)] }  // protocols
         info["isSwift"] = isSwift           // isSwift
         info["id"] = clsId                  // id
-//        info["methods"] = methods.map { $0.toTemplateJSON(clsId: clsId, methods: methodIds) } // methods
-        
+
         // 以方法的id作为Key转换成字典
         info["methods"] =                   // methods
             methods.map {
