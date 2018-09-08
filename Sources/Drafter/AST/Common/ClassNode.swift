@@ -15,6 +15,7 @@ class ClassNode: Node {
     var className: String = ""     // 类名
     var protocols: [String] = []   // 实现的协议
     var methods: [MethodNode] = [] // 方法
+    var accessControl: AccessControlLevel = .public // 访问权限
     
     // sourcery:inline:ClassNode.AutoCodable
     required init(from decoder: Decoder) throws {
@@ -24,6 +25,7 @@ class ClassNode: Node {
         className = try container.decode(String.self, forKey: .className)
         protocols = try container.decode([String].self, forKey: .protocols)
         methods = try container.decode([MethodNode].self, forKey: .methods)
+        accessControl = try container.decode(AccessControlLevel.self, forKey: .accessControl)
     }
     init() { }
     // sourcery:end
@@ -32,7 +34,7 @@ class ClassNode: Node {
 // MARK: - 自定义初始化方法
 
 extension ClassNode {
-    convenience init(_ isSwift: Bool, _ name: String, _ superClass: String?, _ protos: [String], _ methods: [MethodNode]) {
+    convenience init(_ isSwift: Bool, _ accessLevel: String?, _ name: String, _ superClass: String?, _ protos: [String], _ methods: [MethodNode]) {
         self.init()
         
         if let superClass = superClass, !superClass.isEmpty {
@@ -42,10 +44,11 @@ extension ClassNode {
         self.className = name
         self.protocols = protos
         self.methods = methods
+        self.accessControl = AccessControlLevel(stringLiteral: accessLevel ?? "internal")
     }
     
     convenience init(clsName: String) {
-        self.init(false, clsName, nil, [], [])
+        self.init(false, nil, clsName, nil, [], [])
     }
     
     // 解析OC时所用的初始化方法

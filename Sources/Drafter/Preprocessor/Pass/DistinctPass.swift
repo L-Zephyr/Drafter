@@ -33,17 +33,17 @@ class DistinctPass: Pass {
         let ocNodes = interfaceSet.map { ObjcTypeNode.interface($0) } + impSet.map { ObjcTypeNode.implementaion($0) }
 
         // 3. 将swfit中extension定义的方法合并到class中
-        let extDic = swiftTypes.extensions.toDictionary { node -> String? in
-            return node.name
+        let clsDic = swiftTypes.classes.toDictionary { node -> String? in
+            return node.className
         }
         let swiftNodes = swiftTypes.map { type -> SwiftTypeNode in
-            if case .class(let cls) = type, let ext = extDic[cls.className] {
+            if case .extension(let ext) = type, let cls = clsDic[ext.name] {
                 cls.protocols.append(contentsOf: ext.protocols)
                 cls.methods.append(contentsOf: ext.methods)
             }
             return type
         }
-        
+
         return (ocNodes, swiftNodes)
     }
     

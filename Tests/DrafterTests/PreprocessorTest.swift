@@ -34,9 +34,13 @@ class MyClass2: MyProtocol1 {
     func method1() {}
 }
 
-extension MyClass2: MyProtocol2 {
-    func method2() {}
+fileprivate extension MyClass2: MyProtocol2 {
+    public func method2() {}
     private func method3() {}
+}
+
+open extension MyClass2 { 
+    fileprivate func method4() {}
 }
 
 protocol MyProtocol1 {}
@@ -100,6 +104,13 @@ class PreprocessorTest: XCTestCase {
             XCTAssert(false)
             return
         }
+        XCTAssert(swiftClass.methods.count == 4)
+        XCTAssert(swiftClass.superCls == nil)
+        XCTAssert(swiftClass.protocols.count == 2)
+        XCTAssert(swiftClass.methods[0].accessControl == .internal)
+        XCTAssert(swiftClass.methods[1].accessControl == .fileprivate)
+        XCTAssert(swiftClass.methods[2].accessControl == .private)
+        XCTAssert(swiftClass.methods[3].accessControl == .fileprivate)
     }
 }
 

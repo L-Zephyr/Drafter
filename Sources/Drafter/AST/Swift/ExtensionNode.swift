@@ -12,6 +12,7 @@ class ExtensionNode: Node {
     var name: String = "" // 类型的名字
     var protocols: [String] = [] // 实现的协议
     var methods: [MethodNode] = [] // 方法
+    var accessControl: AccessControlLevel = .internal // 访问控制
     
     // sourcery:inline:ExtensionNode.AutoCodable
     required init(from decoder: Decoder) throws {
@@ -19,17 +20,19 @@ class ExtensionNode: Node {
         name = try container.decode(String.self, forKey: .name)
         protocols = try container.decode([String].self, forKey: .protocols)
         methods = try container.decode([MethodNode].self, forKey: .methods)
+        accessControl = try container.decode(AccessControlLevel.self, forKey: .accessControl)
     }
     init() { }
     // sourcery:end
 }
 
 extension ExtensionNode {
-    convenience init(_ name: String, _ protos: [String]?, _ methods: [MethodNode]) {
+    convenience init(_ accessLevel: String?, _ name: String, _ protos: [String]?, _ methods: [MethodNode]) {
         self.init()
         self.name = name
         self.protocols = protos ?? []
         self.methods = methods
+        self.accessControl = AccessControlLevel(stringLiteral: accessLevel ?? "internal")
     }
 }
 

@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		2714051434189ABEED5B13BE /* AccessControlLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27140A6AC9888AE686A9CD24 /* AccessControlLevel.swift */; };
 		705F13139E6690C8572B8E2A /* Pods_drafterPackageDescription.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 081810339D1AF85858B06AF0 /* Pods_drafterPackageDescription.framework */; };
 		BB046F9F20B00CA200DD5546 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEAB20ADC20B00921AAE /* String+Extension.swift */; };
 		BB046FB820B03F1000DD5546 /* CodableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB046FB720B03F1000DD5546 /* CodableExtension.swift */; };
@@ -91,6 +92,7 @@
 		BB8B0E4820B4434900391A76 /* FileParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB07CEA420ADBE0000921AAE /* FileParser.swift */; };
 		BBEDC25D20B00AF00006DC8A /* AutoCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEDC25C20B00AF00006DC8A /* AutoCodable.swift */; };
 		BBEDC25E20B00AF00006DC8A /* AutoCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEDC25C20B00AF00006DC8A /* AutoCodable.swift */; };
+		BBF8EAFC2143606400617BBC /* AccessControlLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27140A6AC9888AE686A9CD24 /* AccessControlLevel.swift */; };
 		C24DE550A3814E2E2D82CC12 /* Pods_PathKitPackageDescription.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC86D8D4FD48559A55FC17B8 /* Pods_PathKitPackageDescription.framework */; };
 		CF4E1F02BF51263346C041A6 /* Pods_drafter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EAFC62709AC963D7948F7CF /* Pods_drafter.framework */; };
 		EDA03BDDA7945D204961E429 /* Pods_DrafterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F42C84691EC643693D1F8CB /* Pods_DrafterTests.framework */; };
@@ -157,6 +159,7 @@
 		12ECCC12C50E5475D635C05E /* Pods-drafter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-drafter.release.xcconfig"; path = "Pods/Target Support Files/Pods-drafter/Pods-drafter.release.xcconfig"; sourceTree = "<group>"; };
 		14A91E45681349D9CD19CFC9 /* Pods-DrafterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrafterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DrafterTests/Pods-DrafterTests.release.xcconfig"; sourceTree = "<group>"; };
 		1BD7FBDA73CBF11FBB4629C7 /* Pods-drafterPackageDescription.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-drafterPackageDescription.debug.xcconfig"; path = "Pods/Target Support Files/Pods-drafterPackageDescription/Pods-drafterPackageDescription.debug.xcconfig"; sourceTree = "<group>"; };
+		27140A6AC9888AE686A9CD24 /* AccessControlLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessControlLevel.swift; sourceTree = "<group>"; };
 		3EB703B5295B01926E2FB8F8 /* Pods-PathKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PathKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PathKit/Pods-PathKit.debug.xcconfig"; sourceTree = "<group>"; };
 		3F42C84691EC643693D1F8CB /* Pods_DrafterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DrafterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		483D3E90D947238095902350 /* Pods-DrafterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrafterTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrafterTests/Pods-DrafterTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -372,6 +375,7 @@
 				OBJ_10 /* ClassNode.swift */,
 				OBJ_14 /* MethodNode.swift */,
 				OBJ_13 /* MethodInvokeNode.swift */,
+				27140A6AC9888AE686A9CD24 /* AccessControlLevel.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -839,6 +843,7 @@
 				BB4297362134EFDB00D17529 /* Preprocessor.swift in Sources */,
 				OBJ_158 /* ParserRunner.swift in Sources */,
 				OBJ_159 /* CommandLine.swift in Sources */,
+				BBF8EAFC2143606400617BBC /* AccessControlLevel.swift in Sources */,
 				OBJ_160 /* Option.swift in Sources */,
 				OBJ_161 /* StringExtensions.swift in Sources */,
 				BB2CD7A2213C193500303C65 /* SwiftProtocolPass.swift in Sources */,
@@ -923,6 +928,7 @@
 				OBJ_105 /* SwiftProtocolParserTest.swift in Sources */,
 				BB07CEB420ADC3FF00921AAE /* Token.swift in Sources */,
 				BB07CEAE20ADC37400921AAE /* SourceLexer.swift in Sources */,
+				2714051434189ABEED5B13BE /* AccessControlLevel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

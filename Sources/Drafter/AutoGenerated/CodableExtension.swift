@@ -55,6 +55,7 @@ extension ClassNode {
         case className 
         case protocols 
         case methods 
+        case accessControl 
     }
 
 }
@@ -65,6 +66,7 @@ extension ExtensionNode {
         case name 
         case protocols 
         case methods 
+        case accessControl 
     }
 
 }
