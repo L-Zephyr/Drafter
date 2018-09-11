@@ -69,8 +69,6 @@ class Drafter {
     func craftHTML() {
         let classNodes = ParserRunner.runner.parse(files: files, usingCache: !disableCache)
 
-        print("class Nodes: \(classNodes.count)")
-
         // 格式化
         var jsonString: String? = nil
         let jsonDic = classNodes.map { $0.toTemplateJSON() }
