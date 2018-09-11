@@ -29,3 +29,15 @@ extension ImplementationNode {
         self.methods = methods
     }
 }
+
+// MARK: - Hashable
+
+extension ImplementationNode: Hashable {
+    static func ==(lhs: ImplementationNode, rhs: ImplementationNode) -> Bool {
+        return lhs.className == rhs.className
+    }
+    
+    var hashValue: Int {
+        return className.hashValue
+    }
+}

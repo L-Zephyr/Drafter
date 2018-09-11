@@ -12,7 +12,7 @@ import SwiftyParse
 
 class SwiftClassParser: ConcreteParserType {
     var parser: TokenParser<[ClassNode]> {
-        return curry({ $0.merged() }) <^> classParser.continuous
+        return classParser.continuous
     }
 }
 
@@ -33,6 +33,7 @@ extension SwiftClassParser {
         // TODO: 区分struct和class
         return curry(ClassNode.init)
             <^> pure(true)
+            <*> token(.accessControl).try => stringify
             <*> (token(.cls) <|> token(.structure)) *> token(.name) <* genericType.try => stringify // 类名
             <*> superCls.try => stringify // 父类
             <*> (token(.comma) *> protocols).try => stringify // 协议列表

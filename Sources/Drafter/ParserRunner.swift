@@ -31,7 +31,7 @@ class ParserRunner {
         implementations = []
         classList = []
         
-        var results: [FileParserResult] = []
+        var results: [FileNode] = []
         
         // 1. 解析OC文件
         for file in ocFiles {
@@ -63,7 +63,7 @@ class ParserRunner {
         
         waitUntilFinished()
 
-        return results.processed()
+        return Preprocessor.shared.process(results)
     }
     
     // MARK: - Private
@@ -75,7 +75,7 @@ class ParserRunner {
     fileprivate var classList: [ClassNode] = []
 }
 
-// MARK: - 0.2.0以前的接口
+// MARK: - 0.2.0以前的接口, 不建议使用
 
 extension ParserRunner {
     /// 解析代码中的方法调用
@@ -130,9 +130,9 @@ extension ParserRunner {
         func parseObjcClass(_ file: String) {
             print("Parsing \(file)...")
             let tokens = SourceLexer(file: file).allTokens
-            let result = InterfaceParser().parser.toClassNode.run(tokens) ?? []
+            let result = InterfaceParser().parser.run(tokens) ?? []
             sync(self) {
-                classes.merge(result)
+                classes.append(contentsOf: result.map { ClassNode(interface: $0) })
             }
         }
         
@@ -143,7 +143,7 @@ extension ParserRunner {
             let types = SwiftTypeParser().parser.run(tokens) ?? []
             sync(self) {
                 protocols.append(contentsOf: types.protocols)
-                classes.merge(types.classes)
+                classes.append(contentsOf: types.classes)
             }
         }
         
@@ -168,7 +168,7 @@ extension ParserRunner {
         // 3. 等待所有线程执行结束
         waitUntilFinished()
         
-        return (classes, protocols)
+        return (DistinctPass().run(onClasses: classes), protocols)
     }
 }
 

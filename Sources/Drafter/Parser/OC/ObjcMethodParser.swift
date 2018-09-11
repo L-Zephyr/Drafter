@@ -10,7 +10,13 @@ import SwiftyParse
 
 class ObjcMethodParser: ConcreteParserType {
     var parser: TokenParser<[MethodNode]> {
-        return (methodDefParser <|> methodDeclParser).continuous
+        // TODO: 回溯优化
+        return (methodDeclParser <|> methodDefParser).continuous
+    }
+    
+    /// 仅解析方法定义
+    var declsParser: TokenParser<[MethodNode]> {
+        return methodDeclParser.continuous
     }
 }
 

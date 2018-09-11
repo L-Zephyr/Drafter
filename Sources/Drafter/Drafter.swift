@@ -11,7 +11,7 @@ import PathKit
 
 let OutputFolder = "DrafterStage"
 let DataPlaceholder = "DrafterDataPlaceholder"
-let DrafterVersion = "0.4.2"
+let DrafterVersion = "0.5.0"
 
 class Drafter {
     
@@ -68,7 +68,9 @@ class Drafter {
     /// 解析所有输入并生成一个HTML的输出
     func craftHTML() {
         let classNodes = ParserRunner.runner.parse(files: files, usingCache: !disableCache)
-        
+
+        print("class Nodes: \(classNodes.count)")
+
         // 格式化
         var jsonString: String? = nil
         let jsonDic = classNodes.map { $0.toTemplateJSON() }
@@ -125,6 +127,14 @@ class Drafter {
         if !disableAutoOpen {
             Executor.execute("open", targetHtml, help: "Auto open failed")
         }
+    }
+    
+    // MARK: -
+    
+    init() {
+        Preprocessor.shared.register(pass: AccessControlPass())
+        Preprocessor.shared.register(pass: DistinctPass())
+        Preprocessor.shared.register(pass: SwiftProtocolPass())
     }
 }
 

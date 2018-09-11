@@ -39,12 +39,13 @@ extension {{type.name}} {
             {% endfor %}
         {% endfor %}
     }
+    
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
         {% for case in type.cases %}
-            {% map case.associatedValues into valnames %}let val{{maploop.counter}}{% endmap %} 
-            case .{{case.name|replace:"`",""}}{% if case.hasAssociatedValue %}({{valnames|join:","}}){% else %}(){% endif %}:
+            {% map case.associatedValues into valnames %}let val{{maploop.counter}}{% endmap %} {# 所有的参数 #}
+            case .{{case.name|replace:"`",""}}{% if case.hasAssociatedValue %}({{valnames|join:","}}){% endif %}:
                 try container.encode("{{case.name}}", forKey: .key)
                 {% map case.associatedValues into counters %}{{maploop.counter}}{% endmap %} 
                 {% for count in counters %}
@@ -69,7 +70,7 @@ extension {{type.name}} {
             {% map maploop.item.associatedValues into values %}
                 try container.decode({{maploop.item.typeName}}.self, forKey: .{{caseName}}_{{maploop.counter}})
             {% endmap %} 
-            self = .{{maploop.item.name}}({{values|join:","}})
+            self = .{{maploop.item.name}}{% if values.count > 0 %}({{values|join:","}}){% endif %}
         {% endmap %} 
         {{ caseTemplates|join }}
         }

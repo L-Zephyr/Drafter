@@ -10,6 +10,7 @@ import Foundation
 
 // MARK: - Param
 
+/// 参数
 struct Param: AutoCodable {
     var outterName: String  // 参数的名字
     var type: String  // 参数类型
@@ -22,16 +23,18 @@ struct Param: AutoCodable {
 class MethodNode: Node {
     var isSwift = false  // 是否为swift方法
     var isStatic = false  // 是否为类方法
+    var accessControl: AccessControlLevel = .public // 方法的访问权限
     var returnType: String = "" // 返回值类型
     var methodName: String = "" // 方法的名字, 只有解析swift文件用这个字段
     var params: [Param] = [] // 方法的参数
     var invokes: [MethodInvokeNode] = [] // 方法体中调用的方法
-    
+
     // sourcery:inline:MethodNode.AutoCodable
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         isSwift = try container.decode(Bool.self, forKey: .isSwift)
         isStatic = try container.decode(Bool.self, forKey: .isStatic)
+        accessControl = try container.decode(AccessControlLevel.self, forKey: .accessControl)
         returnType = try container.decode(String.self, forKey: .returnType)
         methodName = try container.decode(String.self, forKey: .methodName)
         params = try container.decode([Param].self, forKey: .params)
@@ -47,27 +50,36 @@ extension MethodNode {
     /// OC初始化方法
     class func ocInit(_ isStatic: Bool, _ retType: String, _ params: [Param], _ invokes: [MethodInvokeNode]) -> MethodNode {
         let method = MethodNode()
-        
         method.isSwift = false
         method.isStatic = isStatic
         method.returnType = retType
         method.params = params
         method.invokes = invokes
+        method.accessControl = .private
         
         return method
     }
     
     /// swift初始化方法
-    class func swiftInit(_ isStatic: Bool, _ name: String, _ params: [Param], _ retType: String, _ invokes: [MethodInvokeNode]) -> MethodNode {
+    class func swiftInit(_ preQualifiers: [Token], _ name: String, _ params: [Param], _ retType: String, _ invokes: [MethodInvokeNode]) -> MethodNode {
         let method = MethodNode()
-        
         method.isSwift = true
-        method.isStatic = isStatic
         method.returnType = retType
         method.methodName = name
         method.params = params
         method.invokes = invokes
-        
+        // static method
+        if preQualifiers.index(where: { $0.type == .statical }) != nil {
+            method.isStatic = true
+        } else {
+            method.isStatic = false
+        }
+        // access control
+        if let index = preQualifiers.index(where: { $0.type == .accessControl }) {
+            method.accessControl = AccessControlLevel(stringLiteral: preQualifiers[index].text)
+        } else {
+            method.accessControl = .internal
+        }
         return method
     }
 }
@@ -122,13 +134,14 @@ extension MethodNode: CustomStringConvertible {
 }
 
 extension MethodNode {
-    /// 将方法转化成JSON字典
+    /// 将方法转化成前端模板用的JSON字典
     func toTemplateJSON(clsId: String, methods: [Int]) -> [String: Any] {
         var info: [String: Any] = [:]
         info["type"] = "method"                         // type
         info["classId"] = clsId                         // classId
         info["static"] = self.isStatic                  // static
         info["isSwift"] = self.isSwift                  // isSwift
+        info["accessControl"] = "\(self.accessControl)" // accessControl
         
         if isSwift {
             info["name"] = methodName                   // name

@@ -8,6 +8,14 @@
 import Foundation
 import PathKit
 
+/// 文件类型
+enum FileType: Int, AutoCodable {
+    case h      // 头文件
+    case m      // 实现文件
+    case swift  // swift文件
+    case unknown
+}
+
 extension Path {
     /// 获取该源码文件对应的缓存位置
     func cachePath() -> Path {
@@ -36,6 +44,20 @@ extension Path {
         return self.absolute().string.md5
     }
     
+    /// 文件类型
+    var fileType: FileType {
+        switch self.extension {
+        case "h":
+            return .h
+        case "m":
+            return .m
+        case "swift":
+            return .swift
+        default:
+            return .unknown
+        }
+    }
+    
     /// 该文件是否为swift文件
     var isSwift: Bool {
         return self.extension == "swift"
@@ -45,9 +67,4 @@ extension Path {
     var isObjc: Bool {
         return self.extension == "m" || self.extension == "h"
     }
-    
-//    /// 获取文件内容的散列值
-//    var contentHash: String {
-//
-//    }
 }

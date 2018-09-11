@@ -8,6 +8,7 @@
 import Foundation
 import SwiftyParse
 
+/// 自定义错误信息操作符，当parser失败时设置自定义的错误信息
 func <?> <T>(_ parser: Parser<T, Tokens>, _ err: String) -> Parser<T, Tokens> {
     return Parser<T, Tokens> { (tokens) -> ParseResult<(T, Tokens)> in
         let result = parser.parse(tokens)
@@ -25,6 +26,22 @@ func ?? <T>(_ parser: Parser<T?, Tokens>, _ defaultVal: T) -> Parser<T, Tokens> 
         case .success(let (result, rest)):
             if let result = result {
                 return .success((result, rest))
+            } else {
+                return .success((defaultVal, rest))
+            }
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+}
+
+/// parser结果为可选值，如果parser成功但结果为空则用defaultVal替换结果, 数组的版本
+func ?? <T>(_ parser: Parser<T?, Tokens>, _ defaultVal: [T]) -> Parser<[T], Tokens> {
+    return Parser<[T], Tokens> { (tokens) -> ParseResult<([T], Tokens)> in
+        switch parser.parse(tokens) {
+        case .success(let (result, rest)):
+            if let result = result {
+                return .success(([result], rest))
             } else {
                 return .success((defaultVal, rest))
             }

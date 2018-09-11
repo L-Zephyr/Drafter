@@ -36,11 +36,11 @@ class InterfaceTest: XCTestCase {
     
     func run(_ input: String) -> [ClassNode] {
         let tokens = SourceLexer(input: input).allTokens
-        guard let result = InterfaceParser().parser.toClassNode.run(tokens) else {
+        guard let result = InterfaceParser().parser.run(tokens) else {
             XCTAssert(false)
             return []
         }
-        return result
+        return result.map { ClassNode(interface: $0) }
     }
     
     func testClassWithSuper() {
