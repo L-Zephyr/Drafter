@@ -51,7 +51,6 @@ class Preprocessor {
 
         // 2. 处理OC和Swift类型
         let (ocTypes, swiftTypes) = passList.reduce((files.ocTypes, files.swiftTypes), { types, pass in
-            print("\(types.0.count), \(types.1.count), \(pass)")
             return pass.run(onOCTypes: types.0, swiftTypes: types.1)
         })
 
