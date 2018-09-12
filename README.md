@@ -9,7 +9,7 @@
 
 ## 安装
 
-执行以下指令，会自动安装到 /usr/local/bin 目录中：
+执行以下指令，会自动安装到`/usr/local/bin`目录中：
 
 ```shell
 curl "https://raw.githubusercontent.com/L-Zephyr/Drafter/master/install.sh" | /bin/sh
@@ -18,9 +18,9 @@ curl "https://raw.githubusercontent.com/L-Zephyr/Drafter/master/install.sh" | /b
 
 ## 基本使用
 
-可以将解析结果导出为HTML或PNG格式，默认为HTML
+指定一个文件或文件夹，Drafter会自动解析所有的OC和Swift代码文件，解析各个类型中方法的调用流程以及类型之间的继承关系，并以图表的形式展现出来。
 
-### 导出为HTML
+### 导出HTML在浏览器中查看
 
 以AFNetworking的源码为例，在命令行中执行如下命令，在参数`-f`后输入文件或目录：
 
@@ -28,13 +28,23 @@ curl "https://raw.githubusercontent.com/L-Zephyr/Drafter/master/install.sh" | /b
 drafter -f ./AFNetworking
 ```
 
-解析结果会输出到当前路径下的`DrafterStage`文件夹中，用浏览器打开`./DrafterStage/index.html`文件即可浏览，请使用**chrome**浏览器打开：
+解析结果会输出到**当前路径**下的`DrafterStage`文件夹中，用浏览器打开`./DrafterStage/index.html`文件即可浏览，建议使用**chrome**浏览器：
 
-![1](./.res/5.png)
+![call graph](https://raw.githubusercontent.com/L-Zephyr/static_resource/master/Resources/README/15f527cd56bd64f515c54a9b39c5531c.png)
 
-在浏览器中可以交互式的浏览各个类型中的方法调用，以及整体的类图关系，强烈建议通过这种方式来使用Drafter。前端部分的代码开源在[DrafterStage](https://github.com/L-Zephyr/DrafterStage)，本人并非前端开发，所以代码还有许多不完善的地方，仅在chrome环境中经过测试。
+界面主要分为三个部分：
+
+1. 左边可以切换方法调用图（Call Graph）和类图（Class Diagram）模式，查看方法调用图时，列表中显示工程中的所有类型，选择可以直接切换。开启*Intrinsic Method Only*选项仅显示类型内部的方法调用（为防止调用过多默认打开）；开启*Show Access Level*选项则会在方法节点的左上角显示该方法的访问等级；
+
+2. 中间是主要的展示区域，类型中的方法和方法之间的调用关系会以图形的方法展示出来，选中一个方会将该方法及其调用的方法一起高亮出来，*Pick*按钮可以选择指定的方法节点来展示；在类图模式中这里则显示工程的类型继承关系，虚线表示实现协议：  ![class diagram](https://raw.githubusercontent.com/L-Zephyr/static_resource/master/Resources/README/f97cfb8e0818d152279730cdf195c354.png)
+
+3. 右侧为详细信息面板，展示了该节点的所有信息，包括所有参数的名称以及类型等，*Invokes*字段列出了它所调用的方法，点击可以快速定位；
+
+在浏览器中交互式的查看可以帮助你快速找到一个类型的关键逻辑，强烈建议通过这种方式来使用Draft而。前端部分的代码开源在[DrafterStage](https://github.com/L-Zephyr/DrafterStage)，在Chrome环境下经过测试。
 
 ### 导出为PNG
+
+> 这部分为第一个版本的旧接口，不建议使用
 
 - 如果要导出为PNG图片，首先确保电脑中安装了[Graphviz](http://www.graphviz.org/Download_macos.php)，可以直接通过Homebrew来安装:`brew install graphviz`
 
@@ -46,7 +56,7 @@ drafter -f ./AFNetworking
 
   在当前位置会自动生成一张以"文件名+.png"格式来命名的图片：
 
-  ![1](./.res/1.png)
+  ![1](https://raw.githubusercontent.com/L-Zephyr/static_resource/master/Resources/README/53774f208214a9061661016eb316933b.png)
 
 - 生成类继承关系图，使用`-m`参数将解析模式设定为`inherit`，解析继承结构：
 
@@ -55,16 +65,20 @@ drafter -f ./AFNetworking
   ```
   在当前位置的文件夹中会生成一张名为"Inheritance.png"的图片，类图的表示遵循UML规则，虚线表示遵循协议，实线表示继承父类：
 
-  ![3](./.res/3.png)
+  ![3](https://raw.githubusercontent.com/L-Zephyr/static_resource/master/Resources/README/f0fffd01597c304dab2f654db1d9fdcc.png)
 
 ## 参数
 
 - **-f、—file \<arg>**   
   必要参数，指定一个文件或文件夹，多个参数之间用逗号分隔，切勿出现空格。
 
-- **-disable-auto-open**   
+- **--disable-auto-open**     
 
   禁止解析结束后自动打开结果。
+
+- **--disable-cache**     
+
+  在本次解析中不使用上一次缓存。
 
 - **-t、--type**  
 
@@ -82,7 +96,7 @@ drafter -f ./AFNetworking
 
   生成的结果中只包含"viewDidLoad"这个方法下的调用信息：
 
-  ![4](./.res/4.png)
+  ![4](https://raw.githubusercontent.com/L-Zephyr/static_resource/master/Resources/README/82c6ef0e5705844961c3d28ab68288a1.png)
 
 - **-self、—self-method-only**  
   可选参数，仅在PNG模式中解析调用关系图时有效，生成结果仅保留用户自定义的方法。
@@ -94,7 +108,7 @@ drafter -f ./AFNetworking
 
   可以看到，与上面的第一个例子对比，去掉了调用外部方法的连线，整个代码执行的逻辑更加清晰：
 
-  ![2](./.res/2.png)
+  ![2](https://raw.githubusercontent.com/L-Zephyr/static_resource/master/Resources/README/a81f8c8f8e1d894cea2be639f36762c8.png)
 
 ## 实现原理
 
@@ -131,7 +145,7 @@ drafter -f ./AFNetworking
 
 Analysis result will be generated to the path `./DrafterStage`. Then just open the file `./DrafterStage/index.html` in browser (Recommended **Chrome**) :
 
-![1](./.res/5.png)
+![call graph](https://raw.githubusercontent.com/L-Zephyr/static_resource/master/Resources/README/15f527cd56bd64f515c54a9b39c5531c.png)
 
 In the browser you can interactively browse the Call Graph and the Class Dragram, it is strongly recommended to use drafter in this way.
 
@@ -147,7 +161,7 @@ In the browser you can interactively browse the Call Graph and the Class Dragram
 
   A picture will automatically generate in the current path, name as "file name + .png": 
 
-  ![1](./.res/1.png)
+  ![1](https://raw.githubusercontent.com/L-Zephyr/static_resource/master/Resources/README/53774f208214a9061661016eb316933b.png)
 
 - Generate the inheritance graph
 
@@ -156,7 +170,7 @@ In the browser you can interactively browse the Call Graph and the Class Dragram
   ```
   A picture named "Inheritance.png" will be generated in the current path:
 
-  ![3](./.res/3.png)
+  ![3](https://raw.githubusercontent.com/L-Zephyr/static_resource/master/Resources/README/f0fffd01597c304dab2f654db1d9fdcc.png)
 
 ## Parameter
 
@@ -184,7 +198,7 @@ In the browser you can interactively browse the Call Graph and the Class Dragram
 
   The generated graph will only contains the  `viewDidLoad` branch.
 
-  ![4](./.res/4.png)
+  ![4](https://raw.githubusercontent.com/L-Zephyr/static_resource/master/Resources/README/82c6ef0e5705844961c3d28ab68288a1.png)
 
 - **-self , —self-method-only**  
   Optional. Only takes effect when parsing the call graph in `png` mode, the generated graph will only contains the methods that user defined in the same file. 
@@ -199,5 +213,5 @@ In the browser you can interactively browse the Call Graph and the Class Dragram
 
   As you can see, in contrast to the first example above, the connection to the external method is removed:
 
-  ![2](./.res/2.png)
+  ![2](https://raw.githubusercontent.com/L-Zephyr/static_resource/master/Resources/README/a81f8c8f8e1d894cea2be639f36762c8.png)
 
