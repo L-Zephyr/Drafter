@@ -16,6 +16,7 @@ class DistinctPass: Pass {
             if let index = interfaceSet.index(of: interface) {
                 interfaceSet[index].superCls = select(interfaceSet[index].superCls, interface.superCls)
                 interfaceSet[index].protocols.append(contentsOf: interface.protocols)
+                interfaceSet[index].methods.append(contentsOf: interface.methods)
             } else {
                 interfaceSet.insert(interface)
             }
