@@ -36,9 +36,9 @@ drafter -f ./AFNetworking
 
 1. 左边可以切换方法调用图（Call Graph）和类图（Class Diagram）模式，查看方法调用图时，列表中显示工程中的所有类型，选择可以直接切换。开启*Intrinsic Method Only*选项仅显示类型内部的方法调用（为防止调用过多默认打开）；开启*Show Access Level*选项则会在方法节点的左上角显示该方法的访问等级；
 
-2. 中间是主要的展示区域，类型中的方法和方法之间的调用关系会以图形的方法展示出来，选中一个方会将该方法及其调用的方法一起高亮出来，*Pick*按钮可以选择指定的方法节点来展示；在类图模式中这里则显示工程的类型继承关系，虚线表示实现协议：  ![class diagram](https://raw.githubusercontent.com/L-Zephyr/static_resource/master/Resources/README/f97cfb8e0818d152279730cdf195c354.png)
+2. 中间是主要的展示区域，类型中的方法和方法之间的调用关系会以流程图的形式展示出来，选中一个方法会将该方法及其所调用的方法一起高亮出来；*Pick*按钮可以选择仅展示指定的方法；在类图模式中这里会显示工程中的类型继承关系，虚线表示实现协议，实线表示继承父类（UML）：  ![class diagram](https://raw.githubusercontent.com/L-Zephyr/static_resource/master/Resources/README/f97cfb8e0818d152279730cdf195c354.png)
 
-3. 右侧为详细信息面板，展示了该节点的所有信息，包括所有参数的名称以及类型等，*Invokes*字段列出了它所调用的方法，点击可以快速定位；
+3. 右侧为详细信息面板，选中节点后自动弹出，展示该节点的所有信息，包括所有参数的名称以及类型等，*Invokes*字段列出了它所调用的方法，点击可以快速定位；
 
 在浏览器中交互式的查看可以帮助你快速找到一个类型的关键逻辑，强烈建议通过这种方式来使用Draft而。前端部分的代码开源在[DrafterStage](https://github.com/L-Zephyr/DrafterStage)，在Chrome环境下经过测试。
 
