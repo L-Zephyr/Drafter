@@ -151,6 +151,8 @@ In the browser you can interactively browse the Call Graph and the Class Dragram
 
 ### Export to PNG
 
+> Deprecated !
+
 - If you would like to get png from the analysis result. First make sure [Graphviz](http://www.graphviz.org/Download_macos.php) was correctly installed. You can install Graphviz by brew: `brew install graphviz`.
 
 - Generate the method call graph. Use argument `-t png` to specify the png mode, for example:
@@ -177,9 +179,13 @@ In the browser you can interactively browse the Call Graph and the Class Dragram
 - **-f , —file \<arg>**   
   Required. Specify a file or folder, multiple parameters are separated by commas, don't use space.
 
-- **-disable-auto-open, --disable-auto-open**   
+- **-dao, --disable-auto-open**   
 
   Do not browse the result automatically when analysis finished.
+
+- **-dc, --disable-cache**     
+
+  Do not use cache in this parse.
 
 - **-t , —type \<arg>**  
 
