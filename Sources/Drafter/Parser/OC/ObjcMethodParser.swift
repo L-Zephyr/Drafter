@@ -31,7 +31,7 @@ extension ObjcMethodParser {
         return curry(MethodNode.ocInit)
             <^> isStatic 
             <*> type
-            <*> methodSelector <* token(.semicolon) // 声明结束
+            <*> methodSelector <* token(.name).try <* token(.semicolon) // 声明结束,声明后面可能跟着限定符
             <*> pure([])
     }
     
