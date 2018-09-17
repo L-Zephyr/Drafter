@@ -40,7 +40,7 @@ drafter -f ./AFNetworking
 
 3. 右侧为详细信息面板，选中节点后自动弹出，展示该节点的所有信息，包括所有参数的名称以及类型等，*Invokes*字段列出了它所调用的方法，点击可以快速定位；
 
-在浏览器中交互式的查看可以帮助你快速找到一个类型的关键逻辑，强烈建议通过这种方式来使用Draft而。前端部分的代码开源在[DrafterStage](https://github.com/L-Zephyr/DrafterStage)，在Chrome环境下经过测试。
+在浏览器中交互式的查看可以帮助你快速找到一个类型的关键逻辑，强烈建议通过这种方式来使用Drafter。前端部分的代码开源在[DrafterStage](https://github.com/L-Zephyr/DrafterStage)，在Chrome环境下经过测试。
 
 ### 导出为PNG
 
