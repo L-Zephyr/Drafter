@@ -17,7 +17,8 @@ class ObjcTypeParser: ConcreteParserType {
 
 extension ObjcTypeParser {
     var objcType: TokenParser<ObjcTypeNode> {
-        return curry(ObjcTypeNode.interface) <^> InterfaceParser().classParser
+        return curry(ObjcTypeNode.interface) <^> InterfaceParser().singleParser
             <|> curry(ObjcTypeNode.implementaion) <^> ImplementationParser().implementation
+            <|> curry(ObjcTypeNode.protocol) <^> ObjcProtocolParser().protocol
     }
 }

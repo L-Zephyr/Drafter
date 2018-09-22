@@ -11,13 +11,18 @@ import SwiftyParse
 // 解析OC中的Interface定义
 class InterfaceParser: ConcreteParserType {
     var parser: TokenParser<[InterfaceNode]> {
-        return (categoryParser <|> classParser).continuous
+        return singleParser.continuous
     }
 }
 
 // MARK: - Parser
 
 extension InterfaceParser {
+
+    /// 解析单个类型的Parser
+    var singleParser: TokenParser<InterfaceNode> {
+        return categoryParser <|> classParser
+    }
     
     /// 解析类型定义
     /**
@@ -53,8 +58,8 @@ extension InterfaceParser {
         // @interface xx(xx?) <xx, xx>
         return curry(InterfaceNode.init)
             <^> token(.interface) *> token(.name) => stringify
-            <*> (token(.name)).try.between(lParen, rParen) *> pure(nil) // 分类的名字是可选项, 忽略结果
-            <*> (token(.name).sepBy(token(.comma)).between(lAngle, rAngle)).try => stringify // 协议列表
+            <*> token(.name).try.between(lParen, rParen) *> pure(nil) // 分类的名字是可选项, 忽略结果
+            <*> token(.name).sepBy1(token(.comma)).between(lAngle, rAngle).try => stringify // 协议列表
             <*> anyTokens(until: token(.end)).map { ObjcMethodParser().declsParser.run($0) ?? [] }
     }
 }
