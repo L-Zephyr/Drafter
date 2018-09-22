@@ -11,6 +11,7 @@ import Foundation
 enum ObjcTypeNode: Node {
     case interface(InterfaceNode)
     case implementaion(ImplementationNode)
+    case `protocol`(ProtocolNode)
 }
 
 // MARK: -
@@ -30,6 +31,16 @@ extension Array where Element == ObjcTypeNode {
     var implementations: [ImplementationNode] {
         return self.compactMap {
             if case .implementaion(let node) = $0 {
+                return node
+            }
+            return nil
+        }
+    }
+
+    /// 取出所有的ProtocolNode
+    var protocols: [ProtocolNode] {
+        return self.compactMap {
+            if case .protocol(let node) = $0 {
                 return node
             }
             return nil
