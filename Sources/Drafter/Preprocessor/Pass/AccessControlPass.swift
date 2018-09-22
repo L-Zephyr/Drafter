@@ -48,7 +48,7 @@ class AccessControlPass: Pass {
         return files
     }
 
-    /// 获取一个Protocol中所有的方法（包括它父协议）
+    /// 返回一个协议中包含的所有方法，包括它的继承链上所有父协议的方法
     func getMethods(in target: ProtocolNode?, all: [String: ProtocolNode]) -> [MethodNode] {
         guard let name = target?.name, let proto = all[name] else {
             return []
