@@ -72,11 +72,20 @@ class InterfaceTest: XCTestCase {
     
     func testCategory() {
         let nodes = run("@interface MyClass() <Delegate1, Delegate2>")
-        
+
         XCTAssert(nodes.count == 1)
         XCTAssert(nodes[0].superCls == "")
         XCTAssert(nodes[0].className == "MyClass")
         XCTAssert(nodes[0].protocols == ["Delegate1", "Delegate2"])
+    }
+
+    func testNamedCategory() {
+        let nodes = run("@interface MyClass1 (Category) <MyProtocol>")
+
+        XCTAssert(nodes.count == 1)
+        XCTAssert(nodes[0].superCls == "")
+        XCTAssert(nodes[0].className == "MyClass")
+        XCTAssert(nodes[0].protocols == ["Delegate1"])
     }
     
     func testContiuous() {
@@ -94,13 +103,13 @@ class InterfaceTest: XCTestCase {
         
         XCTAssert(nodes.count == 2)
         
+        XCTAssert(nodes[0].className == "MyClass")
         XCTAssert(nodes[0].superCls == "")
-        XCTAssert(nodes[0].className == "MyClass2")
-        XCTAssert(nodes[0].protocols.count == 0)
-        
-        XCTAssert(nodes[1].className == "MyClass")
+        XCTAssert(nodes[0].protocols == ["Delegate1", "Delegate2"])
+
         XCTAssert(nodes[1].superCls == "")
-        XCTAssert(nodes[1].protocols == ["Delegate1", "Delegate2"])
+        XCTAssert(nodes[1].className == "MyClass2")
+        XCTAssert(nodes[1].protocols.count == 0)
     }
     
 //    func testTokens() {

@@ -25,6 +25,7 @@ extension SwiftProtocolParser {
         return curry(ProtocolNode.init)
             <^> token(.proto) *> token(.name) => stringify
             <*> inheritList.try <* token(.leftBrace)
+            <*> pure([])
     }
     
     /// 解析协议的继承列表

@@ -13,6 +13,7 @@ import Foundation
 enum TokenType {
     case unknown          // 未知类型
     case endOfFile        // 文件结束
+    case ocProtocol       // @protocol
     case interface        // @interface
     case implementation   // @implementation
     case end              // @end

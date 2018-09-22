@@ -261,6 +261,7 @@ fileprivate extension SourceLexer {
     
     /// 解析以@开头的关键字
     func atKeyword() -> Token {
+        // swift
         if isSwift {
             if lookahead("@autoclosure") {
                 return Token(type: .autoclosure, text: "@autoclosure")
@@ -273,6 +274,8 @@ fileprivate extension SourceLexer {
             return Token(type: .interface, text: "@interface")
         } else if lookahead("@implementation") {
             return Token(type: .implementation, text: "@implementation")
+        } else if lookahead("@protocol") {
+            return Token(type: .ocProtocol, text: "@protocol")
         } else if lookahead("@end") {
             return Token(type: .end, text: "@end")
         }

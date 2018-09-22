@@ -18,6 +18,7 @@ class SwiftMethodParser: ConcreteParserType {
 // MARK: - Parser
 
 extension SwiftMethodParser {
+
     /// 方法定义解析
     /**
      method_definition  = is_static 'func' NAME ‘(' param_list ')' return_type method_body

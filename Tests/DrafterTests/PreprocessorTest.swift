@@ -8,7 +8,11 @@
 import XCTest
 
 let ocHeaderCode = """
-@interface MyClass1: NSObject
+@protocol MyProtocol3 <NSObject>
+- (void)protocolMethod;
+@end
+
+@interface MyClass1: NSObject <MyProtocol3>
 - (void)method1;
 @end
 
@@ -18,10 +22,11 @@ let ocImpCode = """
 @implementation MyClass1
 - (void)method1 {}
 - (void)method3 {}
+- (void)protocolMethod {}
 @end
 
 @interface MyClass1 (Category) <MyProtocol>
-- (void)method3;
+- (void)method2;
 @end
 
 @implementation MyClass1 (Category)
@@ -90,14 +95,18 @@ class PreprocessorTest: XCTestCase {
             return
         }
         XCTAssert(ocClass.isSwift == false, "ocClass test 1")
-        XCTAssert(ocClass.methods.count == 3, "ocClass test 2")
-        guard let ocMethod1 = ocClass.methods.find(methodName: "method1"), let ocMethod2 = ocClass.methods.find(methodName: "method2") else {
+        XCTAssert(ocClass.methods.count == 4, "ocClass test 2")
+        XCTAssert(ocClass.protocols.count == 2)
+        guard let ocMethod1 = ocClass.methods.find(methodName: "method1"),
+              let ocMethod2 = ocClass.methods.find(methodName: "method2"),
+              let ocMethod3 = ocClass.methods.find(methodName: "protocolMethod") else {
             XCTAssert(false, "method not found in MyClass1")
             return
         }
         XCTAssert(ocMethod1.params.count == 1, "oc method1 test 1")
         XCTAssert(ocMethod1.accessControl == .public, "oc method1 test 2")
         XCTAssert(ocMethod2.accessControl == .private, "oc method1 test 3")
+        XCTAssert(ocMethod3.accessControl == .public)
 
         // Swift test
         guard let swiftClass = classes.find(name: "MyClass2") else {
@@ -112,24 +121,39 @@ class PreprocessorTest: XCTestCase {
         XCTAssert(swiftClass.methods[2].accessControl == .private)
         XCTAssert(swiftClass.methods[3].accessControl == .fileprivate)
     }
-}
 
-extension Array where Element == ClassNode {
-    /// 查找指定类型
-    func find(name: String) -> ClassNode? {
-        if let index = self.index(where: { $0.className == name }) {
-            return self[index]
-        }
-        return nil
-    }
-}
+    func testProtocolPass() {
+        let code = """
+        @protocol Protocol1 <Protocol2>
+        - (void)method1;
+        @end
+        
+        @protocol Protocol2 <Protocol3>
+        - (void)method2;
+        @end
+        
+        @protocol Protocol3 <NSObject>
+        - (void)method3;
+        @end
+        
+        @interface MyClass: NSObject <Protocol1>
+        
+        @end
+        """
 
-extension Array where Element == MethodNode {
-    /// 根据方法的名字查找
-    func find(methodName: String) -> MethodNode? {
-        if let index = self.index(where: { $0.params[0].outterName == methodName }) {
-            return self[index]
+        let lexer = SourceLexer(input: code, isSwift: false)
+        let nodes = ObjcTypeParser().parser.run(lexer.allTokens) ?? []
+        let file = FileNode(md5: "", drafterVersion: DrafterVersion, path: "", type: .h, swiftTypes: [], objcTypes: nodes)
+
+        guard let interface = AccessControlPass().run(onFiles: [file]).ocTypes.interfaces.first else {
+            XCTAssert(false)
+            return
         }
-        return nil
+
+        XCTAssert(interface.methods.count == 3)
+        XCTAssert(interface.protocols == ["Protocol1"])
+        XCTAssert(interface.methods[0].accessControl == .public)
+        XCTAssert(interface.methods[1].accessControl == .public)
+        XCTAssert(interface.methods[2].accessControl == .public)
     }
 }

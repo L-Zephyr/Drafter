@@ -228,6 +228,7 @@ extension ObjcTypeNode {
         case key
         case interface_0
         case implementaion_0
+        case protocol_0
     }
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -238,6 +239,9 @@ extension ObjcTypeNode {
             case .implementaion(let val0):
                 try container.encode("implementaion", forKey: .key)
                 try container.encode(val0, forKey: .implementaion_0)
+            case .protocol(let val0):
+                try container.encode("`protocol`", forKey: .key)
+                try container.encode(val0, forKey: .protocol_0)
         }
     }
 
@@ -249,9 +253,13 @@ extension ObjcTypeNode {
             self = .interface(
                 try container.decode(InterfaceNode.self, forKey: .interface_0)
             )
-        default:
+        case "implementaion":
             self = .implementaion(
                 try container.decode(ImplementationNode.self, forKey: .implementaion_0)
+            )
+        default:
+            self = .`protocol`(
+                try container.decode(ProtocolNode.self, forKey: .protocol_0)
             )
         }
     }
@@ -278,6 +286,7 @@ extension ProtocolNode {
     enum CodingKeys: String, CodingKey {
         case name 
         case supers 
+        case methods 
     }
 
 }

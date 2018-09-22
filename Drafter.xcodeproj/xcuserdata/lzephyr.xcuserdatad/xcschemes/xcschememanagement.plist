@@ -27,7 +27,7 @@
 		<key>PathKitPackageDescription.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>15</integer>
+			<integer>13</integer>
 		</dict>
 		<key>PreprocessorTest.testPreprocessor.xcscheme</key>
 		<dict>
@@ -35,20 +35,6 @@
 			<false />
 			<key>orderHint</key>
 			<integer>11</integer>
-		</dict>
-		<key>SwiftMethodTest.testAccessControl.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false />
-			<key>orderHint</key>
-			<integer>13</integer>
-		</dict>
-		<key>SwiftMethodTest.testInlineFunc.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false />
-			<key>orderHint</key>
-			<integer>14</integer>
 		</dict>
 		<key>drafter.xcscheme</key>
 		<dict>
@@ -58,12 +44,40 @@
 		<key>drafterPackageDescription.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>16</integer>
+			<integer>14</integer>
 		</dict>
 		<key>drafterPackageTests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
+			<integer>15</integer>
+		</dict>
+		<key>InterfaceTest.testNamedCategory.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false />
+			<key>orderHint</key>
+			<integer>16</integer>
+		</dict>
+		<key>PreprocessorTest.testOCParser.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false />
+			<key>orderHint</key>
 			<integer>17</integer>
+		</dict>
+		<key>PreprocessorTest.testProtocolMethod.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false />
+			<key>orderHint</key>
+			<integer>18</integer>
+		</dict>
+		<key>PreprocessorTest.testProtocolPass.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false />
+			<key>orderHint</key>
+			<integer>19</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

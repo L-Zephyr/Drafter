@@ -8,26 +8,28 @@
 
 import Foundation
 
-/// 目前该类只有swift的parser会用到
 class ProtocolNode: Node {
     var name: String = ""
     var supers: [String] = []
+    var methods: [MethodNode] = []
     
     // sourcery:inline:ProtocolNode.AutoCodable
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         name = try container.decode(String.self, forKey: .name)
         supers = try container.decode([String].self, forKey: .supers)
+        methods = try container.decode([MethodNode].self, forKey: .methods)
     }
     init() { }
     // sourcery:end
 }
 
 extension ProtocolNode {
-    convenience init(_ name: String, _ supers: [String]?) {
+    convenience init(_ name: String, _ supers: [String]?, _ methods: [MethodNode]) {
         self.init()
         self.name = name
         self.supers = supers ?? []
+        self.methods = methods
     }
 }
 
