@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		drafter::drafterPackageTests::ProductTarget /* drafterPackageTests */ = {
+		"drafter::drafterPackageTests::ProductTarget" /* drafterPackageTests */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = OBJ_185 /* Build configuration list for PBXAggregateTarget "drafterPackageTests" */;
 			buildPhases = (
@@ -239,8 +239,8 @@
 		OBJ_70 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		OBJ_73 /* CombinatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombinatorTest.swift; sourceTree = "<group>"; };
 		OBJ_83 /* Template */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Template; sourceTree = SOURCE_ROOT; };
-		drafter::DrafterTests::Product /* DrafterTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = DrafterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		drafter::drafter::Product /* drafter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = drafter; sourceTree = BUILT_PRODUCTS_DIR; };
+		"drafter::DrafterTests::Product" /* DrafterTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = DrafterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		"drafter::drafter::Product" /* drafter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = drafter; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -593,8 +593,8 @@
 		OBJ_88 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				drafter::drafter::Product /* drafter */,
-				drafter::DrafterTests::Product /* DrafterTests.xctest */,
+				"drafter::drafter::Product" /* drafter */,
+				"drafter::DrafterTests::Product" /* DrafterTests.xctest */,
 			);
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
@@ -613,7 +613,7 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		PathKit::SwiftPMPackageDescription /* PathKitPackageDescription */ = {
+		"PathKit::SwiftPMPackageDescription" /* PathKitPackageDescription */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_119 /* Build configuration list for PBXNativeTarget "PathKitPackageDescription" */;
 			buildPhases = (
@@ -629,7 +629,7 @@
 			productName = PathKitPackageDescription;
 			productType = "com.apple.product-type.framework";
 		};
-		drafter::DrafterTests /* DrafterTests */ = {
+		"drafter::DrafterTests" /* DrafterTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_93 /* Build configuration list for PBXNativeTarget "DrafterTests" */;
 			buildPhases = (
@@ -644,10 +644,10 @@
 			);
 			name = DrafterTests;
 			productName = DrafterTests;
-			productReference = drafter::DrafterTests::Product /* DrafterTests.xctest */;
+			productReference = "drafter::DrafterTests::Product" /* DrafterTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		drafter::SwiftPMPackageDescription /* drafterPackageDescription */ = {
+		"drafter::SwiftPMPackageDescription" /* drafterPackageDescription */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_179 /* Build configuration list for PBXNativeTarget "drafterPackageDescription" */;
 			buildPhases = (
@@ -663,12 +663,12 @@
 			productName = drafterPackageDescription;
 			productType = "com.apple.product-type.framework";
 		};
-		drafter::drafter /* drafter */ = {
+		"drafter::drafter" /* drafter */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = OBJ_124 /* Build configuration list for PBXNativeTarget "drafter" */;
 			buildPhases = (
 				B0C1DAF28627FE19CE63BD32 /* [CP] Check Pods Manifest.lock */,
-				BB046FB520B03E5400DD5546 /* ShellScript */,
+				BB046FB520B03E5400DD5546 /* Sourcery Script */,
 				OBJ_127 /* Sources */,
 				OBJ_175 /* Frameworks */,
 			);
@@ -678,7 +678,7 @@
 			);
 			name = drafter;
 			productName = drafter;
-			productReference = drafter::drafter::Product /* drafter */;
+			productReference = "drafter::drafter::Product" /* drafter */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -701,11 +701,11 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				drafter::DrafterTests /* DrafterTests */,
-				PathKit::SwiftPMPackageDescription /* PathKitPackageDescription */,
-				drafter::drafter /* drafter */,
-				drafter::SwiftPMPackageDescription /* drafterPackageDescription */,
-				drafter::drafterPackageTests::ProductTarget /* drafterPackageTests */,
+				"drafter::DrafterTests" /* DrafterTests */,
+				"PathKit::SwiftPMPackageDescription" /* PathKitPackageDescription */,
+				"drafter::drafter" /* drafter */,
+				"drafter::SwiftPMPackageDescription" /* drafterPackageDescription */,
+				"drafter::drafterPackageTests::ProductTarget" /* drafterPackageTests */,
 			);
 		};
 /* End PBXProject section */
@@ -783,13 +783,14 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BB046FB520B03E5400DD5546 /* ShellScript */ = {
+		BB046FB520B03E5400DD5546 /* Sourcery Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Sourcery Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -946,12 +947,12 @@
 /* Begin PBXTargetDependency section */
 		OBJ_108 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = drafter::drafter /* drafter */;
+			target = "drafter::drafter" /* drafter */;
 			targetProxy = BB77942920AC6004006DCAB4 /* PBXContainerItemProxy */;
 		};
 		OBJ_188 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = drafter::DrafterTests /* DrafterTests */;
+			target = "drafter::DrafterTests" /* DrafterTests */;
 			targetProxy = BB77942B20AC6005006DCAB4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
