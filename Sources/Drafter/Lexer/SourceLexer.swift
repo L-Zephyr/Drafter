@@ -43,7 +43,7 @@ class SourceLexer: Lexer {
     
     /// 获取下一个Token
     var nextToken: Token {
-        while index != input.endIndex {
+        while !fileEnd {
             switch currentChar {
             case " ", "\t", "\n", "\r": // 跳过空白符
                 skipWhitespace()
@@ -99,7 +99,7 @@ class SourceLexer: Lexer {
                 
             case "-":
                 consume()
-                if currentChar == ">" {
+                if !fileEnd && currentChar == ">" {
                     consume()
                     return Token(type: .rightArrow, text: "->")
                 }
