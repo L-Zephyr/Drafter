@@ -91,22 +91,6 @@ var anyToken: TokenParser<Token> {
     }
 }
 
-/// 匹配任意Token类型的Parser直到条件为false，该Parser不会返回错误
-func anyTokens(until: @escaping (Token) -> Bool) -> Parser<[Token], Tokens> {
-    return Parser<[Token], Tokens> { (tokens) -> ParseResult<([Token], Tokens)> in
-        var result = [Token]()
-        var remainder = tokens
-        for token in remainder {
-            if until(token) {
-                break
-            }
-            result.append(token)
-            _ = remainder.removeFirst()
-        }
-        return .success((result, remainder))
-    }
-}
-
 /// 获取任意Token知道p成功为止, p不会消耗输入，该方法不会返回错误
 func anyTokens(until p: TokenParser<Token>) -> TokenParser<[Token]> {
     return (p.not *> anyToken).many

@@ -452,10 +452,10 @@
 		OBJ_25 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
-				BB3D234020CBB5F500AEEA2E /* TokenParser */,
 				OBJ_37 /* OC */,
 				OBJ_42 /* Swift */,
 				BB42972C2133F96400D17529 /* File */,
+				BB3D234020CBB5F500AEEA2E /* TokenParser */,
 			);
 			path = Parser;
 			sourceTree = "<group>";

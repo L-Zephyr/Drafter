@@ -34,7 +34,7 @@
 		<key>PathKitPackageDescription.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>14</integer>
+			<integer>15</integer>
 		</dict>
 		<key>PreprocessorTest.testDrafter.xcscheme</key>
 		<dict>
@@ -77,7 +77,7 @@
 		<key>drafterPackageDescription.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>15</integer>
+			<integer>14</integer>
 		</dict>
 		<key>drafterPackageTests.xcscheme</key>
 		<dict>
