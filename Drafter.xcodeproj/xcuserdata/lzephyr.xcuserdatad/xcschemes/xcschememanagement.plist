@@ -36,6 +36,11 @@
 			<key>orderHint</key>
 			<integer>15</integer>
 		</dict>
+		<key>PathKitPackageDescription.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>15</integer>
+		</dict>
 		<key>PreprocessorTest.testDrafter.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -79,7 +84,17 @@
 			<key>orderHint</key>
 			<integer>14</integer>
 		</dict>
+		<key>drafterPackageDescription.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
 		<key>drafterPackageTests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
+		</dict>
+		<key>drafterPackageTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>16</integer>

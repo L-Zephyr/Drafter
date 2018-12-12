@@ -11,7 +11,7 @@ import PathKit
 /// 文件类型
 enum FileType: Int, AutoCodable {
     case h      // 头文件
-    case m      // 实现文件
+    case m      // 实现文件，包括.m和.mm
     case swift  // swift文件
     case unknown
 }
@@ -49,7 +49,8 @@ extension Path {
         switch self.extension {
         case "h":
             return .h
-        case "m":
+        case "m": fallthrough
+        case "mm":
             return .m
         case "swift":
             return .swift
@@ -60,11 +61,11 @@ extension Path {
     
     /// 该文件是否为swift文件
     var isSwift: Bool {
-        return self.extension == "swift"
+        return self.fileType == .swift
     }
     
     /// 该文件是否为oc文件，.h或.m
     var isObjc: Bool {
-        return self.extension == "m" || self.extension == "h"
+        return self.fileType == .m || self.fileType == .h
     }
 }

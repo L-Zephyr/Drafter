@@ -36,7 +36,7 @@ extension InterfaceParser {
         
         // @interface xx : xx <xx, xx>
         let parser = curry(InterfaceNode.init)
-            <^> token(.interface) *> token(.name) => stringify // 类名
+            <^> token(.interface) *> token(.name) <* genericType => stringify // 类名
             <*> (token(.colon) *> token(.name)).try => stringify // 父类名
             <*> (token(.name).sepBy(token(.comma)).between(lAngle, rAngle)).try => stringify // 协议
             <*> anyTokens(until: token(.end)).map { ObjcMethodParser().declsParser.run($0) ?? [] } // 方法定义
@@ -57,9 +57,16 @@ extension InterfaceParser {
         
         // @interface xx(xx?) <xx, xx>
         return curry(InterfaceNode.init)
-            <^> token(.interface) *> token(.name) => stringify
+            <^> token(.interface) *> token(.name) <* genericType => stringify
             <*> token(.name).try.between(lParen, rParen) *> pure(nil) // 分类的名字是可选项, 忽略结果
             <*> token(.name).sepBy1(token(.comma)).between(lAngle, rAngle).try => stringify // 协议列表
             <*> anyTokens(until: token(.end)).map { ObjcMethodParser().declsParser.run($0) ?? [] }
+    }
+    
+    /// 解析泛型定义
+    /// generic = '<' NAME '>'
+    var genericType: TokenParser<String?> {
+        return stringify <^>
+            token(.name).between(token(.leftAngle), token(.rightAngle)).try
     }
 }

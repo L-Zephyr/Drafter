@@ -61,6 +61,14 @@ class InterfaceTest: XCTestCase {
         XCTAssert(nodes[0].protocols == ["Delegate1", "Delegate2"])
     }
     
+    func testGenericType() {
+        let nodes = run("@interface MyClass<ObjectType> : NSObject")
+        
+        XCTAssert(nodes.count == 1)
+        XCTAssert(nodes[0].className == "MyClass")
+        XCTAssert(nodes[0].superCls == "NSObject")
+    }
+    
     func testClassWithoutDelegate() {
         let nodes = run("@interface MyClass")
         
@@ -84,8 +92,8 @@ class InterfaceTest: XCTestCase {
 
         XCTAssert(nodes.count == 1)
         XCTAssert(nodes[0].superCls == "")
-        XCTAssert(nodes[0].className == "MyClass")
-        XCTAssert(nodes[0].protocols == ["Delegate1"])
+        XCTAssert(nodes[0].className == "MyClass1")
+        XCTAssert(nodes[0].protocols == ["MyProtocol"])
     }
     
     func testContiuous() {
@@ -111,18 +119,4 @@ class InterfaceTest: XCTestCase {
         XCTAssert(nodes[1].className == "MyClass2")
         XCTAssert(nodes[1].protocols.count == 0)
     }
-    
-//    func testTokens() {
-//        let input = """
-//        int a = 2;
-//        - (void)method {
-//            a = b
-//        }
-//        @end
-//        @interface MyClass2()
-//        """
-//
-//        let tokens = SourceLexer(input: input).allTokens
-//        let result = anyTokens(until: token(.end)).run(tokens)
-//    }
 }

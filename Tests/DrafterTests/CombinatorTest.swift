@@ -134,7 +134,7 @@ class CombinatorTest: XCTestCase {
         let tokens = [Token(type: .name, text: "name"),
                       Token(type: .comma, text: ","),
                       Token(type: .colon, text: ":")]
-        guard case .success(let (result, rest)) = anyTokens(until: { $0.type == .colon}).parse(tokens) else {
+        guard case .success(let (result, rest)) = anyTokens(until: token(.colon)).parse(tokens) else {
             XCTAssert(false)
             return
         }
